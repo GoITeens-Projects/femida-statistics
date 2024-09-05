@@ -7,7 +7,7 @@ export const login = createAsyncThunk('auth/login', async (body, thunkApi) => {
 
         console.log(body);
 
-        const res = await axios.post('/auth/login', body, { withCredentials: false });
+        const res = await axios.post('/auth/login', body);
         const { accessToken, refreshToken } = res.data;
         console.log(accessToken);
 
