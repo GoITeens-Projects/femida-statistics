@@ -4,18 +4,18 @@ import axios from '../axiosConfig';
 // Асинхронна дія для входу в акаунт
 export const login = createAsyncThunk('auth/login', async (body, thunkApi) => {
     try {
-
         console.log(body);
 
         const res = await axios.post('/auth/login', body);
         const { accessToken, refreshToken } = res.data;
         console.log(accessToken);
 
-        return { accessToken, refreshToken };;
+        // Збереження токенів в localStorage
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+
+        return { accessToken, refreshToken };
     } catch (error) {
         return thunkApi.rejectWithValue(error.response?.data?.message || 'Помилка авторизації');
     }
 });
-
-
-
