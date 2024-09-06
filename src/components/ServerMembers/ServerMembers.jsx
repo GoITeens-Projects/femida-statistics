@@ -8,21 +8,13 @@ export const ServerMembers = () => {
     const dispatch = useDispatch();
     const statistics = useSelector(state => state.statistics); // Замініть на правильний шлях до вашого стейту
 
-    const handleFetchStatistics = () => {
-        dispatch(fetchStatistics());
-    };
-    const handleClickStatistics = () => {
 
-    }
     return (
         <>
+            <h2>Скільки користувачів зайшло і вийшло на сервер</h2>
             <CiFilter />
             <p>filter</p>
-            <h1>Скільки користувачів зайшло і вийшло на сервер</h1>
-            <button onClick={handleFetchStatistics} className={styles.button}>
-                Отримати статистику
-            </button>
-            {/* Додайте виведення статистики, якщо потрібно */}
+
 
         </>
     );
