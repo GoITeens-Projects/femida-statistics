@@ -24,6 +24,7 @@ const authSlice = createSlice({
                 state.accessToken = action.payload.accessToken; // Збереження токену доступу
                 state.refreshToken = action.payload.refreshToken; // Збереження токену оновлення
                 state.user = action.payload.user || null; // Збереження інформації про користувача, якщо доступно
+                window.location.href = '/Home';
 
 
             })

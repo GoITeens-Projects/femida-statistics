@@ -8,7 +8,7 @@ export const fetchStatistics = createAsyncThunk('stats/getStats', async (time, t
 
         let config = {
             method: 'get',
-            url: 'https://femida-api.onrender.com/stats?time=2d',
+            url: 'https://femida-api.onrender.com/stats?time=1d',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
             },
