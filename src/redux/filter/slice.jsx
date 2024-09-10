@@ -5,7 +5,7 @@ const filterSlice = createSlice({
     name: 'filter',
     initialState: {
         interval: "days",
-        units: "hours",
+        unit: "hours",
         period: 1,
         loading: false,
         error: null
@@ -19,9 +19,11 @@ const filterSlice = createSlice({
         })
         .addCase(updateFilter.fulfilled, (state, action) => {
             state.loading = false;
-            state = {...state, ...action.payload};
+            state.interval = action.payload.interval;
+            state.unit = action.payload.unit;
+            state.period = action.payload.period;
         })
-        .addCase(fetchStatistics.rejected, (state, action) => {
+        .addCase(updateFilter.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;
         });
@@ -30,4 +32,4 @@ const filterSlice = createSlice({
     }
 );
 
-export const FilterReducer = filterSlice.reducer;
+export const filterReducer = filterSlice.reducer;
