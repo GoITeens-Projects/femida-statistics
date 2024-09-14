@@ -4,6 +4,10 @@ import Login from "components/Login/Login";
 import PrivateRoute from "components/PrivateRoute";
 import { createBrowserRouter } from "react-router-dom";
 import RestrictedRouter from "../components/RestrictedRout";
+import { Messages } from "pages/Messages";
+import { Voice } from "pages/Voice";
+import { Status } from "pages/Status";
+import { Economic } from "pages/Economic";
 
 
 export const router = createBrowserRouter(
@@ -23,22 +27,22 @@ export const router = createBrowserRouter(
                     element: <RestrictedRouter component={Login} redirectTo='/Overview' />
                 },
 
-                // {
-                //     path: '/messages',
-                //     element: <PrivateRoute component={ } redirecTo='/' />
-                // },
-                // {
-                //     path: '/voice',
-                //     element: <PrivateRoute component={ } redirecTo='/' />
-                // },
-                // {
-                //     path: '/status',
-                //     element: <PrivateRoute component={ } redirecTo='/' />
-                // },
-                // {
-                //     path: '/economic',
-                //     element: <PrivateRoute component={ } redirecTo='/' />
-                // },
+                {
+                    path: '/messages',
+                    element: <PrivateRoute component={Messages} redirecTo='/' />
+                },
+                {
+                    path: '/voice',
+                    element: <PrivateRoute component={Voice} redirecTo='/' />
+                },
+                {
+                    path: '/status',
+                    element: <PrivateRoute component={Status} redirecTo='/' />
+                },
+                {
+                    path: '/economic',
+                    element: <PrivateRoute component={Economic} redirecTo='/' />
+                },
                 // {
                 //     path: '/settings',
                 //     element: <PrivateRoute component={ } redirecTo='/' />
