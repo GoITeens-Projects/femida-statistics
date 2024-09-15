@@ -19,7 +19,7 @@ export const router = createBrowserRouter(
 
 
                 {
-                    path: '/Overview',
+                    path: '/overview',
                     element: <PrivateRoute component={Overview} redirectTo='/' />
                 },
                 {
