@@ -1,0 +1,28 @@
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-primary-color);
+}
+
+body {
+  font-family: 'IBM Plex Mono';
+  font-weight: 400;
+  
+}
+
+button {
+  cursor: pointer;
+  transition-duration: 250ms;
+  transition-delay: 50ms;
+}
+
+.container {
+  width: 1560px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 30px;
+  padding-left: 320px;
+}
+
+::selection {
+  background-color: var(--border-color);
+}
