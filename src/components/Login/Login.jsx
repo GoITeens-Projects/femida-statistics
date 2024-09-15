@@ -31,7 +31,9 @@ const Login = () => {
         alt="GoIteens&Femida logo"
       />
       <div className={css['login-modal']}>
-        <h2 className={css.login__title}>Увійти</h2>
+        <div className={css['login-title-box']}>
+          <h2 className={css.login__title}>Увійти</h2>
+        </div>
         <form className={css.login__form} onSubmit={handleLogin}>
           <label className={css.login__label}>
             Ім’я користувача
@@ -57,14 +59,26 @@ const Login = () => {
             Увійти
           </button>
         </form>
-        <div className="login-block">
+        <div className={css['login-block']}>
           <h3 className={css.login__subtitle}>Або увійдіть за допомогою</h3>
-          <a className={css.login__link} href="https://discord.com">
-            <button className={css['login__social-btn']} type="button"></button>
-          </a>
-          <a className={css.login__link} href="https://discord.com">
-            <button className={css['login__social-btn']} type="button"></button>
-          </a>
+          <ul className={css.login__list}>
+            <li className={css.login__item}>
+              <a href="https://discord.com" className={css.login__link}>
+                <button
+                  type="button"
+                  className={css['login__link-btn']}
+                ></button>
+              </a>
+            </li>
+            <li className={css.login__item}>
+              <a href="https://discord.com" className={css.login__link}>
+                <button
+                  type="button"
+                  className={`${css['login__link-btn']} ${css['login-discord-icon']}`}
+                ></button>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
