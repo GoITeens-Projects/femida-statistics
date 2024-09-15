@@ -126,7 +126,6 @@
 // export default TopChannels;
 import styles from './Tops.module.css';
 
-let i = 0;
 const TopChannels = ({ topArr }) => {
   return (
     <>
@@ -154,11 +153,10 @@ const TopChannels = ({ topArr }) => {
           Кількість повідомлень
         </p>
         <ul className={styles.topsList}>
-          {topArr.map(top => {
-            i++;
+          {topArr.map((top, idx) => {
             return (
               <li key={top.id} className={styles.topsItem}>
-                <p className={styles.topsUserRankText}>{i}</p>
+                <p className={styles.topsUserRankText}>{idx + 1}</p>
                 <img src={top.userAvatarUrl} className={styles.topsUserImg} />
                 <h2 className={styles.topsUsername}>{top.topsUserNamesText}</h2>
                 <p className={styles.topsUserMessagesQuantityText}>
