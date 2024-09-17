@@ -29,10 +29,21 @@ export const ContainerSchedule = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100%;
+margin-top: 28px;
+   
+   
 `;
+export const ContainerBorderSchedule = styled.div`
+width: 1460px;
+height: 400px;
+margin-left:25px;
 
+opacity: 0px;
 
+ border: 1px solid #91CCF4; /* Колір і товщина рамки */
+    padding: 10px;  /* Додає відступи всередині контейнера, якщо потрібно */
+
+`
 export const TotalMembersContainer = styled.div`
 width: 187px;
 height: 72px;
@@ -40,7 +51,7 @@ border: 1px 0px 0px 1px;
 opacity: 0px;
 border-width: 1px, 0px, 0px, 1px;
 border-style: solid;
-border-color: #91CCF4;
+border-color: #6EABD4;
 background: #6EABD4;
 text-align: center;
 
@@ -66,7 +77,7 @@ opacity: 0px;
 border-width: 1px, 0px, 0px, 1px;
 border-style: solid;
 border-color: #91CCF4;
-background: #ACD0D6;
+background: #91CCF4;
 
 
 
@@ -80,7 +91,7 @@ border: 1px 0px 0px 1px;
 opacity: 0px;
 border-width: 1px, 0px, 0px, 1px;
 border-style: solid;
-border-color: #91CCF4;
+border-color: #FFE7DF;
 background-color: #FFE7DF;
 
 
@@ -88,5 +99,5 @@ background-color: #FFE7DF;
 
 export const Containers = styled.div`
 display: flex;
-margin-left: 90px;
+margin-top: -10px;
 `
