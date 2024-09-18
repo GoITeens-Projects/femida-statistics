@@ -4,6 +4,7 @@ import Login from './Login/Login';
 import { Navigation } from './Navigation/Navigation';
 import { nanoid } from 'nanoid';
 import TopChannels from './Tops/Tops';
+import { ServerMembers } from './ServerMembers/ServerMembers';
 
 const testTop = [
   {
@@ -83,7 +84,9 @@ export const App = () => {
     <>
       <Navigation />
       <Outlet />
+
       <TopChannels topArr={testTop} />
+      <ServerMembers />
     </>
   );
 };
