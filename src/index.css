@@ -65,6 +65,10 @@ html[data-theme='light'] {
   --bg-primary-color: #fff;
   --bg-modal-color: #fafafa;
 
+  --input-active-color: #d6d6d6;
+
+  --item-active-color: #caeaff;
+
   --btn-accent-color: #acd0d6;
 
   --shadow-secondary-color: #acd0d6;
@@ -104,6 +108,10 @@ html[data-theme='dark'] {
   --bg-accent-color: #061c1f;
   --bg-primary-color: #191919;
   --bg-modal-color: #191919;
+
+  --input-active-color: #6e6e6e;
+
+  --item-active-color: #474747;
 
   --btn-accent-color: #27565d;
 

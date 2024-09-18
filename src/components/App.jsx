@@ -5,6 +5,7 @@ import { Navigation } from './Navigation/Navigation';
 import { nanoid } from 'nanoid';
 import TopChannels from './Tops/Tops';
 import Header from './Header/Header';
+import { ServerMembers } from './ServerMembers/ServerMembers';
 
 const testTop = [
   {
@@ -85,7 +86,9 @@ export const App = () => {
       <Header />
       <Navigation />
       <Outlet />
+
       <TopChannels topArr={testTop} />
+      <ServerMembers />
     </>
   );
 };

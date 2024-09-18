@@ -14,9 +14,8 @@ export const Overview = () => {
     }, [dispatch]);
     return (
         <>
-            <h1>Ви на головній сторінці по статистиці боту</h1>
-            <ServerMembers />
-            <Filter/>
+
+            <Filter />
         </>
 
 
