@@ -1,8 +1,7 @@
 import { App } from "components/App";
-import { Home } from "pages/Home";
+import { Overview } from "pages/Overview";
 import Login from "components/Login/Login";
 import PrivateRoute from "components/PrivateRoute";
-import { ServerMembers } from "components/ServerMembers/ServerMembers";
 import { createBrowserRouter } from "react-router-dom";
 import RestrictedRouter from "../components/RestrictedRout";
 
@@ -16,12 +15,12 @@ export const router = createBrowserRouter(
 
 
                 {
-                    path: '/Home',
-                    element: <PrivateRoute component={Home} redirectTo='/' />
+                    path: '/Overview',
+                    element: <PrivateRoute component={Overview} redirectTo='/' />
                 },
                 {
                     path: '/',
-                    element: <RestrictedRouter component={Login} redirectTo='/Home' />
+                    element: <RestrictedRouter component={Login} redirectTo='/Overview' />
                 },
 
                 // {
