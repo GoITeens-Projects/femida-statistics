@@ -14,6 +14,29 @@ code {
     monospace;
 }
 
+.donutchart {
+  margin-top: 50px;
+  /* width: 630px !important;
+  height: 350px !important; */
+}
+
+/* .donutchart-arcs {
+  width: 350px !important;
+  height: 350px !important;
+} */
+
+.donutchart-legend-item-label {
+  color: var(--text-color);
+  font-family: 'IBM Plex Sans';
+  font-size: 10px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.donutchart-legend-item {
+  /* transform: translate(600, 37.5) !important; */
+}
+
 .donutchart-legend-item rect {
   width: 15px;
   height: 15px;
