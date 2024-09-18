@@ -1,0 +1,136 @@
+.topsGlobalBox {
+  width: 750px;
+  /* padding: 15px 25px; */
+}
+
+.topsBox {
+  border: 1px solid var(--chart-color);
+  background: var(--bg-modal-color);
+  padding: 15px 25px;
+  border-left: 10px solid var(--chart-accent-color);
+  margin-top: 20px;
+  /* height: 944px; */
+}
+
+.topsTitle {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: normal;
+  color: var(--text-color);
+}
+
+.topsHeaderBox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.topsRank {
+  color: var(--text-accent-color);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  /* margin-left: 25px; */
+}
+
+.topsUserNamesTitle {
+  color: var(--text-accent-color);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+  margin-left: 20px;
+}
+
+.topsMessagesQuantityTitle {
+  color: var(--text-accent-color);
+  text-align: right;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+  margin-left: auto;
+}
+
+.topsList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  /* 34 */
+}
+
+.topsItem {
+  display: flex;
+  align-items: center;
+  position: relative;
+  /* justify-content: space-between; */
+  width: 100%;
+  min-height: 30px;
+
+  /* ::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: -10px;
+      width: 100%;
+      height: 0.1px;
+      background-color: var(--bg-accent-color);
+      background-repeat: no-repeat;
+    } */
+}
+
+.topsItem::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -10px;
+  width: 100%;
+  height: 0.1px;
+  background-color: var(--bg-accent-color);
+  background-repeat: no-repeat;
+}
+
+.topsUserRankText {
+  color: var(--text-accent-color);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+  min-width: 15px;
+}
+
+.topsUserImg {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+}
+
+.topsUsername {
+  color: var(--text-color);
+  font-family: 'IBM Plex Sans';
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+  margin-left: 18px;
+}
+
+.topsChannel {
+  margin-left: 58px;
+  color: var(--text-color);
+  font-family: 'IBM Plex Sans';
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.topsUserMessagesQuantityText {
+  color: var(--text-color);
+  /* text-align: right; */
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+  margin-left: auto;
+  /* margin-left: 491px; */
+}
