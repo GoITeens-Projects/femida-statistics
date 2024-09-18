@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom"
 import { fetchStatistics } from "../redux/statistics/operation";
 
-export const Overview = () => {
+export const Home = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
