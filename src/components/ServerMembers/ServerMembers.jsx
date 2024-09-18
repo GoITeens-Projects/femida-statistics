@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchStatistics } from '../../redux/statistics/operation';
 import { CiFilter } from "react-icons/ci";
-import { ContainerBorderSchedule, Containers, ContainerSchedule, TextServerMembers, TitleSererMembers, TotalContainer, TotalMembersContainer, TotalMembersContainer_2, TotalMembersContainer_3, TotalMembersText } from './ServerMembers.styled';
+import { ContainerBorderSchedule, ContainerBorderSchedule_2, Containers, ContainerSchedule, TextServerMembers, TitleSererMembers, TotalContainer, TotalMembersContainer, TotalMembersContainer_2, TotalMembersContainer_3, TotalMembersText } from './ServerMembers.styled';
 import { Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis } from 'recharts';
 import { data } from './DataServerMmbers';
 
@@ -78,6 +78,8 @@ export const ServerMembers = () => {
 
                         </ContainerSchedule>
                     </ContainerBorderSchedule>
+
+
 
                 </div>
             </section>

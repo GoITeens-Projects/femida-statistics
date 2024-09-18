@@ -34,6 +34,7 @@ margin-top: 28px;
    
 `;
 export const ContainerBorderSchedule = styled.div`
+position: absolute;
 width: 1460px;
 height: 400px;
 margin-left:25px;
@@ -45,7 +46,7 @@ opacity: 0px;
 
 `
 export const TotalMembersContainer = styled.div`
-width: 187px;
+width: 200px;
 height: 72px;
 border: 1px 0px 0px 1px;
 opacity: 0px;
@@ -54,6 +55,7 @@ border-style: solid;
 border-color: #6EABD4;
 background: #6EABD4;
 text-align: center;
+
 
 
 
@@ -101,3 +103,4 @@ export const Containers = styled.div`
 display: flex;
 margin-top: -10px;
 `
+
