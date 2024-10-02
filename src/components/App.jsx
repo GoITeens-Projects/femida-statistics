@@ -6,6 +6,8 @@ import { nanoid } from 'nanoid';
 import TopChannels from './Tops/Tops';
 import Header from './Header/Header';
 import { ServerMembers } from './ServerMembers/ServerMembers';
+import { MessagesChart } from './MessagesChart/MessagesChart';
+import { StatusChart } from './StatusChart/StatusChart';
 
 const testTop = [
   {
@@ -89,6 +91,8 @@ export const App = () => {
 
       <TopChannels topArr={testTop} />
       <ServerMembers />
+      <MessagesChart />
+      <StatusChart />
     </>
   );
 };
