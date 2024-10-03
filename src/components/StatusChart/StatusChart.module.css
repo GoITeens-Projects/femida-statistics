@@ -1,0 +1,78 @@
+.statusChart__title {
+    font-size: 23px;
+    font-weight: 500;
+    color: var(--text-color);
+    width: max-content;
+}
+
+.statusChart__description {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-accent-color);
+    margin-top: 10px;
+}
+
+.statusChart__border {
+    width: 1460px;
+    height: 410px;
+    border: 1px solid var(--chart-color);
+    margin-top: 30px;
+    border-left: 5px solid var(--chart-accent-color);
+    border-bottom: 5px solid var(--chart-accent-color);
+}
+
+.statusChart__membersSummary {
+    display: flex;
+}
+
+.statusChart__statusItem__online {
+    width: 110px;
+    height: 72px;
+    background: var(--chart-online-accent-color);
+    /* колір для статусу "В мережі" */
+}
+
+.statusChart__statusItem__away {
+    width: 110px;
+    height: 72px;
+    background: var(--chart-inactive-color);
+    /* колір для статусу "Відійшли" */
+}
+
+.statusChart__statusItem__dnd {
+    width: 140px;
+    height: 72px;
+    background: var(--chart-offline-accent-color);
+    /* колір для статусу "Не турбувати" */
+}
+
+.statusChart__statusItem__offline {
+    width: 140px;
+    height: 72px;
+    background: #999999;
+    /* колір для статусу "Не в мережі" */
+}
+
+.statusChart__statusLabel {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--bg-primary-color);
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.statusChart__statusCount {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--bg-primary-color);
+    margin-left: 10px;
+    margin-top: 15px;
+}
+
+.statusChart__chartWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 28px;
+}
