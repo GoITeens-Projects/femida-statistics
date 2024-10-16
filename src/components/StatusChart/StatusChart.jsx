@@ -2,12 +2,16 @@ import { Area, AreaChart, CartesianGrid, Legend, Tooltip, XAxis, YAxis } from 'r
 import styles from './StatusChart.module.css';
 import { statusData } from './DataStatus';
 import { CustomTooltip } from './CustomTooltip/CustomTooltip';
+import { useSelector } from 'react-redux';
+import { selectWindowWidth } from '../../redux/filter/selectors';
 
 export const StatusChart = () => {
+    const ww = useSelector(selectWindowWidth)
+    const size =( ww * 0.85) - 100
     return (
         <>
             <section>
-                <div className='container'>
+                <div >
                     <h1 className={styles.statusChart__title}>Статус учасників</h1>
                     <p className={styles.statusChart__description}>Кількість учасників з різними статусами</p>
 
@@ -32,7 +36,7 @@ export const StatusChart = () => {
                         </div>
 
                         <div className={styles.statusChart__chartWrapper}>
-                            <AreaChart width={1460} height={310} data={statusData}
+                            <AreaChart width={size} height={310} data={statusData}
                                 margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                                 <defs>
                                     <linearGradient id="colorOnline" x1="0" y1="0" x2="0" y2="1">

@@ -9,3 +9,7 @@ export const updateFilter = createAsyncThunk("filter/updateFilter",async (body, 
     }
   }
 );
+
+export const setWindowWidth = createAsyncThunk("filter/setWindiwWidth", async (body,thunkApi)=>{
+  return body
+})

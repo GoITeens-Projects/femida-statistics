@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom"
 import { fetchStatistics } from "../redux/statistics/operation";
 import { Filter } from "components/Filter/Filter";
+import { MessagesChart } from "components/MessagesChart/MessagesChart";
 
 export const Overview = () => {
     const dispatch = useDispatch();
@@ -14,8 +15,10 @@ export const Overview = () => {
     }, [dispatch]);
     return (
         <>
-
-            <Filter />
+            <ServerMembers/>
+            <MessagesChart/>
+            
+            {/* <Filter /> */}
         </>
 
 

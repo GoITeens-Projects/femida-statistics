@@ -14,13 +14,13 @@ button {
   transition-delay: 50ms;
 }
 
-.container {
+/* .container {
   width: 1560px;
   margin-left: auto;
   margin-right: auto;
   padding-right: 30px;
   padding-left: 320px;
-}
+} */
 
 ::selection {
   background-color: var(--border-color);

@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useFetcher } from 'react-router-dom';
 import { Status } from '../pages/Status';
 import Login from './Login/Login';
 import { Navigation } from './Navigation/Navigation';
@@ -8,6 +8,12 @@ import Header from './Header/Header';
 import { ServerMembers } from './ServerMembers/ServerMembers';
 import { MessagesChart } from './MessagesChart/MessagesChart';
 import { StatusChart } from './StatusChart/StatusChart';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setWindowWidth } from '../redux/filter/operation';
+import s from './Main.module.css'
+import { Filter } from './Filter/Filter';
+import { fetchStatistics } from '../redux/statistics/operation';
 
 const testTop = [
   {
@@ -83,16 +89,27 @@ const testTop = [
 ];
 
 export const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(()=> {
+    dispatch(setWindowWidth(window.innerWidth))
+    dispatch(fetchStatistics)
+  }, [dispatch])
   return (
     <>
-      <Header />
+    <Header />
+    <div className={s.countainer}>
+      
+      <div className={s.navigationCountainer}>
       <Navigation />
+      </div>
+      
+      
+      <div className={s.mainCountainer}>
+        <Filter/>
       <Outlet />
-
-      <TopChannels topArr={testTop} />
-      <ServerMembers />
-      <MessagesChart />
-      <StatusChart />
+      </div>
+    </div>
     </>
   );
 };

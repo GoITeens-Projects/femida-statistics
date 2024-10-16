@@ -124,13 +124,17 @@
 // };
 
 // export default TopChannels;
+// import { useSelector } from 'react-redux';
 import styles from './Tops.module.css';
 import TopSection from 'components/TopSection/TopSection';
+// import { selectWindowWidth } from 'redux/filter/selectors';
 
 const TopChannels = ({ topArr }) => {
+  // const ww = useSelector(selectWindowWidth)
+  // const size = (ww - 110) /2
   return (
     <>
-      <div className={`container ${styles.topsBox}`}>
+      <div className={`${styles.topsBox}`}>
         <TopSection topArr={topArr} title={'Топ учасників'} isChannel={false} />
         <TopSection topArr={topArr} title={'Топ каналів'} isChannel={true} />
       </div>
