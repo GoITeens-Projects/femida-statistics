@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useFetcher } from 'react-router-dom';
 import { Status } from '../pages/Status';
 import Login from './Login/Login';
 import { Navigation } from './Navigation/Navigation';
@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux';
 import { setWindowWidth } from '../redux/filter/operation';
 import s from './Main.module.css'
 import { Filter } from './Filter/Filter';
+import { fetchStatistics } from '../redux/statistics/operation';
 
 const testTop = [
   {
@@ -92,6 +93,7 @@ export const App = () => {
 
   useEffect(()=> {
     dispatch(setWindowWidth(window.innerWidth))
+    dispatch(fetchStatistics)
   }, [dispatch])
   return (
     <>
