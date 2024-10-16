@@ -1,5 +1,8 @@
+import { useSelector } from 'react-redux';
 import styles from './TopSection.module.css';
 import DonutChart from 'react-donut-chart';
+import { selectWindowWidth } from '../../redux/filter/selectors';
+import { TopsGlobalBox } from './TopSection.styled';
 // import { PieChart, Pie, Cell, Legend, Tooltip } from 'recharts';
 const data = [
   { label: 'Назва чогось', value: 350 },
@@ -27,8 +30,12 @@ const COLORS = [
 ];
 
 const TopSection = ({ topArr, title, isChannel }) => {
+  const ww = useSelector(selectWindowWidth)
+  
+  const size = (ww * 0.85 - 120) / 2
+  const chart = size - 20
   return (
-    <div className={styles.topsGlobalBox}>
+    <TopsGlobalBox size={size}>
       <h2 className={styles.topsTitle}>{title}</h2>
       <div className={styles.topsBox}>
         <div className={styles.topsHeaderBox}>
@@ -83,9 +90,11 @@ const TopSection = ({ topArr, title, isChannel }) => {
           strokeColor="#fff"
           innerRadius={0.4}
           colors={COLORS}
+          width={chart}
+          height={chart}
         />
       </div>
-    </div>
+    </TopsGlobalBox>
   );
 };
 

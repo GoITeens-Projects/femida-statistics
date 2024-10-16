@@ -1,10 +1,10 @@
-import { ServerMembers } from "../components/ServerMembers/ServerMembers"
+import { StatusChart } from "components/StatusChart/StatusChart"
 
 export const Status = () => {
 
     return (
         <>
-            <ServerMembers />
+            <StatusChart/>
         </>
     )
 }

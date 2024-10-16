@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { updateFilter } from "./operation";
+import { setWindowWidth, updateFilter } from "./operation";
 
 const filterSlice = createSlice({
     name: 'filter',
@@ -8,11 +8,15 @@ const filterSlice = createSlice({
         unit: "hours",
         period: 1,
         loading: false,
-        error: null
+        error: null,
+        windowWidth: 1400,
     },
     reducers: {},
     extraReducers: (builder) => {
         builder
+        .addCase(setWindowWidth.fulfilled, (state, action) => {
+            state.windowWidth = action.payload
+        })
         .addCase(updateFilter.pending, (state) => {
             state.loading = true;
             state.error = null;

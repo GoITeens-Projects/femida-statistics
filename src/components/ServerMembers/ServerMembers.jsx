@@ -6,14 +6,18 @@ import styles from './ServerMembers.module.css'; // Підключаємо мо�
 import { Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis } from 'recharts';
 import { data } from './DataServerMmbers';
 import { CustomTooltip } from './CustomTooltip/CustomTooltip';
+import { selectWindowWidth } from '../../redux/filter/selectors';
 
 export const ServerMembers = () => {
     const dispatch = useDispatch();
     const statistics = useSelector(state => state.statistics); // Замініть на правильний шлях до вашого стейту
 
+    const ww = useSelector(selectWindowWidth)
+    const size = ww *0.85 - 100
+
     return (
         <section>
-            <div className='container'>
+            <div>
                 <h1 className={styles.title}>Учасники</h1>
                 <p className={styles.text}>Загальна кількість учасників на сервері</p>
 
@@ -34,7 +38,7 @@ export const ServerMembers = () => {
                     </div>
 
                     <div className={styles.containerSchedule}>
-                        <AreaChart width={1460} height={310} data={data}
+                        <AreaChart width={size} height={310} data={data}
                             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                             <defs>
                                 <linearGradient id="colorJoined" x1="0" y1="0" x2="0" y2="1">

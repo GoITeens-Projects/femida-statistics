@@ -2,6 +2,9 @@
   padding: 11px 30px 16px 82px;
   display: flex;
   align-items: center;
+  z-index: 2;
+  position: absolute;
+  background-color: #fff;
   /* justify-content: center; */
 }
 
