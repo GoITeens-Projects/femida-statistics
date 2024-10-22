@@ -25,6 +25,8 @@ export const StatusChart = () => {
     const [hideDnd, setHideDnd] = useState(false);
     const [hideOffline, setHideOffline] = useState(false);
 
+    const [reload, setReload] = useState(false);
+
     // Оновлення localStorage при зміні стану
     const updateLocalStorage = (newStates) => {
         localStorage.setItem('statusChartClickStates', JSON.stringify(newStates));
@@ -34,9 +36,27 @@ export const StatusChart = () => {
         switch (status) {
             case 'away':
                 if (clickAway) {
+                    if (clickDnd) {
+                        setHideDnd(true)
+                        setTimeout(() =>  setHideDnd(false), 1000);
+                    }
+                    if (clickOffline) {
+                        setHideOffline(true)
+                        setTimeout(() => setHideOffline(false), 1000);
+                    }
+               
                     setHideAway(true);
                     setTimeout(() => setClickAway(false), 1000);
                 } else {
+                    if (clickDnd) {
+                        setHideDnd(true)
+                        setTimeout(() =>  setHideDnd(false), 1000);
+                    }
+                    if (clickOffline) {
+                        setHideOffline(true)
+                        setTimeout(() => setHideOffline(false), 1000);
+                    }
+               
                     setClickAway(true);
                     setHideAway(false);
                 }
@@ -44,9 +64,27 @@ export const StatusChart = () => {
                 break;
             case 'dnd':
                 if (clickDnd) {
+                    if (clickAway) {
+                        setHideAway(true)
+                        setTimeout(() =>  setHideAway(false), 1000);
+                    }
+                    if (clickOffline) {
+                        setHideOffline(true)
+                        setTimeout(() => setHideOffline(false), 1000);
+                    }
+               
                     setHideDnd(true);
                     setTimeout(() => setClickDnd(false), 1000);
                 } else {
+                    if (clickAway) {
+                        setHideAway(true)
+                        setTimeout(() =>  setHideAway(false), 1000);
+                    }
+                    if (clickOffline) {
+                        setHideOffline(true)
+                        setTimeout(() => setHideOffline(false), 1000);
+                    }
+
                     setClickDnd(true);
                     setHideDnd(false);
                 }
@@ -54,9 +92,26 @@ export const StatusChart = () => {
                 break;
             case 'offline':
                 if (clickOffline) {
+                    if (clickAway) {
+                        setHideAway(true)
+                        setTimeout(() =>  setHideAway(false), 1000);
+                    }
+                    if (clickDnd) {
+                        setHideDnd(true)
+                        setTimeout(() => setHideDnd(false), 1000);
+                    }
                     setHideOffline(true);
                     setTimeout(() => setClickOffline(false), 1000);
                 } else {
+                    if (clickAway) {
+                        setHideAway(true)
+                        setTimeout(() =>  setHideAway(false), 1000);
+                    }
+                    if (clickDnd) {
+                        setHideDnd(true)
+                        setTimeout(() => setHideDnd(false), 1000);
+                    }
+                    
                     setClickOffline(true);
                     setHideOffline(false);
                 }
@@ -117,10 +172,10 @@ export const StatusChart = () => {
                             </defs>
                             <XAxis dataKey="name" tick={{ fontSize: 12, stroke: "#666" }}
                                 axisLine={{ stroke: "#ccc", strokeWidth: 2 }} tickLine={{ stroke: "#ccc" }} />
-                            <YAxis axisLine={false} tick={{ stroke: "#666", dx: -3 }} tickLine={false} />
+                            <YAxis axisLine={false} tick={{ stroke: "#666", dx: -3 }} tickLine={false} allowDataOverflow={true} animationDuration={100000} />
                             <CartesianGrid stroke="#e0e0e0" strokeWidth={2} vertical={false} />
                             <Tooltip content={<CustomTooltip />} />
-
+{!reload && <>
                             <Area
                                 type="monotone"
                                 dataKey="online"
@@ -128,6 +183,8 @@ export const StatusChart = () => {
                                 fillOpacity={1}
                                 fill="url(#colorOnline)"
                                 name="В мережі"
+                                isAnimationActive={true}
+                                    animationDuration={5000}
                             />
 
                             {clickAway && (
@@ -138,7 +195,9 @@ export const StatusChart = () => {
                                     fillOpacity={1}
                                     fill="url(#colorAway)"
                                     name="Відійшли"
-                                    className={`${styles.area} ${hideAway ? styles.fadeOut : ''}`}
+                                    className={`${styles.area} ${hideAway ? styles.fadeOut :  styles.fadeIn}`}
+                                    isAnimationActive={true}
+                                    animationDuration={5000}
                                 />
                             )}
                             {clickDnd && (
@@ -149,7 +208,9 @@ export const StatusChart = () => {
                                     fillOpacity={1}
                                     fill="url(#colorDnd)"
                                     name="Не турбувати"
-                                    className={`${styles.area} ${hideDnd ? styles.fadeOut : ''}`}
+                                    className={`${styles.area} ${hideDnd ? styles.fadeOut : styles.fadeIn}`}
+                                    isAnimationActive={true}
+                                    animationDuration={5000}
                                 />
                             )}
                             {clickOffline && (
@@ -160,9 +221,12 @@ export const StatusChart = () => {
                                     fillOpacity={1}
                                     fill="url(#colorOffline)"
                                     name="Не в мережі"
-                                    className={`${styles.area} ${hideOffline ? styles.fadeOut : ''}`}
+                                    className={`${styles.area} ${hideOffline ? styles.fadeOut : styles.fadeIn}`}
+                                    isAnimationActive={true}
+                                    animationDuration={5000}
                                 />
                             )}
+                            </>}
                         </AreaChart>
                     </div>
                 </div>
