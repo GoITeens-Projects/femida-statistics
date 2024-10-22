@@ -76,3 +76,37 @@
     flex-direction: column;
     margin-top: 28px;
 }
+
+@keyframes moveUp {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+}
+
+.moveUp {
+    animation: moveUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scaleX(1);
+        transform-origin: right;
+    }
+}
+
+.fadeOut {
+    animation: fadeOut 0.5s forwards;
+}
+
+.area {
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    transform-origin: left;
+}
