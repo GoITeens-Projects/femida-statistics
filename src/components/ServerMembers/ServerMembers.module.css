@@ -40,22 +40,17 @@
     width: 200px;
     border: 1px 0px 0px 1px;
     opacity: 0px;
-    border-width: 1px, 0px, 0px, 1px;
-    border-style: solid;
     background: var(--chart-accent-color);
-    border: 1px solid var(--chart-accent-color);
 }
 
 .totalMembersContainer2 {
     width: 130px;
     background: var(--chart-color);
-    border: 1px solid var(--chart-color);
 }
 
 .totalMembersContainer3 {
     width: 108px;
     background-color: var(--legend-brighter-teal-color);
-    border: 1px solid var(--legend-brighter-teal-color);
 }
 
 .totalMembersText {
@@ -88,4 +83,77 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-top: 20px;
+}
+
+@keyframes moveUp {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+}
+
+.moveUp {
+    animation: moveUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scaleX(1);
+        transform-origin: right;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scaleX(1);
+    }
+    100% {
+        opacity: 1;
+        transform: scaleX(1);
+        transform-origin: right;
+    }
+}
+
+.fadeOut {
+    animation: fadeOut 0.5s forwards;
+}
+
+.fadeIn {
+    animation: fadeIn 0.5s forwards;
+}
+
+.area {
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    transform-origin: left;
+}
+
+.statusChart__statusItem__inactive {
+    background: none;
+    color: black;
+    /* Колір тексту для неактивних елементів */
+    /* Щоб бачити кордони елемента */
+}
+
+.statusChart__statusItem__text__inactive {
+    color: var(--text-accent-color);
+}
+
+.statusChart__statusItem__text__inactive_2 {
+    color: black;
+}
+
+.statusChart_Span {
+    position: absolute;
+    height: 42px;
+    border: 1px solid #91CCF4;
+    margin-top: 13px;
 }

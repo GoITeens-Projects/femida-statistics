@@ -10,118 +10,40 @@ export const StatusChart = () => {
     const ww = useSelector(selectWindowWidth);
     const size = (ww * 0.85) - 100;
 
-    // Ініціалізація станів з localStorage
     const savedClickStates = JSON.parse(localStorage.getItem('statusChartClickStates')) || {
+        clickOnline: true,
         clickAway: false,
         clickDnd: false,
         clickOffline: false,
     };
 
-    const [clickAway, setClickAway] = useState(savedClickStates.clickAway);
-    const [clickDnd, setClickDnd] = useState(savedClickStates.clickDnd);
-    const [clickOffline, setClickOffline] = useState(savedClickStates.clickOffline);
+    const [clickStates, setClickStates] = useState(savedClickStates);
+    const [hideStates, setHideStates] = useState({ online: false, away: false, dnd: false, offline: false });
 
-    const [hideAway, setHideAway] = useState(false);
-    const [hideDnd, setHideDnd] = useState(false);
-    const [hideOffline, setHideOffline] = useState(false);
-
-    const [reload, setReload] = useState(false);
-
-    // Оновлення localStorage при зміні стану
     const updateLocalStorage = (newStates) => {
         localStorage.setItem('statusChartClickStates', JSON.stringify(newStates));
     };
 
     const handleClick = (status) => {
-        switch (status) {
-            case 'away':
-                if (clickAway) {
-                    if (clickDnd) {
-                        setHideDnd(true)
-                        setTimeout(() =>  setHideDnd(false), 1000);
-                    }
-                    if (clickOffline) {
-                        setHideOffline(true)
-                        setTimeout(() => setHideOffline(false), 1000);
-                    }
-               
-                    setHideAway(true);
-                    setTimeout(() => setClickAway(false), 1000);
-                } else {
-                    if (clickDnd) {
-                        setHideDnd(true)
-                        setTimeout(() =>  setHideDnd(false), 1000);
-                    }
-                    if (clickOffline) {
-                        setHideOffline(true)
-                        setTimeout(() => setHideOffline(false), 1000);
-                    }
-               
-                    setClickAway(true);
-                    setHideAway(false);
-                }
-                updateLocalStorage({ clickAway: !clickAway, clickDnd, clickOffline });
-                break;
-            case 'dnd':
-                if (clickDnd) {
-                    if (clickAway) {
-                        setHideAway(true)
-                        setTimeout(() =>  setHideAway(false), 1000);
-                    }
-                    if (clickOffline) {
-                        setHideOffline(true)
-                        setTimeout(() => setHideOffline(false), 1000);
-                    }
-               
-                    setHideDnd(true);
-                    setTimeout(() => setClickDnd(false), 1000);
-                } else {
-                    if (clickAway) {
-                        setHideAway(true)
-                        setTimeout(() =>  setHideAway(false), 1000);
-                    }
-                    if (clickOffline) {
-                        setHideOffline(true)
-                        setTimeout(() => setHideOffline(false), 1000);
-                    }
+        const statusKey = `click${status.charAt(0).toUpperCase() + status.slice(1)}`;
 
-                    setClickDnd(true);
-                    setHideDnd(false);
-                }
-                updateLocalStorage({ clickAway, clickDnd: !clickDnd, clickOffline });
-                break;
-            case 'offline':
-                if (clickOffline) {
-                    if (clickAway) {
-                        setHideAway(true)
-                        setTimeout(() =>  setHideAway(false), 1000);
-                    }
-                    if (clickDnd) {
-                        setHideDnd(true)
-                        setTimeout(() => setHideDnd(false), 1000);
-                    }
-                    setHideOffline(true);
-                    setTimeout(() => setClickOffline(false), 1000);
-                } else {
-                    if (clickAway) {
-                        setHideAway(true)
-                        setTimeout(() =>  setHideAway(false), 1000);
-                    }
-                    if (clickDnd) {
-                        setHideDnd(true)
-                        setTimeout(() => setHideDnd(false), 1000);
-                    }
-                    
-                    setClickOffline(true);
-                    setHideOffline(false);
-                }
-                updateLocalStorage({ clickAway, clickDnd, clickOffline: !clickOffline });
-                break;
-            default:
-                break;
+        // Онлайн завжди залишається активним
+        if (status === 'online') {
+            return;
         }
-    };
 
+        const newHideStates = { online: true, away: true, dnd: true, offline: true };
+        setHideStates(newHideStates);
+
+        setTimeout(() => {
+            setClickStates((prev) => {
+                const updated = { ...prev, [statusKey]: !prev[statusKey] };
+                updateLocalStorage(updated);
+                return updated;
+            });
+            setHideStates({ online: false, away: false, dnd: false, offline: false });
+        }, 500);
+    };
 
     return (
         <section>
@@ -131,27 +53,28 @@ export const StatusChart = () => {
 
                 <div className={styles.statusChart__border}>
                     <div className={styles.statusChart__membersSummary}>
-                        <div className={styles.statusChart__statusItem__online} onClick={() => handleClick('online')}>
-                            <p className={styles.statusChart__statusLabel}>В мережі</p>
-                            <p className={styles.statusChart__statusCount}>320</p>
-                        </div>
-                        <div className={styles.statusChart__statusItem__away} onClick={() => handleClick('away')}>
-                            <p className={styles.statusChart__statusLabel}>Відійшли</p>
-                            <p className={styles.statusChart__statusCount}>180</p>
-                        </div>
-                        <div className={styles.statusChart__statusItem__dnd} onClick={() => handleClick('dnd')}>
-                            <p className={styles.statusChart__statusLabel}>Не турбувати</p>
-                            <p className={styles.statusChart__statusCount}>150</p>
-                        </div>
-                        <div className={styles.statusChart__statusItem__offline} onClick={() => handleClick('offline')}>
-                            <p className={styles.statusChart__statusLabel}>Не в мережі</p>
-                            <p className={styles.statusChart__statusCount}>3100</p>
-                        </div>
+                        {['online', 'away', 'dnd', 'offline'].map((status, index) => (
+                            <div
+                                key={status}
+                                className={`${styles[`statusChart__statusItem__${status}`]} ${!clickStates[`click${status.charAt(0).toUpperCase() + status.slice(1)}`] ? styles.statusChart__statusItem__inactive : ''}`}
+                                onClick={() => handleClick(status)}
+                            >
+                                <span className={styles.statusChart_Span}></span>
+                                <p className={`${styles.statusChart__statusLabel} ${!clickStates[`click${status.charAt(0).toUpperCase() + status.slice(1)}`] ? styles.statusChart__statusItem__text__inactive : ''}`}>
+                                    {status === 'online' ? 'В мережі' : status === 'away' ? 'Відійшли' : status === 'dnd' ? 'Не турбувати' : 'Не в мережі'}
+                                </p>
+                                <p className={`${styles.statusChart__statusCount} ${!clickStates[`click${status.charAt(0).toUpperCase() + status.slice(1)}`] ? styles.statusChart__statusItem__text__inactive_2 : ''}`}>
+                                    {index === 0 ? 320 : index === 1 ? 180 : index === 2 ? 150 : 3100}
+                                </p>
+
+                            </div>
+
+
+                        ))}
                     </div>
 
                     <div className={styles.statusChart__chartWrapper}>
-                        <AreaChart width={size} height={310} data={statusData}
-                            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                        <AreaChart width={size} height={310} data={statusData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                             <defs>
                                 <linearGradient id="colorOnline" x1="0" y1="0" x2="0" y2="1">
                                     <stop offset="5%" stopColor="var(--chart-online-accent-color)" stopOpacity={0.8} />
@@ -170,63 +93,26 @@ export const StatusChart = () => {
                                     <stop offset="95%" stopColor="#999999" stopOpacity={0.2} />
                                 </linearGradient>
                             </defs>
-                            <XAxis dataKey="name" tick={{ fontSize: 12, stroke: "#666" }}
-                                axisLine={{ stroke: "#ccc", strokeWidth: 2 }} tickLine={{ stroke: "#ccc" }} />
-                            <YAxis axisLine={false} tick={{ stroke: "#666", dx: -3 }} tickLine={false} allowDataOverflow={true} animationDuration={100000} />
+                            <XAxis dataKey="name" tick={{ fontSize: 12, stroke: "#666" }} axisLine={{ stroke: "#ccc", strokeWidth: 2 }} tickLine={{ stroke: "#ccc" }} />
+                            <YAxis axisLine={false} tick={{ stroke: "#666", dx: -3 }} tickLine={false} allowDataOverflow={true} />
                             <CartesianGrid stroke="#e0e0e0" strokeWidth={2} vertical={false} />
                             <Tooltip content={<CustomTooltip />} />
-{!reload && <>
-                            <Area
-                                type="monotone"
-                                dataKey="online"
-                                stroke="var(--chart-online-accent-color)"
-                                fillOpacity={1}
-                                fill="url(#colorOnline)"
-                                name="В мережі"
-                                isAnimationActive={true}
-                                    animationDuration={5000}
-                            />
-
-                            {clickAway && (
-                                <Area
-                                    type="monotone"
-                                    dataKey="away"
-                                    stroke="var(--chart-inactive-color)"
-                                    fillOpacity={1}
-                                    fill="url(#colorAway)"
-                                    name="Відійшли"
-                                    className={`${styles.area} ${hideAway ? styles.fadeOut :  styles.fadeIn}`}
-                                    isAnimationActive={true}
-                                    animationDuration={5000}
-                                />
-                            )}
-                            {clickDnd && (
-                                <Area
-                                    type="monotone"
-                                    dataKey="dnd"
-                                    stroke="var(--chart-offline-accent-color)"
-                                    fillOpacity={1}
-                                    fill="url(#colorDnd)"
-                                    name="Не турбувати"
-                                    className={`${styles.area} ${hideDnd ? styles.fadeOut : styles.fadeIn}`}
-                                    isAnimationActive={true}
-                                    animationDuration={5000}
-                                />
-                            )}
-                            {clickOffline && (
-                                <Area
-                                    type="monotone"
-                                    dataKey="offline"
-                                    stroke="#999999"
-                                    fillOpacity={1}
-                                    fill="url(#colorOffline)"
-                                    name="Не в мережі"
-                                    className={`${styles.area} ${hideOffline ? styles.fadeOut : styles.fadeIn}`}
-                                    isAnimationActive={true}
-                                    animationDuration={5000}
-                                />
-                            )}
-                            </>}
+                            {['online', 'away', 'dnd', 'offline'].map((status) => (
+                                clickStates[`click${status.charAt(0).toUpperCase() + status.slice(1)}`] && (
+                                    <Area
+                                        key={status}
+                                        type="monotone"
+                                        dataKey={status}
+                                        stroke={status === 'online' ? "var(--chart-online-accent-color)" : status === 'away' ? "var(--chart-inactive-color)" : status === 'dnd' ? "var(--chart-offline-accent-color)" : "#999999"}
+                                        fillOpacity={1}
+                                        fill={`url(#color${status.charAt(0).toUpperCase() + status.slice(1)})`}
+                                        name={status === 'online' ? "В мережі" : status === 'away' ? "Відійшли" : status === 'dnd' ? "Не турбувати" : "Не в мережі"}
+                                        className={styles[hideStates[status] ? 'fadeOut' : 'fadeIn']}
+                                        isAnimationActive={true}
+                                        animationDuration={1500}
+                                    />
+                                )
+                            ))}
                         </AreaChart>
                     </div>
                 </div>

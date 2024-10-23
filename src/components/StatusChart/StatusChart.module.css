@@ -126,3 +126,25 @@
     transition: transform 0.5s ease-out, opacity 0.5s ease-out;
     transform-origin: left;
 }
+
+.statusChart__statusItem__inactive {
+    background: none;
+    color: black;
+    /* Колір тексту для неактивних елементів */
+    /* Щоб бачити кордони елемента */
+}
+
+.statusChart__statusItem__text__inactive {
+    color: var(--text-accent-color);
+}
+
+.statusChart__statusItem__text__inactive_2 {
+    color: black;
+}
+
+.statusChart_Span {
+    position: absolute;
+    height: 42px;
+    border: 1px solid #91CCF4;
+    margin-top: 13px;
+}
