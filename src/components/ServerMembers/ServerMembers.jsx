@@ -7,13 +7,25 @@ import { Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis } from 'recharts'
 import { data } from './DataServerMmbers';
 import { CustomTooltip } from './CustomTooltip/CustomTooltip';
 import { selectWindowWidth } from '../../redux/filter/selectors';
+import { selectServerMembers } from '../../redux/statistics/selectors';
 
 export const ServerMembers = () => {
     const dispatch = useDispatch();
-    const statistics = useSelector(state => state.statistics); // Замініть на правильний шлях до вашого стейту
+    const statistics = useSelector(selectServerMembers); // Замініть на правильний шлях до вашого стейту
 
     const ww = useSelector(selectWindowWidth)
     const size = ww *0.85 - 100
+
+    const dataSize = statistics.length; 
+    const lastOne = statistics[dataSize - 1]
+
+    let totalJoined = 0;
+    let totalLeft = 0;
+
+    statistics.forEach(el => {
+        totalJoined += el.joined;
+        totalLeft += el.left
+    });
 
     return (
         <section>
@@ -25,20 +37,20 @@ export const ServerMembers = () => {
                     <div className={styles.containers}>
                         <div className={styles.totalMembersContainer}>
                             <p className={styles.totalMembersText}>Кількість учасників</p>
-                            <p className={styles.totalMembersText}>3444</p>
+                            <p className={styles.totalMembersText}>{lastOne.total}</p>
                         </div>
                         <div className={styles.totalMembersContainer2}>
                             <p className={styles.totalMembersText}>Приєдналось</p>
-                            <p className={styles.totalMembersText}>320</p>
+                            <p className={styles.totalMembersText}>{totalJoined}</p>
                         </div>
                         <div className={styles.totalMembersContainer3}>
                             <p className={styles.totalMembersText_3}>Покинуло</p>
-                            <p className={styles.totalMembersText_3}>198</p>
+                            <p className={styles.totalMembersText_3}>{totalLeft}</p>
                         </div>
                     </div>
 
                     <div className={styles.containerSchedule}>
-                        <AreaChart width={size} height={310} data={data}
+                        <AreaChart width={size} height={310} data={statistics}
                             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                             <defs>
                                 <linearGradient id="colorJoined" x1="0" y1="0" x2="0" y2="1">

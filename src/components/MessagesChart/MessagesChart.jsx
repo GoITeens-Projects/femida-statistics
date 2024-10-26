@@ -4,10 +4,28 @@ import { messagesData } from './DataServerMessages';
 import { CustomTooltip } from './CustomTooltip/CustomTooltip';
 import { useSelector } from 'react-redux';
 import { selectWindowWidth } from '../../redux/filter/selectors';
+import {selectMessagesCount } from '../../redux/statistics/selectors';
 
 export const MessagesChart = () => {
+    const messages = useSelector(selectMessagesCount)
     const ww = useSelector(selectWindowWidth)
     const size =( ww * 0.85) - 100
+
+    let theMostActiveNum = 0;
+    let theMostActiveStr = '';
+    let theLessActiveNum = messages[0].messages;
+    let theLessActiveStr = messages[0].name;
+
+    messages.forEach(log => {
+        if(log.messages >= theMostActiveNum){
+            theMostActiveNum = log.messages;
+            theMostActiveStr = log.name;
+        } 
+        if(log.messages <= theLessActiveNum){
+            theLessActiveNum = log.messages;
+            theLessActiveStr = log.name
+        }
+    });
     return (
         <>
             <section>
@@ -19,16 +37,16 @@ export const MessagesChart = () => {
                         <div className={styles.messagesChart__statistics}>
                             <div className={styles.messagesChart__statItem}>
                                 <p className={styles.messagesChart__statLabel}>Найбільша кількість повідомлень</p>
-                                <p className={styles.messagesChart__statValue}>1487 (3 Серпня)</p>
+                                <p className={styles.messagesChart__statValue}>{theMostActiveNum} ({theMostActiveStr})</p>
                             </div>
                             <div className={styles.messagesChart__statItem}>
                                 <p className={styles.messagesChart__statLabel__2}>Найменша кількість повідомлень</p>
-                                <p className={styles.messagesChart__statLabel__2}>260 (29 Липня)</p>
+                                <p className={styles.messagesChart__statLabel__2}>{theLessActiveNum} ({theLessActiveStr})</p>
                             </div>
                         </div>
 
                         <div className={styles.messagesChart__chartWrapper}>
-                            <BarChart width={size} height={310} data={messagesData}
+                            <BarChart width={size} height={310} data={messages}
                                 margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                                 <XAxis dataKey="name" tick={{ fontSize: 12, stroke: "var(--text-accent-color)" }}
                                     axisLine={{ stroke: "var(--bg-accent-color)", strokeWidth: 2 }} tickLine={{ stroke: "var(--bg-accent-color)" }} />

@@ -4,10 +4,15 @@ import { statusData } from './DataStatus';
 import { CustomTooltip } from './CustomTooltip/CustomTooltip';
 import { useSelector } from 'react-redux';
 import { selectWindowWidth } from '../../redux/filter/selectors';
+import { selectMembersStatuses } from '../../redux/statistics/selectors';
 
 export const StatusChart = () => {
+    const membersStatuses = useSelector(selectMembersStatuses)
     const ww = useSelector(selectWindowWidth)
     const size =( ww * 0.85) - 100
+    
+    const dataSize = membersStatuses.length; 
+    const lastOne = membersStatuses[dataSize - 1]
     return (
         <>
             <section>
@@ -19,24 +24,24 @@ export const StatusChart = () => {
                         <div className={styles.statusChart__membersSummary}>
                             <div className={styles.statusChart__statusItem__online}>
                                 <p className={styles.statusChart__statusLabel}>В мережі</p>
-                                <p className={styles.statusChart__statusCount}>320</p>
+                                <p className={styles.statusChart__statusCount}>{lastOne.online}</p>
                             </div>
                             <div className={styles.statusChart__statusItem__away}>
                                 <p className={styles.statusChart__statusLabel}>Відійшли</p>
-                                <p className={styles.statusChart__statusCount}>180</p>
+                                <p className={styles.statusChart__statusCount}>{lastOne.away}</p>
                             </div>
                             <div className={styles.statusChart__statusItem__dnd}>
                                 <p className={styles.statusChart__statusLabel}>Не турбувати</p>
-                                <p className={styles.statusChart__statusCount}>150</p>
+                                <p className={styles.statusChart__statusCount}>{lastOne.dnd}</p>
                             </div>
                             <div className={styles.statusChart__statusItem__offline}>
                                 <p className={styles.statusChart__statusLabel}>Не в мережі</p>
-                                <p className={styles.statusChart__statusCount}>3100</p>
+                                <p className={styles.statusChart__statusCount}>{lastOne.offline}</p>
                             </div>
                         </div>
 
                         <div className={styles.statusChart__chartWrapper}>
-                            <AreaChart width={size} height={310} data={statusData}
+                            <AreaChart width={size} height={310} data={membersStatuses}
                                 margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                                 <defs>
                                     <linearGradient id="colorOnline" x1="0" y1="0" x2="0" y2="1">
