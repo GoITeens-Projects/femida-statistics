@@ -3,6 +3,7 @@ import styles from './TopSection.module.css';
 import DonutChart from 'react-donut-chart';
 import { selectWindowWidth } from '../../redux/filter/selectors';
 import { TopsGlobalBox } from './TopSection.styled';
+import { useEffect } from 'react';
 // import { PieChart, Pie, Cell, Legend, Tooltip } from 'recharts';
 const data = [
   { label: 'Назва чогось', value: 350 },
@@ -29,11 +30,14 @@ const COLORS = [
   '#FEC830',
 ];
 
-const TopSection = ({ topArr, title, isChannel }) => {
+const TopSection = ({ toArr, title, isChannel }) => {
   const ww = useSelector(selectWindowWidth)
   
   const size = (ww * 0.85 - 120) / 2
   const chart = size - 20
+  const topArr = toArr.slice((toArr.length) /2)
+  const chartData = topArr.map(user => {return {label: user.userName, value: user.messagesQuantity}})
+  
   return (
     <TopsGlobalBox size={size}>
       <h2 className={styles.topsTitle}>{title}</h2>
@@ -69,9 +73,8 @@ const TopSection = ({ topArr, title, isChannel }) => {
               <li key={top.id} className={styles.topsItem}>
                 <p className={styles.topsUserRankText}>{idx + 1}</p>
                 {isChannel ? null : (
-                  <img src={top.userAvatarUrl} className={styles.topsUserImg} />
+                  <img src={top.userAvatarUrl} className={styles.topsUserImg} alt='user avatar' />
                 )}
-                {/* <h2 className={styles.topsUsername}>{top.userName}</h2> */}
                 {isChannel ? (
                   <h2 className={styles.topsChannel}>{top.userName}</h2>
                 ) : (
@@ -86,7 +89,7 @@ const TopSection = ({ topArr, title, isChannel }) => {
         </ul>
 
         <DonutChart
-          data={data}
+          data={chartData}
           strokeColor="#fff"
           innerRadius={0.4}
           colors={COLORS}

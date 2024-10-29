@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
-
+ 
 export const fetchStatistics = createAsyncThunk('stats/getStats', async (time, thunkApi) => {
     console.log("fetch");
     try {
@@ -43,23 +43,47 @@ export const fetchStatistics = createAsyncThunk('stats/getStats', async (time, t
 
         const { data } = await axios.request(config);
         console.log(data);
-
-        // const today = new Date().toISOString().slice(0, 10); // поточна дата у форматі YYYY-MM-DD
-
-        // Фільтруємо статистику за сьогоднішній день
-        // const filteredData = data.statistics.map((log) =>{
-        //     return log.statisticsTimestamp.slice(0, 10)}
-        // );
-        // console.log(filteredData);
-
-        // console.log('before');
+        if(data.count === 0){
+            return {
+        serverMembers: [{ "name": "", "joined": 0, "left": 0, "total": 0 }],
+        membersStatuses: [{ "name": '', "online": 0, "away": 0, "dnd": 0, "offline": 0 }],
+        messagesCount: [{"name": '', "messages": 0}],
+        messagesLogs: [{id: '', count: 0}],
+        stageActivitiesCount: [],
+        stageActivitiesLogs: [],
+        voiseActivitiesCount: [],
+        voiceActivitiesLogs: []
+            }
+        }
+       
         // Комбінуємо всі об'єкти статистики в один
+        const ids = []
+        const monthNames = [
+            "Січ",
+            "Лют",
+            "Берез",
+            "Квіт",
+            "Трав",
+            "Чер",
+            "Лип",
+            "Сер",
+            "Вер",
+            "Жовт",
+            "Лист",
+            "Груд"
+            ,]
         const combinedStatistics = data.data.reduce((acc, curr) => {
             let time = ''
-            //  console.log("reduce");
             if(interval === 'hours'){
                 const str = curr.statisticsTimestamps[0]
                 time = `${str.slice(11, 13)} год`;
+            } else if (interval === 'days') {
+                const str = curr.statisticsTimestamps[0]
+                const month = str.slice(5, 7);
+                console.log('month:', month);
+                const day = str.slice(8, 10)
+                console.log('day:', day);
+                time = `${day} ${monthNames[month - 1]}`;
             }
             
             acc.serverMembers = [...acc.serverMembers,
@@ -70,11 +94,6 @@ export const fetchStatistics = createAsyncThunk('stats/getStats', async (time, t
                                    "total": curr.statistics.totalMembers
                                 }
             ]
-            // acc.totalMembers += curr.totalMembers
-            
-            // // Оновлюємо лічильники учасників, що приєдналися і лівнули
-            // acc.membersJoin += curr.statistics.membersJoin.count;
-            // acc.membersLeft += curr.statistics.membersLeft.count;
 
             acc.membersStatuses = [...acc.membersStatuses,
                                    {
@@ -85,7 +104,6 @@ export const fetchStatistics = createAsyncThunk('stats/getStats', async (time, t
                                     offline: curr.statistics.membersStatuses.offline
                                     }
                                   ]
-            // curr.statistics.membersStatuses
 
             acc.messagesCount = [...acc.messagesCount,
                                  {
@@ -94,17 +112,8 @@ export const fetchStatistics = createAsyncThunk('stats/getStats', async (time, t
                                  }
                                 ]
 
-            const ids = curr.statistics.messages.logs.map(log => log.id);
-            const counts = {};
-             ids.forEach(id => {
-                counts[id] = (counts[id] || 0) + 1
-            });
-
-            const newLogs = Object.entries(counts).map(([key, value]) => {
-                return {id: key, count: value}
-            })
-
-            acc.messagesLogs = [...acc.messagesLogs, ...newLogs]
+            curr.statistics.messages.logs.forEach(log => ids.push(log.id));
+            
 
             // // Оновлюємо активність в stage та voice
             // acc.stageActivitiesCount += curr.statistics.stageActivities.count;
@@ -120,17 +129,29 @@ export const fetchStatistics = createAsyncThunk('stats/getStats', async (time, t
             serverMembers: [],
             membersStatuses: [],
             messagesCount: [],
-            messagesLogs: [],
             stageActivitiesCount: [],
             stageActivitiesLogs: [],
             voiseActivitiesCount: [],
             voiceActivitiesLogs: [],
         });
 
-        console.log({...combinedStatistics});
-        return combinedStatistics
+        const counts = {};
+             ids.forEach(id => {
+                counts[id] = (counts[id] || 0) + 1
+            });
+
+            const messagesLogs = Object.entries(counts).map(([key, value]) => {
+                return {id: key, count: value}
+            })
+
+        // messagesLogs = [...acc.messagesLogs, ...newLogs]
+
+        console.log({...combinedStatistics, messagesLogs});
+        return {...combinedStatistics, messagesLogs}
 
     } catch (error) {
         return thunkApi.rejectWithValue('Не вдалося отримати статистику');
     }
 });
+
+

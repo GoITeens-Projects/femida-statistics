@@ -1,6 +1,9 @@
 import { MessagesChart } from "components/MessagesChart/MessagesChart"
 import TopChannels from "components/Tops/Tops"
 import { nanoid } from 'nanoid';
+import { fetchStatistics } from "../redux/statistics/operation";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 const testTop = [
     {
@@ -76,6 +79,12 @@ const testTop = [
   ];
 
 export const Messages = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+      // Виконуємо fetch при завантаженні компонента
+      dispatch(fetchStatistics());
+  }, [dispatch]);
     return <>
     <MessagesChart/>
     <TopChannels topArr={testTop}/>

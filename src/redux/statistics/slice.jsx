@@ -1,6 +1,6 @@
 
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchStatistics } from "./operation";
+import { fetchStatistics, } from "./operation";
 
 const statisticsSlice = createSlice({
     name: 'statistics',
@@ -9,7 +9,7 @@ const statisticsSlice = createSlice({
         membersStatuses: [{ "name": '', "online": 0, "away": 0, "dnd": 0, "offline": 0 }],
         messagesCount: [{"name": '', "messages": 0}],
         messagesLogs: [{id: '', count: 0}],
-        stageActivitiesCount: [],
+        ctivitiesCount: [],
         stageActivitiesLogs: [],
         voiseActivitiesCount: [],
         voiceActivitiesLogs: [],
@@ -40,7 +40,7 @@ const statisticsSlice = createSlice({
             .addCase(fetchStatistics.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
-            });
+            })
     }
 });
 
