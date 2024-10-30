@@ -1,11 +1,16 @@
 import styled from 'styled-components';
 import styles from './CustomTooltip.module.css';
+import { data } from '../DataServerMmbers'; // Імпортуємо дані статусів
 
-export const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-        const joinedValue = payload[0]?.value || 0;
-        const leftValue = payload[1]?.value || 0;
-        const totalValue = payload[0]?.payload?.total || 0;
+export const CustomTooltip = ({ active, label }) => {
+    if (active) {
+        // Знаходимо дані для відповідної дати
+        const dataPoint = data.find((data) => data.name === label);
+
+        // Отримуємо значення, використовуючи дані з statusData
+        const totalValue = dataPoint?.total || 0; // Якщо є поле total
+        const joinedValue = dataPoint?.joined || 0; // Змінюємо на ваше фактичне поле
+        const leftValue = dataPoint?.left || 0; // Змінюємо на ваше фактичне поле
 
         return (
             <div className={styles.CustomTooltipContainer}>
