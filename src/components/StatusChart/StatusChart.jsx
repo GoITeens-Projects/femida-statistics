@@ -4,11 +4,16 @@ import { statusData } from './DataStatus';
 import { CustomTooltip } from './CustomTooltip/CustomTooltip';
 import { useSelector } from 'react-redux';
 import { selectWindowWidth } from '../../redux/filter/selectors';
+import { selectMembersStatuses } from '../../redux/statistics/selectors';
 import { useEffect, useState } from 'react';
 
 export const StatusChart = () => {
+  const membersStatuses = useSelector(selectMembersStatuses)
     const ww = useSelector(selectWindowWidth);
     const size = (ww * 0.85) - 100;
+  
+   const dataSize = membersStatuses.length; 
+   const lastOne = membersStatuses[dataSize - 1]
 
     const savedClickStates = JSON.parse(localStorage.getItem('statusChartClickStates')) || {
         clickOnline: true,
@@ -64,17 +69,14 @@ export const StatusChart = () => {
                                     {status === 'online' ? 'В мережі' : status === 'away' ? 'Відійшли' : status === 'dnd' ? 'Не турбувати' : 'Не в мережі'}
                                 </p>
                                 <p className={`${styles.statusChart__statusCount} ${!clickStates[`click${status.charAt(0).toUpperCase() + status.slice(1)}`] ? styles.statusChart__statusItem__text__inactive_2 : ''}`}>
-                                    {index === 0 ? 320 : index === 1 ? 180 : index === 2 ? 150 : 3100}
+                                    {index === 0 ? lastOne.online : index === lastOne.away ? 180 : index === 2 ? lastOne.dnd : lastOne.offline}
                                 </p>
-
                             </div>
-
-
                         ))}
                     </div>
 
                     <div className={styles.statusChart__chartWrapper}>
-                        <AreaChart width={size} height={310} data={statusData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                        <AreaChart width={size} height={310} data={membersStatuses} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                             <defs>
                                 <linearGradient id="colorOnline" x1="0" y1="0" x2="0" y2="1">
                                     <stop offset="5%" stopColor="var(--chart-online-accent-color)" stopOpacity={0.8} />

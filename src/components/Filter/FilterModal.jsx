@@ -34,7 +34,7 @@ export const FilterModal = ({delince}) => {
             case "weeks":
                 if(period > 24) setPeriod(24)
                 break;
-            case "mounth":
+            case "months":
                 if(period > 6) setPeriod(6)
                 break;
         
@@ -56,7 +56,7 @@ export const FilterModal = ({delince}) => {
                 <li><button onClick={()=>chooseInterval("hours")}>Години {interval === "hours" && "^"}</button></li>
                 <li><button onClick={()=>chooseInterval("days")}>Дні  {interval === "days" && "^"}</button></li>
                 <li><button onClick={()=>chooseInterval("weeks")}>Тижні  {interval === "weeks" && "^"}</button></li>
-                <li><button onClick={()=>chooseInterval("mounth")}>Місяці  {interval === "mounth" && "^"}</button></li>
+                <li><button onClick={()=>chooseInterval("months")}>Місяці  {interval === "months" && "^"}</button></li>
             </ul>
         </div>
         <div>
@@ -74,7 +74,7 @@ export const FilterModal = ({delince}) => {
             {interval === "hours" && <input type="range" min="1" max="24" value={period} onChange={(e)=>setPeriod(e.target.value)}></input>}
             {interval === "days" && <input type="range" min="1" max="30" value={period} onChange={(e)=>setPeriod(e.target.value)}></input>}
             {interval === "weeks" && <input type="range" min="1" max="24" value={period} onChange={(e)=>setPeriod(e.target.value)}></input>}
-            {interval === "mounth" && <input type="range" min="1" max="6" value={period} onChange={(e)=>setPeriod(e.target.value)}></input>}
+            {interval === "months" && <input type="range" min="1" max="6" value={period} onChange={(e)=>setPeriod(e.target.value)}></input>}
             <p>{period}</p>
         </div>
         <button onClick={changeFilter}>Зберегти</button>

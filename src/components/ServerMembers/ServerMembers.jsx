@@ -6,10 +6,11 @@ import { Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis } from 'recharts'
 import { data } from './DataServerMmbers';
 import { CustomTooltip } from './CustomTooltip/CustomTooltip';
 import { selectWindowWidth } from '../../redux/filter/selectors';
+import { selectServerMembers } from '../../redux/statistics/selectors';
 
 export const ServerMembers = () => {
     const dispatch = useDispatch();
-    const statistics = useSelector(state => state.statistics);
+   const statistics = useSelector(selectServerMembers); 
     const ww = useSelector(selectWindowWidth);
     const size = ww * 0.85 - 100;
 
@@ -45,6 +46,17 @@ export const ServerMembers = () => {
         }, 500);
     };
 
+    const dataSize = statistics.length; 
+    const lastOne = statistics[dataSize - 1]
+
+    let totalJoined = 0;
+    let totalLeft = 0;
+
+    statistics.forEach(el => {
+        totalJoined += el.joined;
+        totalLeft += el.left
+    });
+
     return (
         <section>
             <div>
@@ -53,13 +65,15 @@ export const ServerMembers = () => {
 
                 <div className={styles.containerBorder}>
                     <div className={styles.containers}>
+
                         <div
                             className={`${styles.totalMembersContainer2} ${!clickStates.clickJoined ? styles.statusChart__statusItem__inactive : ''}`}
                             onClick={() => handleClick('clickJoined')}
                         >
                             <span className={styles.statusChart_Span}></span>
+                            
                             <p className={styles.totalMembersText}>Приєдналось</p>
-                            <p className={styles.totalMembersText}>320</p>
+                            <p className={styles.totalMembersText}>{totalJoined}</p>
                         </div>
                         <div
                             className={`${styles.totalMembersContainer3} ${!clickStates.clickLeft ? styles.statusChart__statusItem__inactive : ''}`}
@@ -67,7 +81,7 @@ export const ServerMembers = () => {
                         >
                             <span className={styles.statusChart_Span}></span>
                             <p className={styles.totalMembersText_3}>Покинуло</p>
-                            <p className={styles.totalMembersText_3}>198</p>
+                            <p className={styles.totalMembersText_3}>{totalLeft}</p>
                         </div>
                         <div
                             className={`${styles.totalMembersContainer} ${!clickStates.clickTotal ? styles.statusChart__statusItem__inactive : ''}`}
@@ -78,13 +92,13 @@ export const ServerMembers = () => {
                                 Кількість учасників
                             </p>
                             <p className={`${styles.totalMembersText} ${!clickStates.clickTotal ? styles.statusChart__statusItem__text__inactive_2 : ''}`}>
-                                3444
+                                {lastOne.total}
                             </p>
                         </div>
                     </div>
 
                     <div className={styles.containerSchedule}>
-                        <AreaChart width={size} height={310} data={data}
+                        <AreaChart width={size} height={310} data={statistics}
                             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                             <defs>
                                 <linearGradient id="colorTotal" x1="0" y1="0" x2="0" y2="1">
