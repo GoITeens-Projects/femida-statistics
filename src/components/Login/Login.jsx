@@ -9,7 +9,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const auth = useSelector(state => state.auth);
+  // const auth = useSelector(state => state.auth);
 
   //? State
   // const accessToken = auth.accessToken;
