@@ -1,11 +1,10 @@
-import { Area, AreaChart, CartesianGrid, Legend, Tooltip, XAxis, YAxis } from 'recharts';
+import { Area, AreaChart, CartesianGrid,Tooltip, XAxis, YAxis } from 'recharts';
 import styles from './StatusChart.module.css';
-import { statusData } from './DataStatus';
 import { CustomTooltip } from './CustomTooltip/CustomTooltip';
 import { useSelector } from 'react-redux';
 import { selectWindowWidth } from '../../redux/filter/selectors';
 import { selectMembersStatuses } from '../../redux/statistics/selectors';
-import { useEffect, useState } from 'react';
+import {useState } from 'react';
 
 export const StatusChart = () => {
   const membersStatuses = useSelector(selectMembersStatuses)

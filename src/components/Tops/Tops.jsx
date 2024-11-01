@@ -1,13 +1,13 @@
 import styles from './Tops.module.css';
 import TopSection from 'components/TopSection/TopSection';
 import { selectMessagesLogs} from '../../redux/statistics/selectors';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 
 const TopChannels = () => {
   const messegesLogs = useSelector(selectMessagesLogs)
-   const [users, setUser] = useState([]);
+  const users = []
 
    useEffect(() => {
        const fetchUser = async (user) => {
