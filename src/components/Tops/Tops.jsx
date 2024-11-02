@@ -38,7 +38,7 @@ const TopChannels = () => {
         
        }
       )  
-    }, [counter, currLogs, messegesLogs, users])
+    }, [counter, currLogs, messegesLogs])
    
 
   return (
