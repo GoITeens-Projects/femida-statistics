@@ -9,7 +9,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const auth = useSelector(state => state.auth);
+  // const auth = useSelector(state => state.auth);
 
   //? State
   // const accessToken = auth.accessToken;
@@ -71,7 +71,7 @@ const Login = () => {
               </a>
             </li>
             <li className={css.login__item}>
-              <a href="https://discord.com" className={css.login__link}>
+              <a href="https://femida-api.onrender.com/auth/discord" className={css.login__link}>
                 <button
                   type="button"
                   className={`${css['login__link-btn']} ${css['login-discord-icon']}`}

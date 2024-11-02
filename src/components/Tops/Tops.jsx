@@ -1,15 +1,17 @@
 import styles from './Tops.module.css';
 import TopSection from 'components/TopSection/TopSection';
 import { selectMessagesLogs} from '../../redux/statistics/selectors';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 
 const TopChannels = () => {
   const messegesLogs = useSelector(selectMessagesLogs)
+
    const [users, setUser] = useState([]);
    const currLogs = messegesLogs.slice(0,10)
    let counter = 0
+
    useEffect(() => {
     if(counter){
       console.log("counter");
