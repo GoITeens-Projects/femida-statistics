@@ -140,9 +140,12 @@ export const fetchStatistics = createAsyncThunk('stats/getStats', async (time, t
                 counts[id] = (counts[id] || 0) + 1
             });
 
-            const messagesLogs = Object.entries(counts).map(([key, value]) => {
+            const logs = Object.entries(counts).map(([key, value]) => {
                 return {id: key, count: value}
             })
+
+            const messagesLogs = logs.sort((a, b) => b.count - a.count)
+            
 
         // messagesLogs = [...acc.messagesLogs, ...newLogs]
 

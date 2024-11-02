@@ -68,7 +68,7 @@ export const StatusChart = () => {
                                     {status === 'online' ? 'В мережі' : status === 'away' ? 'Відійшли' : status === 'dnd' ? 'Не турбувати' : 'Не в мережі'}
                                 </p>
                                 <p className={`${styles.statusChart__statusCount} ${!clickStates[`click${status.charAt(0).toUpperCase() + status.slice(1)}`] ? styles.statusChart__statusItem__text__inactive_2 : ''}`}>
-                                    {index === 0 ? lastOne.online : index === lastOne.away ? 180 : index === 2 ? lastOne.dnd : lastOne.offline}
+                                    {index === 0 ? lastOne.online : index === 1 ?lastOne.away : index === 2 ? lastOne.dnd : lastOne.offline}
                                 </p>
                             </div>
                         ))}

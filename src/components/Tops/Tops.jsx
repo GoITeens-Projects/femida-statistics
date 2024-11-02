@@ -7,9 +7,17 @@ import { useSelector } from 'react-redux';
 
 const TopChannels = () => {
   const messegesLogs = useSelector(selectMessagesLogs)
-  const users = []
+
+   const [users, setUser] = useState([]);
+   const currLogs = messegesLogs.slice(0,10)
+   let counter = 0
 
    useEffect(() => {
+    if(counter){
+      console.log("counter");
+      return
+    }
+    counter = 1
        const fetchUser = async (user) => {
            const response = await fetch(`https://discordlookup.mesalytic.moe/v1/user/${user.id}`);
 
@@ -19,9 +27,11 @@ const TopChannels = () => {
                                  userName: data.global_name ? data.global_name : data.username,
                                  messagesQuantity: user.count,
                                  id: user.id})
-                                 console.log(users, messegesLogs.length * 2 === users.length);                   
+                                 console.log(users, currLogs.length === users.length);                   
        };
-       messegesLogs.forEach(log => {
+       console.log(messegesLogs);
+       console.log(currLogs);
+       currLogs.forEach(log => {
         fetchUser(log)
         
        }
@@ -32,7 +42,7 @@ const TopChannels = () => {
   return (
     <>
       <div className={`${styles.topsBox}`}>
-        {messegesLogs.length * 2 === users.length && <>
+        {currLogs.length === users.length && <>
         <TopSection toArr={users} title={'Топ учасників'} isChannel={false} />
         <TopSection toArr={users} title={'Топ каналів'} isChannel={true} />
         </>

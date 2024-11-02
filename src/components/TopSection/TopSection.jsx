@@ -37,7 +37,7 @@ const COLORS = [
   
   const size = (ww * 0.85 - 120) / 2
   const chart = size - 20
-  const topArr = toArr.slice((toArr.length) /2)
+  const topArr = toArr
   const chartData = topArr.map(user => {return {label: user.userName, value: user.messagesQuantity}})
 
   return (
