@@ -1,24 +1,10 @@
 import { useSelector } from 'react-redux';
-import styles from './TopSection.module.css';
 import DonutChart from 'react-donut-chart';
 import { selectWindowWidth } from '../../redux/filter/selectors';
-import { TopsGlobalBox } from './TopSection.styled';
-import { useEffect } from 'react';
 import MainTop from 'components/MainTop/MainTop';
 
 // import { PieChart, Pie, Cell, Legend, Tooltip } from 'recharts';
-const data = [
-  { label: 'Назва чогось', value: 350 },
-  { label: 'Group B', value: 300 },
-  { label: 'Group C', value: 200 },
-  { label: 'Group D', value: 150 },
-  { label: 'Group E', value: 400 },
-  { label: 'Group F', value: 300 },
-  { label: 'Group G', value: 300 },
-  { label: 'Group L', value: 200 },
-  { label: 'Group X', value: 400 },
-  { label: 'Group I', value: 300 },
-];
+
 const COLORS = [
   '#E58845',
   '#E05744',
