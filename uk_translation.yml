@@ -23,3 +23,6 @@ files:
   run: |
     git fetch --all
     git reset --hard origin/main
+
+permissions:
+  contents: write   # Дозволяє запис у репозиторій
