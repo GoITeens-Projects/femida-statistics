@@ -26,3 +26,8 @@ files:
 
 permissions:
   contents: write   # Дозволяє запис у репозиторій
+
+  - name: Cleanup
+  run: |
+    git worktree remove github-pages-deploy-action-temp-deployment-folder --force
+
