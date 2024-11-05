@@ -7,3 +7,7 @@ files:
     git remote add origin https://github.com/GoITeens-Projects/femida-statistics.git
     git fetch origin
 
+- name: Checkout code
+  uses: actions/checkout@v2
+  with:
+    token: ${{ secrets.GITHUB_TOKEN }}
