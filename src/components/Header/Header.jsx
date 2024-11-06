@@ -1,7 +1,14 @@
 import styles from './Header.module.css';
 import logo from '../../imgs/logo.png';
+import { useCallback } from 'react';
 
 const Header = () => {
+  const toggleTheme = useCallback(() => {
+    const root = document.querySelector('html');
+    const value = root.dataset.theme === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', value);
+    localStorage.setItem('theme', value);
+  });
   return (
     <header className={styles.header}>
       <img src={logo} alt="logo" className={styles.headerLogo} />
@@ -26,6 +33,7 @@ const Header = () => {
       </nav>
       <div className={styles.headerBox}>
         <svg
+          onClick={toggleTheme}
           xmlns="http://www.w3.org/2000/svg"
           width="50"
           height="20"
