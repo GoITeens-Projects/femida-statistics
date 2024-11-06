@@ -30,7 +30,7 @@ const COLORS = [
     <MainTop topArr={topArr} title={title} isChannel={isChannel}>
       <DonutChart
         data={chartData}
-        strokeColor="#fff"
+        strokeColor="--bg-primary-color"
         innerRadius={0.4}
         colors={COLORS}
         width={chart}

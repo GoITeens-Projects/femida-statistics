@@ -90,8 +90,8 @@ export const StatusChart = () => {
                                     <stop offset="95%" stopColor="var(--chart-offline-accent-color)" stopOpacity={0.45} />
                                 </linearGradient>
                                 <linearGradient id="colorOffline" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#999999" stopOpacity={0.2} />
-                                    <stop offset="95%" stopColor="#999999" stopOpacity={0.2} />
+                                    <stop offset="5%" stopColor=" --text-secondary-color" stopOpacity={0.2} />
+                                    <stop offset="95%" stopColor=" --text-secondary-color" stopOpacity={0.2} />
                                 </linearGradient>
                             </defs>
                             <XAxis dataKey="name" tick={{ fontSize: 12, stroke: "#666" }} axisLine={{ stroke: "#ccc", strokeWidth: 2 }} tickLine={{ stroke: "#ccc" }} />
@@ -104,7 +104,7 @@ export const StatusChart = () => {
                                         key={status}
                                         type="monotone"
                                         dataKey={status}
-                                        stroke={status === 'online' ? "var(--chart-online-accent-color)" : status === 'away' ? "var(--chart-inactive-color)" : status === 'dnd' ? "var(--chart-offline-accent-color)" : "#999999"}
+                                        stroke={status === 'online' ? "var(--chart-online-accent-color)" : status === 'away' ? "var(--chart-inactive-color)" : status === 'dnd' ? "var(--chart-offline-accent-color)" : " --text-secondary-color"}
                                         fillOpacity={1}
                                         fill={`url(#color${status.charAt(0).toUpperCase() + status.slice(1)})`}
                                         name={status === 'online' ? "В мережі" : status === 'away' ? "Відійшли" : status === 'dnd' ? "Не турбувати" : "Не в мережі"}

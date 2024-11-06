@@ -36,27 +36,28 @@ export const FilterModal = ({ delince }) => {
         } else {
           return 'годин';
         }
-        break;
+        
       case 'days':
         if (period < 5) {
           return 'дні';
         } else {
           return 'днів';
         }
-        break;
+        
       case 'weeks':
         if (period < 5) {
           return 'тижні';
         } else {
           return 'тижнів';
         }
-        break;
+      
       case 'months':
         if (period < 5) {
           return 'місяця';
         } else {
           return 'місяців';
         }
+        default:
         break;
     }
   };
@@ -95,7 +96,7 @@ export const FilterModal = ({ delince }) => {
           >
             <path
               d="M3 1L1 3L3 5"
-              stroke="#678F95"
+              stroke="--text-accent-color"
               stroke-width="0.5"
               stroke-linecap="round"
               stroke-linejoin="round"

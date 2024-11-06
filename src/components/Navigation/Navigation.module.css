@@ -4,7 +4,7 @@
 
 .navigationItem{
     padding: 10px 30px;
-    color: #000;
+    color: var(--text-color);
     font-family: "IBM Plex Mono";
     font-size: 10px;
     font-style: normal;
@@ -13,5 +13,5 @@
 }
 
 .navigationItem:hover{
-    background-color: #ACD0D6;
+    background-color: var(--btn-accent-color);
 }
