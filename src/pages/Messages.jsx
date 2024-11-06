@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 import { fetchStatistics } from "../redux/statistics/operation";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import setTheme from 'utils/setTheme';
 
 const testTop = [
     {

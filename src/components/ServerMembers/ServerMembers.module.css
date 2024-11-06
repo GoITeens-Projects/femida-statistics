@@ -66,7 +66,7 @@
 }
 
 .totalMembersText_3:nth-of-type(2) {
-    color: #000;
+    color: var(--text-color);
     margin-top: 15px;
 }
 
@@ -154,6 +154,6 @@
 .statusChart_Span {
     position: absolute;
     height: 42px;
-    border: 1px solid #91CCF4;
+    border: 1px solid var(--chart-color);
     margin-top: 13px;
 }

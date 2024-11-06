@@ -1,17 +1,17 @@
 .filterLine {
   width: 100%;
   height: 1px;
-  background-color: #d2f1f6;
+  background-color: var(--bg-accent-color);
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
 .filterModal {
   padding: 10px 25px;
-  background-color: #fafafa;
+  background-color: var(--bg-modal-color);
   position: absolute;
   z-index: 1000;
-  outline: 1px solid #d2f1f6;
+  outline: 1px solid var(--bg-accent-color);
   /* width: 207px; */
   /* height: 284px; */
 }
@@ -23,8 +23,9 @@
   justify-content: center;
   gap: 5px;
   border-radius: 31px;
-  border: 1px solid #558db2;
+  border: 1px solid var(--border-accent-color);
   padding: 5px 15px;
+  color: var(--text-color)
 }
 
 .headerFilterModal {
@@ -42,7 +43,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #678f95;
+  color: var(--text-accent-color);
   font-family: 'IBM Plex Sans';
   font-size: 6px;
   font-style: normal;
@@ -53,7 +54,7 @@
 }
 
 .filterNameTitle {
-  color: #000;
+  color: var(--text-color);
   font-size: 10px;
   font-style: normal;
   font-weight: 500;
@@ -68,7 +69,7 @@
 }
 
 .intervalTitle {
-  color: #000;
+  color: var(--text-color);
   font-size: 10px;
   font-style: normal;
   font-weight: 500;
@@ -76,7 +77,7 @@
 }
 
 .dispalyTimeTitle {
-  color: #678f95;
+  color: var(--text-accent-color);
   font-family: 'IBM Plex Sans';
   font-size: 6px;
   font-style: normal;
@@ -96,7 +97,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #999;
+  color: var(--text-secondary-color);
   text-align: center;
   font-size: 8px;
   font-weight: 500;
@@ -104,8 +105,8 @@
 }
 
 .chooseBtnActive {
-  border-bottom: 1px solid #678f95;
-  color: #678f95;
+  border-bottom: 1px solid var(--text-accent-color);
+  color: var(--text-accent-color);
 }
 
 .unitsOfTimeBox {
@@ -113,7 +114,7 @@
 }
 
 .unitsOfTimeTitle {
-  color: #000;
+  color: var(--text-color);
   font-size: 10px;
   font-style: normal;
   font-weight: 500;
@@ -121,7 +122,7 @@
 }
 
 .unitsOfTimeSubtitle {
-  color: #678f95;
+  color: var(--text-accent-color);
   font-family: 'IBM Plex Sans';
   font-size: 6px;
   font-style: normal;
@@ -143,7 +144,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #999;
+  color: var(--text-secondary-color);
   text-align: center;
   font-size: 8px;
   font-weight: 500;
@@ -155,7 +156,7 @@
 }
 
 .periodOfTimeTitle {
-  color: #000;
+  color: var(--text-color);
   font-size: 10px;
   font-style: normal;
   font-weight: 500;
@@ -163,7 +164,7 @@
 }
 
 .periodOfTimeSubtitle {
-  color: #678f95;
+  color: var(--text-accent-color);
   font-family: 'IBM Plex Sans';
   font-size: 6px;
   font-style: normal;
@@ -182,13 +183,13 @@
 }
 
 .periodOfTimeInput::-webkit-slider-runnable-track {
-  background: #acd0d6;
+  background: var(--btn-accent-color);
   width: 100%;
   height: 1px;
 }
 
 .periodOfTimeInput::-moz-range-track {
-  background: #acd0d6;
+  background: var(--btn-accent-color);
   width: 100%;
   height: 1px;
 }
@@ -197,7 +198,7 @@
   -webkit-appearance: none;
   appearance: none;
   margin-top: -5.5px;
-  background-color: #d2f1f6;
+  background-color: var(--bg-accent-color);
   border-radius: 3px;
   width: 6px;
   height: 12px;
@@ -207,12 +208,12 @@
   width: 6px;
   height: 12px;
   border-radius: 3px;
-  background: #d2f1f6;
+  background: var(--bg-accent-color);
   margin-top: -5.5px;
 }
 
 .chosenPeriodText {
-  color: #96b8bd;
+  color: var(--shadow-secondary-border);
   font-family: 'IBM Plex Sans';
   font-size: 8px;
   font-style: normal;
@@ -225,9 +226,9 @@
 }
 
 .saveFilterBtn {
-  background-color: #acd0d6;
+  background-color: var(--btn-accent-color);
   padding: 6px 18px;
-  color: #fff;
+  color: var(--bg-primary-color);
   font-size: 6px;
   font-style: normal;
   font-weight: 500;
