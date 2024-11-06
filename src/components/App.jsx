@@ -11,7 +11,7 @@ import { StatusChart } from './StatusChart/StatusChart';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setWindowWidth } from '../redux/filter/operation';
-import s from './Main.module.css'
+import s from './Main.module.css';
 import { Filter } from './Filter/Filter';
 import { fetchStatistics } from '../redux/statistics/operation';
 
@@ -91,25 +91,24 @@ const testTop = [
 export const App = () => {
   const dispatch = useDispatch();
 
-  useEffect(()=> {
-    dispatch(setWindowWidth(window.innerWidth))
-    dispatch(fetchStatistics)
-  }, [dispatch])
+  useEffect(() => {
+    dispatch(setWindowWidth(window.innerWidth));
+    dispatch(fetchStatistics);
+  }, [dispatch]);
+  
   return (
     <>
-    <Header />
-    <div className={s.countainer}>
-      
-      <div className={s.navigationCountainer}>
-      <Navigation />
+      <Header />
+      <div className={s.countainer}>
+        <div className={s.navigationCountainer}>
+          <Navigation />
+        </div>
+
+        <div className={s.mainCountainer}>
+          <Filter />
+          <Outlet />
+        </div>
       </div>
-      
-      
-      <div className={s.mainCountainer}>
-        <Filter/>
-      <Outlet />
-      </div>
-    </div>
     </>
   );
 };
