@@ -1,8 +1,9 @@
 // import { selectWindowWidth } from 'redux/filter/selectors';
 import { selectWindowWidth } from '../../redux/filter/selectors';
 import { TopsGlobalBox } from 'components/TopSection/TopSection.styled';
-import styles from '../TopSection/TopSection.module.css'
+import styles from '../TopSection/TopSection.module.css';
 import { useSelector } from 'react-redux';
+import Shadow from 'components/Shadow/Shadow';
 
 const MainTop = ({ topArr, title, isChannel, children }) => {
   const ww = useSelector(selectWindowWidth);
@@ -13,6 +14,15 @@ const MainTop = ({ topArr, title, isChannel, children }) => {
     <TopsGlobalBox size={size}>
       <h2 className={styles.topsTitle}>{title}</h2>
       <div className={styles.topsBox}>
+        <Shadow
+          leftFirst={-7}
+          widthFirst={5}
+          heightSecond={5}
+          rightSecond={3}
+          bottomSecond={-7}
+          backgroundBoth={'#6EABD4'}
+          borderColorBoth={'#558DB2'}
+        />
         <div className={styles.topsHeaderBox}>
           <p className={styles.topsRank}>
             <span>
