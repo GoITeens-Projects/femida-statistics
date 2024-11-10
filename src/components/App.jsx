@@ -98,7 +98,8 @@ export const App = () => {
   
   return (
     <>
-      <Header />
+    <Login/>
+      {/* <Header />
       <div className={s.countainer}>
         <div className={s.navigationCountainer}>
           <Navigation />
@@ -108,7 +109,7 @@ export const App = () => {
           <Filter />
           <Outlet />
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

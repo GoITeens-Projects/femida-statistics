@@ -1,5 +1,5 @@
 import css from './Login.module.css';
-
+import axios from '../../redux/axiosConfig';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/auth/operation';
@@ -13,14 +13,15 @@ const Login = () => {
   //? State
   // const accessToken = auth.accessToken;
 
-  const handleLogin = e => {
+  const handleLogin = async e => {
     e.preventDefault();
     const loginData = {
       username: username,
       password: password,
     };
     console.log(loginData);
-    dispatch(login(loginData));
+    const res = await axios.post('/auth/login', loginData);
+    // dispatch(login(loginData));
   };
   return (
     <div className={css['login-overlay']}>
@@ -33,7 +34,7 @@ const Login = () => {
         <div className={css['login-title-box']}>
           <h2 className={css.login__title}>Увійти</h2>
         </div>
-        <form className={css.login__form} onSubmit={handleLogin}>
+        <form className={css.login__form} onSubmit={(e)=>handleLogin(e)}>
           <label className={css.login__label}>
             Ім’я користувача
             <input
