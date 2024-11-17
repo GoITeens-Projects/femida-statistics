@@ -54,16 +54,22 @@ const MainTop = ({ topArr, title, isChannel, children }) => {
               <li key={top.id} className={styles.topsItem}>
                 <p className={styles.topsUserRankText}>{idx + 1}</p>
                 {isChannel ? null : (
-                  <img src={top.userAvatarUrl} className={styles.topsUserImg} />
+                  <img
+                    src={
+                      'https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg'
+                    }
+                    className={styles.topsUserImg}
+                    alt="userImg"
+                  />
                 )}
                 {/* <h2 className={styles.topsUsername}>{top.userName}</h2> */}
                 {isChannel ? (
-                  <h2 className={styles.topsChannel}>{top.userName}</h2>
+                  <h2 className={styles.topsChannel}>{top.username}</h2>
                 ) : (
-                  <h2 className={styles.topsUsername}>{top.userName}</h2>
+                  <h2 className={styles.topsUsername}>{top.username}</h2>
                 )}
                 <p className={styles.topsUserMessagesQuantityText}>
-                  {top.messagesQuantity}
+                  {top.count}
                 </p>
               </li>
             );
@@ -76,3 +82,17 @@ const MainTop = ({ topArr, title, isChannel, children }) => {
 };
 
 export default MainTop;
+
+// {/* <li key={top.id} className={styles.topsItem}>
+//   <p className={styles.topsUserRankText}>{idx + 1}</p>
+//   {isChannel ? null : (
+//     <img src={top.avatar} className={styles.topsUserImg} alt="userImg" />
+//   )}
+//   {/* <h2 className={styles.topsUsername}>{top.userName}</h2> */}
+//   {isChannel ? (
+//     <h2 className={styles.topsChannel}>{top.username}</h2>
+//   ) : (
+//     <h2 className={styles.topsUsername}>{top.username}</h2>
+//   )}
+//   <p className={styles.topsUserMessagesQuantityText}>{top.count}</p>
+// </li>; */}

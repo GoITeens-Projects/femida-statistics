@@ -94,7 +94,7 @@ export const App = () => {
   useEffect(() => {
     dispatch(setWindowWidth(window.innerWidth));
     dispatch(fetchStatistics);
-  }, [dispatch]);
+  }, []);
   
   return (
     <>

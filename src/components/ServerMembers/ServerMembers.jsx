@@ -199,7 +199,7 @@ export const ServerMembers = () => {
                 tickLine={false}
               />
               <CartesianGrid
-                stroke="var(--bg-accent-color)"
+                stroke="var(--chart-line-color)"
                 strokeWidth={2}
                 vertical={false}
               />
