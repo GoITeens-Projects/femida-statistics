@@ -1,0 +1,35 @@
+.footer {
+  background-color: var(--bg-footer-color);
+  width: 100%;
+  position: absolute;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 30px 100px 30px 100px;
+}
+
+.footerNav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  margin-left: 50%;
+}
+
+.footerLink {
+  color: var(--subtext-color);
+  text-align: right;
+  font-family: 'IBM Plex Sans';
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.footerSocialsList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  margin-left: 90px;
+}

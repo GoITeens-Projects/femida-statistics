@@ -64,6 +64,7 @@ html[data-theme='light'] {
   --bg-accent-color: #d2f1f6;
   --bg-primary-color: #fff;
   --bg-modal-color: #fafafa;
+  --bg-footer-color: #d2f1f6;
 
   --input-active-color: #d6d6d6;
 
@@ -109,6 +110,7 @@ html[data-theme='dark'] {
   --bg-accent-color: #061c1f;
   --bg-primary-color: #191919;
   --bg-modal-color: #191919;
+  --bg-footer-color: #191919;
 
   --input-active-color: #6e6e6e;
 
