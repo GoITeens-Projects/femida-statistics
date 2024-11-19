@@ -14,6 +14,7 @@ import { setWindowWidth } from '../redux/filter/operation';
 import s from './Main.module.css';
 import { Filter } from './Filter/Filter';
 import { fetchStatistics } from '../redux/statistics/operation';
+import Footer from './Footer/Footer';
 
 const testTop = [
   {
@@ -109,6 +110,7 @@ export const App = () => {
           <Outlet />
         </div>
       </div>
+      <Footer/>
     </>
   );
 };

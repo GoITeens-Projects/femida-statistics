@@ -39,7 +39,7 @@ export const Overview = () => {
 
   useEffect(() => {
     // Виконуємо fetch при завантаженні компонента
-    setTheme()
+    setTheme();
     dispatch(fetchStatistics());
   }, [dispatch]);
   return (
