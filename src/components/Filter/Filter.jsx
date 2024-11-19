@@ -1,6 +1,8 @@
 import styles from './Filter.module.css';
 import { useState } from 'react';
 import { FilterModal } from './FilterModal';
+import { selectWindowWidth } from '../../redux/filter/selectors';
+import { useSelector } from 'react-redux';
 
 export const Filter = () => {
   const [modalTreaker, setModalTreaker] = useState(false);
