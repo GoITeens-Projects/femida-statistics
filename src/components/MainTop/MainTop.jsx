@@ -1,4 +1,3 @@
-// import { selectWindowWidth } from 'redux/filter/selectors';
 import { selectWindowWidth } from '../../redux/filter/selectors';
 import { TopsGlobalBox } from 'components/TopSection/TopSection.styled';
 import styles from '../TopSection/TopSection.module.css';
@@ -54,16 +53,33 @@ const MainTop = ({ topArr, title, isChannel, children }) => {
               <li key={top.id} className={styles.topsItem}>
                 <p className={styles.topsUserRankText}>{idx + 1}</p>
                 {isChannel ? null : (
-                  <img src={top.userAvatarUrl} className={styles.topsUserImg} />
+                  <img
+                    src={top.avatar}
+                    className={styles.topsUserImg}
+                    alt={`${top.username} avatar`}
+                  />
                 )}
-                {/* <h2 className={styles.topsUsername}>{top.userName}</h2> */}
                 {isChannel ? (
-                  <h2 className={styles.topsChannel}>{top.userName}</h2>
+                  <h2 className={styles.topsChannel}>{top.username}</h2>
                 ) : (
-                  <h2 className={styles.topsUsername}>{top.userName}</h2>
+                  <h2 className={styles.topsUsername}>
+                    {`${top.globalName ? top.globalName : ''} ${
+                      top.username && top.globalName
+                        ? `(${top.username})`
+                        : top.username
+                    }`.length > 51
+                      ? `${`${top.globalname ? top.globalName : ''} ${
+                          top.username ? top.username : ''
+                        }`.slice(0, 51)}...`
+                      : `${top.globalName ? top.globalName : ''} ${
+                          top.username && top.globalName
+                            ? `(${top.username})`
+                            : top.username
+                        }`}
+                  </h2>
                 )}
                 <p className={styles.topsUserMessagesQuantityText}>
-                  {top.messagesQuantity}
+                  {top.count}
                 </p>
               </li>
             );

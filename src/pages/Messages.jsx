@@ -85,7 +85,8 @@ export const Messages = () => {
   useEffect(() => {
       // Виконуємо fetch при завантаженні компонента
       dispatch(fetchStatistics());
-  }, [dispatch]);
+      
+  }, []);
     return <>
     <MessagesChart/>
     <TopChannels topArr={testTop}/>

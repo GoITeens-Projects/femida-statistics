@@ -10,7 +10,6 @@ import MainTop from 'components/MainTop/MainTop';
 import topStyles from '../components/Tops/Tops.module.css';
 import setTheme from 'utils/setTheme';
 import updateTokens from 'utils/updateToken';
-import Login from 'components/Login/Login';
 
 const testTop = [
   {
@@ -44,10 +43,9 @@ export const Overview = () => {
     updateTokens()
     setTheme()
     dispatch(fetchStatistics());
-  }, [dispatch]);
+  }, []);
   return (
     <>
-    <Login/>
       <ServerMembers />
       <MessagesChart />
       <div className={topStyles.topsBox}>

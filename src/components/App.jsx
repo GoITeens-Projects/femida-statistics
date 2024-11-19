@@ -94,12 +94,11 @@ export const App = () => {
   useEffect(() => {
     dispatch(setWindowWidth(window.innerWidth));
     dispatch(fetchStatistics);
-  }, [dispatch]);
+  }, []);
   
   return (
     <>
-    <Login/>
-      {/* <Header />
+      <Header />
       <div className={s.countainer}>
         <div className={s.navigationCountainer}>
           <Navigation />
@@ -109,7 +108,7 @@ export const App = () => {
           <Filter />
           <Outlet />
         </div>
-      </div> */}
+      </div>
     </>
   );
 };

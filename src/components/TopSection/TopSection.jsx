@@ -18,13 +18,20 @@ const COLORS = [
   '#FEC830',
 ];
 
-  const TopSection = ({ toArr, title, isChannel }) => {
-  const ww = useSelector(selectWindowWidth)
-  
-  const size = (ww * 0.85 - 120) / 2
-  const chart = size - 20
-  const topArr = toArr
-  const chartData = topArr.map(user => {return {label: user.userName, value: user.messagesQuantity}})
+const TopSection = ({ toArr, title, isChannel }) => {
+  const ww = useSelector(selectWindowWidth);
+
+  const size = (ww * 0.85 - 120) / 2;
+  const chart = size - 20;
+  const topArr = toArr ? toArr : [];
+  const chartData = topArr.map(user => {
+    const potentialName = `${user.globalName} (${user.userName})`;
+    const name =
+      potentialName.length > 15
+        ? `${potentialName.slice(0, 13)}...`
+        : potentialName;
+    return { label: name, value: user.count };
+  });
 
   return (
     <MainTop topArr={topArr} title={title} isChannel={isChannel}>

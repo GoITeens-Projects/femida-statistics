@@ -20,13 +20,11 @@ export const router = createBrowserRouter(
 
                 {
                     path: '/overview',
-                    element: <Overview/>
-                    // <PrivateRoute component={Overview} redirectTo='/' />
+                    element: <PrivateRoute component={Overview} redirectTo='/' />
                 },
                 {
                     path: '/',
-                    element: <Login/>
-                    //  <RestrictedRouter component={Login} redirectTo='/Overview' />
+                    element: <RestrictedRouter component={Login} redirectTo='/Overview' />
                 },
 
                 {
