@@ -7,13 +7,14 @@ export const login = createAsyncThunk('auth/login', async (body, thunkApi) => {
   try {
     console.log(body);
 
-    const res = await axios.post('/auth/login', body);
+    const res = await axios.post('/auth/login', body, {withCredentials: true, credentials: 'include'});
     console.log(res);
     const { accessToken, refreshToken } = res.data;
-    console.log(accessToken);
-
+    // console.log(accessToken);
+    const expires = new Date(new Date().getTime() + 1000 * 60 );
     // Збереження токенів в localStorage
-    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('token', accessToken);
+    localStorage.setItem('expires', expires);
     // localStorage.setItem('refreshToken', refreshToken);
 
     return { accessToken, refreshToken, user: body.username };

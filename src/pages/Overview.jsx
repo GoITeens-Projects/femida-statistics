@@ -9,9 +9,11 @@ import { MessagesChart } from 'components/MessagesChart/MessagesChart';
 import MainTop from 'components/MainTop/MainTop';
 import topStyles from '../components/Tops/Tops.module.css';
 import setTheme from 'utils/setTheme';
+import updateTokens from 'utils/updateToken';
 import { selectMessagesLogs } from '../redux/statistics/selectors';
 import getUsersInfo from 'utils/getUsersInfo';
 import axios from '../redux/axiosConfig';
+
 
 const testTop = [
   {
@@ -37,6 +39,8 @@ export const Overview = () => {
 
   useEffect(() => {
     // Виконуємо fetch при завантаженні компонента
+
+    updateTokens()
     setTheme();
     dispatch(fetchStatistics());
   }, []);
