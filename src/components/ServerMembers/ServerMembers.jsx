@@ -88,54 +88,49 @@ export const ServerMembers = () => {
           />
           <div className={styles.containers}>
             <div
-              className={`${styles.totalMembersContainer2} ${
-                !clickStates.clickJoined
-                  ? styles.statusChart__statusItem__inactive
+              className={`${styles.totalMembersContainer2} ${!clickStates.clickJoined
+                  ? styles.statusChartStatusItemInactive
                   : ''
-              }`}
+                }`}
               onClick={() => handleClick('clickJoined')}
             >
-              <span className={styles.statusChart_Span}></span>
+              <span className={styles.statusChartSpan}></span>
 
               <p className={styles.totalMembersText}>Приєдналось</p>
               <p className={styles.totalMembersText}>{totalJoined}</p>
             </div>
             <div
-              className={`${styles.totalMembersContainer3} ${
-                !clickStates.clickLeft
-                  ? styles.statusChart__statusItem__inactive
+              className={`${styles.totalMembersContainer3} ${!clickStates.clickLeft
+                  ? styles.statusChartStatusItemInactive
                   : ''
-              }`}
+                }`}
               onClick={() => handleClick('clickLeft')}
             >
-              <span className={styles.statusChart_Span}></span>
-              <p className={styles.totalMembersText_3}>Покинуло</p>
-              <p className={styles.totalMembersText_3}>{totalLeft}</p>
+              <span className={styles.statusChartSpan}></span>
+              <p className={styles.totalMembersText3}>Покинуло</p>
+              <p className={styles.totalMembersText3}>{totalLeft}</p>
             </div>
             <div
-              className={`${styles.totalMembersContainer} ${
-                !clickStates.clickTotal
-                  ? styles.statusChart__statusItem__inactive
+              className={`${styles.totalMembersContainer} ${!clickStates.clickTotal
+                  ? styles.statusChartStatusItemInactive
                   : ''
-              }`}
+                }`}
               onClick={() => handleClick('clickTotal')}
             >
-              <span className={styles.statusChart_Span}></span>
+              <span className={styles.statusChartSpan}></span>
               <p
-                className={`${styles.totalMembersText} ${
-                  !clickStates.clickTotal
-                    ? styles.statusChart__statusItem__text__inactive
+                className={`${styles.totalMembersText} ${!clickStates.clickTotal
+                    ? styles.statusChartStatusItemTextInactive
                     : ''
-                }`}
+                  }`}
               >
                 Кількість учасників
               </p>
               <p
-                className={`${styles.totalMembersText} ${
-                  !clickStates.clickTotal
-                    ? styles.statusChart__statusItem__text__inactive_2
+                className={`${styles.totalMembersText} ${!clickStates.clickTotal
+                    ? styles.statusChartStatusItemTextInactive2
                     : ''
-                }`}
+                  }`}
               >
                 {lastOne.total}
               </p>
@@ -199,7 +194,7 @@ export const ServerMembers = () => {
                 tickLine={false}
               />
               <CartesianGrid
-                stroke="var(--bg-accent-color)"
+                stroke="var(--chart-line-color)"
                 strokeWidth={2}
                 vertical={false}
               />

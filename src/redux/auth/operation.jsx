@@ -17,7 +17,7 @@ export const login = createAsyncThunk('auth/login', async (body, thunkApi) => {
     localStorage.setItem('expires', expires);
     // localStorage.setItem('refreshToken', refreshToken);
 
-    return { accessToken, refreshToken };
+    return { accessToken, refreshToken, user: body.username };
   } catch (error) {
     return thunkApi.rejectWithValue(
       error.response?.data?.message || 'Помилка авторизації'

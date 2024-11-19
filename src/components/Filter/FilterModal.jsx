@@ -7,8 +7,13 @@ import {
   selectFilterUnit,
 } from '../../redux/filter/selectors';
 import styles from './Filter.module.css';
+import { selectWindowWidth } from '../../redux/filter/selectors';
+import Shadow from 'components/Shadow/Shadow';
 
 export const FilterModal = ({ delince }) => {
+  const ww = useSelector(selectWindowWidth);
+  const size = (ww * 0.85 - 120) / 2;
+
   const dispatch = useDispatch();
   const selInterval = useSelector(selectFilterInterval);
   const selUnit = useSelector(selectFilterUnit);
@@ -31,33 +36,41 @@ export const FilterModal = ({ delince }) => {
   const foundCorrectPeriod = ({ interval, period }) => {
     switch (interval) {
       case 'hours':
-        if (period < 5) {
+        if (period === 1) {
+          return 'година';
+        } else if (period < 5) {
           return 'години';
         } else {
           return 'годин';
         }
-        
+
       case 'days':
-        if (period < 5) {
+        if (period === 1) {
+          return 'день';
+        } else if (period < 5) {
           return 'дні';
         } else {
           return 'днів';
         }
-        
+
       case 'weeks':
-        if (period < 5) {
+        if (period === 1) {
+          return 'тиждень';
+        } else if (period < 5) {
           return 'тижні';
         } else {
           return 'тижнів';
         }
-      
+
       case 'months':
-        if (period < 5) {
+        if (period === 1) {
+          return 'місяць';
+        } else if (period < 5) {
           return 'місяця';
         } else {
           return 'місяців';
         }
-        default:
+      default:
         break;
     }
   };
@@ -85,6 +98,13 @@ export const FilterModal = ({ delince }) => {
 
   return (
     <div className={styles.filterModal}>
+      <Shadow
+        leftFirst={-5}
+        backgroundBoth={'var(--shadow-secondary-color)'}
+        rightSecond={1}
+        bottomSecond={-5}
+        borderColorBoth={'var(--shadow-secondary-border)'}
+      />
       <div className={styles.headerFilterModal}>
         <button onClick={delince} className={styles.backButton}>
           <svg

@@ -1,8 +1,8 @@
 import css from './Login.module.css';
-
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/auth/operation';
+import Shadow from 'components/Shadow/Shadow';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -30,6 +30,7 @@ const Login = () => {
         alt="GoIteens&Femida logo"
       />
       <div className={css['login-modal']}>
+        <Shadow leftFirst={-5} rightSecond={1} bottomSecond={-5}/>
         <div className={css['login-title-box']}>
           <h2 className={css.login__title}>Увійти</h2>
         </div>
@@ -70,7 +71,10 @@ const Login = () => {
               </a>
             </li>
             <li className={css.login__item}>
-              <a href="https://femida-api.onrender.com/auth/discord" className={css.login__link}>
+              <a
+                href="https://femida-api.onrender.com/auth/discord"
+                className={css.login__link}
+              >
                 <button
                   type="button"
                   className={`${css['login__link-btn']} ${css['login-discord-icon']}`}
