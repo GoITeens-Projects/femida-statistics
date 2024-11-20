@@ -11,7 +11,7 @@ export const login = createAsyncThunk('auth/login', async (body, thunkApi) => {
     console.log(res);
     const { accessToken, refreshToken } = res.data;
     // console.log(accessToken);
-    const expires = new Date(new Date().getTime() + 1000 * 60 );
+    const expires = new Date(new Date().getTime() + 1000 * 60 * 15 );
     // Збереження токенів в localStorage
     localStorage.setItem('token', accessToken);
     localStorage.setItem('expires', expires);

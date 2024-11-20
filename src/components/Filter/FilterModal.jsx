@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateFilter } from '../../redux/filter/operation';
+import { fetchStatistics } from '../../redux/statistics/operation';
 import {
   selectFilterInterval,
   selectFilterPeriod,
@@ -13,7 +14,7 @@ import Shadow from 'components/Shadow/Shadow';
 export const FilterModal = ({ delince }) => {
   const ww = useSelector(selectWindowWidth);
   const size = (ww * 0.85 - 120) / 2;
-
+  
   const dispatch = useDispatch();
   const selInterval = useSelector(selectFilterInterval);
   const selUnit = useSelector(selectFilterUnit);
@@ -31,6 +32,13 @@ export const FilterModal = ({ delince }) => {
         period,
       })
     );
+    dispatch(fetchStatistics({
+      interval,
+      unit,
+      period,
+    }))
+    
+    delince()
   };
 
   const foundCorrectPeriod = ({ interval, period }) => {

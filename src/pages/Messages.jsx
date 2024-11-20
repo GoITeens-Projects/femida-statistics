@@ -1,10 +1,13 @@
 import { MessagesChart } from "components/MessagesChart/MessagesChart"
 import TopChannels from "components/Tops/Tops"
 import { nanoid } from 'nanoid';
-import { fetchStatistics } from "../redux/statistics/operation";
+import { fetchStatistics, completeMessagesLogs } from '../redux/statistics/operation';
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import setTheme from 'utils/setTheme';
+import updateTokens from 'utils/updateToken';
+import { selectMessagesLogs, selectCompletedMessagesLogs } from '../redux/statistics/selectors';
+import { useSelector } from "react-redux";
 
 const testTop = [
     {
@@ -81,12 +84,18 @@ const testTop = [
 
 export const Messages = () => {
   const dispatch = useDispatch();
+  const messagesLogs = useSelector(selectMessagesLogs)
+  const logs = useSelector(selectCompletedMessagesLogs);
 
   useEffect(() => {
       // Виконуємо fetch при завантаженні компонента
-      dispatch(fetchStatistics());
-      
-  }, []);
+      if (logs.length === 0) {
+        dispatch(completeMessagesLogs());
+        dispatch(fetchStatistics());
+        updateTokens()
+        setTheme();
+      }
+    }, [messagesLogs, dispatch, logs]);
     return <>
     <MessagesChart/>
     <TopChannels topArr={testTop}/>

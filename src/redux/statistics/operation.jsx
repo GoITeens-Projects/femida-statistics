@@ -4,13 +4,18 @@ import { getUsersInfo } from 'utils/getUsersInfo';
 
 export const fetchStatistics = createAsyncThunk(
   'stats/getStats',
-  async (time, thunkApi) => {
+  async (body, thunkApi) => {
     console.log('fetch');
     try {
       const state = thunkApi.getState();
       const accessToken = localStorage.getItem('token');
-      const interval = state.filter.interval;
-      const period = state.filter.period;
+      let interval = state.filter.interval;
+      let period = state.filter.period;
+      if (body) {
+        interval = body.interval;
+        period = body.period
+      }
+      
       let fatchInterval = 'h';
 
       switch (interval) {
@@ -23,7 +28,7 @@ export const fetchStatistics = createAsyncThunk(
           break;
 
         case 'weeks':
-          fatchInterval = 'm';
+          fatchInterval = 'w';
           break;
 
         case 'months':
@@ -37,9 +42,7 @@ export const fetchStatistics = createAsyncThunk(
 
       let config = {
         method: 'get',
-        url: `https://femida-api.onrender.com/stats?time=${period}${fatchInterval}&interval=${
-          interval === 'weeks' ? 'months' : interval
-        }`,
+        url: `https://femida-api.onrender.com/stats?time=${period}${fatchInterval}&interval=${interval}`,
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -91,6 +94,19 @@ export const fetchStatistics = createAsyncThunk(
             const day = str.slice(8, 10);
             console.log('day:', day);
             time = `${day} ${monthNames[month - 1]}`;
+          } else if (interval === 'weeks'){
+            const startStr = curr.statisticsTimestamps[0]
+            const startMonth = startStr.slice(5, 7);
+            const startDay = startStr.slice(8, 10);
+            const len = curr.statisticsTimestamps.length - 1
+            const endStr = curr.statisticsTimestamps[len]
+            const endMonth = endStr.slice(5, 7);
+            const endDay = endStr.slice(8, 10)
+            time = startMonth === endMonth ? `${startDay} - ${endDay} ${monthNames[startMonth - 1]}` : `${startDay} ${monthNames[startMonth - 1]} - ${endDay} ${monthNames[endMonth - 1]}` 
+          } else if (interval === 'months') {
+            const str = curr.statisticsTimestamps[0];
+            const month = str.slice(5, 7);
+            time = `${monthNames[month - 1]}`;
           }
 
           acc.serverMembers = [
@@ -169,14 +185,15 @@ export const fetchStatistics = createAsyncThunk(
 export const completeMessagesLogs = createAsyncThunk(
   'stats/completeMessagesLogs',
   async (time, thunkApi) => {
+    console.log("completeMessagesLogs");
     const state = thunkApi.getState();
     const messagesLogs = state.statistics.messagesLogs;
     const currLogs = messagesLogs.slice(0, 10);
 
     const ids = currLogs.map(user => user.id).join(',');
-
+     
     const info = await getUsersInfo(ids);
-
+    console.log("info:", info);
     const validation = info.map((user, i) => {
       return { ...user, count: currLogs[i].count };
     });

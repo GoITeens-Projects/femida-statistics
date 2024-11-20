@@ -19,10 +19,10 @@ const updateTokens = async () => {
       );
       return false;
     }
-    if (Date.now() - new Date(Oldexpires).getTime() > -1000 * 60 ) {
+    if (Date.now() - new Date(Oldexpires).getTime() > -1000 * 60 * 15 ) {
       //* access token already expired, or will expire soon, so we should update it
       const {data} = await axios.get('/auth/refresh', {credentials: 'include', withCredentials: true});
-      const expires = new Date(new Date().getTime() + 1000 * 60 );
+      const expires = new Date(new Date().getTime() + 1000 * 60 * 15 );
       console.log("date true:",  {
         token: data.accessToken,
         expires: expires,
@@ -32,7 +32,7 @@ const updateTokens = async () => {
       localStorage.setItem('expires', expires);
       
       // ? open main page
-      return false;
+      return true;
     }
     return true;
   } catch (err) {
