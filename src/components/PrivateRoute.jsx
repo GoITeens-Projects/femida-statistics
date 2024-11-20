@@ -5,7 +5,7 @@ import { selectIsLoggedIn, selectIsReFreshing } from "../redux/auth/selectors";
 import updateTokens from "utils/updateToken";
 
 
-const PrivateRoute = ({ component: Component, redirectTo }) => {
+const PrivateRoute =  ({ component: Component, redirectTo }) => {
 
   const localAccessToken = updateTokens()
   // localStorage.getItem("accessToken");

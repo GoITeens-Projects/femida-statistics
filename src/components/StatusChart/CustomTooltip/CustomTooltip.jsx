@@ -1,10 +1,13 @@
 import styles from './CustomTooltip.module.css';
 import { statusData } from '../DataStatus'; // Імпортуємо дані статусів
+import { useSelector } from 'react-redux';
+import { selectMembersStatuses } from '../../../redux/statistics/selectors';
 
 export const CustomTooltip = ({ active, label }) => {
+    const membersStatuses = useSelector(selectMembersStatuses)
     if (active) {
         // Знаходимо дані для відповідної дати
-        const dataPoint = statusData.find((data) => data.name === label);
+        const dataPoint = membersStatuses.find((data) => data.name === label);
 
         // Якщо дані знайдено, витягуємо значення для всіх статусів
         const onlineValue = dataPoint?.online || 0;

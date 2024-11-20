@@ -110,7 +110,7 @@ export const App = () => {
           <Outlet />
         </div>
       </div>
-      <Footer/>
+      {/* <Footer/> */}
     </>
   );
 };

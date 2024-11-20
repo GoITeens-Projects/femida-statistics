@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 import styles from './CustomTooltip.module.css';
 import { data } from '../DataServerMmbers'; // Імпортуємо дані статусів
+import { useSelector } from 'react-redux';
+import { selectServerMembers } from '../../../redux/statistics/selectors';
 
 export const CustomTooltip = ({ active, label }) => {
+    const members = useSelector(selectServerMembers)
     if (active) {
         // Знаходимо дані для відповідної дати
-        const dataPoint = data.find((data) => data.name === label);
+        const dataPoint = members.find((data) => data.name === label);
 
         // Отримуємо значення, використовуючи дані з statusData
         const totalValue = dataPoint?.total || 0; // Якщо є поле total

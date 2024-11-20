@@ -3,16 +3,19 @@ import TopSection from 'components/TopSection/TopSection';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { completeMessagesLogs } from '../../redux/statistics/operation';
+import { selectCompletedMessagesLogs, selectMessagesLogs } from '../../redux/statistics/selectors';
 
 const TopChannels = () => {
-  const logs = useSelector(state => state.statistics.completedMessagesLogs);
+  const messagesLogs = useSelector(selectMessagesLogs)
+  const logs = useSelector(selectCompletedMessagesLogs);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (logs.length === 0) {
       dispatch(completeMessagesLogs());
+      console.log("logs:", logs);
     }
-  }, [dispatch, logs]);
+  }, [dispatch, logs, messagesLogs]);
 
   return (
     <>
