@@ -29,23 +29,23 @@ export const router = createBrowserRouter(
 
                 {
                     path: '/messages',
-                    element: <PrivateRoute component={Messages} redirecTo='/' />
+                    element: <PrivateRoute component={Messages} redirectTo='/' />
                 },
                 {
                     path: '/voice',
-                    element: <PrivateRoute component={Voice} redirecTo='/' />
+                    element: <PrivateRoute component={Voice} redirectTo='/' />
                 },
                 {
                     path: '/status',
-                    element: <PrivateRoute component={Status} redirecTo='/' />
+                    element: <PrivateRoute component={Status} redirectTo='/' />
                 },
                 {
                     path: '/economic',
-                    element: <PrivateRoute component={Economic} redirecTo='/' />
+                    element: <PrivateRoute component={Economic} redirectTo='/' />
                 },
                 // {
                 //     path: '/settings',
-                //     element: <PrivateRoute component={ } redirecTo='/' />
+                //     element: <PrivateRoute component={ } redirectTo='/' />
                 // },
             ]
         }
