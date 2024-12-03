@@ -8,7 +8,7 @@ import { Messages } from "pages/Messages";
 import { Voice } from "pages/Voice";
 import { Status } from "pages/Status";
 import { Economic } from "pages/Economic";
-
+import { Settings } from "pages/Settings";
 
 export const router = createBrowserRouter(
     [
@@ -43,10 +43,10 @@ export const router = createBrowserRouter(
                     path: '/economic',
                     element: <PrivateRoute component={Economic} redirecTo='/' />
                 },
-                // {
-                //     path: '/settings',
-                //     element: <PrivateRoute component={ } redirecTo='/' />
-                // },
+                {
+                    path: '/settings',
+                    element: <PrivateRoute component={Settings} redirecTo='/' />
+                },
             ]
         }
     ]
