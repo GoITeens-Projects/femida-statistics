@@ -29,27 +29,27 @@ export const Navigation = () => {
       </div>
       <ul className={s.navigationList}>
         <li className={s.navigationItem}>
-          <NavLink to="/Overview">
+          <NavLink to="/Overview" className={s.testLink}>
             <RiBarChart2Line /> Загальна статистика
           </NavLink>
         </li>
         <li className={s.navigationItem}>
-          <NavLink to="/messages">
+          <NavLink to="/messages" className={s.testLink}>
             <RiMessage2Line /> Повідомлення
           </NavLink>
         </li>
         <li className={s.navigationItem}>
-          <NavLink to="/voice">
+          <NavLink to="/voice" className={s.testLink}>
             <RiVolumeUpLine /> Голосові канали
           </NavLink>
         </li>
         <li className={s.navigationItem}>
-          <NavLink to="/status">
+          <NavLink to="/status" className={s.testLink}>
             <RiUserLocationLine /> Статус
           </NavLink>
         </li>
         <li className={s.navigationItem}>
-          <NavLink to="/economic">
+          <NavLink to="/economic" className={s.testLink}>
             <RiLineChartLine />
             Економіка
           </NavLink>

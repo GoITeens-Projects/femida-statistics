@@ -64,6 +64,13 @@
     line-height: normal;
 }
 
+.headerLink:hover {
+    color: var(--subtext-color);
+    transition-duration: 250ms;
+    transition-delay: 50ms;
+    transition-timing-function: ease-out;
+}
+
 .headerWhenLoginBox {
     display: flex;
     align-items: center;
