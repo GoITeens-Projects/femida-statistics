@@ -13,8 +13,11 @@ export const Modal = ({ onClose }) => {
 
         // Формуємо тіло запиту
         const body = {
-            badwords: {
-                words: [inputValue], // Додаємо введене слово до списку
+            settings: {
+                badwords: {
+                    words: [inputValue], // Додаємо введене слово до списку
+
+                }
             },
         };
 

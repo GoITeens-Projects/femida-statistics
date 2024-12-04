@@ -14,7 +14,7 @@ export const BadWord = () => {
 
     const handleToggle = () => {
         setIsEnabled(!isEnabled);
-        dispatch(badWord({ badwords: { enabled: !isEnabled } }));
+        dispatch(badWord({ settings: { badwords: { enabled: !isEnabled } } }));
     };
 
     const openModal = () => setIsModalOpen(true);
