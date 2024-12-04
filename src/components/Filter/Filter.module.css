@@ -6,6 +6,10 @@
   margin-bottom: 10px;
 }
 
+.testDiv {
+  margin-right: auto;
+}
+
 .filterModal {
   position: relative;
   padding: 10px 25px;
@@ -13,8 +17,8 @@
   position: absolute;
   z-index: 1000;
   outline: 1px solid var(--bg-accent-color);
-  /* width: 207px; */
-  /* height: 284px; */
+  width: 260px;
+  height: 300px;
 }
 
 .openFilterBtn {
@@ -224,7 +228,7 @@
 .saveFilterBtn {
   background-color: var(--btn-accent-color);
   padding: 6px 18px;
-  color: var(--text-color);
+  color: #fff;
   font-size: 8px;
   font-style: normal;
   font-weight: 500;

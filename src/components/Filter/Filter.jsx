@@ -11,8 +11,10 @@ export const Filter = () => {
     setModalTreaker(false);
   };
 
+  // document.addEventListener('click', delince);
+
   return (
-    <div>
+    <div className={styles.testDiv}>
       <p></p>
       <button
         onClick={() => setModalTreaker(true)}
