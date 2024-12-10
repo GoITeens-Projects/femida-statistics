@@ -96,7 +96,7 @@ export const App = () => {
     dispatch(setWindowWidth(window.innerWidth));
     dispatch(fetchStatistics);
   }, []);
-  
+
   return (
     <>
       <Header />
