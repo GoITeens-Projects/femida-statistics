@@ -434,3 +434,47 @@ input:checked+.slider:before {
     border-color: white;
     outline: none;
 }
+
+
+/* код едітор */
+
+.editorContainer {
+    height: 300px;
+    /* Початкова висота */
+    width: 500px;
+    /* Початкова ширина */
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    text-align: left;
+    overflow: hidden;
+}
+
+.confirmButton {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #007acc;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.confirmButton:hover {
+    background-color: #005f99;
+}
+
+.modalOverlay2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 600px;
+    height: 400px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    margin-left: 500px;
+    margin-top: 100px;
+}

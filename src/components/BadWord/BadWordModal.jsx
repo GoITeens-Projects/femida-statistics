@@ -1,15 +1,63 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { badWord } from "../../redux/badword/operation";
 import styles from "./BadWord.module.css";
 import { IoMdClose } from "react-icons/io";
 import { IoSaveOutline } from "react-icons/io5";
 import { MdOutlineSaveAs } from "react-icons/md";
+import * as monaco from "monaco-editor";
+
+export const CodeEditor = ({ onConfirm, initialValue }) => {
+    const editorRef = useRef(null);
+    const [editorInstance, setEditorInstance] = useState(null);
+
+    useEffect(() => {
+        const editor = monaco.editor.create(editorRef.current, {
+            value: initialValue || "",
+            language: "plaintext", // Простий текст без синтаксису
+            theme: "vs-dark",
+            automaticLayout: true,
+
+            minimap: {
+                enabled: false,
+            },
+            suggest: {
+                showWords: false, // Вимикає автоматичні слова
+            },
+        });
+
+        setEditorInstance(editor);
+
+        return () => {
+            editor.dispose();
+        };
+    }, [initialValue]); // Перезапускаємо ефект, якщо initialValue зміниться
+
+    const handleConfirm = () => {
+        if (editorInstance) {
+            const content = editorInstance.getValue();
+            onConfirm(content);
+        }
+    };
+
+    return (
+        <div>
+            <div ref={editorRef} className={styles.editorContainer}></div>
+            <button onClick={handleConfirm} className={styles.confirmButton}>
+                Підтвердити текст
+            </button>
+        </div>
+    );
+};
 
 export const Modal = ({ onClose }) => {
     const [inputValue, setInputValue] = useState("");
     const [isClosing, setIsClosing] = useState(false);
+    const [isEditorModalOpen, setIsEditorModalOpen] = useState(false);
     const dispatch = useDispatch();
+    const { data: settings } = useSelector((state) => state.settings);
+
+    const badWords = settings?.settings?.badwords?.words || [];
 
     const handleSave = () => {
         if (!inputValue.trim()) return;
@@ -30,6 +78,19 @@ export const Modal = ({ onClose }) => {
     const handleClose = () => {
         setIsClosing(true);
         setTimeout(onClose, 500);
+    };
+
+    const handleConfirmText = (text) => {
+        console.log("Отриманий текст з редактора:", text);
+        // Додати логіку збереження або обробки тексту
+    };
+
+    const openEditorModal = () => {
+        setIsEditorModalOpen(true);
+    };
+
+    const closeEditorModal = () => {
+        setIsEditorModalOpen(false);
     };
 
     return (
@@ -88,6 +149,27 @@ export const Modal = ({ onClose }) => {
                     />
                 </div>
 
+                <button onClick={openEditorModal} className={styles.openEditorButton}>
+                    Відкрити редактор слів
+                </button>
+
+                {isEditorModalOpen && (
+                    <div className={styles.modalOverlay2}>
+                        <div className={styles.modalContent}>
+
+                            <IoMdClose
+                                className={styles.closeIcon}
+                                onClick={closeEditorModal}
+                            />
+                            <h3 className={styles.modalTitle}>Редактор слів</h3>
+
+                            <CodeEditor
+                                onConfirm={handleConfirmText}
+                                initialValue={badWords.join("\n")}
+                            />
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
