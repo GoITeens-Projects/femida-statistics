@@ -11,6 +11,7 @@ const RestrictedRouter = ({ component: Component, redirectTo }) => {
 
   const localAccessToken = updateTokens()
   // localStorage.getItem("accessToken");
+  console.log("restricted router:", localAccessToken)
 
   return !localAccessToken ? <Navigate to={redirectTo} /> : <Component />;
 };

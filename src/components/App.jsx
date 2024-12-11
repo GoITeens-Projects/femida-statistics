@@ -9,88 +9,20 @@ import { ServerMembers } from './ServerMembers/ServerMembers';
 import { MessagesChart } from './MessagesChart/MessagesChart';
 import { StatusChart } from './StatusChart/StatusChart';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setWindowWidth } from '../redux/filter/operation';
 import s from './Main.module.css';
 import { Filter } from './Filter/Filter';
 import { fetchStatistics } from '../redux/statistics/operation';
 import Footer from './Footer/Footer';
+import { selectLoading } from '../redux/statistics/selectors';
+import { ClimbingBoxLoader} from 'react-spinners';
 
-const testTop = [
-  {
-    userAvatarUrl:
-      'https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg',
-    userName: 'Імʼя користувача',
-    messagesQuantity: 12345,
-    id: nanoid(),
-  },
-  {
-    userAvatarUrl:
-      'https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg',
-    userName: 'Імʼя користувача',
-    messagesQuantity: 12345,
-    id: nanoid(),
-  },
-  {
-    userAvatarUrl:
-      'https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg',
-    userName: 'Імʼя користувача',
-    messagesQuantity: 12345,
-    id: nanoid(),
-  },
-  {
-    userAvatarUrl:
-      'https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg',
-    userName: 'Імʼя користувача',
-    messagesQuantity: 12345,
-    id: nanoid(),
-  },
-  {
-    userAvatarUrl:
-      'https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg',
-    userName: 'Імʼя користувача',
-    messagesQuantity: 12345,
-    id: nanoid(),
-  },
-  {
-    userAvatarUrl:
-      'https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg',
-    userName: 'Імʼя користувача',
-    messagesQuantity: 12345,
-    id: nanoid(),
-  },
-  {
-    userAvatarUrl:
-      'https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg',
-    userName: 'Імʼя користувача',
-    messagesQuantity: 12345,
-    id: nanoid(),
-  },
-  {
-    userAvatarUrl:
-      'https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg',
-    userName: 'Імʼя користувача',
-    messagesQuantity: 12345,
-    id: nanoid(),
-  },
-  {
-    userAvatarUrl:
-      'https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg',
-    userName: 'Імʼя користувача',
-    messagesQuantity: 12345,
-    id: nanoid(),
-  },
-  {
-    userAvatarUrl:
-      'https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg',
-    userName: 'Імʼя користувача',
-    messagesQuantity: 12345,
-    id: nanoid(),
-  },
-];
+
 
 export const App = () => {
   const dispatch = useDispatch();
+   const loading = useSelector(selectLoading)
 
   useEffect(() => {
     dispatch(setWindowWidth(window.innerWidth));
@@ -104,11 +36,18 @@ export const App = () => {
         <div className={s.navigationCountainer}>
           <Navigation />
         </div>
-
-        <div className={s.mainCountainer}>
-          <Filter />
-          <Outlet />
-        </div>
+        
+        
+          {loading ? (<div className={s.mainLoadingCountainer}><ClimbingBoxLoader
+        color={"var(--shadow-secondary-color)"}
+        loading={loading}
+        size={30}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+      </div>):(<div className={s.mainCountainer}><Filter />
+          <Outlet /></div>)}
+        
       </div>
       {/* <Footer/> */}
     </>
