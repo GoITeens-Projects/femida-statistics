@@ -9,7 +9,7 @@ const PrivateRoute =  ({ component: Component, redirectTo }) => {
 
   const localAccessToken = updateTokens()
   // localStorage.getItem("accessToken");
-
+  console.log("privet router:", localAccessToken)
   return localAccessToken ? <Component /> : <Navigate to={redirectTo} />;
 };
 export default PrivateRoute;
