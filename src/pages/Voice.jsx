@@ -91,7 +91,7 @@ export const Voice = () => {
     if (logs.length === 0) {
       dispatch(completeMessagesLogs());
       dispatch(fetchStatistics());
-      updateTokens()
+      // updateTokens()
       setTheme();
     }
   }, [messagesLogs, dispatch, logs]);

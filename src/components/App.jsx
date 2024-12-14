@@ -17,6 +17,7 @@ import { fetchStatistics } from '../redux/statistics/operation';
 import Footer from './Footer/Footer';
 import { selectLoading } from '../redux/statistics/selectors';
 import { ClimbingBoxLoader} from 'react-spinners';
+import { updateToken } from "../redux/auth/operation";
 
 
 
@@ -27,10 +28,12 @@ export const App = () => {
   useEffect(() => {
     dispatch(setWindowWidth(window.innerWidth));
     dispatch(fetchStatistics);
+    // dispatch(updateToken)
   }, []);
   
   return (
     <>
+    {/* <p>Just p</p> */}
       <Header />
       <div className={s.countainer}>
         <div className={s.navigationCountainer}>
@@ -45,7 +48,8 @@ export const App = () => {
         aria-label="Loading Spinner"
         data-testid="loader"
       />
-      </div>):(<div className={s.mainCountainer}><Filter />
+      </div>):(<div className={s.mainCountainer}>
+        <Filter />
           <Outlet /></div>)}
         
       </div>

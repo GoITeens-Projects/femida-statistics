@@ -10,7 +10,7 @@ import MainTop from 'components/MainTop/MainTop';
 import topStyles from '../components/Tops/Tops.module.css';
 import setTheme from 'utils/setTheme';
 import updateTokens from 'utils/updateToken';
-import { selectMessagesLogs, selectCompletedMessagesLogs } from '../redux/statistics/selectors';
+import { selectMessagesLogs, selectCompletedMessagesLogs, selectLoading } from '../redux/statistics/selectors';
 import getUsersInfo from 'utils/getUsersInfo';
 import axios from '../redux/axiosConfig';
 
@@ -35,20 +35,24 @@ const testTop = [
 ];
 
 export const Overview = () => {
-  // const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
   const messagesLogs = useSelector(selectMessagesLogs)
   const logs = useSelector(selectCompletedMessagesLogs);
   const dispatch = useDispatch();
-
+  const loading = useSelector(selectLoading)
+  console.log("overview render ")
   useEffect(() => {
-    // Виконуємо fetch при завантаженні компонента
-    if (logs.length === 0) {
+    console.log("overview render effect")
+    // // Виконуємо fetch при завантаженні компонента
+    // // if (logs.length === 0) {
       dispatch(completeMessagesLogs());
-      dispatch(fetchStatistics());
-      updateTokens()
-      setTheme();
-    }
-  }, [messagesLogs, dispatch, logs]);
+      // if(!loading){
+        // dispatch(fetchStatistics());
+      // }
+      // dispatch(fetchStatistics());
+    //   // updateTokens()
+    //   setTheme();
+    }, []);
 
   // const messagesLogs = useSelector(selectMessagesLogs);
   // const topUsersByMessages = [
