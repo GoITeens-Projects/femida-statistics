@@ -91,7 +91,7 @@ export const Messages = () => {
       // Виконуємо fetch при завантаженні компонента
       if (logs.length === 0) {
         dispatch(completeMessagesLogs());
-        dispatch(fetchStatistics());
+        // dispatch(fetchStatistics());
         // updateTokens()
         setTheme();
       }

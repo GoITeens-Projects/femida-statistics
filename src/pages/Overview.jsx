@@ -13,7 +13,9 @@ import updateTokens from 'utils/updateToken';
 import { selectMessagesLogs, selectCompletedMessagesLogs, selectLoading } from '../redux/statistics/selectors';
 import getUsersInfo from 'utils/getUsersInfo';
 import axios from '../redux/axiosConfig';
-
+import { motion, AnimatePresence } from "framer-motion";
+import s from '../components/Main.module.css';
+import { ClimbingBoxLoader } from 'react-spinners';
 
 
 const testTop = [
@@ -51,7 +53,7 @@ export const Overview = () => {
       // }
       // dispatch(fetchStatistics());
     //   // updateTokens()
-    //   setTheme();
+      setTheme();
     }, []);
 
   // const messagesLogs = useSelector(selectMessagesLogs);
@@ -104,14 +106,52 @@ export const Overview = () => {
 
   return (
     <>
+     <motion.div
+             initial={{ opacity: 0, y: -50 }} // Початковий стан
+             animate={{ opacity: 1, y: 0 }}   // Анімований стан
+             exit={{ opacity: 0, y: 50 }}     // Стан при зникненні
+             transition={{ duration: 1.5 }}   // Тривалість переходу
+           >
       <ServerMembers />
+      </motion.div>
+      <motion.div
+             initial={{ opacity: 0, y: -50 }} // Початковий стан
+             animate={{ opacity: 1, y: 0 }}   // Анімований стан
+             exit={{ opacity: 0, y: 50 }}     // Стан при зникненні
+             transition={{ duration: 1.5 }}   // Тривалість переходу
+           >
       <MessagesChart />
-      {logs.length > 0 ? (<div className={topStyles.topsBox}>
+      </motion.div>
+      <motion.div
+             initial={{ opacity: 0, y: -50 }} // Початковий стан
+             animate={{ opacity: 1, y: 0 }}   // Анімований стан
+             exit={{ opacity: 0, y: 50 }}     // Стан при зникненні
+             transition={{ duration: 1.5 }}   // Тривалість переходу
+           >
+      {logs.length > 0 && (<div className={topStyles.topsBox}>
         <MainTop topArr={logs} title={'Топ учасників'} isChannel={false} />
         <MainTop topArr={logs} title={'Топ каналів'} isChannel={true} />
-      </div>) : (
-        <p>Loading...</p>
-      )}
+      </div>)} 
+      {logs.length === 0 && (
+         <AnimatePresence>
+         <div className={s.mainLoadingCountainer}>
+           <motion.div
+             initial={{ opacity: 0, y: -50 }} // Початковий стан
+             animate={{ opacity: 1, y: 0 }} // Анімований стан
+             exit={{ opacity: 0, y: 50 }} // Стан при зникненні
+             transition={{ duration: 2.5 }} // Тривалість переходу
+           >
+             <ClimbingBoxLoader
+               color={'var(--shadow-secondary-color)'}
+               loading={loading}
+               size={30}
+               aria-label="Loading Spinner"
+               data-testid="loader"
+             />
+           </motion.div>
+         </div>
+         </AnimatePresence>
+      )}</motion.div>
       {/* <Filter /> */}
     </>
   );

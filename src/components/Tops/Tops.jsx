@@ -20,7 +20,7 @@ const TopChannels = () => {
   return (
     <>
       <div className={`${styles.topsBox}`}>
-        {logs.length > 0 ? (
+        {logs.length > 0 && (
           <>
             <TopSection
               toArr={logs}
@@ -29,8 +29,7 @@ const TopChannels = () => {
             />
             <TopSection toArr={logs} title={'Топ каналів'} isChannel={true} />
           </>
-        ):
-        (<p>Loading...</p>)}
+        )}
       </div>
     </>
   );
