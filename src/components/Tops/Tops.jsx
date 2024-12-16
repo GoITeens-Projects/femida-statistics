@@ -27,7 +27,7 @@ const TopChannels = () => {
               title={'Топ учасників'}
               isChannel={false}
             />
-            <TopSection toArr={logs} title={'Топ каналів'} isChannel={true} />
+            <TopSection toArr={logs} title={'Топ каналів (в розробці)'} isChannel={true} />
           </>
         )}
       </div>
