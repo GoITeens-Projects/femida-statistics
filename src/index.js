@@ -10,6 +10,7 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from 'router/router.jsx';
 // import { PersistGate } from 'redux-persist/integration/react';
 import { PersistGate } from 'redux-persist/integration/react';
+import { ClimbingBoxLoader } from 'react-spinners';
 // import { config } from 'dotenv';
 
 // ();
@@ -18,7 +19,15 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={router}>
-        <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
+        <PersistGate loading={
+          <ClimbingBoxLoader
+          color={'var(--shadow-secondary-color)'}
+          loading={true}
+          size={30}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+          } persistor={persistor}>
           <App />
         </PersistGate>
       </RouterProvider>
