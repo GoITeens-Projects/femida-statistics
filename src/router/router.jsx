@@ -9,7 +9,7 @@ import { Voice } from "pages/Voice";
 import { Status } from "pages/Status";
 import { Economic } from "pages/Economic";
 import { Settings } from "pages/Settings";
-
+import { BadWordPage } from '../components/BadWord/BadWordModal'
 export const router = createBrowserRouter(
     [
         {
@@ -46,6 +46,10 @@ export const router = createBrowserRouter(
                 {
                     path: '/settings',
                     element: <PrivateRoute component={Settings} redirecTo='/' />
+                },
+                {
+                    path: '/settings/badword',
+                    element: <PrivateRoute component={BadWordPage} redirecTo='/' />
                 },
             ]
         }

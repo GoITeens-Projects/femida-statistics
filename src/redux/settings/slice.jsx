@@ -22,6 +22,8 @@ const settingsSlice = createSlice({
             .addCase(fetchSettings.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+                console.log(state.data);
+
             });
     },
 });

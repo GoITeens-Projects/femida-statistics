@@ -2,6 +2,7 @@ import { BadWord } from "components/BadWord/BadWord"
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSettings } from "../redux/settings/operation";
+import { Outlet } from "react-router-dom";
 
 export const Settings = () => {
     const dispatch = useDispatch();
@@ -16,8 +17,7 @@ export const Settings = () => {
 
     return (
         <>
-            <h1>Налаштування</h1>
-            <pre>{data ? JSON.stringify(data, null, 2) : 'Немає даних'}</pre>
+
             <BadWord />
         </>
     );

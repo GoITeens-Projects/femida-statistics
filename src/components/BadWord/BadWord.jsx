@@ -4,6 +4,7 @@ import { badWord } from "../../redux/badword/operation";
 import styles from "./BadWord.module.css";
 import { IoMdClose } from "react-icons/io";
 import { Modal } from "./BadWordModal";
+import { Link } from "react-router-dom";
 
 
 
@@ -32,11 +33,7 @@ export const BadWord = () => {
                         <input type="checkbox" checked={isEnabled} onChange={handleToggle} />
                         <span className={`${styles.slider} ${styles.round}`}></span>
                     </label>
-                    <button
-                        type="button"
-                        className={styles.iconButton}
-                        onClick={openModal}
-                    >
+                    <Link to="/settings/badword" >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="19"
@@ -60,10 +57,10 @@ export const BadWord = () => {
                                 stroke-linecap="round"
                             />
                         </svg>
-                    </button>
+                    </Link>
                 </div>
             </div>
-            {isModalOpen && <Modal onClose={closeModal} />}
+
         </section>
     );
 };

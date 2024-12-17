@@ -136,348 +136,323 @@ input:checked+.slider:before {
 
 /* Модалка */
 
-.modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+.EditorContainer {
+    margin-top: 51px;
+    width: 933px;
+    height: 230px;
+    border: 1px solid var(--chart-color);
 }
 
-@keyframes slideInUp {
-    from {
-        transform: translateY(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-@keyframes slideOutDown {
-    from {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    to {
-        transform: translateY(100%);
-        opacity: 0;
-    }
-}
-
-
-/* Стилі для модального вікна */
-
-.modalContent {
-    animation: slideInUp 0.5s ease-out;
-    background-color: rgb(92, 92, 92);
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transform: translateY(0);
-    opacity: 1;
-}
-
-
-/* Клас для закриття модалки */
-
-.modalContent.closing {
-    animation: slideOutDown 0.5s ease-in;
-}
-
-.modalHeader {
-    background-color: rgb(24, 24, 24);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    width: 100%;
-    height: 64px;
-    box-sizing: border-box;
-}
-
-.closeIcon {
-    cursor: pointer;
-    font-size: 24px;
-    color: #666;
-    transition: color 0.3s ease;
-}
-
-.closeIcon:hover {
-    color: #333;
-}
-
-.modalTitle {
-    flex-grow: 1;
-    color: white;
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    margin: 0;
-}
-
-.actionButtons {
-    display: flex;
-    gap: 10px;
-}
-
-.saveButton {
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.saveButton:hover {
-    background: #5a6067;
-}
-
-.description {
-    color: white;
-    font-size: 16px;
+.ExitButton {
+    font-family: IBM Plex Sans;
+    font-size: 12px;
     font-weight: 400;
-    margin: 20px 0;
-    line-height: 1.5;
-    text-align: center;
+    line-height: 7.8px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: var(--subtext-color);
+    ;
+}
+
+.Container {
+    margin-top: 20px;
+}
+
+.TitleBadWords {
+    font-family: IBM Plex Mono;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 20.8px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: var(--text-color);
+}
+
+.FromContainer {
+    position: relative;
+    width: 933px;
+    height: 200px;
+    border: 1px solid var(--chart-color);
+    margin-top: 20px;
+    display: block;
+    /* Відновлюємо стандартне блокове відображення */
+    padding: 20px;
+    box-sizing: border-box;
+    /* Ураховуємо padding у ширині */
+}
+
+.LabelFormBadWords {
+    font-family: IBM Plex Mono;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 10.4px;
+    text-align: left;
+    /* Лейбл залишатиметься по лівому краю */
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: var(--text-accent-color);
+    margin-bottom: 10px;
+    margin-left: -3px;
+}
+
+.InputBadWord {
+    width: 879px;
+    /* Ширина інпуту */
+    height: 33px;
+    border: 3px solid var(--chart-color);
+    /* Закруглені кути */
+    box-sizing: border-box;
+    padding-left: 10px;
+    /* Відступ всередині інпуту */
+    margin-left: auto;
+    /* Автоматичний відступ зліва */
+    margin-right: auto;
+    /* Автоматичний відступ справа */
+    margin-top: 12px;
 }
 
 
-/* Стилі для текстового поля */
+/* чекбокси, */
 
-.textInput {
-    width: 100%;
-    max-width: 300px;
-    padding: 12px 15px;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    background-color: #2c2c2c;
-    color: white;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
-    margin-top: 10px;
-}
-
-.textInput:focus {
-    border-color: #007bff;
-    background-color: #333;
-    outline: none;
-}
-
-.textInput::placeholder {
-    color: #aaa;
-}
-
-
-/* чекбокс */
-
-.customCheckboxContainer {
+.CustomCheckbox {
     display: flex;
     align-items: center;
-    gap: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 8px 0;
+    position: relative;
+    color: var(--text-color);
 }
 
-.customCheckbox {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 20px;
+.CustomCheckbox input {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.CheckboxMark {
     height: 20px;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #2c2c2c;
-    cursor: pointer;
+    width: 20px;
+    background-color: var(--bg-modal-color);
+    /* Світлий фон */
+    border: 1px solid var(--shadow-secondary-border);
+    /* Колір рамки */
+    border-radius: 2px;
+    /* Скруглені кути */
+    display: inline-block;
+    position: relative;
+    margin-right: 8px;
+}
+
+.CustomCheckbox input:checked+.CheckboxMark {
+    background-color: var(--shadow-secondary-border);
+    /* Колір фону для чекнутого стану */
+    border-color: var(--shadow-secondary-border);
+    /* Синхронізуємо колір рамки з фоном */
+}
+
+.CustomCheckbox input:checked+.CheckboxMark::after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid #fff;
+    /* Білий колір галочки */
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.ContainerCheckBox {
+    margin-top: 25px;
+}
+
+
+/* Додаємо відстань між чекбоксами */
+
+.CustomCheckbox+.CustomCheckbox {
+    margin-top: 15px;
+    /* Відстань між чекбоксами */
+}
+
+
+/* свічер */
+
+
+/* свічер */
+
+.switch {
     position: relative;
     display: inline-block;
-    transition: background-color 0.3s, box-shadow 0.3s;
+    width: 46px;
+    height: 20px;
 }
 
-.customCheckbox:checked {
-    background-color: #5a6067;
-    border-color: #5a6067;
+
+/* Hide default HTML checkbox */
+
+.switch input {
+    display: none;
 }
 
-.customCheckbox:checked::after {
-    content: '✔';
-    /* Unicode checkmark */
+
+/* The slider */
+
+.slider {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 16px;
-    color: white;
-}
-
-.checkboxLabel {
-    font-size: 14px;
-    color: white;
     cursor: pointer;
-    transition: color 0.3s;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    border: 2px solid var(--btn-accent-color);
+    border-radius: 34px;
+    /* Забезпечує округлення */
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    box-sizing: border-box;
+    /* Гарантує, що padding і border враховані */
 }
 
-.checkboxLabel:hover {
-    color: #ccc;
+.slider:before {
+    position: absolute;
+    content: "";
+    left: 1px;
+    /* Центруємо по горизонталі */
+    top: 51%;
+    /* Вирівнюємо по вертикалі */
+    transform: translateY(-50%);
+    /* Центруємо точно по центру */
+    background-color: var(--shadow-secondary-border);
+    /* Кольор кругляшка */
+    border-radius: 50%;
+    /* Зробити кругляшок круглим */
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
 }
 
 
-/* випадаючий список */
+/* Styles when checked */
 
-.selectContainer {
-    width: calc(100% - 40px);
-    /* Відняти padding модалки */
-    margin: 0 auto;
-    /* Центрувати */
-    margin-top: 20px;
-    /* Відступ зверху */
+input:checked+.slider {
+    background-color: var(--btn-accent-color);
+    /* Той самий фон */
+    border-color: var(--btn-accent-color);
+    /* Той самий колір обводки */
 }
 
-.selectBox {
-    width: 100%;
-    padding: 10px 15px;
-    font-size: 16px;
-    background-color: #2c2c2c;
-    /* Колір у стилі модалки */
-    color: white;
-    /* Текст білий */
-    border: 2px solid #5a6067;
-    /* Колір обводки у стилі модалки */
-    border-radius: 8px;
-    /* Закруглення */
-    appearance: none;
-    /* Прибрати стандартні стрілочки */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    cursor: pointer;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
+input:checked+.slider:before {
+    transform: translate(25px, -50%);
+    /* Переміщаємо кругляшок в праву частину */
+    background-color: var(--shadow-secondary-border);
+    /* Кольор кругляшка лишається незмінним */
 }
 
-.selectBox:focus {
-    border-color: white;
-    /* Акцентований колір при фокусі */
-    outline: none;
+
+/* Focus state */
+
+input:focus+.slider {
+    box-shadow: 0 0 2px var(--btn-accent-color);
+    /* Підсвічування при фокусі */
 }
 
-.selectBox option {
-    background-color: #2c2c2c;
-    /* Фон для опцій */
-    color: white;
-    /* Текст білий */
-    padding: 10px;
-    /* Внутрішні відступи */
-    font-size: 16px;
-    /* Розмір шрифту */
-    border: none;
-    /* Прибрати обводку */
-}
-
-.selectBox option:hover {
-    background-color: #5a6067;
-    /* Колір при наведенні */
-    color: #fff;
-    /* Текст білий */
-}
-
-.formGroup {
+.SliderContainer {
+    margin-top: 30px;
     display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    width: 100%;
-    max-width: 300px;
+    gap: 5px;
 }
 
-
-/* Лейбли збоку */
-
-.formLabel {
-    color: white;
-    font-size: 16px;
-    margin-right: 15px;
-    flex: 0 0 100px;
-    /* Фіксована ширина для вирівнювання */
-    text-align: right;
-}
-
-
-/* Поля однакового розміру */
-
-.selectBox,
-.textInput {
-    flex: 1;
-    padding: 10px 15px;
-    font-size: 16px;
-    background-color: #2c2c2c;
-    color: white;
-    border: 2px solid #5a6067;
-    border-radius: 8px;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
-}
-
-.selectBox:focus,
-.textInput:focus {
-    border-color: white;
-    outline: none;
-}
-
-
-/* код едітор */
-
-.editorContainer {
-    height: 300px;
-    /* Початкова висота */
-    width: 500px;
-    /* Початкова ширина */
-    border: 1px solid #ccc;
-    margin-top: 20px;
+.SliderText {
+    font-family: IBM Plex Sans;
+    margin-top: 2px;
+    font-weight: 400;
+    line-height: 10.4px;
     text-align: left;
-    overflow: hidden;
-    justify-content: center;
-    margin-left: 50px;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: var(--text-color);
 }
 
-.confirmButton {
-    margin-top: 10px;
-    padding: 8px 16px;
-    background-color: #007acc;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.SaveButton {
+    width: 65px;
+    height: 20px;
+    background-color: var(--btn-accent-color);
+    font-family: IBM Plex Mono;
+    font-size: 8px;
+    font-weight: 500;
+    line-height: 7.8px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: var(--text-color);
+    text-align: center;
 }
 
-.confirmButton:hover {
-    background-color: #005f99;
+.ConatinerNavigation {
+    display: flex;
+    justify-content: space-between;
+    /* Елементи по краях */
+    align-items: center;
+    padding: 20px;
+    /* Відступи всередині контейнера */
 }
 
-.modalOverlay2 {
+
+/* модалка */
+
+.ModalOverlay {
     position: fixed;
     top: 0;
     left: 0;
-    width: 600px;
-    height: 430px;
-    background-color: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    margin-left: 500px;
-    margin-top: 150px;
-    pointer-events: auto;
+}
+
+.ModalContent {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 800px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.OpenModalButton {
+    padding: 10px 20px;
+    background-color: #6EABD4;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.CloseButton {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.SaveButton {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
 }
