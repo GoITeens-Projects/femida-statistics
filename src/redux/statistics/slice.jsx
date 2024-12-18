@@ -18,7 +18,7 @@ const statisticsSlice = createSlice({
     completedMessagesLogs: [],
     prevInterval: 0,
     prevPeriod: 0,
-    loading: false,
+    loading: true,
     error: null,
   },
   reducers: {},

@@ -5,11 +5,15 @@ import { selectIsLoggedIn, selectIsReFreshing, selectUpdateToken } from "../redu
 import updateTokens from "utils/updateToken";
 import { updateToken } from "../redux/auth/operation";
 import { useDispatch } from "react-redux";
+import { ClimbingBoxLoader } from 'react-spinners';
+// import { updateToken } from '../redux/auth/operation';
+import { motion, AnimatePresence } from 'framer-motion';
+import { fetchStatistics } from '../redux/statistics/operation';
 
 
 const PrivateRoute =  ({ component: Component, redirectTo }) => {
   //  const localAccessToken = useSelector(selectUpdateToken)
-  //  const dispatch = useDispatch()
+   const dispatch = useDispatch()
   const [localAccessToken, setLocalAccessToken] = useState(null)
   const [loading, setLoading] = useState(true);
 
@@ -35,7 +39,20 @@ const PrivateRoute =  ({ component: Component, redirectTo }) => {
   // localStorage.getItem("accessToken");
   console.log("privet router:", localAccessToken)
   if (loading) {
-    return <div>Loading...</div>;
+    return  <motion.div
+    initial={{ opacity: 0, y: -50 }} // Початковий стан
+    animate={{ opacity: 1, y: 0 }} // Анімований стан
+    exit={{ opacity: 0, y: 50 }} // Стан при зникненні
+    transition={{ duration: 2.5 }} // Тривалість переходу
+  >
+    <ClimbingBoxLoader
+      color={'var(--shadow-secondary-color)'}
+      loading={loading}
+      size={30}
+      aria-label="Loading Spinner"
+      data-testid="loader"
+    />
+  </motion.div>;
   }
 
   // Перевіряємо наявність токена і повертаємо відповідний компонент
