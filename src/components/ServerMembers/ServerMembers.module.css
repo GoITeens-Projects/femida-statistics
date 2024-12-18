@@ -38,7 +38,6 @@
 .totalMembersContainer {
     width: 200px;
     border: 1px 0px 0px 1px;
-    opacity: 0px;
     background: var(--chart-accent-color);
 }
 
@@ -55,7 +54,7 @@
 .totalMembersText {
     font-size: 16px;
     font-weight: 500;
-    color: var(--bg-primary-color);
+    /* color: var(--bg-primary-color); */
     margin-left: 10px;
     margin-top: 10px;
 }

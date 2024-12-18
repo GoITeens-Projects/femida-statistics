@@ -62,8 +62,10 @@ export const App = () => {
             </AnimatePresence>
           )}
           {!loading && (
+            
             <AnimatePresence>
-            <div className={s.mainCountainer}>
+              
+              <div className={s.mainFilterCountainer}>
               <motion.div
                 initial={{ opacity: 0, y: -50 }} // Початковий стан
                 animate={{ opacity: 1, y: 0 }} // Анімований стан
@@ -72,6 +74,8 @@ export const App = () => {
               >
                 <Filter />
               </motion.div>
+              </div>
+            <div className={s.mainCountainer}>
               <Outlet />
             </div>
             </AnimatePresence>
