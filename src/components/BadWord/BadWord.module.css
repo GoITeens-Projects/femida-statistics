@@ -1,10 +1,9 @@
 .moderationCard {
-    width: 300px;
-    height: 50px;
+    width: 440px;
+    height: 61px;
     margin: 10px;
-    background-color: #333;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    background-color: var(--input-badword);
+    border: 1px solid var(--chart-color);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
@@ -50,14 +49,19 @@
 }
 
 .moderationTitle {
-    color: #f0f0f0;
+    color: var(--text-color);
+    margin-left: 10px;
+    font-family: IBM Plex Sans;
     font-size: 12px;
     font-weight: 500;
-    margin-left: 10px;
+    line-height: 15.6px;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
 }
 
 .moderationList {
-    color: #9c9292;
+    color: var( --text-accent-color);
+    font-family: IBM Plex Sans;
     font-size: 10px;
     font-weight: 400;
     margin-left: 10px;
@@ -138,7 +142,7 @@ input:checked+.slider:before {
 
 .EditorContainer {
     margin-top: 51px;
-    width: 933px;
+    width: 800px;
     height: 230px;
     border: 1px solid var(--chart-color);
 }
@@ -173,7 +177,7 @@ input:checked+.slider:before {
 .FromContainer {
     position: relative;
     width: 933px;
-    height: 200px;
+    height: 250px;
     border: 1px solid var(--chart-color);
     margin-top: 20px;
     display: block;
@@ -193,14 +197,14 @@ input:checked+.slider:before {
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
     color: var(--text-accent-color);
-    margin-bottom: 10px;
+    margin-bottom: 100px;
     margin-left: -3px;
 }
 
 .InputBadWord {
     width: 879px;
     /* Ширина інпуту */
-    height: 33px;
+    height: 43px;
     border: 3px solid var(--chart-color);
     /* Закруглені кути */
     box-sizing: border-box;
@@ -416,43 +420,158 @@ input:focus+.slider {
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    transition: opacity 300ms ease-in-out;
 }
 
+
+/* Стан відкриття */
+
+.ModalOpen {
+    opacity: 1;
+    pointer-events: all;
+}
+
+
+/* Стан закриття */
+
+.ModalClose {
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* Загальний стиль для контенту модалки */
+
 .ModalContent {
-    background: #fff;
+    background: var(--input-badword);
     padding: 20px;
     border-radius: 8px;
     width: 80%;
     max-width: 800px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     position: relative;
+    transform: scale(1);
+    transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
 }
 
-.OpenModalButton {
-    padding: 10px 20px;
-    background-color: #6EABD4;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
+
+/* Анімація відкриття контенту */
+
+.ModalContentOpen {
+    transform: scale(1);
+    opacity: 1;
+}
+
+
+/* Анімація закриття контенту */
+
+.ModalContentClose {
+    transform: scale(0.9);
+    opacity: 0;
 }
 
 .CloseButton {
     margin-top: 10px;
     padding: 8px 12px;
-    background-color: #e74c3c;
     color: white;
     border: none;
     cursor: pointer;
     border-radius: 5px;
 }
 
-.SaveButton {
+.ModalClosing {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.ModalOverlay.ModalOpen {
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+.ModalButtonContainer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.InputContainer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px;
+    border-radius: 8px;
+    gap: 5px;
+    background-color: var(--input-badword);
+    border: 2px solid var(--btn-accent-color);
     margin-top: 10px;
-    padding: 8px 12px;
-    background-color: #2ecc71;
-    color: white;
+}
+
+.WordCards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    flex-grow: 1;
+}
+
+.WordCard {
+    background-color: var(--bg-accent-color);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: var(--text-color);
+    border: 1px solid var(--btn-accent-color);
+    max-height: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.InputInsideContainer {
+    flex-grow: 1;
     border: none;
+    outline: none;
+    padding: 5px;
+    font-size: 14px;
+    min-width: 120px;
+    background-color: var(--input-badword);
+}
+
+.DeleteIcon {
+    width: 20px;
+    /* Адаптуйте розмір за потреби */
+    height: 20px;
     cursor: pointer;
-    border-radius: 5px;
+    display: inline-block;
+    transition: transform 0.2s ease;
+    /* Для додавання анімації */
+}
+
+.DeleteIcon:hover {
+    transform: scale(1.1);
+    /* Легка анімація при наведенні */
+}
+
+.BadWordListContainer {
+    display: flex;
+    gap: 5px;
+    margin-top: 7px;
+}
+
+.IconBoxList {
+    margin-top: 2px;
+}
+
+.BadWordListText {
+    font-family: IBM Plex Mono;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 10.4px;
+    text-align: left;
+    /* Лейбл залишатиметься по лівому краю */
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: var(--text-accent-color);
+    margin-top: 3px;
 }

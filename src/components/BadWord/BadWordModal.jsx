@@ -4,70 +4,14 @@ import { fetchSettings } from "../../redux/settings/operation"; // Дія для
 import { badWord } from "../../redux/badword/operation"; // Дія для збереження нових слів
 import styles from "./BadWord.module.css";
 import * as monaco from "monaco-editor";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Shadow from "components/Shadow/Shadow";
-
-export const CodeEditor = ({ value, setEditorInstance }) => {
-    const editorRef = useRef(null);
-
-    useEffect(() => {
-        // Отримуємо збережену тему з localStorage
-        const savedTheme = localStorage.getItem("theme");
-        // Встановлюємо тему редактора на основі значення
-        const editorTheme = savedTheme === "light" ? "vs" : "vs-dark";
-
-        // Створюємо інстанс редактора
-        const editor = monaco.editor.create(editorRef.current, {
-            value: value || "",
-            language: "plaintext",
-            theme: editorTheme,
-            automaticLayout: true,
-            minimap: { enabled: false },
-        });
-
-        // Передаємо редактор через колбек
-        setEditorInstance(editor);
-
-        // Очищення ресурсу при розмонтуванні
-        return () => {
-            editor.dispose();
-        };
-    }, [value, setEditorInstance]);
-
-    return <div ref={editorRef} className={styles.EditorContainer}></div>;
-};
-
-
-
-
-const Modal = ({ children, onClose }) => {
-    return (
-        <div className={styles.ModalOverlay} onClick={onClose}>
-            <div className={styles.ModalContent} onClick={(e) => e.stopPropagation()}>
-                {children}
-            </div>
-        </div>
-    );
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+import { MdDeleteForever } from "react-icons/md";
+import { CiBoxList } from "react-icons/ci";
+import { CodeEditor } from "./CodeEditor";
+import { Modal } from "./ModalCodeEditor";
+import { UnsavedChangesModal } from "./UnsavedChangesModal";
 
 
 export const BadWordPage = () => {
@@ -77,7 +21,8 @@ export const BadWordPage = () => {
     const dispatch = useDispatch();
     const { data: settings, loading, error } = useSelector((state) => state.settings);
     const [addedWords, setAddedWords] = useState([]);
-
+    const [isUnsavedModalOpen, setIsUnsavedModalOpen] = useState(false);
+    const navigate = useNavigate(); // Для ручного перенаправлення
     // Завантаження налаштувань
     useEffect(() => {
         dispatch(fetchSettings());
@@ -87,20 +32,31 @@ export const BadWordPage = () => {
         if (settings?.settings?.badwords?.words) {
             setAddedWords(settings.settings.badwords.words);
         }
-    }, [settings, editorInstance]);
+    }, [settings]);
+
+    useEffect(() => {
+        if (editorInstance) {
+            // Встановлюємо слова з addedWords в редактор при відкритті
+            editorInstance.setValue(addedWords.join("\n"));
+        }
+    }, [addedWords, editorInstance]);
 
     const handleInputKeyPress = (event) => {
         if (event.key === "Enter" && inputValue.trim()) {
-            if (editorInstance) {
-                const currentContent = editorInstance.getValue();
-                editorInstance.setValue(`${currentContent}\n${inputValue.trim()}`.trim());
-            }
             setAddedWords((prevWords) => [...prevWords, inputValue.trim()]);
             setInputValue("");
         }
     };
-
     const handleSave = () => {
+        // Відправляємо список addedWords в БД
+        dispatch(badWord({ settings: { badwords: { words: addedWords } } })).then(() => {
+            console.log("Слова збережено у БД:", addedWords);
+            navigate("/settings");
+        });
+    };
+
+    // Функція для заміни слів в addedWords з редактора
+    const handleSaveModal = () => {
         if (editorInstance) {
             const content = editorInstance.getValue();
             const updatedBadWords = content
@@ -108,23 +64,41 @@ export const BadWordPage = () => {
                 .map((word) => word.trim())
                 .filter(Boolean);
 
-            dispatch(badWord({ settings: { badwords: { words: updatedBadWords } } })).then(() => {
-                console.log("Слова збережено у БД:", updatedBadWords);
-            });
+            // Оновлюємо список слів в addedWords
+            setAddedWords(updatedBadWords);
         }
+
+        // Закриваємо модалку через 300 мс після збереження
+        setTimeout(() => {
+            setIsModalOpen(false); // Закриваємо модалку
+        }, 300); // Затримка 300 мс
+    };
+    console.log(addedWords);
+    const handleDeleteWord = (word) => {
+        setAddedWords((prevWords) => prevWords.filter((w) => w !== word));
+    };
+    const handleBackClick = (e) => {
+        // Перевіряємо, чи були зміни
+        if (JSON.stringify(settings?.settings?.badwords?.words) !== JSON.stringify(addedWords)) {
+
+            setIsUnsavedModalOpen(true); // Відкриваємо модалку
+        } else {
+            navigate("/settings");
+        }
+    };
+    const handleDiscardChanges = () => {
+        setIsUnsavedModalOpen(false);
+        navigate("/settings"); // Перенаправляємо на settings
     };
 
     if (loading) return <p>Завантаження...</p>;
     if (error) return <p>Помилка: {error}</p>;
-
-
     return (
         <section>
             <div className={styles.ConatinerNavigation}>
-                <Link className={styles.ExitButton} to="/settings"><svg width="8" height="10" viewBox="0 0 4 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <button onClick={handleBackClick} className={styles.ExitButton}><svg width="8" height="10" viewBox="0 0 4 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M3 1L1 3L3 5" stroke="#678F95" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                    Назад</Link>
+                </svg>Назад</button>
                 <button onClick={handleSave} className={styles.SaveButton}>
                     Зберегти
                 </button>
@@ -147,14 +121,55 @@ export const BadWordPage = () => {
                     />
                     <label className={styles.LabelFormBadWords} >Налаштування фільтрування</label>
 
-                    <input
-                        type="text"
-                        value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
-                        onKeyDown={handleInputKeyPress}
-                        className={styles.InputBadWord}
-                        placeholder="Введіть слово..."
-                    />
+                    <div className={styles.InputContainer}>
+                        <div className={styles.WordCards}>
+                            {addedWords.slice(0, 10).map((word, index) => ( // Забезпечуємо відображення максимум 10 карток
+                                <div key={index} className={styles.WordCard}>
+                                    {word}
+                                    <svg
+                                        className={styles.DeleteIcon}
+                                        onClick={() => handleDeleteWord(word)}
+                                        width="25"
+                                        height="25"
+                                        viewBox="0 0 6 6"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M1.5 4.49976L4.49996 1.49979"
+                                            stroke="#678F95"
+                                            strokeWidth="0.5"
+                                            strokeLinecap="round"
+                                        />
+                                        <path
+                                            d="M4.5 4.49976L1.50004 1.49979"
+                                            stroke="#678F95"
+                                            strokeWidth="0.5"
+                                            strokeLinecap="round"
+                                        />
+                                    </svg>
+                                </div>
+                            ))}
+                            {/* Умовний рендеринг іконки */}
+                            {addedWords.length > 10 && (
+                                <div className={styles.BadWordListContainer} onClick={() => setIsModalOpen(true)}>
+                                    <p className={styles.BadWordListText} onClick={() => setIsModalOpen(true)}>+ ще {addedWords.length - 10}</p>
+                                    <CiBoxList
+                                        onClick={() => setIsModalOpen(true)}
+                                        className={styles.IconBoxList}
+                                    />
+                                </div>
+                            )}
+                            <input
+                                type="text"
+                                value={inputValue}
+                                onChange={(e) => setInputValue(e.target.value)}
+                                onKeyDown={handleInputKeyPress}
+                                className={styles.InputInsideContainer}
+                                placeholder="Введіть слово..."
+                            />
+                        </div>
+                    </div>
 
 
                     <div className={styles.ContainerCheckBox}>
@@ -181,6 +196,7 @@ export const BadWordPage = () => {
                     </div>
 
                 </div>
+
                 <div className={styles.SliderContainer}>
                     <label className={styles.switch}>
 
@@ -199,23 +215,18 @@ export const BadWordPage = () => {
                     setEditorInstance={setEditorInstance}
                 /> */}
                 {/* Модальне вікно */}
-                <button onClick={() => setIsModalOpen(true)} className={styles.OpenModalButton}>
-                    Відкрити редактор
-                </button>
+
                 {isModalOpen && (
-                    <Modal onClose={() => setIsModalOpen(false)}>
-                        <h2>Редагування поганих слів</h2>
+                    <Modal onClose={() => setIsModalOpen(false)} onSave={handleSaveModal}>
+                        <h2 className={styles.TitleBadWords}>Редагування поганих слів</h2>
                         <CodeEditor
                             value={settings?.settings?.badwords?.words?.join("\n") || ""}
                             setEditorInstance={setEditorInstance}
                         />
-                        <button onClick={handleSave} className={styles.SaveButton}>
-                            Зберегти
-                        </button>
-                        <button onClick={() => setIsModalOpen(false)} className={styles.CloseButton}>
-                            Закрити
-                        </button>
                     </Modal>
+                )}
+                {isUnsavedModalOpen && (
+                    <UnsavedChangesModal onClose={handleDiscardChanges} onSave={handleSave} />
                 )}
             </div>
 

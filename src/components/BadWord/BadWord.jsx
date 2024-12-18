@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 export const BadWord = () => {
     const [isEnabled, setIsEnabled] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+
     const dispatch = useDispatch();
 
     const handleToggle = () => {
@@ -18,8 +18,7 @@ export const BadWord = () => {
         dispatch(badWord({ settings: { badwords: { enabled: !isEnabled } } }));
     };
 
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
+
 
     return (
         <section>
