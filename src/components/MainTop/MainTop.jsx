@@ -60,7 +60,7 @@ const MainTop = ({ topArr, title, isChannel, children }) => {
                   />
                 )}
                 {isChannel ? (
-                  <h2 className={styles.topsChannel}>{top.username}</h2>
+                  <h2 className={styles.topsChannel}>Канал</h2>
                 ) : (
                   <h2 className={styles.topsUsername}>
                     {`${top.globalName ? top.globalName : ''} ${
@@ -79,9 +79,14 @@ const MainTop = ({ topArr, title, isChannel, children }) => {
                   </h2>
 
                 )}
+                {isChannel ?(
                 <p className={styles.topsUserMessagesQuantityText}>
+                  00
+                </p>) : (
+                  <p className={styles.topsUserMessagesQuantityText}>
                   {top.count}
                 </p>
+                )}
               </li>
             );
           })}

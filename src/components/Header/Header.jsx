@@ -48,30 +48,30 @@ const Header = () => {
           </li>
         </ul>
       </nav>
+      {localStorage.getItem('accessToken') && 
+        <div className={styles.headerWhenLoginBox}>}
 
-      <div className={styles.headerWhenLoginBox}>
-
-        {/* перемикач */}
+          {/* перемикач */}
 
 
-        <label className={styles.switch}>
-          <input
-            type="checkbox"
-            checked={isDarkMode}
-            onChange={toggleTheme}
-          />
-          <span className={`${styles.slider} ${styles.round}`}></span>
-        </label>
-        <div className={styles.navUserBox}>
-          <img
-            src={femidaImg}
-            alt="femida"
-            className={styles.navFemidaImg}
-          />
-          <p className={styles.navUsernameText}>{userName}</p>
-        </div>
-        {/* {userName} */}
-        {/* </p> */}
+          <label className={styles.switch}>
+            <input
+              type="checkbox"
+              checked={isDarkMode}
+              onChange={toggleTheme}
+            />
+            <span className={`${styles.slider} ${styles.round}`}></span>
+          </label>
+          <div className={styles.navUserBox}>
+            <img
+              src={femidaImg}
+              alt="femida"
+              className={styles.navFemidaImg}
+            />
+            <p className={styles.navUsernameText}>{userName}</p>
+          </div>
+          {/* {userName} */}
+          {/* </p> */}
 
         <div className={styles.headerNavSettingsBox}>
           <Link to="/settings" className={styles.headerNavSettingsBox}>
