@@ -89,8 +89,8 @@ export const ServerMembers = () => {
           <div className={styles.containers}>
             <div
               className={`${styles.totalMembersContainer2} ${!clickStates.clickJoined
-                  ? styles.statusChartStatusItemInactive
-                  : ''
+                ? styles.statusChartStatusItemInactive
+                : ''
                 }`}
               onClick={() => handleClick('clickJoined')}
             >
@@ -101,8 +101,8 @@ export const ServerMembers = () => {
             </div>
             <div
               className={`${styles.totalMembersContainer3} ${!clickStates.clickLeft
-                  ? styles.statusChartStatusItemInactive
-                  : ''
+                ? styles.statusChartStatusItemInactive
+                : ''
                 }`}
               onClick={() => handleClick('clickLeft')}
             >
@@ -112,24 +112,24 @@ export const ServerMembers = () => {
             </div>
             <div
               className={`${styles.totalMembersContainer} ${!clickStates.clickTotal
-                  ? styles.statusChartStatusItemInactive
-                  : ''
+                ? styles.statusChartStatusItemInactive
+                : ''
                 }`}
               onClick={() => handleClick('clickTotal')}
             >
               <span className={styles.statusChartSpan}></span>
               <p
                 className={`${styles.totalMembersText} ${!clickStates.clickTotal
-                    ? styles.statusChartStatusItemTextInactive
-                    : ''
+                  ? styles.statusChartStatusItemTextInactive
+                  : ''
                   }`}
               >
                 Кількість учасників
               </p>
               <p
                 className={`${styles.totalMembersText} ${!clickStates.clickTotal
-                    ? styles.statusChartStatusItemTextInactive2
-                    : ''
+                  ? styles.statusChartStatusItemTextInactive2
+                  : ''
                   }`}
               >
                 {lastOne.total}
