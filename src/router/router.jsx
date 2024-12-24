@@ -9,7 +9,8 @@ import { Voice } from "pages/Voice";
 import { Status } from "pages/Status";
 import { Economic } from "pages/Economic";
 import { Stage } from "pages/Stage";
-
+import { Settings } from "pages/Settings";
+import { BadWordPage } from '../components/BadWord/BadWordModal'
 
 export const router = createBrowserRouter(
     [
@@ -48,10 +49,15 @@ export const router = createBrowserRouter(
                     path: '/economic',
                     element: <PrivateRoute component={Economic} redirectTo='/' />
                 },
-                // {
-                //     path: '/settings',
-                //     element: <PrivateRoute component={ } redirectTo='/' />
-                // },
+                {
+                    path: '/settings',
+                    element: <PrivateRoute component={Settings} redirecTo='/' />
+                },
+                {
+                    path: '/settings/badword',
+                    element: <PrivateRoute component={BadWordPage} redirecTo='/' />
+                },
+
             ]
         }
     ]

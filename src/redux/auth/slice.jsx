@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { login } from './operation';
+import { login, updateToken } from './operation';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -7,6 +7,7 @@ const authSlice = createSlice({
     user: null, // Інформація про користувача
     accessToken: null, // Токен доступу
     refreshToken: null, // Токен для оновлення
+    updateToken: false,
     loading: false, // Статус завантаження
     error: null, // Статус помилки
   },
@@ -22,12 +23,14 @@ const authSlice = createSlice({
         state.accessToken = action.payload.accessToken; // Збереження токену доступу
         state.refreshToken = action.payload.refreshToken; // Збереження токену оновлення
         state.user = action.payload.user || null; // Збереження інформації про користувача, якщо доступно
+        state.updateToken = action.payload.updateToken
         window.location.href = '/Overview';
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload; // Відображення помилки
-      });
+      })
+      
   },
 });
 

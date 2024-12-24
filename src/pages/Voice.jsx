@@ -8,6 +8,9 @@ import { useEffect } from "react";
 import { fetchStatistics, completeMessagesLogs, fetchVoiceAndStage } from '../redux/statistics/operation';
 import setTheme from 'utils/setTheme';
 import { voiseData } from "./voiseData";
+import { motion, AnimatePresence } from "framer-motion";
+import s from '../components/Main.module.css';
+import { ClimbingBoxLoader } from 'react-spinners';
 
 const testTop = [
     {
@@ -92,15 +95,29 @@ export const Voice = () => {
   
     if (logs.length === 0) {
       dispatch(completeMessagesLogs());
-      dispatch(fetchStatistics());
       dispatch(fetchVoiceAndStage())
-      updateTokens()
+      // dispatch(fetchStatistics());
+      // updateTokens()
       setTheme();
     }
   }, [messagesLogs, dispatch, logs]);
 
     return <>
+     <motion.div
+             initial={{ opacity: 0, y: -50 }} // Початковий стан
+             animate={{ opacity: 1, y: 0 }}   // Анімований стан
+             exit={{ opacity: 0, y: 50 }}     // Стан при зникненні
+             transition={{ duration: 1.5 }}   // Тривалість переходу
+           >
      <MessagesChart include={voiseData}/>
+     </motion.div>
+     <motion.div
+             initial={{ opacity: 0, y: -50 }} // Початковий стан
+             animate={{ opacity: 1, y: 0 }}   // Анімований стан
+             exit={{ opacity: 0, y: 50 }}     // Стан при зникненні
+             transition={{ duration: 1.5 }}   // Тривалість переходу
+           >
      <TopChannels topArr={testTop}/>
+     </motion.div>
      </>
 }

@@ -93,3 +93,9 @@
 .navigationItem:hover {
   background-color: var(--btn-accent-color);
 }
+
+.testLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
