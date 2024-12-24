@@ -8,6 +8,7 @@ import { Messages } from "pages/Messages";
 import { Voice } from "pages/Voice";
 import { Status } from "pages/Status";
 import { Economic } from "pages/Economic";
+import { Stage } from "pages/Stage";
 
 
 export const router = createBrowserRouter(
@@ -34,6 +35,10 @@ export const router = createBrowserRouter(
                 {
                     path: '/voice',
                     element: <PrivateRoute component={Voice} redirectTo='/' />
+                },
+                {
+                    path: '/stage',
+                    element: <PrivateRoute component={Stage} redirecTo='/' />
                 },
                 {
                     path: '/status',

@@ -5,8 +5,9 @@ import updateTokens from 'utils/updateToken';
 import { selectMessagesLogs, selectCompletedMessagesLogs } from '../redux/statistics/selectors';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchStatistics, completeMessagesLogs } from '../redux/statistics/operation';
+import { fetchStatistics, completeMessagesLogs, fetchVoiceAndStage } from '../redux/statistics/operation';
 import setTheme from 'utils/setTheme';
+import { voiseData } from "./voiseData";
 
 const testTop = [
     {
@@ -88,16 +89,18 @@ export const Voice = () => {
 
   useEffect(() => {
     // Виконуємо fetch при завантаженні компонента
+  
     if (logs.length === 0) {
       dispatch(completeMessagesLogs());
       dispatch(fetchStatistics());
+      dispatch(fetchVoiceAndStage())
       updateTokens()
       setTheme();
     }
   }, [messagesLogs, dispatch, logs]);
 
     return <>
-     <MessagesChart/>
+     <MessagesChart include={voiseData}/>
      <TopChannels topArr={testTop}/>
      </>
 }

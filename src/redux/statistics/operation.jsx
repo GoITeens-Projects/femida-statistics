@@ -13,9 +13,9 @@ export const fetchStatistics = createAsyncThunk(
       let period = state.filter.period;
       if (body) {
         interval = body.interval;
-        period = body.period
+        period = body.period;
       }
-      
+
       let fatchInterval = 'h';
 
       switch (interval) {
@@ -94,15 +94,20 @@ export const fetchStatistics = createAsyncThunk(
             const day = str.slice(8, 10);
             console.log('day:', day);
             time = `${day} ${monthNames[month - 1]}`;
-          } else if (interval === 'weeks'){
-            const startStr = curr.statisticsTimestamps[0]
+          } else if (interval === 'weeks') {
+            const startStr = curr.statisticsTimestamps[0];
             const startMonth = startStr.slice(5, 7);
             const startDay = startStr.slice(8, 10);
-            const len = curr.statisticsTimestamps.length - 1
-            const endStr = curr.statisticsTimestamps[len]
+            const len = curr.statisticsTimestamps.length - 1;
+            const endStr = curr.statisticsTimestamps[len];
             const endMonth = endStr.slice(5, 7);
-            const endDay = endStr.slice(8, 10)
-            time = startMonth === endMonth ? `${startDay} - ${endDay} ${monthNames[startMonth - 1]}` : `${startDay} ${monthNames[startMonth - 1]} - ${endDay} ${monthNames[endMonth - 1]}` 
+            const endDay = endStr.slice(8, 10);
+            time =
+              startMonth === endMonth
+                ? `${startDay} - ${endDay} ${monthNames[startMonth - 1]}`
+                : `${startDay} ${monthNames[startMonth - 1]} - ${endDay} ${
+                    monthNames[endMonth - 1]
+                  }`;
           } else if (interval === 'months') {
             const str = curr.statisticsTimestamps[0];
             const month = str.slice(5, 7);
@@ -185,15 +190,15 @@ export const fetchStatistics = createAsyncThunk(
 export const completeMessagesLogs = createAsyncThunk(
   'stats/completeMessagesLogs',
   async (time, thunkApi) => {
-    console.log("completeMessagesLogs");
+    console.log('completeMessagesLogs');
     const state = thunkApi.getState();
     const messagesLogs = state.statistics.messagesLogs;
     const currLogs = messagesLogs.slice(0, 10);
 
     const ids = currLogs.map(user => user.id).join(',');
-     
+
     const info = await getUsersInfo(ids);
-    console.log("info:", info);
+    console.log('info:', info);
     const validation = info.map((user, i) => {
       return { ...user, count: currLogs[i].count };
     });
@@ -213,3 +218,68 @@ export const completeMessagesLogs = createAsyncThunk(
     // };
   }
 );
+
+export const fetchVoiceAndStage = createAsyncThunk(
+  'stats/fetchVoiceAndStage',
+  async (body, thunkApi) => {
+console.log("it`s voise fatch, hello")
+    const accessToken = localStorage.getItem('token');
+
+    const state = thunkApi.getState();
+      let interval = state.filter.interval;
+      let period = state.filter.period;
+
+      let UNIXinterval = 0 
+
+      switch (interval) {
+        case 'hours':
+          UNIXinterval = 3600;
+          break;
+
+        case 'days':
+          UNIXinterval = 86400;
+          break;
+
+        case 'weeks':
+          UNIXinterval = 604800;
+          break;
+
+        case 'months':
+          UNIXinterval = 2629746;
+          break;
+        default:
+          break;
+      }
+
+    const now = new Date();
+    const nowUNIX = Date.parse(now) / 1000
+    const UNIXgap = UNIXinterval * period;
+    const fromUNIX = (nowUNIX - UNIXgap) * 1000;
+    const from = new Date(fromUNIX)
+
+
+    let config = {
+      method: 'get',
+      url: `https://femida-api.onrender.com/stats/voices?from=${from}&to=now`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+
+    const { data } = await axios.request(config);
+    console.log("voises data:", data);
+    return data
+  }
+);
+
+// export const fetchVoiseAndStage = createAsyncThunk(
+//   'stats/fetchVoiseAndStage',
+//   async (body, thunkApi) => {
+//     let config = {
+//       method: 'get',
+//       url: `https://femida-api.onrender.com/stats/voices?from=${from}&to=now`,
+//       headers: {
+//         Authorization: `Bearer ${accessToken}`,
+//       },
+//     };
+//   })

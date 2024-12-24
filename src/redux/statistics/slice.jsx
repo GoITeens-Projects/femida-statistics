@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchStatistics, completeMessagesLogs } from './operation';
+import { fetchStatistics, completeMessagesLogs, fetchVoiceAndStage } from './operation';
 
 const statisticsSlice = createSlice({
   name: 'statistics',
@@ -38,7 +38,10 @@ const statisticsSlice = createSlice({
       })
       .addCase(completeMessagesLogs.fulfilled, (state, action) => {
         state.completedMessagesLogs = action.payload;
-      });
+      })
+      .addCase(fetchVoiceAndStage.fulfilled, (state, action) => {
+        state.stageActivitiesLogs = action.payload
+      })
   },
 });
 

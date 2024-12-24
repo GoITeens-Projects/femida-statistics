@@ -15,7 +15,7 @@ import { selectWindowWidth } from '../../redux/filter/selectors';
 import { selectMessagesCount } from '../../redux/statistics/selectors';
 import Shadow from 'components/Shadow/Shadow';
 
-export const MessagesChart = () => {
+export const MessagesChart = ({include}) => {
   const messages = useSelector(selectMessagesCount);
   const ww = useSelector(selectWindowWidth);
   const size = ww * 0.85 - 100;
@@ -77,7 +77,7 @@ export const MessagesChart = () => {
               <BarChart
                 width={size}
                 height={310}
-                data={messages}
+                data={include}
                 margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
               >
                 <XAxis
