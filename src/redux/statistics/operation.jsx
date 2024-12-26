@@ -11,6 +11,8 @@ export const fetchStatistics = createAsyncThunk(
       const accessToken = localStorage.getItem('token');
       let interval = state.filter.interval;
       let period = state.filter.period;
+      const prevInterval = state.statistics.prevInterval;
+      const prevPeriod = state.statistics.prevPeriod
       if (body) {
         interval = body.interval;
         period = body.period
@@ -38,8 +40,12 @@ export const fetchStatistics = createAsyncThunk(
           break;
       }
 
-      console.log('try');
+      console.log(prevPeriod, period, prevInterval, interval)
 
+      console.log('try');
+     if(prevPeriod === period && prevInterval === interval){
+      return
+     }
       let config = {
         method: 'get',
         url: `https://femida-api.onrender.com/stats?time=${period}${fatchInterval}&interval=${interval}`,
@@ -175,7 +181,7 @@ export const fetchStatistics = createAsyncThunk(
       // messagesLogs = [...acc.messagesLogs, ...newLogs]
 
       console.log({ ...combinedStatistics, messagesLogs });
-      return { ...combinedStatistics, messagesLogs };
+      return { ...combinedStatistics, messagesLogs, prevInterval: interval, prevPeriod: period };
     } catch (error) {
       return thunkApi.rejectWithValue('Не вдалося отримати статистику');
     }
@@ -186,6 +192,7 @@ export const completeMessagesLogs = createAsyncThunk(
   'stats/completeMessagesLogs',
   async (time, thunkApi) => {
     console.log("completeMessagesLogs");
+
     const state = thunkApi.getState();
     const messagesLogs = state.statistics.messagesLogs;
     const currLogs = messagesLogs.slice(0, 10);

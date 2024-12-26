@@ -19,7 +19,9 @@ const updateTokens = async () => {
       );
       return false;
     }
-    if (Date.now() - new Date(Oldexpires).getTime() > -1000 * 60 * 15 ) {
+    console.log("if token:", Date.now() - new Date(Oldexpires).getTime() > 0)
+    if (Date.now() - new Date(Oldexpires).getTime() > 0 ) {
+     
       //* access token already expired, or will expire soon, so we should update it
       const {data} = await axios.get('/auth/refresh', {credentials: 'include', withCredentials: true});
       const expires = new Date(new Date().getTime() + 1000 * 60 * 15 );

@@ -73,6 +73,7 @@ const Header = () => {
           </li>
         </ul>
       </nav>
+
       {localStorage.getItem('token') ? (
         <div className={styles.headerWhenLoginBox}>
           {/* перемикач */}
@@ -91,6 +92,7 @@ const Header = () => {
           </div>
           {/* {userName} */}
           {/* </p> */}
+
 
           <div className={styles.headerNavSettingsBox}>
             <Link to="/settings" className={styles.headerNavSettingsBox}>
@@ -145,6 +147,7 @@ const Header = () => {
                 />
               </svg>
             </button>
+
           </div>
         </div>
       ) : (
