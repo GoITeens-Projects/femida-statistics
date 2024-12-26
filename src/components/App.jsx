@@ -77,8 +77,11 @@ export const App = () => {
             </AnimatePresence>
           )}
         </div>
-        {/* <Footer/> */}
+
+      </div>
+      <Footer/>
       </AnimatePresence>
+
     </>
   );
 };
