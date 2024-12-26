@@ -1,4 +1,5 @@
 import css from './Login.module.css';
+import Logo from '../../imgs/logo.png';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/auth/operation';
@@ -23,61 +24,54 @@ const Login = () => {
     dispatch(login(loginData));
   };
   return (
-    <div className={css['login-overlay']}>
-      <img
-        className={css.login__logo}
-        src="anypath"
-        alt="GoIteens&Femida logo"
-      />
-      <div className={css['login-modal']}>
-        <Shadow leftFirst={-5} rightSecond={1} bottomSecond={-5}/>
-        <div className={css['login-title-box']}>
-          <h2 className={css.login__title}>Увійти</h2>
+    <div className={css.loginOverlay}>
+      <img className={css.loginLogo} src={Logo} alt="GoIteens&Femida logo" />
+      <div className={css['loginModal']}>
+        <Shadow leftFirst={-5} rightSecond={1} bottomSecond={-5} />
+        <div className={css['loginTitleBox']}>
+          <h2 className={css.loginTitle}>Увійти</h2>
         </div>
-        <form className={css.login__form} onSubmit={handleLogin}>
-          <label className={css.login__label}>
+        <form className={css.loginForm} onSubmit={handleLogin}>
+          <label className={css.loginLabel}>
             Ім’я користувача
             <input
-              className={css.login__input}
+              className={css.loginInput}
               type="text"
               placeholder="Ім’я користувача"
               value={username}
               onChange={e => setUsername(e.target.value)}
             />
           </label>
-          <label className={css.login__label}>
+          <label className={css.loginLabel}>
             Пароль
             <input
-              className={css.login__input}
+              className={css.loginInput}
               type="password"
               placeholder="Пароль"
               value={password}
               onChange={e => setPassword(e.target.value)}
             />
           </label>
-          <button className={css.login__btn} type="submit">
+          <button className={css.loginBtn} type="submit">
             Увійти
           </button>
         </form>
-        <div className={css['login-block']}>
-          <h3 className={css.login__subtitle}>Або увійдіть за допомогою</h3>
-          <ul className={css.login__list}>
-            <li className={css.login__item}>
-              <a href="https://discord.com" className={css.login__link}>
-                <button
-                  type="button"
-                  className={css['login__link-btn']}
-                ></button>
+        <div className={css['loginBlock']}>
+          <h3 className={css.loginSubtitle}>Або увійдіть за допомогою</h3>
+          <ul className={css.loginList}>
+            <li className={css.loginItem}>
+              <a href="https://discord.com" className={css.loginLink}>
+                <button type="button" className={css['loginLinkBtn']}></button>
               </a>
             </li>
-            <li className={css.login__item}>
+            <li className={css.loginItem}>
               <a
                 href="https://femida-api.onrender.com/auth/discord"
-                className={css.login__link}
+                className={css.loginLink}
               >
                 <button
                   type="button"
-                  className={`${css['login__link-btn']} ${css['login-discord-icon']}`}
+                  className={`${css['loginLinkBtn']} ${css['loginDiscordIcon']}`}
                 ></button>
               </a>
             </li>
