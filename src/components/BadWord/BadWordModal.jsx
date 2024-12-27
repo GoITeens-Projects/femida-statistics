@@ -91,8 +91,8 @@ export const BadWordPage = () => {
         navigate("/settings"); // Перенаправляємо на settings
     };
 
-    if (loading) return <p>Завантаження...</p>;
-    if (error) return <p>Помилка: {error}</p>;
+    // if (loading) return <p>Завантаження...</p>;
+    // if (error) return <p>Помилка: {error}</p>;
     return (
         <section>
             <div className={styles.ConatinerNavigation}>
@@ -122,6 +122,7 @@ export const BadWordPage = () => {
                     <label className={styles.LabelFormBadWords} >Налаштування фільтрування</label>
 
                     <div className={styles.InputContainer}>
+
                         <div className={styles.WordCards}>
                             {addedWords.slice(0, 10).map((word, index) => ( // Забезпечуємо відображення максимум 10 карток
                                 <div key={index} className={styles.WordCard}>
@@ -209,6 +210,27 @@ export const BadWordPage = () => {
                     </label>
                     <p className={styles.SliderText}>Повідомляти учасника про порушення</p>
                 </div>
+
+
+
+                <div className={styles.BadWordActionContainer}>
+                    <Shadow
+                        leftFirst={-7}
+                        widthFirst={5}
+                        heightSecond={5}
+                        rightSecond={3}
+                        bottomSecond={-7}
+                        backgroundBoth={'#6EABD4'}
+                        borderColorBoth={'#558DB2'}
+                    />
+                    <h3 className={styles.TitleAction}>Налаштування дії</h3>
+                </div>
+
+
+
+
+
+
 
                 {/* <CodeEditor
                     value={settings?.badwords?.words?.join("\n") || ""}

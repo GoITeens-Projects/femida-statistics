@@ -43,43 +43,43 @@ export const App = () => {
 
           {loading && (
             <AnimatePresence>
-            <div className={s.mainLoadingCountainer}>
-              <motion.div
-                initial={{ opacity: 0, y: -50 }} // Початковий стан
-                animate={{ opacity: 1, y: 0 }} // Анімований стан
-                exit={{ opacity: 0, y: 50 }} // Стан при зникненні
-                transition={{ duration: 2.5 }} // Тривалість переходу
-              >
-                <ClimbingBoxLoader
-                  color={'var(--shadow-secondary-color)'}
-                  loading={loading}
-                  size={30}
-                  aria-label="Loading Spinner"
-                  data-testid="loader"
-                />
-              </motion.div>
-            </div>
+              <div className={s.mainLoadingCountainer}>
+                <motion.div
+                  initial={{ opacity: 0, y: -50 }} // Початковий стан
+                  animate={{ opacity: 1, y: 0 }} // Анімований стан
+                  exit={{ opacity: 0, y: 50 }} // Стан при зникненні
+                  transition={{ duration: 2.5 }} // Тривалість переходу
+                >
+                  <ClimbingBoxLoader
+                    color={'var(--shadow-secondary-color)'}
+                    loading={loading}
+                    size={30}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                  />
+                </motion.div>
+              </div>
             </AnimatePresence>
           )}
           {!loading && (
             <AnimatePresence>
-            <div className={s.mainCountainer}>
-              <motion.div
-                initial={{ opacity: 0, y: -50 }} // Початковий стан
-                animate={{ opacity: 1, y: 0 }} // Анімований стан
-                exit={{ opacity: 0, y: 200 }} // Стан при зникненні
-                transition={{ duration: 1.5 }} // Тривалість переходу
-              >
-                <Filter />
-              </motion.div>
-              <Outlet />
-            </div>
+              <div className={s.mainCountainer}>
+                <motion.div
+                  initial={{ opacity: 0, y: -50 }} // Початковий стан
+                  animate={{ opacity: 1, y: 0 }} // Анімований стан
+                  exit={{ opacity: 0, y: 200 }} // Стан при зникненні
+                  transition={{ duration: 1.5 }} // Тривалість переходу
+                >
+                  <Filter />
+                </motion.div>
+                <Outlet />
+              </div>
             </AnimatePresence>
           )}
         </div>
 
-      </div>
-      <Footer/>
+
+        <Footer />
       </AnimatePresence>
 
     </>

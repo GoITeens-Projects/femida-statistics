@@ -575,3 +575,28 @@ input:focus+.slider {
     color: var(--text-accent-color);
     margin-top: 3px;
 }
+
+
+/* Action */
+
+.BadWordActionContainer {
+    position: relative;
+    width: 933px;
+    height: 315px;
+    border: 1px solid var(--chart-color);
+    margin-top: 50px;
+}
+
+.TitleAction {
+    font-family: IBM Plex Mono;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 10.4px;
+    text-align: left;
+    /* Лейбл залишатиметься по лівому краю */
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: var(--text-accent-color);
+    margin-top: 15px;
+    margin-left: 25px;
+}
