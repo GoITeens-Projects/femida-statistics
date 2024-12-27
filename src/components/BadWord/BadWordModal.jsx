@@ -224,6 +224,32 @@ export const BadWordPage = () => {
                         borderColorBoth={'#558DB2'}
                     />
                     <h3 className={styles.TitleAction}>Налаштування дії</h3>
+
+                    <div className={styles.BadWordActionContainer}>
+                        <Shadow
+                            leftFirst={-7}
+                            widthFirst={5}
+                            heightSecond={5}
+                            rightSecond={3}
+                            bottomSecond={-7}
+                            backgroundBoth={'#6EABD4'}
+                            borderColorBoth={'#558DB2'}
+                        />
+                        <h3 className={styles.TitleAction}>Налаштування дії</h3>
+
+                        <div className={styles.ActionWrapper}>
+                            <label htmlFor="actionSelect" className={styles.LabelWithTooltip}>
+                                Виберіть дію
+                                <span className={styles.Tooltip}>Оберіть, що зробити з порушенням</span>
+                            </label>
+                            <select id="actionSelect" className={styles.ActionSelect}>
+                                <option value="warning">Видати попередження</option>
+                                <option value="mute">Заглушити</option>
+                                <option value="ban">Забанити</option>
+                                <option value="kick">Вигнати</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
 

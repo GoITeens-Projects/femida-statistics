@@ -600,3 +600,59 @@ input:focus+.slider {
     margin-top: 15px;
     margin-left: 25px;
 }
+
+
+/* випадаючий список */
+
+.ActionSelect {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #558DB2;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+}
+
+.ActionWrapper {
+    position: relative;
+}
+
+.LabelWithTooltip {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.LabelWithTooltip:hover .Tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.Tooltip {
+    visibility: hidden;
+    opacity: 0;
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Відступ для позиціювання */
+    left: 50%;
+    margin-left: -100px; /* Центрування */
+    transition: opacity 0.3s;
+    font-size: 12px;
+}
+
+.Tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%; /* Стрілка нижче підказки */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
