@@ -264,7 +264,7 @@ console.log("it`s voise fatch, hello")
     const UNIXgap = UNIXinterval * period;
     const fromUNIX = (nowUNIX - UNIXgap) * 1000;
     const from = new Date(fromUNIX)
-
+   console.log("from:", from);
 
     let config = {
       method: 'get',
