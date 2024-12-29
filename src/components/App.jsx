@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setWindowWidth } from '../redux/filter/operation';
 import s from './Main.module.css';
 import { Filter } from './Filter/Filter';
-import { fetchStatistics } from '../redux/statistics/operation';
+import { fetchStatistics, fetchVoiceAndStage } from '../redux/statistics/operation';
 import Footer from './Footer/Footer';
 import { selectLoading } from '../redux/statistics/selectors';
 import { ClimbingBoxLoader } from 'react-spinners';
@@ -28,6 +28,7 @@ export const App = () => {
     console.log('app effect');
     dispatch(setWindowWidth(window.innerWidth));
     dispatch(fetchStatistics());
+    dispatch(fetchVoiceAndStage())
     // dispatch(updateToken)
   }, []);
 

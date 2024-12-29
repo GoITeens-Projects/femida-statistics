@@ -95,7 +95,7 @@ export const Voice = () => {
   
     if (logs.length === 0) {
       dispatch(completeMessagesLogs());
-      dispatch(fetchVoiceAndStage())
+      // dispatch(fetchVoiceAndStage())
       // dispatch(fetchStatistics());
       // updateTokens()
       setTheme();
@@ -109,7 +109,7 @@ export const Voice = () => {
              exit={{ opacity: 0, y: 50 }}     // Стан при зникненні
              transition={{ duration: 1.5 }}   // Тривалість переходу
            >
-     <MessagesChart include={voiseData}/>
+     <MessagesChart type='voise'/>
      </motion.div>
      <motion.div
              initial={{ opacity: 0, y: -50 }} // Початковий стан

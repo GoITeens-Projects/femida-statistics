@@ -10,7 +10,7 @@ const statisticsSlice = createSlice({
     membersStatuses: [{ name: '', online: 0, away: 0, dnd: 0, offline: 0 }],
     messagesCount: [{ name: '', messages: 0 }],
     messagesLogs: [{ id: '', count: 0 }],
-    ctivitiesCount: [],
+    stageActivitiesCount: [],
     stageActivitiesLogs: [],
     voiseActivitiesCount: [],
     voiceActivitiesLogs: [],
@@ -48,7 +48,10 @@ const statisticsSlice = createSlice({
 
       })
       .addCase(fetchVoiceAndStage.fulfilled, (state, action) => {
-        state.stageActivitiesLogs = action.payload
+        state.stageActivitiesCount = action.payload.stageActivitiesCount;
+        state.stageActivitiesLogs = action.payload.stageActivitiesLogs;
+        state.voiseActivitiesCount = action.payload.voiseActivitiesCount;
+        state.voiceActivitiesLogs = action.payload.voiceActivitiesLogs;
       }).addCase(updateToken.pending, state => {
         state.loading = true;
         state.error = null; // Очищення помилки перед новою спробою

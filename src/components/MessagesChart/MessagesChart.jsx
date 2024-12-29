@@ -15,7 +15,7 @@ import { selectWindowWidth } from '../../redux/filter/selectors';
 import { selectMessagesCount } from '../../redux/statistics/selectors';
 import Shadow from 'components/Shadow/Shadow';
 
-export const MessagesChart = ({include}) => {
+export const MessagesChart = ({type}) => {
   const messages = useSelector(selectMessagesCount);
   const ww = useSelector(selectWindowWidth);
   const size = ww * 0.85 - 100;
