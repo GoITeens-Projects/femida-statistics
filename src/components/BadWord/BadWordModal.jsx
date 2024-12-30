@@ -13,6 +13,76 @@ import { CodeEditor } from "./CodeEditor";
 import { Modal } from "./ModalCodeEditor";
 import { UnsavedChangesModal } from "./UnsavedChangesModal";
 
+const padNumber = (num) => String(num).padStart(2, "0");
+
+const ScrollableNumbers = ({ maxNumber, label, onChange }) => {
+    const [current, setCurrent] = useState(0);
+
+    const prevNumber = (current - 1 + maxNumber + 1) % (maxNumber + 1);
+    const nextNumber = (current + 1) % (maxNumber + 1);
+
+    const handlePrev = () => {
+        setCurrent((prev) => {
+            const newValue = (prev - 1 + maxNumber + 1) % (maxNumber + 1);
+            onChange(newValue);
+            return newValue;
+        });
+    };
+
+    const handleNext = () => {
+        setCurrent((prev) => {
+            const newValue = (prev + 1) % (maxNumber + 1);
+            onChange(newValue);
+            return newValue;
+        });
+    };
+
+    return (
+        <div className={styles.scrollableContainer}>
+            <p className={styles.NumberText}>{label}</p>
+            <div className={styles.scrollableControls}>
+                <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 4 5"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    onClick={handlePrev}
+                >
+                    <path d="M0 2.5L3.75 0.334936V4.66506L0 2.5Z" fill="#6EABD4" />
+                </svg>
+
+                <div className={styles.numbers}>
+                    <div className={`${styles.number} ${styles.faded}`}>{padNumber(prevNumber)}</div>
+                    <div className={`${styles.number} ${styles.selected}`}>{padNumber(current)}</div>
+                    <div className={`${styles.number} ${styles.faded}`}>{padNumber(nextNumber)}</div>
+                </div>
+
+                <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 4 5"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    onClick={handleNext}
+                >
+                    <path d="M4 2.5L0.25 4.66506L0.25 0.334936L4 2.5Z" fill="#6EABD4" />
+                </svg>
+            </div>
+        </div>
+    );
+};
+
+
+
+
+
+
+
+
+
+
+
 
 export const BadWordPage = () => {
     const [inputValue, setInputValue] = useState(""); // Поле для вводу
@@ -20,6 +90,11 @@ export const BadWordPage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false); // Стан модального вікна
     const dispatch = useDispatch();
     const { data: settings, loading, error } = useSelector((state) => state.settings);
+
+    const [days, setDays] = useState(0);
+    const [hours, setHours] = useState(0);
+    const [minutes, setMinutes] = useState(0);
+
     const [addedWords, setAddedWords] = useState([]);
     const [isUnsavedModalOpen, setIsUnsavedModalOpen] = useState(false);
     const navigate = useNavigate(); // Для ручного перенаправлення
@@ -225,31 +300,54 @@ export const BadWordPage = () => {
                     />
                     <h3 className={styles.TitleAction}>Налаштування дії</h3>
 
-                    <div className={styles.BadWordActionContainer}>
-                        <Shadow
-                            leftFirst={-7}
-                            widthFirst={5}
-                            heightSecond={5}
-                            rightSecond={3}
-                            bottomSecond={-7}
-                            backgroundBoth={'#6EABD4'}
-                            borderColorBoth={'#558DB2'}
-                        />
-                        <h3 className={styles.TitleAction}>Налаштування дії</h3>
+                    <div className={styles.ActionSelectContainer}>
 
-                        <div className={styles.ActionWrapper}>
-                            <label htmlFor="actionSelect" className={styles.LabelWithTooltip}>
-                                Виберіть дію
-                                <span className={styles.Tooltip}>Оберіть, що зробити з порушенням</span>
+                        <select className={styles.ActionSelect}>
+                            <option value="warning">Немає</option>
+
+                            <option value="mute">Видати попередження</option>
+                            <option value="mute">Заглушити </option>
+                            <option value="ban">Забанити</option>
+
+                        </select>
+                        <div className={styles.ContainerCheckBoxAction}>
+                            <label className={styles.CustomCheckbox}>
+                                <input
+                                    type="checkbox"
+                                // checked={checkedCase}
+                                // onChange={() => setCheckedCase(!checkedCase)}
+                                />
+                                <span className={styles.CheckboxMark}></span>
+                                Видалити повідомлення з порушенням
                             </label>
-                            <select id="actionSelect" className={styles.ActionSelect}>
-                                <option value="warning">Видати попередження</option>
-                                <option value="mute">Заглушити</option>
-                                <option value="ban">Забанити</option>
-                                <option value="kick">Вигнати</option>
-                            </select>
                         </div>
+
                     </div>
+                    <h3 className={styles.TitleAction}>Час дії</h3>
+                    <div className={styles.NumbersContainer}>
+                        <ScrollableNumbers maxNumber={31} label="Дні" onChange={setDays} />
+                        <ScrollableNumbers maxNumber={23} label="Години" onChange={setHours} />
+                        <ScrollableNumbers maxNumber={59} label="Хвилини" onChange={setMinutes} />
+                        <div>
+                            <svg className={styles.Decor} width="200" height="40" viewBox="0 0 183 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 1H183" stroke="#ACD0D6" stroke-dasharray="6 6" />
+                            </svg>
+                        </div>
+                        <p className={styles.TotalNumber}>{`${padNumber(days)} днів, ${padNumber(hours)} годин, ${padNumber(minutes)} хвилин`}</p>
+                    </div>
+                    <h3 className={styles.TitleAction}>Область дії</h3>
+                    <div className={styles.ContainerCheckBoxAction2}>
+                        <label className={styles.CustomCheckbox}>
+                            <input
+                                type="checkbox"
+                            // checked={checkedCase}
+                            // onChange={() => setCheckedCase(!checkedCase)}
+                            />
+                            <span className={styles.CheckboxMark}></span>
+                            Не поширювати на Адміністраторів і Модераторів
+                        </label>
+                    </div>
+
                 </div>
 
 
