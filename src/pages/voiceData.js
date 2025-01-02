@@ -1,4 +1,4 @@
-export const voiseData =  {
+export const voiceData =  {
     "members": [
       {
         "id": "1137391988417769583",

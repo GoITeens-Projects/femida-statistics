@@ -11,7 +11,7 @@ const updateTokens = async () => {
     console.log("discordAuthorized", discordAuthorized);
     console.log(Date.now() - new Date(Oldexpires).getTime());
 
-    if (Date.now() - new Date(Oldexpires).getTime() > 0 || discordAuthorized) {
+    if (Date.now() - new Date(Oldexpires).getTime() >= 0 || discordAuthorized) {
       const { data } = await axios.get("/auth/refresh", {
         credentials: "include",
         withCredentials: true

@@ -1,7 +1,7 @@
 import { MessagesChart } from "components/MessagesChart/MessagesChart"
 import TopChannels from "components/Tops/Tops"
 import { nanoid } from 'nanoid';
-import { fetchStatistics, completeMessagesLogs } from '../redux/statistics/operation';
+import { fetchStatistics, completeLogs } from '../redux/statistics/operation';
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import setTheme from 'utils/setTheme';
@@ -94,7 +94,7 @@ export const Messages = () => {
   useEffect(() => {
       // Виконуємо fetch при завантаженні компонента
       if (logs.length === 0) {
-        dispatch(completeMessagesLogs());
+        dispatch(completeLogs());
         // dispatch(fetchStatistics());
         // updateTokens()
         setTheme();
@@ -107,7 +107,7 @@ export const Messages = () => {
              exit={{ opacity: 0, y: 50 }}     // Стан при зникненні
              transition={{ duration: 1.5 }}   // Тривалість переходу
            >
-             <MessagesChart/>
+             <MessagesChart type='chat'/>
            </motion.div>
    
     <motion.div
@@ -116,7 +116,7 @@ export const Messages = () => {
              exit={{ opacity: 0, y: 50 }}     // Стан при зникненні
              transition={{ duration: 1.5 }}   // Тривалість переходу
            >
-            <TopChannels topArr={testTop}/>
+            <TopChannels type='chat' topArr={testTop}/>
            </motion.div>
     
     </>

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchStatistics, completeMessagesLogs, fetchVoiceAndStage } from './operation';
+import { fetchStatistics, completeLogs, fetchVoiceAndStage } from './operation';
 import { login, updateToken } from '../auth/operation';
 
 
@@ -8,15 +8,17 @@ const statisticsSlice = createSlice({
   initialState: {
     serverMembers: [{ name: '', joined: 0, left: 0, total: 0 }],
     membersStatuses: [{ name: '', online: 0, away: 0, dnd: 0, offline: 0 }],
-    messagesCount: [{ name: '', messages: 0 }],
+    messagesCount: [{ time: '', count: 0 }],
     messagesLogs: [{ id: '', count: 0 }],
-    stageActivitiesCount: [],
-    stageActivitiesLogs: [],
-    voiseActivitiesCount: [],
-    voiceActivitiesLogs: [],
+    stageActivitiesCount: [{ time: '', count: {hours: 0, minutes: 0} }],
+    stageActivitiesLogs: [{ id: '', count: 0 }],
+    voiceActivitiesCount: [{ time: '', count: {hours: 0, minutes: 0} }],
+    voiceActivitiesLogs: [{ id: '', count: 0 }],
     timestamp: [],
     updateToken: false,
     completedMessagesLogs: [],
+    completedVoicesLogs: [],
+    completedStagesLogs: [],
     prevInterval: 0,
     prevPeriod: 0,
     loading: false,
@@ -43,14 +45,16 @@ const statisticsSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      .addCase(completeMessagesLogs.fulfilled, (state, action) => {
-        state.completedMessagesLogs = action.payload;
+      .addCase(completeLogs.fulfilled, (state, action) => {
+        state.completedMessagesLogs = action.payload.message;
+        state.completedVoicesLogs = action.payload.voice;
+        state.completedStagesLogs = action.payload.stage;
 
       })
       .addCase(fetchVoiceAndStage.fulfilled, (state, action) => {
         state.stageActivitiesCount = action.payload.stageActivitiesCount;
         state.stageActivitiesLogs = action.payload.stageActivitiesLogs;
-        state.voiseActivitiesCount = action.payload.voiseActivitiesCount;
+        state.voiceActivitiesCount = action.payload.voiceActivitiesCount;
         state.voiceActivitiesLogs = action.payload.voiceActivitiesLogs;
       }).addCase(updateToken.pending, state => {
         state.loading = true;

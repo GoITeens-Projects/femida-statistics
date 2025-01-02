@@ -25,6 +25,7 @@ export const FilterModal = ({ delince }) => {
   const [period, setPeriod] = useState(selPeriod);
 
   const changeFilter = () => {
+    if(interval === selInterval && period === selPeriod){
     dispatch(
       updateFilter({
         interval,
@@ -32,12 +33,20 @@ export const FilterModal = ({ delince }) => {
         period,
       })
     );
+    } else{ 
+      dispatch(
+        updateFilter({
+          interval,
+          unit,
+          period,
+        })
+      );
     dispatch(fetchStatistics({
       interval,
       unit,
       period,
     }))
-    
+    }
     delince()
   };
 
