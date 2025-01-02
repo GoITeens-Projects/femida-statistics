@@ -43,11 +43,6 @@
     align-items: center;
 }
 
-.iconButton:hover svg {
-    transform: scale(1.1);
-    /* Легка анімація */
-}
-
 .moderationTitle {
     color: var(--text-color);
     margin-left: 10px;
@@ -177,7 +172,7 @@ input:checked+.slider:before {
 .FromContainer {
     position: relative;
     width: 933px;
-    height: 250px;
+    height: auto;
     border: 1px solid var(--chart-color);
     margin-top: 20px;
     display: block;
@@ -612,6 +607,7 @@ input:focus+.slider {
     border-radius: 4px;
     font-size: 14px;
     outline: none;
+    background-color: var(--input-badword);
 }
 
 .ActionSelectContainer {
@@ -623,6 +619,10 @@ input:focus+.slider {
 
 .ContainerCheckBoxAction {
     margin-left: 80px;
+}
+
+.ActionOption {
+    color: var(--text-color);
 }
 
 
@@ -664,7 +664,7 @@ input:focus+.slider {
 }
 
 .number.selected {
-    color: #000;
+    color: var(--text-color);
     font-family: IBM Plex Sans;
     font-weight: 400;
     line-height: 10.4px;
@@ -736,6 +736,7 @@ input:focus+.slider {
     text-decoration-skip-ink: none;
     margin-top: 30px;
     margin-left: 30px;
+    color: var(--text-color);
 }
 
 .ContainerCheckBoxAction2 {

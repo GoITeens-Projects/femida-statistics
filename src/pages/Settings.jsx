@@ -19,14 +19,14 @@ export const Settings = () => {
   if (loading) return <p>Завантаження...</p>;
   if (error) return <p>Помилка: {error}</p>;
   return <>
-    <motion.div
+    {/* <motion.div
       initial={{ opacity: 0, y: -50 }} // Початковий стан
       animate={{ opacity: 1, y: 0 }}   // Анімований стан
       exit={{ opacity: 0, y: 50 }}     // Стан при зникненні
       transition={{ duration: 1.5 }}   // Тривалість переходу
-    >
-      <BadWord />
-    </motion.div>
+    > */}
+    <BadWord />
+    {/* </motion.div> */}
 
   </>
 }
