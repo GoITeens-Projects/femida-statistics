@@ -113,7 +113,8 @@ export const FilterModal = ({ delince }) => {
     }
   };
 
-  return (
+  return (<>
+    <div className={styles.overlay} onClick={delince}></div>
     <div className={styles.filterModal}>
       <Shadow
         leftFirst={-5}
@@ -282,5 +283,6 @@ export const FilterModal = ({ delince }) => {
         Зберегти
       </button>
     </div>
+    </>
   );
 };

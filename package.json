@@ -12,6 +12,7 @@
     "express": "^4.21.1",
     "framer-motion": "^11.14.4",
     "monaco-editor": "^0.52.2",
+    "netlify": "^13.2.0",
     "node-fetch": "^3.3.2",
     "quill": "^2.0.3",
     "react": "^18.1.0",

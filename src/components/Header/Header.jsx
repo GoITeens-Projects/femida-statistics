@@ -5,6 +5,8 @@ import femidaImg from '../../imgs/femida.png';
 import { selectUser } from '../../redux/auth/selectors';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+// import { data } from 'components/ServerMembers/DataServerMmbers';
 
 const Header = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -25,6 +27,29 @@ const Header = () => {
   }, []);
 
   const userName = useSelector(selectUser);
+
+  const logout = async evt => {
+    // evt.preventDefault();
+    // const data = await axios.post(
+    //   'https://femida-api.onrender.com/auth/logout',
+    //   {
+    //     withCredentials: true,
+    //   }
+    // );
+    fetch('https://femida-api.onrender.com/auth/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      credentials: 'include',
+      withCredentials: true,
+    })
+      .then(res => res.json)
+      .then(data => {
+        return data;
+      });
+    localStorage.removeItem('token');
+  };
 
   return (
     <header className={styles.header}>
@@ -61,6 +86,7 @@ const Header = () => {
             <span className={`${styles.slider} ${styles.round}`}></span>
           </label>
           <div className={styles.navUserBox}>
+            <img src={femidaImg} alt="femida" className={styles.navFemidaImg} />
             <img src={femidaImg} alt="femida" className={styles.navFemidaImg} />
             <p className={styles.navUsernameText}>{userName}</p>
           </div>

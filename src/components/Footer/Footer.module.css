@@ -13,7 +13,13 @@
   flex-direction: column;
   align-items: flex-end;
   gap: 12px;
-  margin-left: 50%;
+  /* margin-left: 50%; */
+  /* flex-shrink: 0; */
+
+  @media screen and (min-width: 1200px) {
+    flex-shrink: 0;
+    margin-left: 100%;
+  }
 }
 
 .footerLink {
@@ -31,5 +37,9 @@
   align-items: center;
   justify-content: center;
   gap: 25px;
-  margin-left: 90px;
+  /* margin-left: 90px; */
+
+  @media screen and (min-width: 1200px) {
+    margin-left: 90px;
+  }
 }
