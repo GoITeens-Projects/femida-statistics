@@ -48,7 +48,7 @@ const Header = () => {
           </li>
         </ul>
       </nav>
-      {localStorage.getItem('accessToken') && (
+      {localStorage.getItem('token') && (
         <div className={styles.headerWhenLoginBox}>
           {/* перемикач */}
 

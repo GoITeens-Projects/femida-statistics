@@ -1,4 +1,4 @@
-.footer {
+/* .footer {
   background-color: var(--bg-footer-color);
   width: 100%;
   position: absolute;
@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   padding: 30px 100px 30px 100px;
-}
+} */
 
 .footerNav {
   display: flex;

@@ -1,9 +1,13 @@
 import styles from './Footer.module.css';
 import logo from '../../imgs/logo.png';
+import { useSelector } from 'react-redux';
+import { selectWindowWidth } from '../../redux/filter/selectors';
+import { FooterStyled } from './Footer.styled';
 
 const Footer = () => {
+  const size = useSelector(selectWindowWidth);
   return (
-    <footer className={styles.footer}>
+    <FooterStyled size={size}>
       <div className={styles.footerLogoBox}>
         <img src={logo} alt="footerLogo" className={styles.footerLogoImg} />
       </div>
@@ -93,7 +97,7 @@ const Footer = () => {
           </a>
         </li>
       </ul>
-    </footer>
+    </FooterStyled>
   );
 };
 
