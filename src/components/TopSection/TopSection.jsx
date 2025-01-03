@@ -18,7 +18,7 @@ const COLORS = [
   '#FEC830',
 ];
 
-const TopSection = ({ toArr, title, isChannel }) => {
+const TopSection = ({ toArr, title, isChannel, type }) => {
   const ww = useSelector(selectWindowWidth);
 
   const size = (ww * 0.85 - 120) / 2;
@@ -34,7 +34,7 @@ const TopSection = ({ toArr, title, isChannel }) => {
   });
 
   return (
-    <MainTop topArr={topArr} title={title} isChannel={isChannel}>
+    <MainTop topArr={topArr} title={title} isChannel={isChannel} type={type}>
       <DonutChart
         data={chartData}
         strokeColor="--bg-primary-color"

@@ -1,34 +1,11 @@
-.footer {
+/* .footer {
   background-color: var(--bg-footer-color);
   width: 100%;
   position: absolute;
   z-index: 1000;
   display: flex;
   align-items: center;
-  /* padding: 30px 100px 30px 100px; */
-  padding: 20px 30px;
-
-  @media screen and (min-width: 1200px) {
-    padding: 30px 100px 30px 100px;
-  }
-}
-
-.footerAdditionalBox {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 15px;
-  margin-left: auto;
-
-  @media screen and (min-width: 1200px) {
-    flex-direction: row;
-    margin-left: 0;
-  }
-}
-
-/* .lalal {
-  width: 20px;
-  height: 20px;
+  padding: 30px 100px 30px 100px;
 } */
 
 .footerNav {

@@ -5,12 +5,12 @@ import updateTokens from 'utils/updateToken';
 import { selectMessagesLogs, selectCompletedMessagesLogs } from '../redux/statistics/selectors';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchStatistics, completeMessagesLogs } from '../redux/statistics/operation';
+import { fetchStatistics, completeLogs, fetchVoiceAndStage } from '../redux/statistics/operation';
 import setTheme from 'utils/setTheme';
+import { voiceData } from "./voiceData";
 import { motion, AnimatePresence } from "framer-motion";
 import s from '../components/Main.module.css';
 import { ClimbingBoxLoader } from 'react-spinners';
-
 
 const testTop = [
     {
@@ -92,8 +92,10 @@ export const Voice = () => {
 
   useEffect(() => {
     // Виконуємо fetch при завантаженні компонента
+  
     if (logs.length === 0) {
-      dispatch(completeMessagesLogs());
+      dispatch(completeLogs());
+      // dispatch(fetchVoiceAndStage())
       // dispatch(fetchStatistics());
       // updateTokens()
       setTheme();
@@ -107,7 +109,7 @@ export const Voice = () => {
              exit={{ opacity: 0, y: 50 }}     // Стан при зникненні
              transition={{ duration: 1.5 }}   // Тривалість переходу
            >
-     <MessagesChart/>
+     <MessagesChart type='voice' include={voiceData}/>
      </motion.div>
      <motion.div
              initial={{ opacity: 0, y: -50 }} // Початковий стан
@@ -115,7 +117,7 @@ export const Voice = () => {
              exit={{ opacity: 0, y: 50 }}     // Стан при зникненні
              transition={{ duration: 1.5 }}   // Тривалість переходу
            >
-     <TopChannels topArr={testTop}/>
+     <TopChannels type='voice' topArr={testTop}/>
      </motion.div>
      </>
 }

@@ -5,7 +5,7 @@ export const getUsersInfo = async ids => {
   const accessToken = localStorage.getItem('token');
   let config = {
     method: 'get',
-    url: `https://femida-api.onrender.com/stats/usernames?ids=${ids}`,
+    url: `https://femida-api.onrender.com/discord/usernames?ids=${ids}`,
     headers: {
         'Authorization': `Bearer ${accessToken}`,
     },}

@@ -44,6 +44,11 @@ export const Navigation = () => {
           </NavLink>
         </li>
         <li className={s.navigationItem}>
+          <NavLink to="/stage" className={s.testLink}>
+            <RiVolumeUpLine /> Трибуни
+          </NavLink>
+        </li>
+        <li className={s.navigationItem}>
           <NavLink to="/status" className={s.testLink}>
             <RiUserLocationLine /> Статус
           </NavLink>

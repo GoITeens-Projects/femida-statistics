@@ -1,11 +1,16 @@
-import { selectWindowWidth } from '../../redux/filter/selectors';
+import {
+  selectFilterUnit,
+  selectWindowWidth,
+} from '../../redux/filter/selectors';
 import { TopsGlobalBox } from 'components/TopSection/TopSection.styled';
 import styles from '../TopSection/TopSection.module.css';
 import { useSelector } from 'react-redux';
 import Shadow from 'components/Shadow/Shadow';
 
-const MainTop = ({ topArr, title, isChannel, children }) => {
+const MainTop = ({ topArr, title, isChannel, children, type }) => {
   const ww = useSelector(selectWindowWidth);
+  const unit = useSelector(selectFilterUnit);
+  console.log('topArr', topArr);
 
   const size = (ww * 0.85 - 120) / 2;
 
@@ -44,7 +49,9 @@ const MainTop = ({ topArr, title, isChannel, children }) => {
             {isChannel === true ? 'Назва каналу' : 'Ім’я користувача'}
           </p>
           <p className={styles.topsMessagesQuantityTitle}>
-            Кількість повідомлень
+            {type === 'chat'
+              ? 'Кількість повідомлень'
+              : 'Кількість проведеного часу'}
           </p>
         </div>
         <ul className={styles.topsList}>
@@ -77,15 +84,18 @@ const MainTop = ({ topArr, title, isChannel, children }) => {
                             : top.username
                         }`}
                   </h2>
-
                 )}
-                {isChannel ?(
-                <p className={styles.topsUserMessagesQuantityText}>
-                  00
-                </p>) : (
+                {isChannel ? (
+                  <p className={styles.topsUserMessagesQuantityText}>00</p>
+                ) : (
                   <p className={styles.topsUserMessagesQuantityText}>
-                  {top.count}
-                </p>
+                    {top.count}{' '}
+                    {type === 'chat'
+                      ? ''
+                      : type !== 'chat' && unit === 'minutes'
+                      ? 'хв'
+                      : 'год'}
+                  </p>
                 )}
               </li>
             );
