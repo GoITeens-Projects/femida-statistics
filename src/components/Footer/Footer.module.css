@@ -14,19 +14,14 @@
   align-items: flex-end;
   gap: 12px;
   /* margin-left: 50%; */
-  /* flex-shrink: 0; */
-
-  @media screen and (min-width: 1200px) {
-    flex-shrink: 0;
-    margin-left: 100%;
-  }
+  flex-shrink: 0;
 }
 
 .footerLink {
   color: var(--subtext-color);
   text-align: right;
   font-family: 'IBM Plex Sans';
-  font-size: 12px;
+  font-size: 1vw;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -39,7 +34,17 @@
   gap: 25px;
   /* margin-left: 90px; */
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 600px) {
     margin-left: 90px;
+  }
+}
+
+.footerBox {
+  margin-left: auto;
+  display: block;
+
+  @media screen and (min-width: 600px) {
+    display: flex;
+    margin-left: 49.6vw;
   }
 }
