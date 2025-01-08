@@ -1,18 +1,49 @@
-/* .footer {
+.footer {
+  padding: 5.55vw 8.33vw;
+  /* width: ${({ size }) => `${size - 60}px`}; */
   background-color: var(--bg-footer-color);
-  width: 100%;
   position: absolute;
-  z-index: 1000;
+  z-index: 2;
   display: flex;
   align-items: center;
-  padding: 30px 100px 30px 100px;
-} */
+  height: auto;
+
+  @media screen and (min-width: 1200px) {
+    /* width: ${({ size }) => `${size - 200}px`}; */
+    padding: 1.56vw 5.208vw;
+  }
+}
+
+.footerContainer {
+  display: flex;
+  width: 89.584vw;
+  /* justify-content: space-between; */
+  align-items: flex-start;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media screen and (min-width: 500px) {
+    align-items: center;
+  }
+}
+
+.footerLogoImg {
+  width: 13vw;
+
+  @media screen and (min-width: 768px) {
+    width: 10vw;
+  }
+
+  @media screen and (min-width: 1200px) {
+    width: 8.216vw;
+  }
+}
 
 .footerNav {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 12px;
+  gap: 0.85vw;
   /* margin-left: 50%; */
   flex-shrink: 0;
 }
@@ -21,21 +52,41 @@
   color: var(--subtext-color);
   text-align: right;
   font-family: 'IBM Plex Sans';
-  font-size: 1vw;
+  font-size: 1.55vw;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+
+  @media screen and (min-width: 768px) {
+    font-size: 1.2vw;
+  }
+
+  @media screen and (min-width: 1200px) {
+    font-size: 0.85vw;
+  }
 }
 
 .footerSocialsList {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 25px;
-  /* margin-left: 90px; */
+  /* gap: 25px; */
+  gap: 2.77vw;
+  margin-top: 1vw;
+  margin-left: 7.083vw;
 
-  @media screen and (min-width: 600px) {
-    margin-left: 90px;
+  @media screen and (min-width: 500px) {
+    /* margin-left: 90px; */
+    margin-left: 4.6875vw;
+    margin-top: 0;
+    gap: 1.7vw;
+    /* gap: 25px; */
+  }
+}
+
+.footerSocialsLink {
+  & svg {
+    width: 2.77vw;
   }
 }
 
@@ -43,8 +94,9 @@
   margin-left: auto;
   display: block;
 
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 500px) {
     display: flex;
+    align-items: center;
     /* margin-left: 49.6vw; */
   }
 }
