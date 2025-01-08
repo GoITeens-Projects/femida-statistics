@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/auth/operation';
 import Shadow from 'components/Shadow/Shadow';
+import { fetchStatistics } from '../../redux/statistics/operation';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const Login = () => {
     };
     console.log(loginData);
     dispatch(login(loginData));
+    dispatch(fetchStatistics)
   };
   return (
     <div className={css.loginOverlay}>

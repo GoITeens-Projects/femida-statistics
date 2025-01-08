@@ -5,11 +5,12 @@ import { selectIsLoggedIn, selectIsReFreshing, selectUpdateToken } from "../redu
 import updateTokens from "utils/updateToken";
 import { useDispatch } from "react-redux";
 import { updateToken } from "../redux/auth/operation";
+import { fetchStatistics } from '../redux/statistics/operation';
 
 const RestrictedRouter = ({ component: Component, redirectTo }) => {
   // const localAccessToken = useSelector(selectUpdateToken)
 
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   //  useEffect(()=> {
   //    dispatch(updateToken)
@@ -39,6 +40,7 @@ const RestrictedRouter = ({ component: Component, redirectTo }) => {
   
     //  const accessToken = 
      awaitUpdateToken()
+     dispatch(fetchStatistics)
       // setLocalAccessToken(accessToken)
    }, [])
 
