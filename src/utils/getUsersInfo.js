@@ -9,7 +9,19 @@ export const getUsersInfo = async ids => {
     headers: {
         'Authorization': `Bearer ${accessToken}`,
     },}
-  const {data} = await axios.request(config)
+    try {
+      const {data} = await axios.request(config)
+      console.log("users:", data.users);
+  return data.users;
+    } catch (error) {
+      return {
+                username: '',
+                globalName: '',
+                id: 0,
+                avatar: ``,
+              }
+    }
+ 
   // const users = ids.map(async userId => {
   //   setTimeout(async () => {
   //     try {
@@ -33,8 +45,7 @@ export const getUsersInfo = async ids => {
   //     }
   //   }, 500);
   // });
-  console.log("users:", data.users);
-  return data.users;
+  
 };
 
 // export default getUsersInfo;

@@ -9,6 +9,7 @@ import { ClimbingBoxLoader } from 'react-spinners';
 // import { updateToken } from '../redux/auth/operation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { fetchStatistics } from '../redux/statistics/operation';
+import s from './Main.module.css';
 
 
 const PrivateRoute =  ({ component: Component, redirectTo }) => {
@@ -26,7 +27,8 @@ const PrivateRoute =  ({ component: Component, redirectTo }) => {
       } catch (error) {
         console.error("Error updating tokens:", error);
       } finally {
-        setLoading(false); // Завершення завантаження
+        setLoading(false); 
+        dispatch(fetchStatistics)
       }
     };
  
@@ -39,20 +41,23 @@ const PrivateRoute =  ({ component: Component, redirectTo }) => {
   // localStorage.getItem("accessToken");
   console.log("privet router:", localAccessToken)
   if (loading) {
-    return  <motion.div
-    initial={{ opacity: 0, y: -50 }} // Початковий стан
-    animate={{ opacity: 1, y: 0 }} // Анімований стан
-    exit={{ opacity: 0, y: 50 }} // Стан при зникненні
-    transition={{ duration: 2.5 }} // Тривалість переходу
-  >
-    <ClimbingBoxLoader
-      color={'var(--shadow-secondary-color)'}
-      loading={loading}
-      size={30}
-      aria-label="Loading Spinner"
-      data-testid="loader"
-    />
-  </motion.div>;
+    return <div className={s.mainLoadingCountainer}>  </div>
+  //    <div className={s.mainLoadingCountainer}><motion.div
+  //   initial={{ opacity: 0, y: -50 }} // Початковий стан
+  //   animate={{ opacity: 1, y: 0 }} // Анімований стан
+  //   exit={{ opacity: 0, y: 50 }} // Стан при зникненні
+  //   transition={{ duration: 2.5 }} // Тривалість переходу
+  // >
+  //   <ClimbingBoxLoader
+  //     color={'var(--shadow-secondary-color)'}
+  //     loading={loading}
+  //     size={30}
+  //     aria-label="Loading Spinner"
+  //     data-testid="loader"
+  //   />
+    
+  // </motion.div>
+  // </div>  ;
   }
 
   // Перевіряємо наявність токена і повертаємо відповідний компонент

@@ -1,7 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { fetchStatistics, completeLogs, fetchVoiceAndStage } from './operation';
 import { login, updateToken } from '../auth/operation';
-
 
 const statisticsSlice = createSlice({
   name: 'statistics',
@@ -10,9 +9,9 @@ const statisticsSlice = createSlice({
     membersStatuses: [{ name: '', online: 0, away: 0, dnd: 0, offline: 0 }],
     messagesCount: [{ time: '', count: 0 }],
     messagesLogs: [{ id: '', count: 0 }],
-    stageActivitiesCount: [{ time: '', count: {hours: 0, minutes: 0} }],
+    stageActivitiesCount: [{ time: '', count: { hours: 0, minutes: 0 } }],
     stageActivitiesLogs: [{ id: '', count: 0 }],
-    voiceActivitiesCount: [{ time: '', count: {hours: 0, minutes: 0} }],
+    voiceActivitiesCount: [{ time: '', count: { hours: 0, minutes: 0 } }],
     voiceActivitiesLogs: [{ id: '', count: 0 }],
     timestamp: [],
     updateToken: false,
@@ -27,12 +26,9 @@ const statisticsSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(fetchStatistics.pending, state => {
-        state.loading = true;
-        state.error = null;
-      })
       .addCase(fetchStatistics.fulfilled, (state, action) => {
-        state.loading = false;
+        if(state.loading === true){
+          state.loading = false;}
         // state.membersLeft = action.payload.membersLeft;
         state.serverMembers = action.payload.serverMembers;
         state.membersStatuses = action.payload.membersStatuses;
@@ -41,37 +37,49 @@ const statisticsSlice = createSlice({
         state.prevInterval = action.payload.prevInterval;
         state.prevPeriod = action.payload.prevPeriod;
       })
-      .addCase(fetchStatistics.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      })
       .addCase(completeLogs.fulfilled, (state, action) => {
+        // if(state.loading === true){
+        //   state.loading = false;}
         state.completedMessagesLogs = action.payload.message;
         state.completedVoicesLogs = action.payload.voice;
         state.completedStagesLogs = action.payload.stage;
-
       })
       .addCase(fetchVoiceAndStage.fulfilled, (state, action) => {
+        if(state.loading === true){
+        state.loading = false;}
         state.stageActivitiesCount = action.payload.stageActivitiesCount;
         state.stageActivitiesLogs = action.payload.stageActivitiesLogs;
         state.voiceActivitiesCount = action.payload.voiceActivitiesCount;
         state.voiceActivitiesLogs = action.payload.voiceActivitiesLogs;
-      }).addCase(updateToken.pending, state => {
-        state.loading = true;
-        state.error = null; // Очищення помилки перед новою спробою
       })
       .addCase(updateToken.fulfilled, (state, action) => {
-        state.loading = false;
-        state.updateToken = action.payload
-      })
-      .addCase(updateToken.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload; // Відображення помилки
+        // state.loading = false;
+        state.updateToken = action.payload;
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.updateToken = action.payload.updateToken
-
+        // state.loading = false;
+        state.updateToken = action.payload.updateToken;
       })
+      .addMatcher(
+        isAnyOf(
+          fetchStatistics.pending,
+          // completeLogs.pending,
+          fetchVoiceAndStage.pending,
+        ), state => {
+          state.loading = true;
+          state.error = null; 
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          fetchStatistics.rejected,
+          completeLogs.rejected,
+          fetchVoiceAndStage.rejected,
+        ), (state, action) => {
+          state.loading = false;
+          state.error = action.payload; 
+        }
+      );
   },
 });
 
