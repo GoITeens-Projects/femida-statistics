@@ -7,11 +7,13 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { selectWindowWidth } from '../../redux/filter/selectors';
+import BurgerMenu from 'components/BurgerMenu/BurgerMenu';
 // import { data } from 'components/ServerMembers/DataServerMmbers';
 
-const Header = () => {
+const Header = ({ isOpenBurger, setIsOpenBurger }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const size = useSelector(selectWindowWidth);
+  // const [isOpenBurger, setIsOpenBurger] = useState(false);
 
   const toggleTheme = useCallback(() => {
     const root = document.querySelector('html');
@@ -153,7 +155,55 @@ const Header = () => {
             </div>
           </div>
         )}
-        <button type="button" className={styles.headerOpenMenuBtn}>
+        {isOpenBurger ? (
+          <button
+            type="button"
+            className={styles.headerOpenMenuBtn}
+            onClick={() => setIsOpenBurger(false)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13"
+              height="13"
+              viewBox="0 0 13 13"
+              fill="none"
+            >
+              <path
+                d="M11.6066 11.6066L1 1"
+                stroke="#6EABD4"
+                stroke-linecap="round"
+              />
+              <path
+                d="M11.6066 1.3934L1 12"
+                stroke="#6EABD4"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        ) : (
+          <button
+            type="button"
+            className={styles.headerOpenMenuBtn}
+            onClick={() => setIsOpenBurger(true)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="17"
+              height="12"
+              viewBox="0 0 17 12"
+              fill="none"
+            >
+              <path d="M16 1L1 1" stroke="#6EABD4" stroke-linecap="round" />
+              <path d="M16 6L1 6" stroke="#6EABD4" stroke-linecap="round" />
+              <path d="M16 11L1 11" stroke="#6EABD4" stroke-linecap="round" />
+            </svg>
+          </button>
+        )}
+        {/* <button
+          type="button"
+          className={styles.headerOpenMenuBtn}
+          onClick={() => setIsOpenBurger(true)}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="17"
@@ -165,8 +215,9 @@ const Header = () => {
             <path d="M16 6L1 6" stroke="#6EABD4" stroke-linecap="round" />
             <path d="M16 11L1 11" stroke="#6EABD4" stroke-linecap="round" />
           </svg>
-        </button>
+        </button> */}
       </div>
+      {/* {isOpenBurger && <BurgerMenu />} */}
     </header>
   );
 };
