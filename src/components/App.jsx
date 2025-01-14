@@ -42,12 +42,7 @@ export const App = () => {
       <AnimatePresence>
         {/* <p>Just p</p> */}
         <Header isOpenBurger={isOpenBurger} setIsOpenBurger={setIsOpenBurger} />
-        {isOpenBurger && (
-          <BurgerMenu
-            isOpenBurger={isOpenBurger}
-            setIsOpenBurger={setIsOpenBurger}
-          />
-        )}
+        {isOpenBurger && <BurgerMenu />}
 
         <div className={s.countainer}>
           <div className={s.navigationCountainer}>

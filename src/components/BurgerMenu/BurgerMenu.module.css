@@ -1,17 +1,3 @@
-/* .backdrop__mailing {
-  overflow: hidden;
-  opacity: 1;
-  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  background-color: #0000003e;
-  backdrop-filter: blur(5px);
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 11;
-} */
-
 .burgerContainer {
   position: absolute;
   top: 50%;
@@ -19,9 +5,7 @@
   transform: translate(50%, -50%);
   width: 100vw;
   height: 100vh;
-  /* border-radius: 15px; */
-  /* overflow: hidden; */
-  background-color: #d2f1f6;
+  background-color: var(--bg-accent-color);
   z-index: 100;
   margin-top: 60px;
 }
@@ -37,95 +21,4 @@
   justify-content: space-between;
   padding-bottom: 5.556vw;
   padding: 0 5.556vw 5.556vw 5.556vw;
-}
-
-.loginMenuBtn {
-  padding: 4px 10px;
-  border: 1px solid #deab9a;
-  color: #000;
-  text-align: right;
-  font-family: 'IBM Plex Mono';
-  font-size: 5px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-}
-
-/* !switch */
-.switch {
-  position: relative;
-  display: inline-block;
-  /* width: 46px; */
-  /* width: 3.25vw; */
-  /* height: 20px; */
-  /* height: 1.41vw; */
-  width: 25px;
-  height: 10px;
-}
-
-/* Hide default HTML checkbox */
-
-.switch input {
-  display: none;
-}
-
-/* The slider */
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--secondary-color);
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: '';
-  /* height: 15px; */
-  height: 6px;
-  /* width: 15px; */
-  width: 6px;
-  /* left: 4px; */
-  left: 0.283vw;
-  /* bottom: 3px; */
-  bottom: 0.212vw;
-  background-color: var(--bg-modal-color);
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  background-image: url(/src/img/svgs/header-icon/sun.svg);
-  background-size: 0.811vw;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-input:checked + .slider {
-  background-color: var(--secondary-color);
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px var(--secondary-color);
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(1.624vw);
-  -ms-transform: translateX(1.624vw);
-  transform: translateX(1.624vw);
-  background-image: url(/src/img/svgs/header-icon/moon.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-/* Rounded sliders */
-
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
 }

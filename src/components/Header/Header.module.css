@@ -1,5 +1,4 @@
 .header {
-  /* padding: 11px 30px 16px 82px; */
   padding: 1.94vw 8.3px;
   display: flex;
   align-items: center;
@@ -8,7 +7,6 @@
   z-index: 2;
   position: absolute;
   background-color: var(--bg-primary-color);
-  /* justify-content: center; */
 
   @media screen and (min-width: 1200px) {
     padding: 0.91vw 0.57vw 0.83vw 4vw;
@@ -44,49 +42,7 @@
 }
 
 .headerNav {
-  /* margin-left: 128px; */
   flex-shrink: 0;
-}
-
-.navUserBox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.52vw;
-  padding: 0.3vw 1.8vw;
-  /* padding: 5px 30px; */
-  outline: 1px solid #deab9a;
-
-  @media screen and (max-width: 1199px) {
-    padding: 0.4vw 2.4vw;
-  }
-}
-
-.navFemidaImg {
-  width: 1.65vw;
-  height: 1.65vw;
-  /* width: 26px;
-  height: 26px; */
-  /* mix-blend-mode: darken; */
-}
-
-.navUsernameText {
-  color: var(--text-color);
-  text-align: right;
-  font-size: 0.85vw;
-  font-weight: 500;
-  line-height: normal;
-}
-
-.headerNavSettingsBox {
-  display: none;
-
-  @media screen and (min-width: 768px) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-  }
 }
 
 .headerList {
@@ -94,7 +50,6 @@
   align-items: center;
   justify-content: center;
   gap: 5.55vw;
-  /* gap: 1.7vw; */
 
   @media screen and (min-width: 768px) {
     gap: 3.6vw;
@@ -103,7 +58,6 @@
   @media screen and (min-width: 1200px) {
     gap: 1.7vw;
   }
-  /* gap: 30px; */
 }
 
 .headerItem {
@@ -129,7 +83,6 @@
 
 .headerOpenMenuBtn {
   display: block;
-  /* width: 4.16vw; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -150,127 +103,8 @@
   transition-timing-function: ease-out;
 }
 
-.headerWhenLoginBox {
-  /* display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  flex-shrink: 0; */
-  display: none;
-
-  @media screen and (min-width: 768px) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    /* margin-left: 40%; */
-    flex-shrink: 0;
-  }
-}
-
 .headerBox {
   display: flex;
   align-items: center;
-  margin-left: 80%;
-  gap: 20px;
-}
-
-.navSettingBtn {
-  & svg {
-    width: 1.345vw;
-  }
-}
-
-.navLogoutBtn {
-    & svg {
-        width: 1.13vw;
-    }
-}
-
-.headerLogBtn {
-  color: var(--text-color);
-  text-align: right;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: normal;
-  padding: 10px 30px;
-  border: 1px solid var(--border-color);
-}
-
-/* свічер */
-
-.switch {
-  position: relative;
-  display: inline-block;
-  /* width: 46px; */
-  width: 3.25vw;
-  /* height: 20px; */
-  height: 1.41vw;
-}
-
-/* Hide default HTML checkbox */
-
-.switch input {
-  display: none;
-}
-
-/* The slider */
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--secondary-color);
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: '';
-  /* height: 15px; */
-  height: 1.06vw;
-  /* width: 15px; */
-  width: 1.06vw;
-  /* left: 4px; */
-  left: 0.283vw;
-  /* bottom: 3px; */
-  bottom: 0.212vw;
-  background-color: var(--bg-modal-color);
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  background-image: url(/src/img/svgs/header-icon/sun.svg);
-  background-size: 0.811vw;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-input:checked + .slider {
-  background-color: var(--secondary-color);
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px var(--secondary-color);
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(1.624vw);
-  -ms-transform: translateX(1.624vw);
-  transform: translateX(1.624vw);
-  background-image: url(/src/img/svgs/header-icon/moon.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-/* Rounded sliders */
-
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
+  gap: 1.416vw;
 }
