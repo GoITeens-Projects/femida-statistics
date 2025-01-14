@@ -1,23 +1,17 @@
 import styles from './BurgerMenu.module.css';
 import { Navigation } from 'components/Navigation/Navigation';
+import ToggleTheme from 'components/ToggleTheme/ToggleTheme';
+import WhenLoginBox from 'components/WhenLoginBox/WhenLoginBox';
 
-const BurgerMenu = ({ isOpenBurger, setIsOpenBurger }) => {
+const BurgerMenu = () => {
   return (
-    <div className={styles.burgerBackdrop}>
-      <div className={styles.burgerContainer}>
-        <div className={styles.burgerBox}>
-          <div className={styles.burgerBtnsBox}>
-            <button type="button" className={styles.loginMenuBtn}>
-              Увійти
-            </button>
-            <label className={styles.switch}>
-              <input type="checkbox" />
-              <span className={`${styles.slider} ${styles.round}`}></span>
-            </label>
-          </div>
-          <Navigation />
+    <div className={styles.burgerContainer}>
+      <div className={styles.burgerBox}>
+        <div className={styles.burgerBtnsBox}>
+          <WhenLoginBox />
+          <ToggleTheme />
         </div>
-        {/* <h1>hello</h1> */}
+        <Navigation />
       </div>
     </div>
   );

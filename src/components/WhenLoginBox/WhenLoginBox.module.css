@@ -1,0 +1,102 @@
+.whenLoginBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4.166vw;
+
+  @media screen and (min-width: 768px) {
+    gap: 1.416vw;
+  }
+}
+
+.navUserBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.388vw;
+
+  @media screen and (min-width: 768px) {
+    gap: 0.52vw;
+    outline: 1px solid #deab9a;
+    padding: 0.4vw 2.4vw;
+  }
+
+  @media screen and (min-width: 1200px) {
+    gap: 0.52vw;
+    padding: 0.3vw 1.8vw;
+    outline: 1px solid #deab9a;
+  }
+}
+
+.navFemidaImg {
+  width: 4.166vw;
+  height: 4.166vw;
+
+  @media screen and (min-width: 768px) {
+    width: 1.65vw;
+    height: 1.65vw;
+  }
+}
+
+.navUsernameText {
+  color: var(--text-color);
+  text-align: right;
+  font-size: 1.388vw;
+  font-weight: 500;
+  line-height: normal;
+
+  @media screen and (min-width: 768px) {
+    font-size: 0.85vw;
+  }
+}
+
+.navSettingsBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.916vw;
+
+  @media screen and (min-width: 768px) {
+    gap: 1.0625vw;
+  }
+}
+
+.navSettingBtn {
+  & svg {
+    width: 2.361vw;
+
+    @media screen and (min-width: 768px) {
+      width: 1.345vw;
+    }
+  }
+}
+
+.navLogoutBtn {
+  & svg {
+    width: 1.944vw;
+
+    @media screen and (min-width: 768px) {
+      width: 1.13vw;
+    }
+  }
+}
+
+.headerLogBtn {
+  color: var(--text-color);
+  text-align: right;
+  font-size: 1.388vw;
+  font-weight: 500;
+  line-height: normal;
+  padding: 1.111vw 2.77vw;
+  border: 1px solid var(--border-color);
+
+  @media screen and (min-width: 768px) {
+    color: var(--text-color);
+    text-align: right;
+    font-size: 0.85vw;
+    font-weight: 500;
+    line-height: normal;
+    padding: 0.708vw 2.125vw;
+    border: 1px solid var(--border-color);
+  }
+}
