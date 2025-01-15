@@ -43,11 +43,6 @@
     align-items: center;
 }
 
-.iconButton:hover svg {
-    transform: scale(1.1);
-    /* Легка анімація */
-}
-
 .moderationTitle {
     color: var(--text-color);
     margin-left: 10px;
@@ -177,7 +172,7 @@ input:checked+.slider:before {
 .FromContainer {
     position: relative;
     width: 933px;
-    height: 250px;
+    height: auto;
     border: 1px solid var(--chart-color);
     margin-top: 20px;
     display: block;
@@ -574,4 +569,177 @@ input:focus+.slider {
     text-decoration-skip-ink: none;
     color: var(--text-accent-color);
     margin-top: 3px;
+}
+
+
+/* Action */
+
+.BadWordActionContainer {
+    position: relative;
+    width: 933px;
+    height: 280px;
+    border: 1px solid var(--chart-color);
+    margin-top: 50px;
+}
+
+.TitleAction {
+    font-family: IBM Plex Mono;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 10.4px;
+    text-align: left;
+    /* Лейбл залишатиметься по лівому краю */
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: var(--text-accent-color);
+    margin-top: 15px;
+    margin-left: 25px;
+}
+
+
+/* випадаючий список */
+
+.ActionSelect {
+    width: 266px;
+    height: 33px;
+    padding: 8px;
+    border: 1px solid #558DB2;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    background-color: var(--input-badword);
+}
+
+.ActionSelectContainer {
+    position: relative;
+    margin-top: 12px;
+    margin-left: 29px;
+    display: flex;
+}
+
+.ContainerCheckBoxAction {
+    margin-left: 80px;
+}
+
+.ActionOption {
+    color: var(--text-color);
+}
+
+
+/* числа */
+
+.scrollableContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    margin-top: 12px;
+}
+
+.scrollableControls {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.numbers {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.number {
+    font-size: 16px;
+    margin: 0 5px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.number.faded {
+    color: #aaa;
+}
+
+.number.selected {
+    color: var(--text-color);
+    font-family: IBM Plex Sans;
+    font-weight: 400;
+    line-height: 10.4px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+.number.slideLeft {
+    animation: slideLeft 0.3s ease;
+}
+
+.number.slideRight {
+    animation: slideRight 0.3s ease;
+}
+
+@keyframes slideLeft {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideRight {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.NumbersContainer {
+    display: flex;
+}
+
+.NumbersContainer>div:not(:last-child) {
+    margin-left: 20px;
+}
+
+.NumberText {
+    font-family: IBM Plex Sans;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 7.8px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: var(--text-accent-color);
+}
+
+.Decor {
+    margin-top: 15px;
+}
+
+.TotalNumber {
+    font-family: IBM Plex Sans;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 10.4px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    margin-top: 30px;
+    margin-left: 30px;
+    color: var(--text-color);
+}
+
+.ContainerCheckBoxAction2 {
+    margin-left: 25px;
+    margin-top: 12px;
 }
