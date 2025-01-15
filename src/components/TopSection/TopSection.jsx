@@ -35,6 +35,8 @@ const TopSection = ({ toArr, title, isChannel, type }) => {
 
   return (
     <MainTop topArr={topArr} title={title} isChannel={isChannel} type={type}>
+      {
+          topArr.length === 1 ? <></>  : 
       <DonutChart
         data={chartData}
         strokeColor="--bg-primary-color"
@@ -43,6 +45,7 @@ const TopSection = ({ toArr, title, isChannel, type }) => {
         width={chart}
         height={chart}
       />
+}
     </MainTop>
   );
 };

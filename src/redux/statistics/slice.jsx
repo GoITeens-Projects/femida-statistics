@@ -15,13 +15,33 @@ const statisticsSlice = createSlice({
     voiceActivitiesLogs: [{ id: '', count: 0 }],
     timestamp: [],
     updateToken: false,
-    completedMessagesLogs: [],
-    completedVoicesLogs: [],
-    completedStagesLogs: [],
+    completedMessagesLogs: [{ 
+      username: '',
+      globalName: '',
+      id: 0,
+      avatar: ``,
+    count: 0,
+  loading: true}],
+    completedVoicesLogs: [{ 
+      username: '',
+      globalName: '',
+      id: 0,
+      avatar: ``,
+    count: {hours: 0, minutes: 0},
+    loading: true}],
+    completedStagesLogs: [{ 
+      username: '',
+      globalName: '',
+      id: 0,
+      avatar: ``,
+    count: {hours: 0, minutes: 0},
+    loading: true
+  }],
     prevInterval: 0,
     prevPeriod: 0,
     loading: true,
     error: null,
+    reloadProtocol: false
   },
   reducers: {},
   extraReducers: builder => {
@@ -68,6 +88,7 @@ const statisticsSlice = createSlice({
         ), state => {
           state.loading = true;
           state.error = null; 
+          state.reloadProtocol = false;
         }
       )
       .addMatcher(
@@ -78,6 +99,7 @@ const statisticsSlice = createSlice({
         ), (state, action) => {
           state.loading = false;
           state.error = action.payload; 
+          state.reloadProtocol = true;
         }
       );
   },

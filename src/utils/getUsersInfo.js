@@ -14,12 +14,12 @@ export const getUsersInfo = async ids => {
       console.log("users:", data.users);
   return data.users;
     } catch (error) {
-      return {
+      return [{
                 username: '',
                 globalName: '',
                 id: 0,
                 avatar: ``,
-              }
+              }]
     }
  
   // const users = ids.map(async userId => {

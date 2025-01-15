@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateFilter } from '../../redux/filter/operation';
-import { fetchStatistics } from '../../redux/statistics/operation';
+import { completeLogs, fetchStatistics, fetchVoiceAndStage } from '../../redux/statistics/operation';
 import {
   selectFilterInterval,
   selectFilterPeriod,
@@ -46,6 +46,12 @@ export const FilterModal = ({ delince }) => {
       unit,
       period,
     }))
+    dispatch(fetchVoiceAndStage({
+      interval,
+      unit,
+      period,
+    }))
+    dispatch(completeLogs())
     }
     delince()
   };

@@ -18,7 +18,7 @@ import {
   fetchVoiceAndStage,
 } from '../redux/statistics/operation';
 import Footer from './Footer/Footer';
-import { selectLoading } from '../redux/statistics/selectors';
+import { selectLoading, selectReloadProtocol } from '../redux/statistics/selectors';
 import { ClimbingBoxLoader } from 'react-spinners';
 import { updateToken } from '../redux/auth/operation';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -27,6 +27,7 @@ import BurgerMenu from './BurgerMenu/BurgerMenu';
 export const App = () => {
   const dispatch = useDispatch();
   const loading = useSelector(selectLoading);
+  const reloadProtocol = useSelector(selectReloadProtocol)
   console.log('app render');
   useEffect(() => {
     console.log('app effect');
@@ -36,6 +37,11 @@ export const App = () => {
     // dispatch(updateToken)
   }, []);
   const [isOpenBurger, setIsOpenBurger] = useState(false);
+
+  if(reloadProtocol){
+    console.log('reload protocol active');
+    dispatch(fetchStatistics());
+  }
 
   return (
     <>

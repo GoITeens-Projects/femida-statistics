@@ -10,6 +10,8 @@ export const selectStageActivitiesLogs = state => state.statistics.stageActiviti
 export const selectvoiceActivitiesCount = state => state.statistics.voiceActivitiesCount;
 export const selectVoiceActivitiesLogs = state => state.statistics.voiceActivitiesLogs;
 export const selectLoading = state => state.statistics.loading;
+export const selectReloadProtocol = state => state.statistics.reloadProtocol;
+
 
 
 
