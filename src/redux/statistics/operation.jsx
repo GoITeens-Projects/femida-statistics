@@ -7,6 +7,7 @@ export const fetchStatistics = createAsyncThunk(
   'stats/getStats',
   async (body, thunkApi) => {
     console.log('fetch');
+    await updateToken()
     try {
       const state = thunkApi.getState();
       const accessToken = localStorage.getItem('token');
@@ -208,20 +209,26 @@ try {
       const stageIDs = currStageLogs.map(user => user.id).join(',');
       console.log("stageIDs", stageIDs);
 
+      console.log("messageIDs", messageIDs);
+      console.log("voiceIDs", voiceIDs);
+      console.log("stageIDs", stageIDs);
     const messageInfo = await getUsersInfo(messageIDs);
     const voiceInfo = await getUsersInfo(voiceIDs);
     const stageInfo = await getUsersInfo(stageIDs);
+    console.log("currStageLogs", currStageLogs);
+    console.log("currVoiceLogs", currVoiceLogs);
+    console.log("currMessageLogs", currMessageLogs);
     // console.log('info:', info);
     const messageValidation = messageInfo.map((user, i) => {
-      return { ...user, count: currMessageLogs[i].count };
+      return { ...user, loading: false, count: currMessageLogs[i].count };
     });
     const voiceValidation = voiceInfo.map((user, i) => {
-      return { ...user, count: {hours: currVoiceLogs[i].count.hours, minutes: currVoiceLogs[i].count.minutes} };
+      return { ...user, loading: false, count: {hours: currVoiceLogs[i].count.hours, minutes: currVoiceLogs[i].count.minutes} };
     });
     const stageValidation = stageInfo.map((user, i) => {
-      return { ...user, count: {hours: currStageLogs[i].count.hours, minutes: currStageLogs[i].count.minutes}};
+      return { ...user, loading: false, count: {hours: currStageLogs[i].count.hours, minutes: currStageLogs[i].count.minutes}};
     });
-
+console.log({message: messageValidation, voice: voiceValidation, stage: stageValidation});
     return {message: messageValidation, voice: voiceValidation, stage: stageValidation};
   } catch(err){
     console.log("logs error",err);
@@ -251,6 +258,12 @@ export const fetchVoiceAndStage = createAsyncThunk(
     let period = state.filter.period;
     const prevInterval = state.statistics.prevInterval;
     const prevPeriod = state.statistics.prevPeriod;
+
+    if (body) {
+      interval = body.interval;
+      period = body.period;
+    }
+
 
     let UNIXinterval = 0;
 
@@ -496,10 +509,10 @@ export const fetchVoiceAndStage = createAsyncThunk(
     );
 
     return {
-      voiceActivitiesCount: voiceActivitiesCount.voiceActivitiesCount,
-      voiceActivitiesLogs,
-      stageActivitiesCount: stageActivitiesCount.stageActivitiesCount,
-      stageActivitiesLogs,
+      voiceActivitiesCount: voiceActivitiesCount.voiceActivitiesCount.length === 0 ? [{ time: '', count: { hours: 0, minutes: 0 } }] : voiceActivitiesCount.voiceActivitiesCount,
+      voiceActivitiesLogs: voiceActivitiesLogs.length === 0 ? [{ id: '', count: 0, allCorect: true }]: voiceActivitiesLogs,
+      stageActivitiesCount: stageActivitiesCount.stageActivitiesCount.length === 0 ? [{ time: '', count: { hours: 0, minutes: 0 } }] : stageActivitiesCount.stageActivitiesCount,
+      stageActivitiesLogs: stageActivitiesLogs.length === 0 ? [{ id: '', count: 0, allCorect: true }]: stageActivitiesLogs,
     };
   }
 );

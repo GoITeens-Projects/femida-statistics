@@ -4,15 +4,23 @@ import {
 } from '../../redux/filter/selectors';
 import { TopsGlobalBox } from 'components/TopSection/TopSection.styled';
 import styles from '../TopSection/TopSection.module.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Shadow from 'components/Shadow/Shadow';
+import { completeLogs } from '../../redux/statistics/operation';
 
 const MainTop = ({ topArr, title, isChannel, children, type }) => {
   const ww = useSelector(selectWindowWidth);
   const unit = useSelector(selectFilterUnit);
-  console.log('topArr', topArr);
+  const dispatch = useDispatch()
+  console.log('topArr.length', topArr[0]);
 
   const size = (ww * 0.85 - 120) / 2;
+ setTimeout(()=> {
+  if(topArr.length === 1 ){
+    dispatch(completeLogs())
+  }
+ }, 90000)
+  
 
   return (
     <TopsGlobalBox size={size}>
@@ -55,7 +63,9 @@ const MainTop = ({ topArr, title, isChannel, children, type }) => {
           </p>
         </div>
         <ul className={styles.topsList}>
-          {topArr.map((top, idx) => {
+          {
+          topArr.length === 1 ? <p>Loading</p>  : 
+          topArr.map((top, idx) => {
             return (
               <li key={top.id} className={styles.topsItem}>
                 <p className={styles.topsUserRankText}>{idx + 1}</p>
