@@ -18,7 +18,10 @@ import {
   fetchVoiceAndStage,
 } from '../redux/statistics/operation';
 import Footer from './Footer/Footer';
-import { selectLoading, selectReloadProtocol } from '../redux/statistics/selectors';
+import {
+  selectLoading,
+  selectReloadProtocol,
+} from '../redux/statistics/selectors';
 import { ClimbingBoxLoader } from 'react-spinners';
 import { updateToken } from '../redux/auth/operation';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -27,7 +30,9 @@ import BurgerMenu from './BurgerMenu/BurgerMenu';
 export const App = () => {
   const dispatch = useDispatch();
   const loading = useSelector(selectLoading);
-  const reloadProtocol = useSelector(selectReloadProtocol)
+  const reloadProtocol = useSelector(selectReloadProtocol);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
+
   console.log('app render');
   useEffect(() => {
     console.log('app effect');
@@ -38,10 +43,23 @@ export const App = () => {
   }, []);
   const [isOpenBurger, setIsOpenBurger] = useState(false);
 
-  if(reloadProtocol){
+  if (reloadProtocol) {
     console.log('reload protocol active');
     dispatch(fetchStatistics());
   }
+
+  const sideContainerVariants = {
+    true: {
+      width: '15%',
+    },
+    false: {
+      width: '6%',
+      transition: {
+        duration: 0.5,
+        delay: 0.1,
+      },
+    },
+  };
 
   return (
     <>
@@ -51,9 +69,15 @@ export const App = () => {
         {isOpenBurger && <BurgerMenu />}
 
         <div className={s.countainer}>
-          <div className={s.navigationCountainer}>
-            <Navigation />
-          </div>
+          <motion.div
+            className={s.navigationCountainer}
+            data-Open={isMenuOpen}
+            variants={sideContainerVariants}
+            initial={`${isMenuOpen}`}
+            animate={`${isMenuOpen}`}
+          >
+            <Navigation isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+          </motion.div>
 
           {loading && (
             <AnimatePresence>
