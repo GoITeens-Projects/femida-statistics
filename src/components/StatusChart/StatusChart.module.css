@@ -1,151 +1,221 @@
 .statusChartTitle {
-    font-size: 23px;
-    font-weight: 500;
-    color: var(--text-color);
-    width: max-content;
+  font-size: 2.222vw;
+  font-weight: 500;
+  color: var(--text-color);
+  width: max-content;
+
+  @media screen and (min-width: 768px) {
+    font-size: 1.629vw;
+  }
 }
 
 .statusChartDescription {
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--text-accent-color);
-    margin-top: 10px;
+  /* in px 7 */
+  font-size: 1.944vw;
+  font-weight: 500;
+  color: var(--text-accent-color);
+  /* margin-top: 0.708vw; */
+  margin-top: 1.388vw;
+
+  @media screen and (min-width: 768px) {
+    font-size: 1.133vw;
+    margin-top: 0.708vw;
+  }
 }
 
 .statusChartBorder {
-    width: 99%;
-    height: 410px;
-    border: 1px solid var(--chart-color);
-    margin-top: 30px;
-    /* border-left: 5px solid var(--chart-accent-color); */
-    /* border-bottom: 5px solid var(--chart-accent-color); */
-    position: relative;
+  width: 99%;
+  /* height: 410px; */
+  border: 1px solid var(--chart-color);
+  margin-top: 3.333vw;
+  /* border-left: 5px solid var(--chart-accent-color); */
+  /* border-bottom: 5px solid var(--chart-accent-color); */
+  position: relative;
+
+  @media screen and (min-width: 768px) {
+    margin-top: 2.125vw;
+  }
 }
 
 .statusChartMembersSummary {
-    display: flex;
+  display: flex;
 }
 
 .statusChartStatusItemOnline {
-    width: 110px;
-    height: 72px;
-    background: var(--chart-online-accent-color);
-    /* колір для статусу "В мережі" */
+  width: 16.389vw;
+  height: 8.333vw;
+  padding: 2.777vw 0 0 4.166vw;
+  background: var(--chart-online-accent-color);
+
+  @media screen and (min-width: 768px) {
+    width: 7.083vw;
+    height: 4.292vw;
+    padding: 0.708vw 0 0 0.708vw;
+  }
+  /* колір для статусу "В мережі" */
 }
 
 .statusChartStatusItemAway {
-    width: 110px;
-    height: 72px;
-    background: var(--chart-inactive-color);
-    /* колір для статусу "Відійшли" */
+  width: 16.389vw;
+  height: 8.333vw;
+  padding: 2.777vw 0 0 4.166vw;
+  background: var(--chart-inactive-color);
+
+  @media screen and (min-width: 768px) {
+    width: 7.083vw;
+    height: 4.292vw;
+    padding: 0.708vw 0 0 0.708vw;
+  }
+  /* колір для статусу "Відійшли" */
 }
 
 .statusChartStatusItemDnd {
-    width: 140px;
-    height: 72px;
-    background: var(--chart-offline-accent-color);
-    /* колір для статусу "Не турбувати" */
+  width: 16.389vw;
+  height: 8.333vw;
+  padding: 2.777vw 0 0 4.166vw;
+  background: var(--chart-offline-accent-color);
+
+  @media screen and (min-width: 768px) {
+    width: 9.208vw;
+    height: 4.288vw;
+    padding: 0.708vw 0 0 0.708vw;
+  }
+  /* колір для статусу "Не турбувати" */
 }
 
 .statusChartStatusItemOffline {
-    width: 140px;
-    height: 72px;
-    background: var(--text-secondary-color);
-    /* колір для статусу "Не в мережі" */
+  width: 16.389vw;
+  height: 8.333vw;
+  padding: 2.777vw 0 0 4.166vw;
+  background: var(--text-secondary-color);
+
+  @media screen and (min-width: 768px) {
+    width: 9.208vw;
+    height: 4.288vw;
+    padding: 0.708vw 0 0 0.708vw;
+  }
+  /* колір для статусу "Не в мережі" */
 }
 
 .statusChartStatusLabel {
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--bg-primary-color);
-    margin-left: 10px;
-    margin-top: 10px;
+  font-size: 1.944vw;
+  font-weight: 500;
+  color: var(--bg-primary-color);
+  /* margin-left: 10px;
+  margin-top: 10px; */
+
+  @media screen and (min-width: 768px) {
+    font-size: 1.133vw;
+  }
 }
 
 .statusChartStatusCount {
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--bg-primary-color);
-    margin-left: 10px;
-    margin-top: 15px;
+  font-size: 1.944vw;
+  font-weight: 500;
+  color: var(--bg-primary-color);
+  /* margin-left: 10px; */
+  margin-top: 1.666vw;
+
+  @media screen and (min-width: 768px) {
+    font-size: 1.133vw;
+    margin-top: 1.0625vw;
+  }
 }
 
 .statusChartChartWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 5.555vw;
+
+  @media screen and (min-width: 768px) {
+    margin-top: 1.983vw;
+  }
+
+  @media screen and (min-width: 1700px) {
+    padding: 0 1.629vw 1.13vw 1.629vw;
+  }
 }
 
 @keyframes moveUp {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(-10px);
-    }
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
 }
 
 .moveUp {
-    animation: moveUp 0.5s ease-out forwards;
+  animation: moveUp 0.5s ease-out forwards;
 }
 
 @keyframes fadeOut {
-    0% {
-        opacity: 1;
-        transform: scaleX(1);
-    }
-    100% {
-        opacity: 0;
-        transform: scaleX(1);
-        transform-origin: right;
-    }
+  0% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+    transform-origin: right;
+  }
 }
 
 @keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: scaleX(1);
-    }
-    100% {
-        opacity: 1;
-        transform: scaleX(1);
-        transform-origin: right;
-    }
+  0% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+    transform-origin: right;
+  }
 }
 
 .fadeOut {
-    animation: fadeOut 0.5s forwards;
+  animation: fadeOut 0.5s forwards;
 }
 
 .fadeIn {
-    animation: fadeIn 0.5s forwards;
+  animation: fadeIn 0.5s forwards;
 }
 
 .area {
-    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
-    transform-origin: left;
+  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+  transform-origin: left;
 }
 
 .statusChartStatusItemInactive {
-    background: none;
-    color: black;
-    /* Колір тексту для неактивних елементів */
-    /* Щоб бачити кордони елемента */
+  background: none;
+  color: black;
+  /* Колір тексту для неактивних елементів */
+  /* Щоб бачити кордони елемента */
 }
 
 .statusChartStatusItemTextInactive {
-    color: var(--text-accent-color);
+  color: var(--text-accent-color);
 }
 
 .statusChartStatusItemTextInactive2 {
-    color: black;
+  color: black;
 }
 
-.statusChartSpan {
-    position: absolute;
-    height: 42px;
-    border: 1px solid var(--chart-color);
-    margin-top: 13px;
-}
+/* .statusChartSpan {
+  position: absolute;
+  height: 42px;
+  border: 1px solid var(--chart-color);
+  margin-top: 13px;
+
+  &:first-of-type {
+    display: none;
+  }
+} */
+
+/* .recharts-text {
+  @media screen and (min-width: 768px) {
+    font-size: 0.85vw;
+  }
+} */

@@ -58,11 +58,13 @@ export const Navigation = ({ isMenuOpen, setIsMenuOpen }) => {
             <RiBarChart2Line
               className={`sidebarIcon ${isMenuOpen ? '' : `${s.iconFocused}`}`}
             />
-            {isMenuOpen ? (
-              <p className={s.sidebarText}>Загальна статистика</p>
-            ) : (
-              ''
-            )}
+            <p
+              className={`${s.sidebarText} ${
+                isMenuOpen ? '' : `${s.sidebarDisabledText}`
+              }`}
+            >
+              Загальна статистика
+            </p>
           </NavLink>
         </li>
         <li className={s.navigationItem}>
@@ -70,7 +72,13 @@ export const Navigation = ({ isMenuOpen, setIsMenuOpen }) => {
             <RiMessage2Line
               className={`sidebarIcon ${isMenuOpen ? '' : `${s.iconFocused}`}`}
             />
-            {isMenuOpen ? <p className={s.sidebarText}>Повідомлення</p> : ''}
+            <p
+              className={`${s.sidebarText} ${
+                isMenuOpen ? '' : `${s.sidebarDisabledText}`
+              }`}
+            >
+              Повідомлення
+            </p>
           </NavLink>
         </li>
         <li className={s.navigationItem}>
@@ -78,7 +86,13 @@ export const Navigation = ({ isMenuOpen, setIsMenuOpen }) => {
             <RiVolumeUpLine
               className={`sidebarIcon ${isMenuOpen ? '' : `${s.iconFocused}`}`}
             />
-            {isMenuOpen ? <p className={s.sidebarText}>Голосові канали</p> : ''}
+            <p
+              className={`${s.sidebarText} ${
+                isMenuOpen ? '' : `${s.sidebarDisabledText}`
+              }`}
+            >
+              Голосові канали
+            </p>
           </NavLink>
         </li>
         <li className={s.navigationItem}>
@@ -86,7 +100,13 @@ export const Navigation = ({ isMenuOpen, setIsMenuOpen }) => {
             <RiVolumeUpLine
               className={`sidebarIcon ${isMenuOpen ? '' : `${s.iconFocused}`}`}
             />
-            {isMenuOpen ? <p className={s.sidebarText}>Трибуни</p> : ''}
+            <p
+              className={`${s.sidebarText} ${
+                isMenuOpen ? '' : `${s.sidebarDisabledText}`
+              }`}
+            >
+              Трибуни
+            </p>
           </NavLink>
         </li>
         <li className={s.navigationItem}>
@@ -94,7 +114,13 @@ export const Navigation = ({ isMenuOpen, setIsMenuOpen }) => {
             <RiUserLocationLine
               className={`sidebarIcon ${isMenuOpen ? '' : `${s.iconFocused}`}`}
             />
-            {isMenuOpen ? <p className={s.sidebarText}>Статус</p> : ''}
+            <p
+              className={`${s.sidebarText} ${
+                isMenuOpen ? '' : `${s.sidebarDisabledText}`
+              }`}
+            >
+              Статус
+            </p>
           </NavLink>
         </li>
         <motion.li className={s.navigationItem}>
@@ -102,7 +128,13 @@ export const Navigation = ({ isMenuOpen, setIsMenuOpen }) => {
             <RiLineChartLine
               className={`sidebarIcon ${isMenuOpen ? '' : `${s.iconFocused}`}`}
             />
-            {isMenuOpen ? <p className={s.sidebarText}>Економіка</p> : ''}
+            <p
+              className={`${s.sidebarText} ${
+                isMenuOpen ? '' : `${s.sidebarDisabledText}`
+              }`}
+            >
+              Економіка
+            </p>
           </NavLink>
         </motion.li>
       </ul>
@@ -112,7 +144,7 @@ export const Navigation = ({ isMenuOpen, setIsMenuOpen }) => {
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
         {isMenuOpen ? (
-          <MdOutlineKeyboardDoubleArrowRight className={s.hideSideBarSvg}/>
+          <MdOutlineKeyboardDoubleArrowRight className={s.hideSideBarSvg} />
         ) : (
           <MdOutlineKeyboardDoubleArrowRight />
         )}
