@@ -7,22 +7,23 @@ import * as monaco from "monaco-editor";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Shadow from "components/Shadow/Shadow";
-import { MdDeleteForever } from "react-icons/md";
+
 import { CiBoxList } from "react-icons/ci";
 import { CodeEditor } from "./CodeEditor";
 import { Modal } from "./ModalCodeEditor";
 import { UnsavedChangesModal } from "./UnsavedChangesModal";
-import { ScrollableNumbers } from "./ScrollableNumbers";
+
 
 
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import CustomDropdown from "./CustomDropdown";
+
+import { ActionSettings } from "../ActionSettings/ActionSettings";
 
 
 
 
-const padNumber = (num) => String(num).padStart(2, "0");
+
 
 
 export const BadWordPage = () => {
@@ -71,16 +72,7 @@ export const BadWordPage = () => {
         return { days, hours, minutes };
     };
 
-    // Обробка зміни чекбокса для адміністраторів
-    const handleCheckboxChangeAdmin = (event) => {
-        setIsChecked(event.target.checked); // Встановлення стану для чекбокса
-    };
-    const handleCheckboxChange = () => {
-        setIsDeleteMessage(!isDeleteMessage); // Перемикання стану чекбокса для видалення повідомлень
-    };
-    const handleSelectChange = (selectedOption) => {
-        setSelectedAction(selectedOption?.value || 'null'); // Змінення вибору дії
-    };
+
     const navigate = useNavigate(); // Для ручного перенаправлення
 
     // Завантаження налаштувань при рендері компонента
@@ -210,11 +202,9 @@ export const BadWordPage = () => {
         navigate("/settings"); // Переход на сторінку налаштувань
     };
 
-    const options = [
-        { value: 'null', label: 'Немає', color: 'var(--text-color)' },
-        { value: 'warning', label: 'Видати попередження', color: 'var(--text-color)' },
-        { value: 'mute', label: 'Заглушити', color: 'var(--text-color)' },
-    ];
+    console.log(selectedAction);
+
+
 
     // if (loading) return <p>Завантаження...</p>;
     // if (error) return <p>Помилка: {error}</p>;
@@ -317,67 +307,23 @@ export const BadWordPage = () => {
 
 
 
-                <div className={styles.BadWordActionContainer}>
-                    <Shadow
-                        leftFirst={-7}
-                        widthFirst={5}
-                        heightSecond={5}
-                        rightSecond={3}
-                        bottomSecond={-7}
-                        backgroundBoth={'#6EABD4'}
-                        borderColorBoth={'#558DB2'}
-                    />
-                    <h3 className={styles.TitleAction}>Налаштування дії</h3>
-
-                    <div className={styles.ActionSelectContainer}>
-
-                        <CustomDropdown
-                            options={options}
-                            placeholder="Оберіть дію"
-                            onChange={handleSelectChange}
-                            value={options.find(option => option.value === selectedAction)} // Початкове значення
-                        />
-                        <div className={styles.ContainerCheckBoxAction}>
-                            <label className={styles.CustomCheckbox}>
-                                <input
-                                    type="checkbox"
-                                    checked={isDeleteMessage}
-                                    onChange={handleCheckboxChange}
-                                />
-                                <span className={styles.CheckboxMark}></span>
-                                Видалити повідомлення з порушенням
-                            </label>
-                        </div>
-                    </div>
-                    <h3 className={styles.TitleAction}>Час дії</h3>
-                    <div className={styles.NumbersContainer}>
-                        <ScrollableNumbers maxNumber={31} label="Дні" value={days} onChange={setDays} />
-                        <ScrollableNumbers maxNumber={23} label="Години" value={hours} onChange={setHours} />
-                        <ScrollableNumbers maxNumber={59} label="Хвилини" value={minutes} onChange={setMinutes} />
-                        <div>
-                            <svg className={styles.Decor} width="200" height="40" viewBox="0 0 183 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0 1H183" stroke="#ACD0D6" stroke-dasharray="6 6" />
-                            </svg>
-                        </div>
-                        <p className={styles.TotalNumber}>{`${padNumber(days)} днів, ${padNumber(hours)} годин, ${padNumber(minutes)} хвилин`}</p>
-                    </div>
-                    <h3 className={styles.TitleAction}>Область дії</h3>
-                    <div className={styles.ContainerCheckBoxAction2}>
-                        <label className={styles.CustomCheckbox}>
-                            <input
-                                type="checkbox"
-                                checked={isCheckedAdmin}
-                                onChange={handleCheckboxChangeAdmin}
-                            />
-                            <span className={styles.CheckboxMark}></span>
-                            Не поширювати на Адміністраторів і Модераторів
-                        </label>
-                    </div>
-
-                </div>
 
 
+                <ActionSettings
+                    onDaysChange={setDays}
+                    onHoursChange={setHours}
+                    onMinutesChange={setMinutes}
+                    onSelectedActionChange={setSelectedAction}
+                    onIsCheckedAdminChange={setIsChecked}
+                    onIsDeleteMessageChange={setIsDeleteMessage}
+                    onIsDeleteMessage={isDeleteMessage}
+                    onSelectedAction={selectedAction}
+                    onDays={days}
+                    onHours={hours}
+                    onMinutes={minutes}
+                    onIsCheckedAdmin={isCheckedAdmin}
 
+                />
 
 
 
