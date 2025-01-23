@@ -3,22 +3,24 @@
 /* bring in normalize.css styles */
 
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 
 .donutchart {
-    margin-top: 50px;
-    /* width: 630px !important;
+  margin-top: 50px;
+  /* width: 630px !important;
   height: 350px !important; */
 }
-
 
 /* .donutchart-arcs {
   width: 350px !important;
@@ -26,63 +28,76 @@ code {
 } */
 
 .donutchart-legend-item-label {
-    color: var(--text-color);
-    font-family: 'IBM Plex Sans';
-    font-size: 10px;
-    font-weight: 500;
-    line-height: normal;
+  color: var(--text-color);
+  font-family: 'IBM Plex Sans';
+  font-size: 10px;
+  font-weight: 500;
+  line-height: normal;
 }
 
 .donutchart-legend-item {
-    /* transform: translate(600, 37.5) !important; */
+  /* transform: translate(600, 37.5) !important; */
 }
 
 .donutchart-legend-item rect {
-    width: 15px;
-    height: 15px;
-    rx: 15px;
-    ry: 15px;
+  width: 15px;
+  height: 15px;
+  rx: 15px;
+  ry: 15px;
 }
 
 .donutchart-innertext {
-    display: none;
+  display: none;
+}
+
+.recharts-tooltip-cursor {
+  background-color: transparent;
+  fill: transparent;
+}
+
+.recharts-text {
+  font-size: 1.944vw;
+  
+  @media screen and (min-width: 768px) {
+    font-size: 0.85vw;
+  }
 }
 
 :root,
 html[data-theme='light'] {
-    --text-color: #000;
-    --input-badword: #f9f9f9;
-    --text-secondary-color: #999;
-    --text-accent-color: #678f95;
-    --subtext-color: #366482;
-    --secondary-color: #ffd2c2;
-    --border-color: #deab9a;
-    --border-accent-color: #558db2;
-    --bg-accent-color: #d2f1f6;
-    --bg-primary-color: #fff;
-    --bg-modal-color: #fafafa;
-    --bg-footer-color: #d2f1f6;
-    --input-active-color: #d6d6d6;
-    --item-active-color: #caeaff;
-    --btn-accent-color: #acd0d6;
-    --shadow-secondary-color: #acd0d6;
-    --shadow-secondary-border: #96b8bd;
-    --chart-color: #91ccf4;
-    --chart-accent-color: #6eabd4;
-    --chart-online-accent-color: #b0e060;
-    --chart-online-color: #c7ed89;
-    --chart-inactive-color: #f5d87a;
-    --chart-offline-accent-color: #eb7f71;
-    --chart-offline-color: #f09f95;
-    --chart-line-color: #d2f1f6;
-    --legend-teal-color: #fff3ef;
-    --legend-skyblue-color: #edfcff;
-    --legent-soft-blue-color: #caeaff;
-    --legend-online-color: #dbf5b0;
-    --legend-inactive-color: #f5e3ab;
-    --legend-dnd-color: #f5bfb8;
-    --legend-offline-color: #ededed;
-    --legend-brighter-teal-color: #ffe7df;
+  --text-color: #000;
+  --input-badword: #f9f9f9;
+  --text-secondary-color: #999;
+  --text-accent-color: #678f95;
+  --subtext-color: #366482;
+  --secondary-color: #ffd2c2;
+  --border-color: #deab9a;
+  --border-accent-color: #558db2;
+  --bg-accent-color: #d2f1f6;
+  --bg-primary-color: #fff;
+  --bg-modal-color: #fafafa;
+  --bg-footer-color: #d2f1f6;
+  --input-active-color: #d6d6d6;
+  --item-active-color: #caeaff;
+  --btn-accent-color: #acd0d6;
+  --shadow-secondary-color: #acd0d6;
+  --shadow-secondary-border: #96b8bd;
+  --chart-color: #91ccf4;
+  --chart-accent-color: #6eabd4;
+  --chart-online-accent-color: #b0e060;
+  --chart-online-color: #c7ed89;
+  --chart-inactive-color: #f5d87a;
+  --chart-offline-accent-color: #eb7f71;
+  --chart-offline-color: #f09f95;
+  --chart-line-color: #d2f1f6;
+  --legend-teal-color: #fff3ef;
+  --legend-skyblue-color: #edfcff;
+  --legent-soft-blue-color: #caeaff;
+  --legend-online-color: #dbf5b0;
+  --legend-inactive-color: #f5e3ab;
+  --legend-dnd-color: #f5bfb8;
+  --legend-offline-color: #ededed;
+  --legend-brighter-teal-color: #ffe7df;
 }
 
 :root,

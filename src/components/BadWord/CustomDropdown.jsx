@@ -1,7 +1,7 @@
-// CustomDropdown.js
-import React, { useEffect, useState } from 'react';
-import Select from 'react-select';
-import PropTypes from 'prop-types';
+// // CustomDropdown.js
+// import React, { useEffect, useState } from 'react';
+// import Select from 'react-select';
+// import PropTypes from 'prop-types';
 
 const CustomDropdown = ({ options, placeholder, onChange, value }) => {
   const [selectedOption, setSelectedOption] = useState(value || null);
@@ -65,5 +65,4 @@ CustomDropdown.defaultProps = {
   placeholder: 'Виберіть варіант',
   onChange: null,
 };
-
-export default CustomDropdown;
+ export default CustomDropdown;
