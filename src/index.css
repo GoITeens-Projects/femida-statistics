@@ -102,46 +102,47 @@ html[data-theme='light'] {
 
 :root,
 html[data-theme='dark'] {
-  --text-color: #fff;
-  --text-secondary-color: #999;
-  --text-accent-color: #678f95;
-
-  --subtext-color: #678f95;
-
-  --secondary-color: #aa7665;
-
-  --border-color: #895341;
-  --border-accent-color: #27565d;
-
-  --bg-accent-color: #061c1f;
-  --bg-primary-color: #191919;
-  --bg-modal-color: #191919;
-  --bg-footer-color: #191919;
-
-  --input-active-color: #6e6e6e;
-
-  --item-active-color: #474747;
-
-  --btn-accent-color: #27565d;
-
-  --shadow-secondary-color: #386f78;
-  --shadow-secondary-border: #27565d;
-
-  --chart-color: #83a2a7;
-  --chart-accent-color: #407293;
-  --chart-online-accent-color: #577a1f;
-  --chart-online-color: #c7ed89;
-  --chart-inactive-color: #b28800;
-  --chart-offline-accent-color: #8a2f22;
-  --chart-offline-color: #f09f95;
-  --chart-line-color: #474747;
-
-  --legend-teal-color: #895341;
-  --legend-skyblue-color: #27565d;
-  --legent-soft-blue-color: #133850;
-  --legend-online-color: #435c1a;
-  --legend-inactive-color: #997500;
-  --legend-dnd-color: #66251d;
-  --legend-offline-color: #474747;
-  --legend-brighter-teal-color: #deab9a;
+    --text-color: #fff;
+    --input-badword: #2c2c2c;
+    --text-secondary-color: #999;
+    --text-accent-color: #678f95;
+  
+    --subtext-color: #678f95;
+  
+    --secondary-color: #aa7665;
+  
+    --border-color: #895341;
+    --border-accent-color: #27565d;
+  
+    --bg-accent-color: #061c1f;
+    --bg-primary-color: #191919;
+    --bg-modal-color: #191919;
+    --bg-footer-color: #191919;
+  
+    --input-active-color: #6e6e6e;
+  
+    --item-active-color: #474747;
+  
+    --btn-accent-color: #27565d;
+  
+    --shadow-secondary-color: #386f78;
+    --shadow-secondary-border: #27565d;
+  
+    --chart-color: #91ccf4;
+    --chart-accent-color: #407293;
+    --chart-online-accent-color: #577a1f;
+    --chart-online-color: #c7ed89;
+    --chart-inactive-color: #b28800;
+    --chart-offline-accent-color: #8a2f22;
+    --chart-offline-color: #f09f95;
+    --chart-line-color: #474747;
+  
+    --legend-teal-color: #895341;
+    --legend-skyblue-color: #27565d;
+    --legent-soft-blue-color: #133850;
+    --legend-online-color: #435c1a;
+    --legend-inactive-color: #997500;
+    --legend-dnd-color: #66251d;
+    --legend-offline-color: #474747;
+    --legend-brighter-teal-color: #deab9a;
 }
