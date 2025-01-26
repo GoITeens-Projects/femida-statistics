@@ -142,7 +142,10 @@ export const BadWordPage = () => {
                             giveWarn: isGiveWarn,
                             deleteMsg: isDeleteMessage,
                             ignoreAdmins: isCheckedAdmin,
-                            notifyUser: isCheckedNotifyUser,
+                            notifyUser: {
+                                enabled: isCheckedNotifyUser,
+                                messageFn: JSON.stringify((username) => `${username}! якийсь текст`),
+                            },
                         },
                     },
                 },
@@ -180,17 +183,17 @@ export const BadWordPage = () => {
     };
     const handleBackClick = (e) => {
         // Перевірка на зміни перед переходом
-        const isMuteEnabledChanged = settings?.settings?.badwords?.actions?.mute?.enabled !== (selectedAction === "mute");
+
         const muteTimeMs = (days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60) * 1000;
         const isWordsChanged = JSON.stringify(settings?.settings?.badwords?.words) !== JSON.stringify(addedWords);
         const isMuteTimeChanged = settings?.settings?.badwords?.actions?.mute?.muteTimeMs !== muteTimeMs;
-        const isActionChanged = settings?.settings?.badwords?.actions?.selectedAction !== selectedAction;
+
         const isGiveWarnChanged = settings?.settings?.badwords?.actions?.giveWarn !== (selectedAction === "warning");
         const isDeleteMsgChanged = settings?.settings?.badwords?.actions?.deleteMsg !== isDeleteMessage;
         const isCheckedAdminChanged = settings?.settings?.badwords?.actions?.ignoreAdmins !== isCheckedAdmin;
         const isCheckedNotifyUserChanged = settings?.settings?.badwords?.actions?.notifyUser !== isCheckedNotifyUser;
 
-        if (isWordsChanged || isMuteEnabledChanged || isMuteTimeChanged || isActionChanged || isGiveWarnChanged || isDeleteMsgChanged || isCheckedAdminChanged || isCheckedNotifyUserChanged) {
+        if (isWordsChanged || isMuteTimeChanged || isGiveWarnChanged || isDeleteMsgChanged || isCheckedAdminChanged || isCheckedNotifyUserChanged) {
             setIsUnsavedModalOpen(true); // Відкриття модального вікна невнесених змін
         } else {
             navigate("/settings");

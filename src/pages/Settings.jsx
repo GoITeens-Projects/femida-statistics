@@ -6,6 +6,7 @@ import { Outlet } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import s from '../components/Main.module.css';
 import { ClimbingBoxLoader } from 'react-spinners';
+import { Limits } from "components/Limit/Limits";
 
 
 export const Settings = () => {
@@ -26,6 +27,7 @@ export const Settings = () => {
              transition={{ duration: 1.5 }}   // Тривалість переходу
            > */}
     <BadWord />
+    <Limits />
     {/* </motion.div> */}
 
   </>
