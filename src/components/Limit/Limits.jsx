@@ -46,8 +46,8 @@ export const Limits = () => {
         <section>
             <div className={styles.moderationCard}>
                 <div className={styles.moderationContent}>
-                    <h2 className={styles.moderationTitle}>Погані слова</h2>
-                    <p className={styles.moderationList}>Мат, небажані вирази</p>
+                    <h2 className={styles.moderationTitle}>Ліміти</h2>
+                    <p className={styles.moderationList}>Редагувати ліміти</p>
                 </div>
                 <div className={styles.controls}>
                     <label className={styles.switch}>
