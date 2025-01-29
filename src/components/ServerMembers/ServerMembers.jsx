@@ -94,7 +94,7 @@ export const ServerMembers = () => {
                 }`}
               onClick={() => handleClick('clickJoined')}
             >
-              <span className={styles.statusChartSpan}></span>
+              {/* <span className={styles.statusChartSpan}></span> */}
 
               <p className={styles.totalMembersText}>Приєдналось</p>
               <p className={styles.totalMembersText}>{totalJoined}</p>
@@ -106,7 +106,7 @@ export const ServerMembers = () => {
                 }`}
               onClick={() => handleClick('clickLeft')}
             >
-              <span className={styles.statusChartSpan}></span>
+              {/* <span className={styles.statusChartSpan}></span> */}
               <p className={styles.totalMembersText3}>Покинуло</p>
               <p className={styles.totalMembersText3}>{totalLeft}</p>
             </div>
@@ -117,7 +117,7 @@ export const ServerMembers = () => {
                 }`}
               onClick={() => handleClick('clickTotal')}
             >
-              <span className={styles.statusChartSpan}></span>
+              {/* <span className={styles.statusChartSpan}></span> */}
               <p
                 className={`${styles.totalMembersText} ${!clickStates.clickTotal
                   ? styles.statusChartStatusItemTextInactive

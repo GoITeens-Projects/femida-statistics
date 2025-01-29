@@ -1,155 +1,205 @@
 .title {
-    width: 77px;
-    height: 21px;
-    font-size: 23px;
-    font-weight: 500;
-    line-height: 20.8px;
-    text-align: left;
-    color: var(--text-color);
+  /* width: 77px; */
+  /* height: 21px; */
+  font-size: 2.222vw;
+  font-weight: 500;
+  line-height: 1.473vw;
+  text-align: left;
+  color: var(--text-color);
+
+  @media screen and (min-width: 768px) {
+    font-size: 1.629vw;
+    line-height: 1.473vw;
+  }
 }
 
 .text {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 10.4px;
-    text-align: left;
-    color: var(--text-accent-color);
-    margin-top: 10px;
+  font-size: 1.944vw;
+  font-weight: 500;
+  text-align: left;
+  color: var(--text-accent-color);
+  margin-top: 0.708vw;
+
+  @media screen and (min-width: 768px) {
+    font-size: 1.133vw;
+    line-height: 0.736vw;
+  }
 }
 
 .containerBorder {
-    width: 99%;
-    height: 410px;
-    border: 1px solid var(--chart-color);
-    margin-top: 30px;
-    position: relative;
+  /* width: 99%; */
+  /* height: 410px; */
+  border: 1px solid var(--chart-color);
+  position: relative;
+  margin-top: 3.133vw;
+
+  @media screen and (min-width: 768px) {
+    margin-top: 2.125vw;
+  }
 }
 
 .containers {
-    display: flex;
+  display: flex;
 }
 
 .totalMembersContainer,
 .totalMembersContainer2,
 .totalMembersContainer3 {
-    height: 72px;
+  /* height: 72px; */
+  padding: 2.777vw 1vw 2.777vw 4.166vw;
+
+  @media screen and (min-width: 768px) {
+    padding: 0.708vw 0 0.708vw 0.708vw;
+  }
 }
 
 .totalMembersContainer {
-    width: 200px;
-    border: 1px 0px 0px 1px;
-    background: var(--chart-accent-color);
+  width: 27.777vw;
+  border: 1px 0px 0px 1px;
+  background: var(--chart-accent-color);
+
+  @media screen and (min-width: 768px) {
+    width: 13.458vw;
+  }
 }
 
 .totalMembersContainer2 {
-    width: 130px;
-    background: var(--chart-color);
+  width: 13.5vw;
+  background: var(--chart-color);
+
+  @media screen and (min-width: 768px) {
+    width: 8.5vw;
+  }
 }
 
 .totalMembersContainer3 {
-    width: 108px;
-    background-color: var(--legend-brighter-teal-color);
+  width: 10.65vw;
+  background-color: var(--legend-brighter-teal-color);
+
+  @media screen and (min-width: 768px) {
+    width: 7.65vw;
+  }
 }
 
 .totalMembersText {
-    font-size: 16px;
-    font-weight: 500;
-    /* color: var(--bg-primary-color); */
-    margin-left: 10px;
-    margin-top: 10px;
+  font-size: 1.944vw;
+  font-weight: 500;
+
+  @media screen and (min-width: 768px) {
+    font-size: 1.133vw;
+  }
+  /* color: var(--bg-primary-color); */
+  /* margin-left: 10px;
+  margin-top: 10px; */
 }
 
 .totalMembersText:nth-of-type(2) {
-    margin-top: 15px;
+  margin-top: 1.666vw;
+
+  @media screen and (min-width: 768px) {
+    margin-top: 1.0625vw;
+  }
 }
 
 .totalMembersText3:nth-of-type(2) {
-    color: var(--text-color);
-    margin-top: 15px;
+  color: var(--text-color);
+  margin-top: 1.666vw;
+
+  @media screen and (min-width: 768px) {
+    margin-top: 1.0625vw;
+  }
 }
 
 .totalMembersText3 {
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--text-accent-color);
-    margin-left: 10px;
-    margin-top: 10px;
+  font-weight: 500;
+  color: var(--text-accent-color);
+  font-size: 1.944vw;
+
+  @media screen and (min-width: 768px) {
+    font-size: 1.133vw;
+  }
+  /* margin-left: 10px; */
+  /* margin-top: 10px; */
 }
 
 .containerSchedule {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 5.555vw;
+
+  @media screen and (min-width: 768px) {
+    margin-top: 1.416vw;
+  }
 }
 
 @keyframes moveUp {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(-10px);
-    }
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
 }
 
 .moveUp {
-    animation: moveUp 0.5s ease-out forwards;
+  animation: moveUp 0.5s ease-out forwards;
 }
 
 @keyframes fadeOut {
-    0% {
-        opacity: 1;
-        transform: scaleX(1);
-    }
-    100% {
-        opacity: 0;
-        transform: scaleX(1);
-        transform-origin: right;
-    }
+  0% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+    transform-origin: right;
+  }
 }
 
 @keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: scaleX(1);
-    }
-    100% {
-        opacity: 1;
-        transform: scaleX(1);
-        transform-origin: right;
-    }
+  0% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+    transform-origin: right;
+  }
 }
 
 .fadeOut {
-    animation: fadeOut 0.5s forwards;
+  animation: fadeOut 0.5s forwards;
 }
 
 .fadeIn {
-    animation: fadeIn 0.5s forwards;
+  animation: fadeIn 0.5s forwards;
 }
 
 .area {
-    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
-    transform-origin: left;
+  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+  transform-origin: left;
 }
 
 .statusChartStatusItemInactive {
-    background: none;
-    color: black;
+  background: none;
+  color: black;
 }
 
 .statusChartStatusItemTextInactive {
-    color: var(--text-accent-color);
+  color: var(--text-accent-color);
 }
 
 .statusChartStatusItemTextInactive2 {
-    color: black;
+  color: black;
 }
 
 .statusChartSpan {
-    position: absolute;
-    height: 42px;
-    border: 1px solid var(--chart-color);
-    margin-top: 13px;
+  position: absolute;
+  height: 42px;
+  border: 1px solid var(--chart-color);
+  margin-top: 13px;
 }
