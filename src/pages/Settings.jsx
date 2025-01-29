@@ -1,4 +1,4 @@
-import { BadWord } from "components/Settings/BadWord/BadWord"
+import { AutoModerationFilter } from "components/Settings/BadWord/AutoModerationFilter"
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSettings } from "../redux/settings/operation";
@@ -26,7 +26,12 @@ export const Settings = () => {
              exit={{ opacity: 0, y: 50 }}     // Стан при зникненні
              transition={{ duration: 1.5 }}   // Тривалість переходу
            > */}
-    <BadWord />
+    <AutoModerationFilter 
+    moderationTitle='Погані слова'
+    moderationList= 'Мат, небажані вирази'
+    endpoint = 'badword'
+    nameForUpdate = 'badwords'
+    />
     <Limits />
     {/* </motion.div> */}
 
