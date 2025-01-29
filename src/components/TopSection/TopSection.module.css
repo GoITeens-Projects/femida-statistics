@@ -139,3 +139,11 @@
   margin-left: auto;
   /* margin-left: 491px; */
 }
+
+.reloadButton {
+  color: var(--shadow-secondary-color);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: underline;
+}

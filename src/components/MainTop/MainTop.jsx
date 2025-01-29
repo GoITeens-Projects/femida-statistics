@@ -7,20 +7,26 @@ import styles from '../TopSection/TopSection.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import Shadow from 'components/Shadow/Shadow';
 import { completeLogs } from '../../redux/statistics/operation';
+import { FadeLoader } from 'react-spinners';
+import { useState } from 'react';
 
 const MainTop = ({ topArr, title, isChannel, children, type }) => {
   const ww = useSelector(selectWindowWidth);
   const unit = useSelector(selectFilterUnit);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const [loaderTimeout, setLoaderTimeout] = useState(false);
   console.log('topArr.length', topArr[0]);
 
   const size = (ww * 0.85 - 120) / 2;
- setTimeout(()=> {
-  if(topArr.length === 1 ){
+
+  setTimeout(() => {
+    setLoaderTimeout(true);
+  }, 60000);
+
+  const reload = () => {
+    setLoaderTimeout(false)
     dispatch(completeLogs())
   }
- }, 90000)
-  
 
   return (
     <TopsGlobalBox size={size}>
@@ -63,53 +69,68 @@ const MainTop = ({ topArr, title, isChannel, children, type }) => {
           </p>
         </div>
         <ul className={styles.topsList}>
-          {
-          topArr.length === 1 ? <p>Loading</p>  : 
-          topArr.map((top, idx) => {
-            return (
-              <li key={top.id} className={styles.topsItem}>
-                <p className={styles.topsUserRankText}>{idx + 1}</p>
-                {isChannel ? null : (
-                  <img
-                    src={top.avatar}
-                    className={styles.topsUserImg}
-                    alt={`${top.username} avatar`}
-                  />
-                )}
-                {isChannel ? (
-                  <h2 className={styles.topsChannel}>Канал</h2>
-                ) : (
-                  <h2 className={styles.topsUsername}>
-                    {`${top.globalName ? top.globalName : ''} ${
-                      top.username && top.globalName
-                        ? `(${top.username})`
-                        : top.username
-                    }`.length > 51
-                      ? `${`${top.globalname ? top.globalName : ''} ${
-                          top.username ? top.username : ''
-                        }`.slice(0, 51)}...`
-                      : `${top.globalName ? top.globalName : ''} ${
-                          top.username && top.globalName
-                            ? `(${top.username})`
-                            : top.username
-                        }`}
-                  </h2>
-                )}
-                {isChannel ? (
-                  <p className={styles.topsUserMessagesQuantityText}>00</p>
-                ) : (
-                  <p className={styles.topsUserMessagesQuantityText}>
-                    {top.count}{' '}
-                    {type === 'chat'
-                      ? ''
-                      : type !== 'chat' && unit === 'minutes'
-                      ? 'хв'
-                      : 'год'}
-                  </p>
-                )}
-              </li>
-            );
-          })}
+          {topArr.length === 1 ? (
+            <>
+              <FadeLoader
+                color={'var(--shadow-secondary-color)'}
+                loading={true}
+                size={30}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              ></FadeLoader>
+              {loaderTimeout && (
+                <button className={styles.reloadButton} onClick={reload}>
+                  Спробувати знову
+                </button>
+              )}
+            </>
+          ) : (
+            topArr.map((top, idx) => {
+              return (
+                <li key={top.id} className={styles.topsItem}>
+                  <p className={styles.topsUserRankText}>{idx + 1}</p>
+                  {isChannel ? null : (
+                    <img
+                      src={top.avatar}
+                      className={styles.topsUserImg}
+                      alt={`${top.username} avatar`}
+                    />
+                  )}
+                  {isChannel ? (
+                    <h2 className={styles.topsChannel}>Канал</h2>
+                  ) : (
+                    <h2 className={styles.topsUsername}>
+                      {`${top.globalName ? top.globalName : ''} ${
+                        top.username && top.globalName
+                          ? `(${top.username})`
+                          : top.username
+                      }`.length > 51
+                        ? `${`${top.globalname ? top.globalName : ''} ${
+                            top.username ? top.username : ''
+                          }`.slice(0, 51)}...`
+                        : `${top.globalName ? top.globalName : ''} ${
+                            top.username && top.globalName
+                              ? `(${top.username})`
+                              : top.username
+                          }`}
+                    </h2>
+                  )}
+                  {isChannel ? (
+                    <p className={styles.topsUserMessagesQuantityText}>00</p>
+                  ) : (
+                    <p className={styles.topsUserMessagesQuantityText}>
+                      {top.count}{' '}
+                      {type === 'chat'
+                        ? ''
+                        : type !== 'chat' && unit === 'minutes'
+                        ? 'хв'
+                        : 'год'}
+                    </p>
+                  )}
+                </li>
+              );
+            })
+          )}
         </ul>
         {children}
       </div>
