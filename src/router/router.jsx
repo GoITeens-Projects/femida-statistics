@@ -10,7 +10,9 @@ import { Status } from "pages/Status";
 import { Economic } from "pages/Economic";
 import { Stage } from "pages/Stage";
 import { Settings } from "pages/Settings";
-import { BadWordPage } from '../components/BadWord/BadWordModal'
+
+import { LimitsPage } from "components/Settings/Limit/LimitsModal";
+import { BadWordPage } from "components/Settings/BadWord/BadWordModal";
 
 export const router = createBrowserRouter(
     [
@@ -57,6 +59,10 @@ export const router = createBrowserRouter(
                     path: '/settings/badword',
                     element: <PrivateRoute component={BadWordPage} redirecTo='/' />
                 },
+                {
+                    path: '/settings/limits',
+                    element: <PrivateRoute component={LimitsPage} redirecTo='/' />
+                }
 
             ]
         }

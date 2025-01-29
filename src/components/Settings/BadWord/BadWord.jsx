@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { badWord } from "../../redux/badword/operation";
-import styles from "./Limits.module.css";
-
-
+import { badWord } from "../../../redux/badword/operation";
+import styles from "./BadWord.module.css";
+import { IoMdClose } from "react-icons/io";
+import { Modal } from "./BadWordModal";
 import { Link } from "react-router-dom";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 
 
 
-export const Limits = () => {
+export const BadWord = () => {
     const [isEnabled, setIsEnabled] = useState(false);
 
 
@@ -46,8 +46,8 @@ export const Limits = () => {
         <section>
             <div className={styles.moderationCard}>
                 <div className={styles.moderationContent}>
-                    <h2 className={styles.moderationTitle}>Ліміти</h2>
-                    <p className={styles.moderationList}>Редагувати ліміти</p>
+                    <h2 className={styles.moderationTitle}>Погані слова</h2>
+                    <p className={styles.moderationList}>Мат, небажані вирази</p>
                 </div>
                 <div className={styles.controls}>
                     <label className={styles.switch}>

@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { badWord } from "../../redux/badword/operation";
-import styles from "./BadWord.module.css";
-import { IoMdClose } from "react-icons/io";
-import { Modal } from "./BadWordModal";
+import { badWord } from "../../../redux/badword/operation";
+import styles from "./Limits.module.css";
+
+
 import { Link } from "react-router-dom";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 
 
 
-export const BadWord = () => {
+export const Limits = () => {
     const [isEnabled, setIsEnabled] = useState(false);
 
 
@@ -46,15 +46,15 @@ export const BadWord = () => {
         <section>
             <div className={styles.moderationCard}>
                 <div className={styles.moderationContent}>
-                    <h2 className={styles.moderationTitle}>Погані слова</h2>
-                    <p className={styles.moderationList}>Мат, небажані вирази</p>
+                    <h2 className={styles.moderationTitle}>Ліміти</h2>
+                    <p className={styles.moderationList}>Редагувати ліміти</p>
                 </div>
                 <div className={styles.controls}>
                     <label className={styles.switch}>
                         <input type="checkbox" checked={isEnabled} onChange={handleToggle} />
                         <span className={`${styles.slider} ${styles.round}`}></span>
                     </label>
-                    <Link to="/settings/badword" >
+                    <Link to="/settings/limits" >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="19"

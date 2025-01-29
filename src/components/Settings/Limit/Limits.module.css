@@ -277,3 +277,35 @@ input:focus+.slider {
     display: flex;
     gap: 5px;
 }
+
+
+/* компонент лімітів */
+
+.Container {
+    margin-top: 20px;
+}
+
+.TitleBadWords {
+    font-family: IBM Plex Mono;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 20.8px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: var(--text-color);
+    justify-content: center;
+}
+
+.FromContainer {
+    position: relative;
+    width: 933px;
+    height: auto;
+    border: 1px solid var(--chart-color);
+    margin-top: 20px;
+    display: block;
+    /* Відновлюємо стандартне блокове відображення */
+    padding: 20px;
+    box-sizing: border-box;
+    /* Ураховуємо padding у ширині */
+}

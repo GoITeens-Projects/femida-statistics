@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSettings } from "../../redux/settings/operation"; // Дія для отримання налаштувань
-import { badWord } from "../../redux/badword/operation"; // Дія для збереження нових слів
+import { fetchSettings } from "../../../redux/settings/operation"; // Дія для отримання налаштувань
+import { badWord } from "../../../redux/badword/operation"; // Дія для збереження нових слів
 import styles from "./BadWord.module.css";
 import * as monaco from "monaco-editor";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,6 +18,8 @@ import { UnsavedChangesModal } from "./UnsavedChangesModal";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
+import { SettingsNavigation } from "../SettingsNavigation/SettingsNavigation";
 import { ActionSettings } from "../ActionSettings/ActionSettings";
 
 
@@ -41,7 +43,7 @@ export const BadWordPage = () => {
 
 
 
-
+    const navigate = useNavigate(); // Для ручного перенаправлення
 
     const [inputValue, setInputValue] = useState(""); // Стан для введення тексту
     const [editorInstance, setEditorInstance] = useState(null); // Стан для посилання на редактор коду
@@ -73,7 +75,7 @@ export const BadWordPage = () => {
     };
 
 
-    const navigate = useNavigate(); // Для ручного перенаправлення
+
 
     // Завантаження налаштувань при рендері компонента
     useEffect(() => {
@@ -213,16 +215,12 @@ export const BadWordPage = () => {
     // if (error) return <p>Помилка: {error}</p>;
     return (
         <section>
-            <div className={styles.ConatinerNavigation}>
-                <button onClick={handleBackClick} className={styles.ExitButton}><svg width="8" height="10" viewBox="0 0 4 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 1L1 3L3 5" stroke="#678F95" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>Назад</button>
-                <button onClick={handleSave} className={styles.SaveButton}>
-                    Зберегти
-                </button>
-            </div>
 
 
+            <SettingsNavigation
+                onHandleBackClick={handleBackClick}
+                onHandleSave={handleSave}
+            />
             <div className={styles.Container}>
                 <h1 className={styles.TitleBadWords}>Погані слова</h1>
 
@@ -312,7 +310,7 @@ export const BadWordPage = () => {
 
 
 
-                <ActionSettings
+                {/* <ActionSettings
                     onDaysChange={setDays}
                     onHoursChange={setHours}
                     onMinutesChange={setMinutes}
@@ -326,7 +324,7 @@ export const BadWordPage = () => {
                     onMinutes={minutes}
                     onIsCheckedAdmin={isCheckedAdmin}
 
-                />
+                /> */}
 
 
 
