@@ -137,6 +137,20 @@ export const Navigation = ({ isMenuOpen, setIsMenuOpen }) => {
             </p>
           </NavLink>
         </motion.li>
+        <motion.li className={s.navigationItem}>
+          <NavLink to="/settings" className={s.testLink}>
+            <RiLineChartLine
+              className={`sidebarIcon ${isMenuOpen ? '' : `${s.iconFocused}`}`}
+            />
+            <p
+              className={`${s.sidebarText} ${
+                isMenuOpen ? '' : `${s.sidebarDisabledText}`
+              }`}
+            >
+              Управління
+            </p>
+          </NavLink>
+        </motion.li>
       </ul>
       <button
         type="button"
