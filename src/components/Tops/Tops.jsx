@@ -26,31 +26,37 @@ const TopChannels = ({ type }) => {
     }
   }, [dispatch, logs, messageLogs]);
 
-  const currentLogs =
-    type === 'chat'
-      ? messageLogs
-      : type === 'voice' && unit === 'minutes'
-      ? voiceLogs.map(log => {
-          return { ...log, count: Math.round(log.count.minutes) };
-        })
-      : type === 'voice' && unit === 'hours'
-      ? voiceLogs.map(log => {
-          return {
-            ...log, 
-            count: parseFloat(log.count.hours.toFixed(2)),
-          };
-        })
-      : type === 'stage' && unit === 'minutes'
-      ? stageLogs.map(log => {
-          return { ...log,  count: Math.round(log.count.minutes) };
-        })
-      : stageLogs.map(log => {
-          return {
-            ...log, 
-            count: parseFloat(log.count.hours.toFixed(2)),
-          };
-        });
+  let currentLogs =[]
+ try {
+   currentLogs =
+  type === 'chat'
+    ? messageLogs
+    : type === 'voice' && unit === 'minutes'
+    ? voiceLogs.map(log => {
+        return { ...log, count: Math.round(log.count.minutes) };
+      })
+    : type === 'voice' && unit === 'hours'
+    ? voiceLogs.map(log => {
+        return {
+          ...log, 
+          count: parseFloat(log.count.hours.toFixed(2)),
+        };
+      })
+    : type === 'stage' && unit === 'minutes'
+    ? stageLogs.map(log => {
+        return { ...log,  count: Math.round(log.count.minutes) };
+      })
+    : stageLogs.map(log => {
+        return {
+          ...log, 
+          count: parseFloat(log.count.hours.toFixed(2)),
+        };
+      });
 
+ } catch (error) {
+  window.location.reload()
+ }
+ 
   return (
     <>
       <div className={`${styles.topsBox}`}>

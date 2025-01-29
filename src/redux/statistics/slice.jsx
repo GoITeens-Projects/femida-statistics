@@ -15,41 +15,53 @@ const statisticsSlice = createSlice({
     voiceActivitiesLogs: [{ id: '', count: 0 }],
     timestamp: [],
     updateToken: false,
-    completedMessagesLogs: [{ 
-      username: '',
-      globalName: '',
-      id: 0,
-      avatar: ``,
-    count: 0,
-  loading: true}],
-    completedVoicesLogs: [{ 
-      username: '',
-      globalName: '',
-      id: 0,
-      avatar: ``,
-    count: {hours: 0, minutes: 0},
-    loading: true}],
-    completedStagesLogs: [{ 
-      username: '',
-      globalName: '',
-      id: 0,
-      avatar: ``,
-    count: {hours: 0, minutes: 0},
-    loading: true
-  }],
+    completedMessagesLogs: [
+      {
+        username: '',
+        globalName: '',
+        id: 0,
+        avatar: ``,
+        count: 0,
+        loading: true,
+      },
+    ],
+    completedVoicesLogs: [
+      {
+        username: '',
+        globalName: '',
+        id: 0,
+        avatar: ``,
+        count: { hours: 0, minutes: 0 },
+        loading: true,
+      },
+    ],
+    completedStagesLogs: [
+      {
+        username: '',
+        globalName: '',
+        id: 0,
+        avatar: ``,
+        count: { hours: 0, minutes: 0 },
+        loading: true,
+      },
+    ],
     prevInterval: 0,
     prevPeriod: 0,
     loading: true,
     error: null,
-    reloadProtocol: false
+    reloadProtocol: false,
+    reloadTrying: 0,
   },
   reducers: {},
   extraReducers: builder => {
     builder
       .addCase(fetchStatistics.fulfilled, (state, action) => {
-        if(state.loading === true){
-          state.loading = false;}
+        if (state.loading === true) {
+          state.loading = false;
+        }
         // state.membersLeft = action.payload.membersLeft;
+        state.reloadProtocol = false;
+        state.reloadTrying = 0;
         state.serverMembers = action.payload.serverMembers;
         state.membersStatuses = action.payload.membersStatuses;
         state.messagesCount = action.payload.messagesCount;
@@ -60,13 +72,16 @@ const statisticsSlice = createSlice({
       .addCase(completeLogs.fulfilled, (state, action) => {
         // if(state.loading === true){
         //   state.loading = false;}
+        // state.reloadProtocol = false;
+        // state.reloadTrying = 0;
         state.completedMessagesLogs = action.payload.message;
         state.completedVoicesLogs = action.payload.voice;
         state.completedStagesLogs = action.payload.stage;
       })
       .addCase(fetchVoiceAndStage.fulfilled, (state, action) => {
-        if(state.loading === true){
-        state.loading = false;}
+        if (state.loading === true) {
+          state.loading = false;
+        }
         state.stageActivitiesCount = action.payload.stageActivitiesCount;
         state.stageActivitiesLogs = action.payload.stageActivitiesLogs;
         state.voiceActivitiesCount = action.payload.voiceActivitiesCount;
@@ -84,22 +99,27 @@ const statisticsSlice = createSlice({
         isAnyOf(
           fetchStatistics.pending,
           // completeLogs.pending,
-          fetchVoiceAndStage.pending,
-        ), state => {
+          fetchVoiceAndStage.pending
+        ),
+        state => {
           state.loading = true;
-          state.error = null; 
+          state.error = null;
           state.reloadProtocol = false;
         }
       )
       .addMatcher(
         isAnyOf(
           fetchStatistics.rejected,
-          completeLogs.rejected,
-          fetchVoiceAndStage.rejected,
-        ), (state, action) => {
+          // completeLogs.rejected,
+          fetchVoiceAndStage.rejected
+        ),
+        (state, action) => {
           state.loading = false;
-          state.error = action.payload; 
-          state.reloadProtocol = true;
+          state.error = action.payload;
+          if (state.reloadTrying < 3) {
+            state.reloadProtocol = true;
+            state.reloadTrying = state.reloadTrying + 1;
+          }
         }
       );
   },
