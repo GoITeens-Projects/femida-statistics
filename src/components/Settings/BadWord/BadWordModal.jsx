@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSettings } from "../../redux/settings/operation"; // Дія для отримання налаштувань
-import { badWord } from "../../redux/badword/operation"; // Дія для збереження нових слів
+import { fetchSettings } from "../../../redux/settings/operation"; // Дія для отримання налаштувань
+import { badWord } from "../../../redux/badword/operation"; // Дія для збереження нових слів
 import styles from "./BadWord.module.css";
 import * as monaco from "monaco-editor";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,6 +18,8 @@ import { UnsavedChangesModal } from "./UnsavedChangesModal";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
+import { SettingsNavigation } from "../SettingsNavigation/SettingsNavigation";
 import { ActionSettings } from "../ActionSettings/ActionSettings";
 
 
@@ -41,7 +43,7 @@ export const BadWordPage = () => {
 
 
 
-
+    const navigate = useNavigate(); // Для ручного перенаправлення
 
     const [inputValue, setInputValue] = useState(""); // Стан для введення тексту
     const [editorInstance, setEditorInstance] = useState(null); // Стан для посилання на редактор коду
@@ -73,7 +75,7 @@ export const BadWordPage = () => {
     };
 
 
-    const navigate = useNavigate(); // Для ручного перенаправлення
+
 
     // Завантаження налаштувань при рендері компонента
     useEffect(() => {
@@ -142,7 +144,10 @@ export const BadWordPage = () => {
                             giveWarn: isGiveWarn,
                             deleteMsg: isDeleteMessage,
                             ignoreAdmins: isCheckedAdmin,
-                            notifyUser: isCheckedNotifyUser,
+                            notifyUser: {
+                                enabled: isCheckedNotifyUser,
+                                messageFn: JSON.stringify((username) => `${username}! якийсь текст`),
+                            },
                         },
                     },
                 },
@@ -180,17 +185,17 @@ export const BadWordPage = () => {
     };
     const handleBackClick = (e) => {
         // Перевірка на зміни перед переходом
-        const isMuteEnabledChanged = settings?.settings?.badwords?.actions?.mute?.enabled !== (selectedAction === "mute");
+
         const muteTimeMs = (days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60) * 1000;
         const isWordsChanged = JSON.stringify(settings?.settings?.badwords?.words) !== JSON.stringify(addedWords);
         const isMuteTimeChanged = settings?.settings?.badwords?.actions?.mute?.muteTimeMs !== muteTimeMs;
-        const isActionChanged = settings?.settings?.badwords?.actions?.selectedAction !== selectedAction;
+
         const isGiveWarnChanged = settings?.settings?.badwords?.actions?.giveWarn !== (selectedAction === "warning");
         const isDeleteMsgChanged = settings?.settings?.badwords?.actions?.deleteMsg !== isDeleteMessage;
         const isCheckedAdminChanged = settings?.settings?.badwords?.actions?.ignoreAdmins !== isCheckedAdmin;
         const isCheckedNotifyUserChanged = settings?.settings?.badwords?.actions?.notifyUser !== isCheckedNotifyUser;
 
-        if (isWordsChanged || isMuteEnabledChanged || isMuteTimeChanged || isActionChanged || isGiveWarnChanged || isDeleteMsgChanged || isCheckedAdminChanged || isCheckedNotifyUserChanged) {
+        if (isWordsChanged || isMuteTimeChanged || isGiveWarnChanged || isDeleteMsgChanged || isCheckedAdminChanged || isCheckedNotifyUserChanged) {
             setIsUnsavedModalOpen(true); // Відкриття модального вікна невнесених змін
         } else {
             navigate("/settings");
@@ -210,16 +215,12 @@ export const BadWordPage = () => {
     // if (error) return <p>Помилка: {error}</p>;
     return (
         <section>
-            <div className={styles.ConatinerNavigation}>
-                <button onClick={handleBackClick} className={styles.ExitButton}><svg width="8" height="10" viewBox="0 0 4 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 1L1 3L3 5" stroke="#678F95" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>Назад</button>
-                <button onClick={handleSave} className={styles.SaveButton}>
-                    Зберегти
-                </button>
-            </div>
 
 
+            <SettingsNavigation
+                onHandleBackClick={handleBackClick}
+                onHandleSave={handleSave}
+            />
             <div className={styles.Container}>
                 <h1 className={styles.TitleBadWords}>Погані слова</h1>
 
@@ -309,7 +310,7 @@ export const BadWordPage = () => {
 
 
 
-                <ActionSettings
+                {/* <ActionSettings
                     onDaysChange={setDays}
                     onHoursChange={setHours}
                     onMinutesChange={setMinutes}
@@ -323,7 +324,7 @@ export const BadWordPage = () => {
                     onMinutes={minutes}
                     onIsCheckedAdmin={isCheckedAdmin}
 
-                />
+                /> */}
 
 
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { badWord } from "../../redux/badword/operation";
+import { badWord } from "../../../redux/badword/operation";
 import styles from "./BadWord.module.css";
 import { IoMdClose } from "react-icons/io";
 import { Modal } from "./BadWordModal";
