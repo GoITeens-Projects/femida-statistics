@@ -26,6 +26,7 @@ import { ClimbingBoxLoader } from 'react-spinners';
 import { updateToken } from '../redux/auth/operation';
 import { motion, AnimatePresence } from 'framer-motion';
 import BurgerMenu from './BurgerMenu/BurgerMenu';
+import LimitsScope from './LimitsScope/LimitsScope';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -113,6 +114,7 @@ export const App = () => {
               </div>
               <div className={s.mainCountainer}>
                 <Outlet />
+                <LimitsScope />
               </div>
             </AnimatePresence>
           )}
