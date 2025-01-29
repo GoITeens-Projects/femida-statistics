@@ -9,7 +9,7 @@ import styles from "./ActionSettings.module.css";
 
 
 import 'react-toastify/dist/ReactToastify.css';
-import CustomDropdown from "./CustomDropdown";
+import CustomDropdown from "../CustomDropdown";
 import { ScrollableNumbers } from "./ScrollableNumbers";
 
 const padNumber = (num) => String(num).padStart(2, "0");

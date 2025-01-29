@@ -138,9 +138,13 @@ input:checked+.slider:before {
 
 .EditorContainer {
     margin-top: 51px;
-    width: 800px;
-    height: 230px;
+    width: 83.3vh;
+    height: 36.1vh;
     border: 1px solid var(--chart-color);
+    @media screen and (min-width: 768px) {
+        width: 800px;
+        height: 230px;
+    }
 }
 
 .ExitButton {
@@ -161,18 +165,22 @@ input:checked+.slider:before {
 
 .TitleBadWords {
     font-family: IBM Plex Mono;
-    font-size: 24px;
+    font-size: 2.2vh;
     font-weight: 500;
     line-height: 20.8px;
     text-align: left;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
     color: var(--text-color);
+    justify-content: center;
+    @media screen and (min-width: 768px) {
+        font-size: 1.7vw;
+    }
 }
 
 .FromContainer {
     position: relative;
-    width: 933px;
+    width: 66vh;
     height: auto;
     border: 1px solid var(--chart-color);
     margin-top: 20px;
@@ -181,6 +189,9 @@ input:checked+.slider:before {
     padding: 20px;
     box-sizing: border-box;
     /* Ураховуємо padding у ширині */
+    @media screen and (min-width: 768px) {
+        width: 933px;
+    }
 }
 
 .LabelFormBadWords {
@@ -552,7 +563,7 @@ input:focus+.slider {
 .BadWordListContainer {
     display: flex;
     gap: 5px;
-    margin-top: 7px;
+    margin-top: 1.94pvh;
 }
 
 .IconBoxList {
@@ -569,7 +580,8 @@ input:focus+.slider {
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
     color: var(--text-accent-color);
-    margin-top: 3px;
+    margin-top: 10px;
+    justify-content: center;
 }
 
 
