@@ -32,7 +32,12 @@ export const Settings = () => {
     endpoint = 'badword'
     nameForUpdate = 'badwords'
     />
-    <Limits />
+    <AutoModerationFilter 
+    moderationTitle='Ліміти'
+    moderationList= 'Редагувати ліміти'
+    endpoint = 'limits'
+    nameForUpdate = 'badwords'
+    />
     {/* </motion.div> */}
 
   </>

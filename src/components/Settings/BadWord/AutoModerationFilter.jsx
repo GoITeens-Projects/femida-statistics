@@ -52,8 +52,8 @@ export const AutoModerationFilter = ({
           heightSecond={5}
           rightSecond={3}
           bottomSecond={-7}
-          backgroundBoth={'#6EABD4'}
-          borderColorBoth={'#558DB2'}
+          backgroundBoth={'var(--chart-accent-color)'}
+          borderColorBoth={'var(--border-accent-color)'}
         />
         <div className={styles.moderationContent}>
           <h2 className={styles.moderationTitle}>{moderationTitle}</h2>
