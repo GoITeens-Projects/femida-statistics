@@ -21,6 +21,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { SettingsNavigation } from "../SettingsNavigation/SettingsNavigation";
 import { ActionSettings } from "../ActionSettings/ActionSettings";
+import { FormContainer } from "../FormContainer.jsx/FormContainer";
 
 
 
@@ -40,20 +41,33 @@ export const BadWordPage = () => {
 
 
 
+    // форм стейти
+    const [addedWords, setAddedWords] = useState([]); // Список доданих слів
+    const [inputValue, setInputValue] = useState(""); // Стан для введення тексту
+    const handleDeleteWord = (word) => {
+        setAddedWords((prevWords) => prevWords.filter((w) => w !== word));
+    };
+    const [isModalOpen, setIsModalOpen] = useState(false); // Стан для відкриття/закриття модального вікна
+
+
+
+
+
+
 
 
 
     const navigate = useNavigate(); // Для ручного перенаправлення
 
-    const [inputValue, setInputValue] = useState(""); // Стан для введення тексту
+
     const [editorInstance, setEditorInstance] = useState(null); // Стан для посилання на редактор коду
-    const [isModalOpen, setIsModalOpen] = useState(false); // Стан для відкриття/закриття модального вікна
+
     const dispatch = useDispatch(); // Диспетчер Redux
     const { data: settings, loading, error } = useSelector((state) => state.settings); // Отримання налаштувань з Redux
 
 
 
-    const [addedWords, setAddedWords] = useState([]); // Список доданих слів
+
     const [isUnsavedModalOpen, setIsUnsavedModalOpen] = useState(false); // Стан для модального вікна невнесених змін
 
 
@@ -116,14 +130,6 @@ export const BadWordPage = () => {
         }
     }, [settings]);
 
-    // Обробка натискання клавіші Enter для додавання слова
-    const handleInputKeyPress = (event) => {
-        if (event.key === "Enter" && inputValue.trim()) {
-            setAddedWords((prevWords) => [...prevWords, inputValue.trim()]);
-            setInputValue(""); // Очищення inputValue після додавання
-        }
-    };
-
     // Обробка збереження налаштувань
     const handleSave = () => {
         const muteTimeMs = (days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60) * 1000; // Розрахунок часу муту у мілісекундах
@@ -180,9 +186,7 @@ export const BadWordPage = () => {
     };
 
     // Обробка видалення слова зі списку
-    const handleDeleteWord = (word) => {
-        setAddedWords((prevWords) => prevWords.filter((w) => w !== word));
-    };
+
     const handleBackClick = (e) => {
         // Перевірка на зміни перед переходом
 
@@ -224,74 +228,15 @@ export const BadWordPage = () => {
             <div className={styles.Container}>
                 <h1 className={styles.TitleBadWords}>Погані слова</h1>
 
-                <div className={styles.FromContainer}>
+                <FormContainer
+                    addedWords={addedWords} // Передача списку слів
+                    inputValue={inputValue} // Передача значення інпуту
+                    onInputChange={setInputValue} // Передача функції для оновлення інпуту
+                    onAddWord={(word) => setAddedWords((prev) => [...prev, word.trim()])} // Передача функції для додавання слова
+                    onHandleDeleteWord={handleDeleteWord} // Передача функції видалення слова
+                    onOpenModal={() => setIsModalOpen(true)} // Відкрити модальне вікно
+                />
 
-                    <Shadow
-                        leftFirst={-7}
-                        widthFirst={5}
-                        heightSecond={5}
-                        rightSecond={3}
-                        bottomSecond={-7}
-                        backgroundBoth={'#6EABD4'}
-                        borderColorBoth={'#558DB2'}
-                    />
-                    <label className={styles.LabelFormBadWords} >Налаштування фільтрування</label>
-
-                    <div className={styles.InputContainer}>
-
-                        <div className={styles.WordCards}>
-                            {addedWords.slice(0, 10).map((word, index) => ( // Забезпечуємо відображення максимум 10 карток
-                                <div key={index} className={styles.WordCard}>
-                                    {word}
-                                    <svg
-                                        className={styles.DeleteIcon}
-                                        onClick={() => handleDeleteWord(word)}
-                                        width="25"
-                                        height="25"
-                                        viewBox="0 0 6 6"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M1.5 4.49976L4.49996 1.49979"
-                                            stroke="#678F95"
-                                            strokeWidth="0.5"
-                                            strokeLinecap="round"
-                                        />
-                                        <path
-                                            d="M4.5 4.49976L1.50004 1.49979"
-                                            stroke="#678F95"
-                                            strokeWidth="0.5"
-                                            strokeLinecap="round"
-                                        />
-                                    </svg>
-                                </div>
-                            ))}
-                            {/* Умовний рендеринг іконки */}
-                            {addedWords.length > 10 && (
-                                <div className={styles.BadWordListContainer} onClick={() => setIsModalOpen(true)}>
-                                    <p className={styles.BadWordListText} onClick={() => setIsModalOpen(true)}>+ ще {addedWords.length - 10}</p>
-                                    <CiBoxList
-                                        onClick={() => setIsModalOpen(true)}
-                                        className={styles.IconBoxList}
-                                    />
-                                </div>
-                            )}
-                            <input
-                                type="text"
-                                value={inputValue}
-                                onChange={(e) => setInputValue(e.target.value)}
-                                onKeyDown={handleInputKeyPress}
-                                className={styles.InputInsideContainer}
-                                placeholder="Введіть слово..."
-                            />
-                        </div>
-                    </div>
-
-
-
-
-                </div>
 
                 <div className={styles.SliderContainer}>
                     <label className={styles.switch}>
@@ -310,7 +255,7 @@ export const BadWordPage = () => {
 
 
 
-                {/* <ActionSettings
+                <ActionSettings
                     onDaysChange={setDays}
                     onHoursChange={setHours}
                     onMinutesChange={setMinutes}
@@ -324,7 +269,7 @@ export const BadWordPage = () => {
                     onMinutes={minutes}
                     onIsCheckedAdmin={isCheckedAdmin}
 
-                /> */}
+                />
 
 
 
