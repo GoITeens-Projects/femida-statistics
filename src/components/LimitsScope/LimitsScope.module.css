@@ -40,11 +40,12 @@
 }
 
 .limitsScopeItem {
+  position: relative;
   width: 400px;
   /* height: 36px; */
   display: flex;
   align-items: center;
-  border: 2px solid #acd0d6;
+  border: 2px solid var(--btn-accent-color);
   background-color: #fff;
   padding: 10px 20px;  
 }
@@ -132,7 +133,9 @@
   right: 0px;
   top: 50%;
   transform: translateY(-50%);
-  color: #6c8c91;
+  color: var(--shadow-secondary-border);
+  /* background: #96B8BD; */
+
 }
 
 .dropdown-list {
