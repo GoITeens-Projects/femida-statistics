@@ -13,6 +13,7 @@ import { Settings } from "pages/Settings";
 
 import { LimitsPage } from "components/Settings/Limit/LimitsModal";
 import { BadWordPage } from "components/Settings/BadWord/BadWordModal";
+import { SpamPage } from "components/Settings/Spam/Spam";
 import { CountOfXPPage } from "components/Settings/CountOfXp/CountOfXpPage";
 
 export const router = createBrowserRouter(
@@ -65,6 +66,8 @@ export const router = createBrowserRouter(
                     element: <PrivateRoute component={LimitsPage} redirecTo='/' />
                 },
                 {
+                    path: '/settings/spam',
+                    element: <PrivateRoute component={SpamPage} redirecTo='/' />
                     path: '/settings/number-of-xp',
                     element: <PrivateRoute component={CountOfXPPage} redirecTo='/' />
                 }

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSettings } from "../../../redux/settings/operation"; // Дія для отримання налаштувань
-import { badWord } from "../../../redux/badword/operation"; // Дія для збереження нових слів
+import { PatchSettings } from "../../../redux/settings/operation"; // Дія для збереження нових слів
 import styles from "./BadWord.module.css";
 import * as monaco from "monaco-editor";
 import { Link, useNavigate } from "react-router-dom";
@@ -138,7 +138,7 @@ export const BadWordPage = () => {
         const isGiveWarn = selectedAction === "warning";
 
         dispatch(
-            badWord({
+            PatchSettings({
                 settings: {
                     badwords: {
                         words: addedWords,
@@ -159,12 +159,22 @@ export const BadWordPage = () => {
                 },
             })
         ).then(() => {
-            localStorage.setItem('toastMessage', 'Дані збережено!'); // Збереження повідомлення у локальне сховище
+            // localStorage.setItem('toastMessage', 'Дані збережено!'); // Збереження повідомлення у локальне сховище
 
-            setTimeout(() => {
-                localStorage.removeItem('toastMessage'); // Видалення повідомлення через 5 секунд
-            }, 5000);
+            // setTimeout(() => {
+            //     localStorage.removeItem('toastMessage'); // Видалення повідомлення через 5 секунд
+
             navigate("/settings"); // Перенаправлення на сторінку налаштувань
+            toast.success("Дані збережено!", {
+                position: 'top-right',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "dark",
+                transition: Bounce,
+            });
         });
     };
 

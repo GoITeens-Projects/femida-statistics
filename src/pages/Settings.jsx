@@ -6,7 +6,8 @@ import { Outlet } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import s from '../components/Main.module.css';
 import { ClimbingBoxLoader } from 'react-spinners';
-import { Limits } from "components/Settings/Limit/Limits";
+// import { Limits } from "components/Settings/Limit/Limits";
+import { Bounce, ToastContainer } from "react-toastify";
 
 
 export const Settings = () => {
@@ -26,17 +27,36 @@ export const Settings = () => {
              exit={{ opacity: 0, y: 50 }}     // Стан при зникненні
              transition={{ duration: 1.5 }}   // Тривалість переходу
            > */}
-    <AutoModerationFilter 
-    moderationTitle='Погані слова'
-    moderationList= 'Мат, небажані вирази'
-    endpoint = 'badword'
-    nameForUpdate = 'badwords'
+    <AutoModerationFilter
+      moderationTitle='Погані слова'
+      moderationList='Мат, небажані вирази'
+      endpoint='badword'
+      nameForUpdate='badwords'
     />
-    <AutoModerationFilter 
-    moderationTitle='Ліміти'
-    moderationList= 'Редагувати ліміти'
-    endpoint = 'limits'
-    nameForUpdate = 'badwords'
+    <AutoModerationFilter
+      moderationTitle='Ліміти'
+      moderationList='Редагувати ліміти'
+      endpoint='limits'
+      nameForUpdate='badwords'
+    />
+    <AutoModerationFilter
+      moderationTitle='Повторний текст'
+      moderationList='Нікому надмірний флуд не потрібний'
+      endpoint='spam'
+      nameForUpdate='badwords'
+    />
+    <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick={false}
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="dark"
+      transition={Bounce}
     />
     <AutoModerationFilter 
     moderationTitle='Кількість ХР'
