@@ -63,26 +63,40 @@ code {
   }
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
-  display: none;
-  -webkit-appearance: none;
-  appearance: none;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
-input[type="date"]::placeholder {
-  padding: 0 !important ;       
-  margin: 0 !important;           
+input[type='number'] {
+  -moz-appearance: textfield;
 }
 
-input[type="date"]::-webkit-input-placeholder {
-  padding: 0 !important;
-  margin: 0 !important;
+.flatpickr-input {
+ 
+  text-indent: 0 !important;
+  /* margin: 0 !important; */
+  box-sizing: border-box;
+  border: none !important;
 }
 
-/* Для Firefox */
-input[type="date"]::-moz-placeholder {
-  padding: 0 !important;
-  margin: 0 !important;
+.flatpickr-input::-webkit-calendar-picker-indicator,
+.flatpickr-input::-webkit-inner-spin-button,
+.flatpickr-input::-webkit-clear-button,
+.flatpickr-input::-moz-clear {
+  display: none !important;
+  appearance: none !important;
+}
+
+.flatpickr-input::before,
+.flatpickr-input::after {
+  content: none !important;
+  display: none !important;
+}
+input::placeholder {
+  padding: 0; 
 }
 
 :root,

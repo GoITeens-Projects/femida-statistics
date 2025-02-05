@@ -20,9 +20,9 @@ const LimitsScope = () => {
   return (
     <div className={styles.limitsScope}>
       <div className={styles.limitsScopeBlock}>
-        <h2 className={styles.limitsScopeTitle}>
+        {/* <h2 className={styles.limitsScopeTitle}>
           Область дії загальних лімітів
-        </h2>
+        </h2> */}
         <div className={styles.limitsScopeBox}>
           {/* <input type="checkbox" className={styles.limitsScopeCheckbox} />
           <span className={styles.CheckboxMark}></span>
