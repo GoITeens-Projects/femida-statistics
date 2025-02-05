@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styles from './LimitsScope.module.css';
+import Shadow from '../Shadow/Shadow'
 
 const LimitsScope = () => {
   //   const [isOpen, setIsOpen] = useState(false);
@@ -19,9 +20,9 @@ const LimitsScope = () => {
   return (
     <div className={styles.limitsScope}>
       <div className={styles.limitsScopeBlock}>
-        <h2 className={styles.limitsScopeTitle}>
+        {/* <h2 className={styles.limitsScopeTitle}>
           Область дії загальних лімітів
-        </h2>
+        </h2> */}
         <div className={styles.limitsScopeBox}>
           {/* <input type="checkbox" className={styles.limitsScopeCheckbox} />
           <span className={styles.CheckboxMark}></span>
@@ -39,6 +40,15 @@ const LimitsScope = () => {
       </div>
       <ul className={styles.limitsScopeList}>
         <li className={styles.limitsScopeItem}>
+        <Shadow
+          leftFirst={-7}
+          widthFirst={5}
+          heightSecond={5}
+          rightSecond={3}
+          bottomSecond={-7}
+          backgroundBoth={'var(--shadow-secondary-border)'}
+          borderColorBoth={'var(--chart-accent-color)'}
+        />
           <div className={styles['dropdown-container']}>
             <button
               className={styles['dropdown-button']}
@@ -66,6 +76,15 @@ const LimitsScope = () => {
           </div>
         </li>
         <li className={styles.limitsScopeItem}>
+        <Shadow
+          leftFirst={-7}
+          widthFirst={5}
+          heightSecond={5}
+          rightSecond={3}
+          bottomSecond={-7}
+           backgroundBoth={'var(--shadow-secondary-border)'}
+          borderColorBoth={'var(--chart-accent-color)'}
+        />
           <div className={styles['dropdown-container']}>
             <button
               className={styles['dropdown-button']}
@@ -93,6 +112,15 @@ const LimitsScope = () => {
           </div>
         </li>
         <li className={styles.limitsScopeItem}>
+        <Shadow
+          leftFirst={-7}
+          widthFirst={5}
+          heightSecond={5}
+          rightSecond={3}
+          bottomSecond={-7}
+           backgroundBoth={'var(--shadow-secondary-border)'}
+          borderColorBoth={'var(--chart-accent-color)'}
+        />
           <div className={styles['dropdown-container']}>
             <button
               className={styles['dropdown-button']}
@@ -120,6 +148,15 @@ const LimitsScope = () => {
           </div>
         </li>
         <li className={styles.limitsScopeItem}>
+        <Shadow
+          leftFirst={-7}
+          widthFirst={5}
+          heightSecond={5}
+          rightSecond={3}
+          bottomSecond={-7}
+           backgroundBoth={'var(--shadow-secondary-border)'}
+          borderColorBoth={'var(--chart-accent-color)'}
+        />
           <div className={styles['dropdown-container']}>
             <button
               className={styles['dropdown-button']}

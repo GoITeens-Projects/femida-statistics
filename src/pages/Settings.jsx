@@ -38,6 +38,12 @@ export const Settings = () => {
     endpoint = 'limits'
     nameForUpdate = 'badwords'
     />
+    <AutoModerationFilter 
+    moderationTitle='Кількість ХР'
+    moderationList= 'Редагувати видачу досвіду учасникам'
+    endpoint = 'number-of-xp'
+    nameForUpdate = 'badwords'
+    />
     {/* </motion.div> */}
 
   </>

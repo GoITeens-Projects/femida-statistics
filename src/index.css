@@ -5,7 +5,7 @@
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'IBM Plex Sans'
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -63,6 +63,42 @@ code {
   }
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.flatpickr-input {
+ 
+  text-indent: 0 !important;
+  /* margin: 0 !important; */
+  box-sizing: border-box;
+  border: none !important;
+}
+
+.flatpickr-input::-webkit-calendar-picker-indicator,
+.flatpickr-input::-webkit-inner-spin-button,
+.flatpickr-input::-webkit-clear-button,
+.flatpickr-input::-moz-clear {
+  display: none !important;
+  appearance: none !important;
+}
+
+.flatpickr-input::before,
+.flatpickr-input::after {
+  content: none !important;
+  display: none !important;
+}
+input::placeholder {
+  padding: 0; 
+}
+
 :root,
 html[data-theme='light'] {
   --text-color: #000;
@@ -82,6 +118,7 @@ html[data-theme='light'] {
   --btn-accent-color: #acd0d6;
   --shadow-secondary-color: #acd0d6;
   --shadow-secondary-border: #96b8bd;
+  --shadow-settings-border: #407293;
   --chart-color: #91ccf4;
   --chart-accent-color: #6eabd4;
   --chart-online-accent-color: #b0e060;
@@ -127,6 +164,7 @@ html[data-theme='dark'] {
   
     --shadow-secondary-color: #386f78;
     --shadow-secondary-border: #27565d;
+    --shadow-settings-border: #27565D;
   
     --chart-color: #91ccf4;
     --chart-accent-color: #407293;
