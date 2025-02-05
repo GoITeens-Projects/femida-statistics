@@ -58,6 +58,12 @@ export const Settings = () => {
       theme="dark"
       transition={Bounce}
     />
+    <AutoModerationFilter 
+    moderationTitle='Кількість ХР'
+    moderationList= 'Редагувати видачу досвіду учасникам'
+    endpoint = 'number-of-xp'
+    nameForUpdate = 'badwords'
+    />
     {/* </motion.div> */}
 
   </>
