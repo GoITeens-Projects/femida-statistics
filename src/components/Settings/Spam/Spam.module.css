@@ -1,0 +1,253 @@
+.Container {
+    margin-top: 20px;
+}
+
+.TitleBadWords {
+    font-family: IBM Plex Mono;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 20.8px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: var(--text-color);
+    justify-content: center;
+}
+
+.FromContainer {
+    position: relative;
+    width: 933px;
+    height: auto;
+    border: 1px solid var(--chart-color);
+    margin-top: 20px;
+    display: block;
+    /* Відновлюємо стандартне блокове відображення */
+    padding: 20px;
+    box-sizing: border-box;
+    /* Ураховуємо padding у ширині */
+}
+
+.InputContainer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px;
+    border-radius: 8px;
+    gap: 5px;
+    background-color: var(--input-badword);
+    border: 2px solid var(--btn-accent-color);
+    margin-top: 10px;
+}
+
+.InputInsideContainer {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    padding: 5px;
+    font-size: 14px;
+    min-width: 120px;
+    background-color: var(--input-badword);
+}
+
+
+/* чекбокси */
+
+.ContainerCheckBoxAction2 {
+    margin-top: 12px;
+}
+
+.CustomCheckbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 8px 0;
+    position: relative;
+    color: var(--text-color);
+}
+
+.CustomCheckbox input {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.CheckboxMark {
+    height: 20px;
+    width: 20px;
+    background-color: var(--bg-modal-color);
+    /* Світлий фон */
+    border: 1px solid var(--shadow-secondary-border);
+    /* Колір рамки */
+    border-radius: 2px;
+    /* Скруглені кути */
+    display: inline-block;
+    position: relative;
+    margin-right: 8px;
+}
+
+.CustomCheckbox input:checked+.CheckboxMark {
+    background-color: var(--shadow-secondary-border);
+    /* Колір фону для чекнутого стану */
+    border-color: var(--shadow-secondary-border);
+    /* Синхронізуємо колір рамки з фоном */
+}
+
+.CustomCheckbox input:checked+.CheckboxMark::after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid #fff;
+    /* Білий колір галочки */
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.ContainerCheckBox {
+    margin-top: 25px;
+}
+
+
+/* Додаємо відстань між чекбоксами */
+
+.CustomCheckbox+.CustomCheckbox {
+    margin-top: 15px;
+    /* Відстань між чекбоксами */
+}
+
+
+/* Свічер */
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 20px;
+}
+
+
+/* Hide default HTML checkbox */
+
+.switch input {
+    display: none;
+}
+
+
+/* The slider */
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #888787;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 15px;
+    width: 15px;
+    left: 4px;
+    bottom: 3px;
+    background-color: #494646;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #bebebe;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #ccc;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+
+/* Rounded sliders */
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
+/* Додаткові стилі слайдера */
+
+.slider {
+    background-color: white;
+    border: 2px solid var(--btn-accent-color);
+    border-radius: 34px;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    box-sizing: border-box;
+}
+
+.slider:before {
+    left: 1px;
+    top: 51%;
+    transform: translateY(-50%);
+    background-color: var(--shadow-secondary-border);
+}
+
+input:checked+.slider {
+    background-color: var(--btn-accent-color);
+    border-color: var(--btn-accent-color);
+}
+
+input:checked+.slider:before {
+    transform: translate(25px, -50%);
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 2px var(--btn-accent-color);
+}
+
+.SliderContainer {
+    margin-top: 30px;
+    display: flex;
+    gap: 5px;
+}
+
+.LabelFormBadWords {
+    font-family: IBM Plex Mono;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 10.4px;
+    text-align: left;
+    /* Лейбл залишатиметься по лівому краю */
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: var(--text-accent-color);
+    margin-bottom: 100px;
+    margin-left: -3px;
+}
+
+.Sec {
+    font-family: IBM Plex Mono;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 10.4px;
+    text-align: left;
+    /* Лейбл залишатиметься по лівому краю */
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: var(--text-accent-color);
+}

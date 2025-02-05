@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { badWord } from '../../../redux/badword/operation';
+import { PatchSettings } from '../../../redux/settings/operation';
 import styles from './BadWord.module.css';
 import { IoMdClose } from 'react-icons/io';
 import { Modal } from './BadWordModal';
@@ -20,28 +20,28 @@ export const AutoModerationFilter = ({
 
   const handleToggle = () => {
     setIsEnabled(!isEnabled);
-    dispatch(badWord({ settings: { nameForUpdate: { enabled: !isEnabled } } }));
+    dispatch(PatchSettings({ settings: { nameForUpdate: { enabled: !isEnabled } } }));
   };
 
-  useEffect(() => {
-    // Отримуємо тему з локального сховища
-    const savedTheme = localStorage.getItem('theme') || 'light';
+  // useEffect(() => {
+  //   // Отримуємо тему з локального сховища
+  //   const savedTheme = localStorage.getItem('theme') || 'light';
 
-    // Перевіряємо, чи є повідомлення в локальному сховищі
-    const message = localStorage.getItem('toastMessage');
-    if (message) {
-      toast.success(message, {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        theme: savedTheme, // Динамічно встановлюємо тему для тосту
-        transition: Bounce,
-      });
-    }
-  }, []);
+  //   // Перевіряємо, чи є повідомлення в локальному сховищі
+  //   const message = localStorage.getItem('toastMessage');
+  //   if (message) {
+  //     toast.success(message, {
+  //       position: 'top-right',
+  //       autoClose: 5000,
+  //       hideProgressBar: false,
+  //       closeOnClick: false,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       theme: savedTheme, // Динамічно встановлюємо тему для тосту
+  //       transition: Bounce,
+  //     });
+  //   }
+  // }, []);
 
   return (
     <section>
@@ -99,19 +99,7 @@ export const AutoModerationFilter = ({
           </Link>
         </div>
       </div>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        transition={Bounce}
-      />
+
     </section>
   );
 };

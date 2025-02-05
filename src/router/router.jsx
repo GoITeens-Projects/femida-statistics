@@ -13,6 +13,7 @@ import { Settings } from "pages/Settings";
 
 import { LimitsPage } from "components/Settings/Limit/LimitsModal";
 import { BadWordPage } from "components/Settings/BadWord/BadWordModal";
+import { SpamPage } from "components/Settings/Spam/Spam";
 
 export const router = createBrowserRouter(
     [
@@ -62,6 +63,10 @@ export const router = createBrowserRouter(
                 {
                     path: '/settings/limits',
                     element: <PrivateRoute component={LimitsPage} redirecTo='/' />
+                },
+                {
+                    path: '/settings/spam',
+                    element: <PrivateRoute component={SpamPage} redirecTo='/' />
                 }
 
             ]
