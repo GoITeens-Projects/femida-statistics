@@ -115,7 +115,7 @@ export const App = () => {
               </div>
               <div className={s.mainCountainer}>
                 <Outlet />
-                <LimitsScope />
+                {/* <LimitsScope /> */}
               </div>
             </AnimatePresence>
           )}

@@ -1,8 +1,8 @@
 .limitsScope {
   /* width: 70%; */
-  /* border: 1px solid #91ccf4; */
+  border: 1px solid #91ccf4;
   background-color: var(--bg-modal-color);
-  /* padding: 15px 25px; */
+  padding: 15px 25px;
   width: 78vw;
 }
 
@@ -53,6 +53,22 @@
 .limitsScopeSelect {
   width: 300px;
   height: 37px;
+}
+
+.saveLimitsBtn {
+  /* width: 65px;
+  height: 20px; */
+  padding: 10px;
+  background-color: var(--btn-accent-color);
+  font-family: IBM Plex Mono;
+  font-size: 8px;
+  font-weight: 500;
+  line-height: 7.8px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: var(--text-color);
+  text-align: center;
 }
 
 /* !checkbox */
@@ -153,6 +169,8 @@
   padding: 10px;
   cursor: pointer;
   transition: background 0.2s;
+  display: flex;
+  align-items: center;
 }
 
 .dropdown-item:hover {

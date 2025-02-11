@@ -1,4 +1,4 @@
-import { PeriodsSettings } from "../PeriodsSettings/PeriodsSettings."
+import { PeriodsSettings } from "../PeriodsSettings/PeriodsSettings"
 import styles from './CountOfXPPage.module.css'
 import { SettingsNavigation } from '../SettingsNavigation/SettingsNavigation';
 
