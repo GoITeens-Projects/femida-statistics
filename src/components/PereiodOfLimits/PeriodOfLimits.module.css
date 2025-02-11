@@ -1,0 +1,174 @@
+.periodOfLimits {
+  border: 1px solid #91ccf4;
+  background: #fafafa;
+  padding: 15px 25px;
+  position: relative;
+}
+
+.periodOfLimitsTitle {
+  color: #678f95;
+  font-family: 'IBM Plex Mono';
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.selectPeriodOfLimitsBox {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.isPeriodUnlimitedBox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 30px;
+}
+
+.periodOfLimitsSubtitle {
+  color: #000;
+  font-family: 'IBM Plex Sans';
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.input-container {
+  position: relative;
+  display: inline-block;
+}
+
+.input-container input {
+  position: relative;
+  width: 100px;
+  padding: 3px;
+  font-size: 15px;
+  text-align: center;
+  border: 2px solid #acd0d6;
+  outline: none;
+  background-color: white;
+  color: #678f95;
+  font-weight: bold;
+  transition: 0.2s ease-in-out;
+}
+
+/* !checkbox */
+.periodOfLimitsCheckboxLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 8px 0;
+  position: relative;
+  color: var(--text-color);
+}
+
+.periodOfLimitsCheckboxLabel input {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.periodOfLimitsCheckboxSpan {
+  height: 15px;
+  width: 15px;
+  background-color: var(--bg-modal-color);
+  /* Світлий фон */
+  border: 1px solid var(--shadow-secondary-border);
+  /* Колір рамки */
+  border-radius: 2px;
+  /* Скруглені кути */
+  display: inline-block;
+  position: relative;
+  margin-right: 8px;
+}
+
+.periodOfLimitsCheckboxLabel input:checked + .periodOfLimitsCheckboxSpan {
+  background-color: var(--shadow-secondary-border);
+  /* Колір фону для чекнутого стану */
+  border-color: var(--shadow-secondary-border);
+  /* Синхронізуємо колір рамки з фоном */
+}
+
+.periodOfLimitsCheckboxLabel
+  input:checked
+  + .periodOfLimitsCheckboxSpan::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 0px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  /* Білий колір галочки */
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+/* ! */
+
+.periodOfLimitsCoefficientBox {
+  margin-top: 20px;
+}
+
+.periodOfLimitsCoefficientBlock {
+  position: relative;
+  width: 600px;
+  margin-top: 10px;
+}
+
+.periodOfLimitsCoefficientInput {
+  position: relative;
+  width: 600px;
+  /* margin-top: 10px; */
+  padding: 7px;
+  font-size: 16px;
+  text-align: left;
+  border: 2px solid #acd0d6;
+  outline: none;
+  background-color: white;
+  color: #333;
+}
+
+.activitiesBox {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.activitiesBlock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.periodOfLimitsScopeBox {
+  margin-top: 20px;
+}
+
+.periodOfLimitsScopeBlock {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.addNewPeriodBtn {
+  position: absolute;
+  padding: 10px;
+  background-color: var(--btn-accent-color);
+  font-family: IBM Plex Mono;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 7.8px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: var(--text-color);
+  text-align: center;
+  top: 25px;
+  right: 25px;
+  /* margin-top: 50px; */
+}

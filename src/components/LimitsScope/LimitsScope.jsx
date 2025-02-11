@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import styles from './LimitsScope.module.css';
-import Shadow from '../Shadow/Shadow'
+import Shadow from '../Shadow/Shadow';
+import { useDispatch } from 'react-redux';
+import { toast, Bounce } from 'react-toastify';
 
 const LimitsScope = () => {
-  //   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+  const [isIgnoreAdmins, setIsIgnoreAdmins] = useState(false);
   const [isOpenRoles, setIsOpenRoles] = useState(false);
   const [selectedRoles, setSelectedRoles] = useState('Цільові ролі');
   const [isOpenMissedRoles, setIsOpenMissedRoles] = useState(false);
@@ -14,23 +17,45 @@ const LimitsScope = () => {
   const [isOpenMissedChannels, setIsOpenMissedChannels] = useState(false);
   const [selectedMissedChannel, setSelectedMissedChannels] =
     useState('Пропущені канали');
-  //   const [selected, setSelected] = useState('Цільові ролі');
   const options = ['Адміністратор', 'Користувач', 'Модератор'];
+
+  const handleSaveLimits = evt => {
+    evt.preventDefault();
+    dispatch({
+      type: 'limits',
+      settings: {
+        actions: {
+          ignoreAdmins: isIgnoreAdmins,
+        },
+        targetRoles: selectedRoles,
+        missedRoles: selectedMissedRoles,
+        targetChannels: selectedChannels,
+        missedChannels: selectedMissedChannel,
+      },
+    });
+    toast.success('Область дії загальних лімітів збережено', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      theme: 'dark',
+      transition: Bounce,
+    });
+  };
 
   return (
     <div className={styles.limitsScope}>
       <div className={styles.limitsScopeBlock}>
-        {/* <h2 className={styles.limitsScopeTitle}>
-          Область дії загальних лімітів
-        </h2> */}
         <div className={styles.limitsScopeBox}>
-          {/* <input type="checkbox" className={styles.limitsScopeCheckbox} />
-          <span className={styles.CheckboxMark}></span>
-          <p className={styles.limitsScopeSubtitle}>
-            Не поширювати на Адміністраторів і Модераторів
-          </p> */}
           <label className={styles.limitsScopesCheckboxLabel}>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              onChange={evt => {
+                setIsIgnoreAdmins(evt.target.checked);
+              }}
+            />
             <span className={styles.limitsScopesCheckboxSpan}></span>
           </label>
           <p className={styles.limitsScopeSubtitle}>
@@ -38,17 +63,24 @@ const LimitsScope = () => {
           </p>
         </div>
       </div>
+      <button
+        type="button"
+        className={styles.saveLimitsBtn}
+        onClick={handleSaveLimits}
+      >
+        Збрегети дії загальних лімітів
+      </button>
       <ul className={styles.limitsScopeList}>
         <li className={styles.limitsScopeItem}>
-        <Shadow
-          leftFirst={-7}
-          widthFirst={5}
-          heightSecond={5}
-          rightSecond={3}
-          bottomSecond={-7}
-          backgroundBoth={'var(--shadow-secondary-border)'}
-          borderColorBoth={'var(--chart-accent-color)'}
-        />
+          <Shadow
+            leftFirst={-7}
+            widthFirst={5}
+            heightSecond={5}
+            rightSecond={3}
+            bottomSecond={-7}
+            backgroundBoth={'var(--shadow-secondary-border)'}
+            borderColorBoth={'var(--chart-accent-color)'}
+          />
           <div className={styles['dropdown-container']}>
             <button
               className={styles['dropdown-button']}
@@ -76,15 +108,15 @@ const LimitsScope = () => {
           </div>
         </li>
         <li className={styles.limitsScopeItem}>
-        <Shadow
-          leftFirst={-7}
-          widthFirst={5}
-          heightSecond={5}
-          rightSecond={3}
-          bottomSecond={-7}
-           backgroundBoth={'var(--shadow-secondary-border)'}
-          borderColorBoth={'var(--chart-accent-color)'}
-        />
+          <Shadow
+            leftFirst={-7}
+            widthFirst={5}
+            heightSecond={5}
+            rightSecond={3}
+            bottomSecond={-7}
+            backgroundBoth={'var(--shadow-secondary-border)'}
+            borderColorBoth={'var(--chart-accent-color)'}
+          />
           <div className={styles['dropdown-container']}>
             <button
               className={styles['dropdown-button']}
@@ -112,15 +144,15 @@ const LimitsScope = () => {
           </div>
         </li>
         <li className={styles.limitsScopeItem}>
-        <Shadow
-          leftFirst={-7}
-          widthFirst={5}
-          heightSecond={5}
-          rightSecond={3}
-          bottomSecond={-7}
-           backgroundBoth={'var(--shadow-secondary-border)'}
-          borderColorBoth={'var(--chart-accent-color)'}
-        />
+          <Shadow
+            leftFirst={-7}
+            widthFirst={5}
+            heightSecond={5}
+            rightSecond={3}
+            bottomSecond={-7}
+            backgroundBoth={'var(--shadow-secondary-border)'}
+            borderColorBoth={'var(--chart-accent-color)'}
+          />
           <div className={styles['dropdown-container']}>
             <button
               className={styles['dropdown-button']}
@@ -148,15 +180,15 @@ const LimitsScope = () => {
           </div>
         </li>
         <li className={styles.limitsScopeItem}>
-        <Shadow
-          leftFirst={-7}
-          widthFirst={5}
-          heightSecond={5}
-          rightSecond={3}
-          bottomSecond={-7}
-           backgroundBoth={'var(--shadow-secondary-border)'}
-          borderColorBoth={'var(--chart-accent-color)'}
-        />
+          <Shadow
+            leftFirst={-7}
+            widthFirst={5}
+            heightSecond={5}
+            rightSecond={3}
+            bottomSecond={-7}
+            backgroundBoth={'var(--shadow-secondary-border)'}
+            borderColorBoth={'var(--chart-accent-color)'}
+          />
           <div className={styles['dropdown-container']}>
             <button
               className={styles['dropdown-button']}

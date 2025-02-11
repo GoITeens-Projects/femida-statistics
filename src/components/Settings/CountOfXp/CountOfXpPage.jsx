@@ -1,5 +1,5 @@
-import { PeriodsSettings } from '../PeriodsSettings/PeriodsSettings.';
-import styles from './CountOfXPPage.module.css';
+import { PeriodsSettings } from "../PeriodsSettings/PeriodsSettings"
+import styles from './CountOfXPPage.module.css'
 import { SettingsNavigation } from '../SettingsNavigation/SettingsNavigation';
 import Shadow from '../../Shadow/Shadow';
 import { useState } from 'react';
