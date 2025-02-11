@@ -12,6 +12,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';
 import { StatisticsReducer } from "./statistics/slice";
+import { improvisedReducer } from "./improvised/slice";
 import authReducer from './auth/slice';
 import { filterReducer } from './filter/slice'
 import { settingsReducer } from "./settings/slice";
@@ -21,7 +22,7 @@ import { settingsReducer } from "./settings/slice";
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ["filter", "auth"]
+  whitelist: ["filter", "auth", 'improvised']
 };
 
 
@@ -29,7 +30,8 @@ const rootReducer = combineReducers({
   statistics: StatisticsReducer,
   auth: authReducer,
   filter: filterReducer,
-  settings: settingsReducer
+  settings: settingsReducer,
+  improvised: improvisedReducer
 });
 
 
