@@ -1,94 +1,58 @@
-
 import styles from './PeriodsSettings.module.css';
 import Shadow from '../../Shadow/Shadow';
 import { useState } from 'react';
 import flatpickr from 'flatpickr';
 import LimitsScope from 'components/LimitsScope/LimitsScope';
-import { nanoid } from 'nanoid';
 
-export const PeriodsSettings = () => {
-  const [isActivityDropdownOpen, setIsActivityDropdownOpen] = useState(false);
-  const [selectedActivity, setSelectedActivity] = useState('За повідомлення');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [countOfXP, setCountOfXP] = useState(0);
-  const [disabled, setDisabled] = useState(false);
-  
+export const PeriodsSettings = ({
+  id,
+  thisStartDate,
+  thisEndDate,
+  thisCountOfXP,
+  thisDisabled,
+  onSubmitChanges,
+  onDelete,
+  thisStartDateStr,
+  thisEndDateStr,
+}) => {
+  const [startDate, setStartDate] = useState(thisStartDate);
+  const [endDate, setEndDate] = useState(thisEndDate);
+  const [startDateStr, setStartDateStr] = useState(thisStartDateStr);
+  const [endDateStr, setEndDateStr] = useState(thisEndDateStr);
+  const [countOfXP, setCountOfXP] = useState(thisCountOfXP);
+  const [disabled, setDisabled] = useState(thisDisabled);
+
   const onCheckbox = () => {
     disabled ? setDisabled(false) : setDisabled(true);
-    setStartDate('')
-    setEndDate('')
   };
-  const options = ['За повідомлення', 'За войс', 'За триюуну', 'За буст'];
+
   flatpickr('#start', {
     dateFormat: 'd/m/y',
     disableMobile: true,
     minDate: 'today',
-    locale: 'uk',
-    allowInput: true,
+    // locale: 'uk',
+    // allowInput: true,
+    onChange: (selectedDates, dateStr) => {
+      setStartDate(selectedDates[0]);
+      setStartDateStr(dateStr);
+    },
   });
 
   flatpickr('#end', {
     dateFormat: 'd/m/y',
     disableMobile: true,
     minDate: 'today',
-    locale: 'uk',
-    allowInput: true,
+    // locale: 'uk',
+    // allowInput: true,
+    onChange: (selectedDates, dateStr) => {
+      setEndDate(selectedDates[0]);
+      setEndDateStr(dateStr);
+    },
   });
 
   // const
   return (
     <>
-    
-      <div className={styles['container']}>
-        <Shadow
-          leftFirst={-7}
-          widthFirst={5}
-          heightSecond={5}
-          rightSecond={3}
-          bottomSecond={-7}
-          backgroundBoth={'var(--chart-accent-color)'}
-          borderColorBoth={'var(--border-accent-color)'}
-        />
-        <p className={styles['subtitle']}>Умови видачі ХР</p>
-        <div className={styles['dropdown-display']}>
-        <Shadow
-                leftFirst={-7}
-                widthFirst={5}
-                heightSecond={5}
-                rightSecond={3}
-                bottomSecond={-7}
-                backgroundBoth={'var(--shadow-secondary-border)'}
-                borderColorBoth={'var( --shadow-settings-border)'}
-              />
-          <button
-            className={styles['dropdown-button']}
-            onClick={() => setIsActivityDropdownOpen(!isActivityDropdownOpen)}
-          >
-            {selectedActivity}
-            <span className={styles['dropdown-arrow']}>
-              {isActivityDropdownOpen ? '◄' : '▼'}{' '}
-            </span>
-          </button>
-          {isActivityDropdownOpen && (
-            <ul className={styles['dropdown-list']}>
-              {options.map((option, index) => (
-                <li
-                  key={index}
-                  className={styles['dropdown-item']}
-                  onClick={() => {
-                    setSelectedActivity(option);
-                    setIsActivityDropdownOpen(false);
-                  }}
-                >
-                  {option}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      </div>
-
       <div className={styles['container']}>
         <Shadow
           leftFirst={-7}
@@ -125,8 +89,9 @@ export const PeriodsSettings = () => {
                 autocomplete="off"
                 name="start"
                 id="start"
-                placeholder={startDate === '' ? 'DD/MM/YYYY' : startDate}
-                onChange={e => setStartDate(e.currentTarget.value)}
+                value={startDateStr}
+                readOnly={true}
+                placeholder="DD/MM/YYYY"
               />
             </label>
             <p>до</p>
@@ -149,14 +114,15 @@ export const PeriodsSettings = () => {
                 autocomplete="off"
                 name="end"
                 id="end"
-                placeholder={endDate === '' ? 'DD/MM/YYYY' : endDate}
-                onChange={e => setEndDate(e.currentTarget.value)}
+                readOnly={true}
+                value={endDateStr}
+                placeholder="DD/MM/YYYY"
               />
             </label>
           </div>
           <div className={styles['checkbox-container']}>
             <label className={styles.limitsScopesCheckboxLabel}>
-              <input type="checkbox" onChange={onCheckbox} />
+              <input type="checkbox" onChange={onCheckbox} checked={disabled} />
               <span className={styles.limitsScopesCheckboxSpan}></span>
             </label>
             <p className={styles.limitsScopeSubtitle}>Необмежений</p>
@@ -178,11 +144,12 @@ export const PeriodsSettings = () => {
             className={styles['count-input']}
             type="number"
             min={0}
+            autocomplete="off"
             name="number"
             id="number"
             placeholder="00 000"
-            value={countOfXP}
-            onChange={e => setCountOfXP(e.currentTarget.value)}
+            value={`${countOfXP}`}
+            onChange={e => setCountOfXP(Number(e.currentTarget.value))}
           />
         </label>
         <div>
@@ -193,12 +160,30 @@ export const PeriodsSettings = () => {
           <LimitsScope />
         </div>
         <div>
-          <button type="button" className={styles['confirm-changes-button']}>
+          <button
+            type="button"
+            className={styles['confirm-changes-button']}
+            onClick={() =>
+              onSubmitChanges(
+                `${startDate}`,
+                `${endDate}`,
+                startDateStr,
+                endDateStr,
+                countOfXP,
+                disabled,
+                id
+              )
+            }
+          >
             Підтвердити зміни
           </button>
         </div>
 
-        <button type="button" className={styles['delete-button']}>
+        <button
+          type="button"
+          className={styles['delete-button']}
+          onClick={() => onDelete(id)}
+        >
           <svg
             width="15"
             height="17"
