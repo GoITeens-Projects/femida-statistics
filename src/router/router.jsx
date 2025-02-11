@@ -68,8 +68,13 @@ export const router = createBrowserRouter(
                 {
                     path: '/settings/spam',
                     element: <PrivateRoute component={SpamPage} redirecTo='/' />
+
+                }
+                ,
+                {
                     path: '/settings/number-of-xp',
                     element: <PrivateRoute component={CountOfXPPage} redirecTo='/' />
+
                 }
 
             ]

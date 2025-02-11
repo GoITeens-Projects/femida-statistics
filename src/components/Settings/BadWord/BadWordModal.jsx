@@ -123,10 +123,19 @@ export const BadWordPage = () => {
         if (settings?.settings?.badwords?.actions) {
             const { enabled, giveWarn, deleteMsg, ignoreAdmins, notifyUser } = settings.settings.badwords.actions;
 
-            setSelectedAction(enabled ? 'mute' : giveWarn ? 'warning' : 'null'); // Встановлення вибору дії
+            const isMuteEnabled = settings?.settings?.spam?.actions?.mute?.enabled;
+            const isGiveWarnEnabled = settings?.settings?.spam?.actions?.giveWarn;
+
+            if (isMuteEnabled) {
+                setSelectedAction('mute');
+            } else if (isGiveWarnEnabled) {
+                setSelectedAction('warning');
+            } else {
+                setSelectedAction('null');
+            }
             setIsDeleteMessage(!!deleteMsg); // Встановлення стану для видалення повідомлень
             setIsChecked(!!ignoreAdmins); // Встановлення стану для адміністраторів
-            setIsCheckedNotifyUser(notifyUser); // Встановлення стану для повідомлення користувача
+            setIsCheckedNotifyUser(notifyUser.enabled); // Встановлення стану для повідомлення користувача
         }
     }, [settings]);
 

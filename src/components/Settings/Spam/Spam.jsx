@@ -57,7 +57,6 @@ export const SpamPage = () => {
         dispatch(fetchSettings()); // Виклик дії для завантаження налаштувань
     }, [dispatch]);
 
-
     useEffect(() => {
         if (settings?.settings?.spam?.actions?.mute?.muteTimeMs) {
             const { days, hours, minutes } = parseMuteTime(
@@ -78,13 +77,30 @@ export const SpamPage = () => {
                 deleteTimeoutMs
             } = settings.settings.spam.actions;
 
-            setSelectedAction(enabled ? 'mute' : giveWarn ? 'warning' : 'null');
+            const isMuteEnabled = settings?.settings?.spam?.actions?.mute?.enabled;
+            const isGiveWarnEnabled = settings?.settings?.spam?.actions?.giveWarn;
+
+            if (isMuteEnabled) {
+                setSelectedAction('mute');
+            } else if (isGiveWarnEnabled) {
+                setSelectedAction('warning');
+            } else {
+                setSelectedAction('null');
+            }
             setIsDeleteMessage(!!deleteMsg);
             setIsChecked(!!ignoreAdmins);
-            setIsCheckedNotifyUser(notifyUser);
-
+            setIsCheckedNotifyUser(notifyUser.enabled);
         }
+
+        if (settings?.settings?.spam?.messagesLimit !== undefined) {
+            setInputValue(settings.settings.spam.messagesLimit);
+        }
+        if (settings?.settings?.spam?.resetCounter !== undefined) {
+            setResetSpam(settings.settings.spam.resetCounter);
+        }
+
     }, [settings]);
+
     const isFirstLoad = useRef(true);
     useEffect(() => {
 
@@ -123,6 +139,8 @@ export const SpamPage = () => {
                             deleteMsg: isDeleteMessage,
                             ignoreAdmins: isCheckedAdmin,
                         },
+                        messagesLimit: inputValue,
+                        resetCounter: isResetSpam
                     },
                 },
             })
@@ -144,15 +162,15 @@ export const SpamPage = () => {
         const isCheckedNotifyUserChanged = settings?.settings?.spam?.actions?.notifyUser?.enabled !== isCheckedNotifyUser;
         const isDeleteTimeoutChanged = settings?.settings?.spam?.actions?.notifyUser?.deleteTimeoutMs !== (parseInt(inputValueDelay) * 1000 || 0);
         const isSequenceChanged = settings?.settings?.spam?.actions?.sequence !== isSequence;
-        const isResetSpamChanged = settings?.settings?.spam?.actions?.resetSpam !== isResetSpam;
+        const isResetSpamChanged = settings?.settings?.spam?.actions?.resetCounter !== isResetSpam;
 
         if (
             isMuteTimeChanged ||
             isGiveWarnChanged ||
             isDeleteMsgChanged ||
             isCheckedAdminChanged ||
-            isDeleteTimeoutChanged
-            // isResetSpamChanged
+            isDeleteTimeoutChanged ||
+            isResetSpamChanged
         ) {
             setIsUnsavedModalOpen(true); // Відкриття модального вікна невнесених змін
         } else {
@@ -166,6 +184,7 @@ export const SpamPage = () => {
         navigate("/settings"); // Переход на сторінку налаштувань
     };
 
+    console.log("випадаючий список", selectedAction);
 
     return (<>
 
@@ -245,6 +264,7 @@ export const SpamPage = () => {
                             type="checkbox"
                             checked={isCheckedNotifyUser}
                             onChange={handleChangeNotifyUser}
+
                         />
                         <span className={`${styles.slider} ${styles.round}`}></span>
                     </label>
