@@ -7,6 +7,7 @@ import Shadow from "components/Shadow/Shadow";
 import { UnsavedChangesModal } from "../BadWord/UnsavedChangesModal";
 import { ActionSettings } from "../ActionSettings/ActionSettings";
 import { fetchSettings, PatchSettings } from "../../../redux/settings/operation";
+import TextEditor from "../TextEditor/TextEditor";
 export const SpamPage = () => {
     const [days, setDays] = useState(0); // Стан для днів
     const [hours, setHours] = useState(0); // Стан для годин
@@ -17,7 +18,7 @@ export const SpamPage = () => {
 
     const { data: settings, loading, error } = useSelector((state) => state.settings); // Отримання налаштувань з Redux
 
-
+    const [content, setContent] = useState(""); // Стейт для збереження вмісту редактора
 
 
     const [isUnsavedModalOpen, setIsUnsavedModalOpen] = useState(false); // Стан для модального вікна невнесених змін
@@ -132,7 +133,7 @@ export const SpamPage = () => {
                             },
                             notifyUser: {
                                 enabled: isCheckedNotifyUser,
-                                messageFn: JSON.stringify((username) => `${username}! якийсь текст`),
+                                messageFn: content,
                                 deleteTimeoutMs: parseInt(inputValueDelay) * 1000 || 0, // Конвертація введеного часу видалення
                             },
                             giveWarn: isGiveWarn,
@@ -184,7 +185,7 @@ export const SpamPage = () => {
         navigate("/settings"); // Переход на сторінку налаштувань
     };
 
-    console.log("випадаючий список", selectedAction);
+    console.log("редактор", content);
 
     return (<>
 
@@ -321,6 +322,8 @@ export const SpamPage = () => {
                     onIsCheckedAdmin={isCheckedAdmin}
 
                 />
+
+                <TextEditor onChange={setContent} initialContent={settings?.settings?.spam?.actions?.notifyUser?.messageFn || ""} />
             </div>
 
             {isUnsavedModalOpen && (
