@@ -12,6 +12,7 @@
         "express": "^4.21.1",
         "flatpickr": "^4.6.13",
         "framer-motion": "^11.14.4",
+        "lucide-react": "^0.475.0",
         "monaco-editor": "^0.52.2",
         "nanoid": "^5.0.9",
         "netlify": "^13.2.0",

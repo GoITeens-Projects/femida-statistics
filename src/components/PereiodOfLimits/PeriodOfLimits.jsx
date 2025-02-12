@@ -187,53 +187,55 @@ const PeriodOfLimits = () => {
 
       <div className={styles.activitiesBox}>
         <h3 className={styles.periodOfLimitsTitle}>Активності</h3>
-        <div className={styles.activitiesBlock}>
-          <label className={styles.periodOfLimitsCheckboxLabel}>
-            <input
-              type="checkbox"
-              onChange={evt => setIsEventMessages(evt.target.checked)}
-            />
-            <span className={styles.periodOfLimitsCheckboxSpan}></span>
-          </label>
-          <p className={styles.periodOfLimitsSubtitle}>
-            Спілкування в текстових каналах
-          </p>
-        </div>
-        <div className={styles.activitiesBlock}>
-          <label className={styles.periodOfLimitsCheckboxLabel}>
-            <input
-              type="checkbox"
-              onChange={evt => setIsEventVoice(evt.target.checked)}
-            />
-            <span className={styles.periodOfLimitsCheckboxSpan}></span>
-          </label>
-          <p className={styles.periodOfLimitsSubtitle}>
-            Спілкування в голосових чатах
-          </p>
-        </div>
-        <div className={styles.activitiesBlock}>
-          <label className={styles.periodOfLimitsCheckboxLabel}>
-            <input
-              type="checkbox"
-              onChange={evt => setIsEventStage(evt.target.checked)}
-            />
-            <span className={styles.periodOfLimitsCheckboxSpan}></span>
-          </label>
-          <p className={styles.periodOfLimitsSubtitle}>
-            Перебування на трибунах
-          </p>
-        </div>
-        <div className={styles.activitiesBlock}>
-          <label className={styles.periodOfLimitsCheckboxLabel}>
-            <input
-              type="checkbox"
-              onChange={evt => setIsEventBoost(evt.target.checked)}
-            />
-            <span className={styles.periodOfLimitsCheckboxSpan}></span>
-          </label>
-          <p className={styles.periodOfLimitsSubtitle}>
-            Буст серверу(під питанням)
-          </p>
+        <div className={styles.periodOfLimitsGeneralBox}>
+          <div className={styles.activitiesBlock}>
+            <label className={styles.periodOfLimitsCheckboxLabel}>
+              <input
+                type="checkbox"
+                onChange={evt => setIsEventMessages(evt.target.checked)}
+              />
+              <span className={styles.periodOfLimitsCheckboxSpan}></span>
+            </label>
+            <p className={styles.periodOfLimitsSubtitle}>
+              Спілкування в текстових каналах
+            </p>
+          </div>
+          <div className={styles.activitiesBlock}>
+            <label className={styles.periodOfLimitsCheckboxLabel}>
+              <input
+                type="checkbox"
+                onChange={evt => setIsEventVoice(evt.target.checked)}
+              />
+              <span className={styles.periodOfLimitsCheckboxSpan}></span>
+            </label>
+            <p className={styles.periodOfLimitsSubtitle}>
+              Спілкування в голосових чатах
+            </p>
+          </div>
+          <div className={styles.activitiesBlock}>
+            <label className={styles.periodOfLimitsCheckboxLabel}>
+              <input
+                type="checkbox"
+                onChange={evt => setIsEventStage(evt.target.checked)}
+              />
+              <span className={styles.periodOfLimitsCheckboxSpan}></span>
+            </label>
+            <p className={styles.periodOfLimitsSubtitle}>
+              Перебування на трибунах
+            </p>
+          </div>
+          <div className={styles.activitiesBlock}>
+            <label className={styles.periodOfLimitsCheckboxLabel}>
+              <input
+                type="checkbox"
+                onChange={evt => setIsEventBoost(evt.target.checked)}
+              />
+              <span className={styles.periodOfLimitsCheckboxSpan}></span>
+            </label>
+            <p className={styles.periodOfLimitsSubtitle}>
+              Буст серверу(під питанням)
+            </p>
+          </div>
         </div>
       </div>
 
