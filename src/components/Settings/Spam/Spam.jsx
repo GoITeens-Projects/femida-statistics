@@ -152,7 +152,8 @@ export const SpamPage = () => {
     };
 
 
-    const handleBackClick = () => {
+    const handleBackClick = (e) => {
+        e.preventDefault();
         // Перевірка на зміни перед переходом
         const muteTimeMs = (days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60) * 1000;
 
@@ -160,7 +161,7 @@ export const SpamPage = () => {
         const isGiveWarnChanged = settings?.settings?.spam?.actions?.giveWarn !== (selectedAction === "warning");
         const isDeleteMsgChanged = settings?.settings?.spam?.actions?.deleteMsg !== isDeleteMessage;
         const isCheckedAdminChanged = settings?.settings?.spam?.actions?.ignoreAdmins !== isCheckedAdmin;
-        const isCheckedNotifyUserChanged = settings?.settings?.spam?.actions?.notifyUser?.enabled !== isCheckedNotifyUser;
+        // const isCheckedNotifyUserChanged = settings?.settings?.spam?.actions?.notifyUser?.enabled !== isCheckedNotifyUser;
         const isDeleteTimeoutChanged = settings?.settings?.spam?.actions?.notifyUser?.deleteTimeoutMs !== (parseInt(inputValueDelay) * 1000 || 0);
         const isSequenceChanged = settings?.settings?.spam?.actions?.sequence !== isSequence;
         const isResetSpamChanged = settings?.settings?.spam?.actions?.resetCounter !== isResetSpam;
@@ -170,8 +171,7 @@ export const SpamPage = () => {
             isGiveWarnChanged ||
             isDeleteMsgChanged ||
             isCheckedAdminChanged ||
-            isDeleteTimeoutChanged ||
-            isResetSpamChanged
+            isDeleteTimeoutChanged
         ) {
             setIsUnsavedModalOpen(true); // Відкриття модального вікна невнесених змін
         } else {
