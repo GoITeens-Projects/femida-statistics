@@ -1,11 +1,12 @@
-import { PeriodsSettings } from "../PeriodsSettings/PeriodsSettings"
-import styles from './CountOfXPPage.module.css'
+import { PeriodsSettings } from '../PeriodsSettings/PeriodsSettings';
+import styles from './CountOfXPPage.module.css';
 import { SettingsNavigation } from '../SettingsNavigation/SettingsNavigation';
 import Shadow from '../../Shadow/Shadow';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCountOfXP } from '../../../redux/improvised/selectors';
 import { addInfo } from '../../../redux/improvised/operation';
+import { BasicXPSettings } from '../BasicXPSettings/BasicXPSettings';
 import { nanoid } from 'nanoid';
 
 export const CountOfXPPage = () => {
@@ -14,14 +15,28 @@ export const CountOfXPPage = () => {
   const countOfXpArray = useSelector(selectCountOfXP);
   const dispatch = useDispatch();
 
-  const options = ['За повідомлення', 'За войс', 'За триюуну', 'За буст'];
+  const options = [
+    'За повідомлення',
+    'За войс',
+    'За триюуну',
+    'За буст',
+    'За замовчуванням',
+  ];
   const save = () => {};
   const currentArray = countOfXpArray.filter(el => {
-    const fltr = el.type === selectedActivity
-  return fltr})
-  
+    const fltr = el.type === selectedActivity;
+    return fltr;
+  });
 
-  const onSubmitChanges = (startDate, endDate, startDateStr, endDateStr, countOfXP, disabled, id) => {
+  const onSubmitChanges = (
+    startDate,
+    endDate,
+    startDateStr,
+    endDateStr,
+    countOfXP,
+    disabled,
+    id
+  ) => {
     const newArray = countOfXpArray.map(element => {
       if (element.id === id) {
         return {
@@ -42,12 +57,10 @@ export const CountOfXPPage = () => {
   };
 
   const onDelete = id => {
-    const newArray = countOfXpArray.filter(
-     ( el)=>{
-        const fltr = Object.values(el).includes(id)
-        return !fltr
-        }
-    );
+    const newArray = countOfXpArray.filter(el => {
+      const fltr = Object.values(el).includes(id);
+      return !fltr;
+    });
     dispatch(addInfo({ type: 'countOfXP', info: newArray }));
     // dispatch(addInfo({ type: 'countOfXP', info: newArray }));
   };
@@ -61,17 +74,15 @@ export const CountOfXPPage = () => {
             startDate: '',
             endDate: '',
             startDateStr: '',
-            endDateStr:'',
+            endDateStr: '',
             countOfXP: 0,
             disabled: false,
             id: nanoid(),
             type: selectedActivity,
           },
-          
         ],
       })
     );
-  
   };
   return (
     <>
@@ -126,29 +137,34 @@ export const CountOfXPPage = () => {
           )}
         </div>
       </div>
-      <button
-        type="button"
-        className={styles['add-new-button']}
-        onClick={addNew}
-      >
-        Додати новий період
-      </button>
-      {currentArray.map(el => {
-        return (
-          <PeriodsSettings
-            key={el.id}
-            id={el.id}
-            thisStartDate={el.startDate}
-            thisEndDate={el.endDate}
-            thisStartDateStr={el.startDateStr}
-            thisEndDateStr={el.endDateStr}
-            thisCountOfXP={el.countOfXP}
-            thisDisabled={el.disabled}
-            onSubmitChanges={onSubmitChanges}
-            onDelete={onDelete}
-          />
-        );
-      })}
+      
+      {selectedActivity !== 'За замовчуванням' ? (
+       <><button
+       type="button"
+       className={styles['add-new-button']}
+       onClick={addNew}
+     >
+       Додати новий період
+     </button>
+     { currentArray.map(el => {
+          return (
+            <PeriodsSettings
+              key={el.id}
+              id={el.id}
+              thisStartDate={el.startDate}
+              thisEndDate={el.endDate}
+              thisStartDateStr={el.startDateStr}
+              thisEndDateStr={el.endDateStr}
+              thisCountOfXP={el.countOfXP}
+              thisDisabled={el.disabled}
+              onSubmitChanges={onSubmitChanges}
+              onDelete={onDelete}
+            />
+          );
+        })} </>
+      ) : (
+        <BasicXPSettings />
+      )}
     </>
   );
 };

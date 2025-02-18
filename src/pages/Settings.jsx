@@ -1,7 +1,7 @@
 import { AutoModerationFilter } from 'components/Settings/BadWord/AutoModerationFilter';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSettings } from '../redux/settings/operation';
+import { fetchChannels, fetchSettings } from '../redux/settings/operation';
 import { Outlet } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import s from '../components/Main.module.css';
@@ -26,6 +26,7 @@ export const Settings = () => {
 
   useEffect(() => {
     dispatch(fetchSettings());
+    dispatch(fetchChannels())
   }, [dispatch]);
 
   if (loading) return <p>Завантаження...</p>;
