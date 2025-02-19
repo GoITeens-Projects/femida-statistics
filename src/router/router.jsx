@@ -10,7 +10,6 @@ import { Status } from 'pages/Status';
 import { Economic } from 'pages/Economic';
 import { Stage } from 'pages/Stage';
 import { Settings } from 'pages/Settings';
-
 import { LimitsPage } from 'components/Settings/Limit/LimitsModal';
 import { BadWordPage } from 'components/Settings/BadWord/BadWordModal';
 import { SpamPage } from 'components/Settings/Spam/Spam';
@@ -20,60 +19,59 @@ import LinksPage from 'components/LinksPage/LinksPage';
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <App />, 
     children: [
       {
         path: '/overview',
-        element: <PrivateRoute component={Overview} redirectTo="/" />,
+        element: <PrivateRoute component={Overview} redirectTo='/' />,
       },
       {
         path: '/',
-        element: <RestrictedRouter component={Login} redirectTo="/Overview" />,
+        element: <RestrictedRouter component={Login} redirectTo='/overview' />,
       },
-
       {
         path: '/messages',
-        element: <PrivateRoute component={Messages} redirectTo="/" />,
+        element: <PrivateRoute component={Messages} redirectTo='/' />,
       },
       {
         path: '/voice',
-        element: <PrivateRoute component={Voice} redirectTo="/" />,
+        element: <PrivateRoute component={Voice} redirectTo='/' />,
       },
       {
         path: '/stage',
-        element: <PrivateRoute component={Stage} redirecTo="/" />,
+        element: <PrivateRoute component={Stage} redirectTo='/' />,
       },
       {
         path: '/status',
-        element: <PrivateRoute component={Status} redirectTo="/" />,
+        element: <PrivateRoute component={Status} redirectTo='/' />,
       },
       {
         path: '/economic',
-        element: <PrivateRoute component={Economic} redirectTo="/" />,
+        element: <PrivateRoute component={Economic} redirectTo='/' />,
       },
       {
         path: '/settings',
-        element: <PrivateRoute component={Settings} redirecTo="/" />,
+        element: <PrivateRoute component={Settings} redirectTo='/' />,
       },
       {
         path: '/settings/badword',
-        element: <PrivateRoute component={BadWordPage} redirecTo="/" />,
+        element: <PrivateRoute component={BadWordPage} redirectTo='/' />,
       },
       {
         path: '/settings/limits',
-        element: <PrivateRoute component={LimitsPage} redirecTo="/" />,
+        element: <PrivateRoute component={LimitsPage} redirectTo='/' />,
       },
       {
         path: '/settings/spam',
-        element: <PrivateRoute component={SpamPage} redirecTo="/" />,
+        element: <PrivateRoute component={SpamPage} redirectTo='/' />,
       },
       {
         path: '/settings/number-of-xp',
-        element: <PrivateRoute component={CountOfXPPage} redirecTo="/" />,
+        element: <PrivateRoute component={CountOfXPPage} redirectTo='/' />,
       },
       {
         path: '/settings/links',
-        element: <PrivateRoute component={LinksPage} redirectTo="/"/>
+        element: <PrivateRoute component={LinksPage} redirectTo='/' />,
       },
     ],
   },

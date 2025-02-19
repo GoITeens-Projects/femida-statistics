@@ -123,10 +123,19 @@ export const BadWordPage = () => {
         if (settings?.settings?.badwords?.actions) {
             const { enabled, giveWarn, deleteMsg, ignoreAdmins, notifyUser } = settings.settings.badwords.actions;
 
-            setSelectedAction(enabled ? 'mute' : giveWarn ? 'warning' : 'null'); // Встановлення вибору дії
+            const isMuteEnabled = settings?.settings?.spam?.actions?.mute?.enabled;
+            const isGiveWarnEnabled = settings?.settings?.spam?.actions?.giveWarn;
+
+            if (isMuteEnabled) {
+                setSelectedAction('mute');
+            } else if (isGiveWarnEnabled) {
+                setSelectedAction('warning');
+            } else {
+                setSelectedAction('null');
+            }
             setIsDeleteMessage(!!deleteMsg); // Встановлення стану для видалення повідомлень
             setIsChecked(!!ignoreAdmins); // Встановлення стану для адміністраторів
-            setIsCheckedNotifyUser(notifyUser); // Встановлення стану для повідомлення користувача
+            setIsCheckedNotifyUser(notifyUser.enabled); // Встановлення стану для повідомлення користувача
         }
     }, [settings]);
 
@@ -198,20 +207,27 @@ export const BadWordPage = () => {
     // Обробка видалення слова зі списку
 
     const handleBackClick = (e) => {
-        // Перевірка на зміни перед переходом
+        e.preventDefault();
+
+
+
 
         const muteTimeMs = (days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60) * 1000;
+
         const isWordsChanged = JSON.stringify(settings?.settings?.badwords?.words) !== JSON.stringify(addedWords);
         const isMuteTimeChanged = settings?.settings?.badwords?.actions?.mute?.muteTimeMs !== muteTimeMs;
-
         const isGiveWarnChanged = settings?.settings?.badwords?.actions?.giveWarn !== (selectedAction === "warning");
         const isDeleteMsgChanged = settings?.settings?.badwords?.actions?.deleteMsg !== isDeleteMessage;
         const isCheckedAdminChanged = settings?.settings?.badwords?.actions?.ignoreAdmins !== isCheckedAdmin;
-        const isCheckedNotifyUserChanged = settings?.settings?.badwords?.actions?.notifyUser !== isCheckedNotifyUser;
+        const isCheckedNotifyUserChanged = settings?.settings?.badwords?.actions?.notifyUser?.enabled !== isCheckedNotifyUser;
+
+
 
         if (isWordsChanged || isMuteTimeChanged || isGiveWarnChanged || isDeleteMsgChanged || isCheckedAdminChanged || isCheckedNotifyUserChanged) {
             setIsUnsavedModalOpen(true); // Відкриття модального вікна невнесених змін
+
         } else {
+
             navigate("/settings");
         }
     };
@@ -319,3 +335,18 @@ export const BadWordPage = () => {
         </section>
     );
 };
+
+
+
+
+// funCommands: {
+//     winkLvl: { type: Number, default: 15 },
+//     cryLvl: { type: Number, default: 15 },
+//     patLvl: { type: Number, default: 15 },
+//     nopeLvl: { type: Number, default: 10 },
+//     waveLvl: { type: Number, default: 10 },
+//     highfiveLvl: { type: Number, default: 5 },
+//     hugLvl: { type: Number, default: 0 },
+//     pokeLvl: { type: Number, default: 0 },
+//     slapLvl: { type: Number, default: 0 },
+// },
