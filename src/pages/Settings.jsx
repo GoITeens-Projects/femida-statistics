@@ -39,7 +39,7 @@ export const Settings = () => {
              exit={{ opacity: 0, y: 50 }}     // Стан при зникненні
              transition={{ duration: 1.5 }}   // Тривалість переходу
            > */}
-<<<<<<< Updated upstream
+
       <div className={styles.generalSettings}>
         <h2 className={styles.generalSettingsTitle}>Загальне</h2>
         <div className={styles.generalSettingsBox}>
@@ -50,9 +50,8 @@ export const Settings = () => {
             >
               <span>{selectedOption}</span>
               <ChevronDown
-                className={`${styles.icon} ${
-                  isOpenDropDown ? `${styles.rotate}` : ''
-                }`}
+                className={`${styles.icon} ${isOpenDropDown ? `${styles.rotate}` : ''
+                  }`}
               />
             </button>
             {isOpenDropDown && (
@@ -98,8 +97,8 @@ export const Settings = () => {
               <label className={styles.switch}>
                 <input
                   type="checkbox"
-                  // checked={isEnabled}
-                  // onChange={handleToggle}
+                // checked={isEnabled}
+                // onChange={handleToggle}
                 />
                 <span className={`${styles.slider} ${styles.round}`}></span>
               </label>
@@ -153,56 +152,13 @@ export const Settings = () => {
         endpoint="number-of-xp"
         nameForUpdate="badwords"
       />
+      <AutoModerationFilter
+        moderationTitle="Команди"
+        moderationList="Редагувати видачу досвіду учасникам"
+        endpoint="commands"
+        nameForUpdate="badwords"
+      />
       {/* </motion.div> */}
     </>
   );
 };
-=======
-    <AutoModerationFilter
-      moderationTitle='Погані слова'
-      moderationList='Мат, небажані вирази'
-      endpoint='badword'
-      nameForUpdate='badwords'
-    />
-    <AutoModerationFilter
-      moderationTitle='Ліміти'
-      moderationList='Редагувати ліміти'
-      endpoint='limits'
-      nameForUpdate='badwords'
-    />
-    <AutoModerationFilter
-      moderationTitle='Повторний текст'
-      moderationList='Нікому надмірний флуд не потрібний'
-      endpoint='spam'
-      nameForUpdate='badwords'
-    />
-    <AutoModerationFilter
-      moderationTitle='Команди'
-      moderationList='Редагувати команди серверу'
-      endpoint='commands'
-      nameForUpdate='badwords'
-    />
-    <ToastContainer
-      position="top-right"
-      autoClose={5000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick={false}
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-      theme="dark"
-      transition={Bounce}
-    />
-    <AutoModerationFilter
-      moderationTitle='Кількість ХР'
-      moderationList='Редагувати видачу досвіду учасникам'
-      endpoint='number-of-xp'
-      nameForUpdate='badwords'
-    />
-    {/* </motion.div> */}
-
-  </>
-}
->>>>>>> Stashed changes
