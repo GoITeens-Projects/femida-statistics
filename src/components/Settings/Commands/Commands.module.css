@@ -144,3 +144,28 @@
     min-width: 120px;
     background-color: var(--input-badword);
 }
+
+input {
+    border: none;
+    outline: none;
+    padding: 5px;
+    flex-grow: 1;
+    background: transparent;
+    font-size: 14px;
+    color: var(--text-color);
+    width: 833px;
+}
+
+.FromContainer3 {
+    position: relative;
+    width: 879px;
+    height: 53px;
+    border: 1px solid var(--chart-color);
+    margin-top: 20px;
+    display: block;
+    /* Відновлюємо стандартне блокове відображення */
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    /* Ураховуємо padding у ширині */
+}
