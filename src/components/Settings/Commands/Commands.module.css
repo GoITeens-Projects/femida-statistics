@@ -142,7 +142,6 @@
     padding: 5px;
     font-size: 14px;
     min-width: 120px;
-    background-color: var(--input-badword);
 }
 
 input {
@@ -168,4 +167,8 @@ input {
     box-sizing: border-box;
     display: flex;
     /* Ураховуємо padding у ширині */
+}
+
+.CommandsDescriptions {
+    color: var(--text-color)
 }

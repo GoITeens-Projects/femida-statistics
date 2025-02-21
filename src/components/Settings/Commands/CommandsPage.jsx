@@ -5,11 +5,13 @@ import styles from './Commands.module.css';
 import Shadow from "components/Shadow/Shadow";
 import { useEffect, useState } from "react";
 import { fetchSettings, PatchSettings } from "../../../redux/settings/operation";
+import { UnsavedChangesModal } from "../BadWord/UnsavedChangesModal";
 
 export const CommandsPage = () => {
     const [isActivityDropdownOpen, setIsActivityDropdownOpen] = useState(false);
     const [selectedActivity, setSelectedActivity] = useState('cry');
     const options = ['cry', 'hug', 'highfive', 'nope', 'pat', 'poke', 'slap', 'wave', 'wink'];
+    const [isUnsavedModalOpen, setIsUnsavedModalOpen] = useState(false); // Стан для модального вікна невнесених змін
     const { data: settings, loading, error } = useSelector((state) => state.settings); // Отримання налаштувань з Redux
     // Ініціалізація рівнів нулем для кожної команди
     const [commandLevels, setCommandLevels] = useState(() => {
@@ -88,24 +90,30 @@ export const CommandsPage = () => {
 
     // Обробка видалення слова зі списку
 
-    const handleBackClick = (e) => {
-        // Перевірка на зміни перед переходом
+    const handleBackClick = () => {
+        // Перетворюємо стейт у формат, який використовуємо у БД
+        const formattedLevels = Object.entries(commandLevels).reduce((acc, [command, level]) => {
+            acc[`${command}Lvl`] = level;
+            return acc;
+        }, {});
 
-        // const muteTimeMs = (days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60) * 1000;
-        // const isWordsChanged = JSON.stringify(settings?.settings?.badwords?.words) !== JSON.stringify(addedWords);
-        // const isMuteTimeChanged = settings?.settings?.badwords?.actions?.mute?.muteTimeMs !== muteTimeMs;
+        // Перевіряємо, чи відрізняються збережені дані від поточного стейту
+        const hasChanges = Object.keys(formattedLevels).some(key =>
+            formattedLevels[key] !== (settings?.settings?.funCommands?.[key] ?? 0)
+        );
 
-        // const isGiveWarnChanged = settings?.settings?.badwords?.actions?.giveWarn !== (selectedAction === "warning");
-        // const isDeleteMsgChanged = settings?.settings?.badwords?.actions?.deleteMsg !== isDeleteMessage;
-        // const isCheckedAdminChanged = settings?.settings?.badwords?.actions?.ignoreAdmins !== isCheckedAdmin;
-        // const isCheckedNotifyUserChanged = settings?.settings?.badwords?.actions?.notifyUser !== isCheckedNotifyUser;
+        if (hasChanges) {
+            setIsUnsavedModalOpen(true); // Відкриваємо модальне вікно
+        } else {
+            navigate("/settings"); // Перенаправлення, якщо змін немає
+        }
 
-        // if (isWordsChanged || isMuteTimeChanged || isGiveWarnChanged || isDeleteMsgChanged || isCheckedAdminChanged || isCheckedNotifyUserChanged) {
-        //     setIsUnsavedModalOpen(true); // Відкриття модального вікна невнесених змін
-        // } else {
-        navigate("/settings");
-        // }
-    }
+    };
+
+    const handleDiscardChanges = () => {
+        setIsUnsavedModalOpen(false);
+        navigate("/settings"); // Переход на сторінку налаштувань
+    };
     return (
         <section>
             <SettingsNavigation
@@ -136,7 +144,7 @@ export const CommandsPage = () => {
                 <div className={styles.FromContainer2}>
                     <Shadow leftFirst={-7} widthFirst={5} heightSecond={5} rightSecond={3} bottomSecond={-7} backgroundBoth={'#6EABD4'} borderColorBoth={'#558DB2'} />
                     <p className={styles['subtitle']}>Опис команди</p>
-                    <p>{commandsDescriptions[selectedActivity]}</p>
+                    <p className={styles.CommandsDescriptions}>{commandsDescriptions[selectedActivity]}</p>
 
                     <p className={styles['subtitle-2']}>Рівень доступу</p>
                     <div className={styles.FromContainer3}>
@@ -151,6 +159,9 @@ export const CommandsPage = () => {
                     </div>
                 </div>
             </div>
+            {isUnsavedModalOpen && (
+                <UnsavedChangesModal onClose={handleDiscardChanges} onSave={handleSave} />
+            )}
         </section>
     );
 };
