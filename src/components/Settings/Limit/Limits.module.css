@@ -286,13 +286,14 @@ input:focus + .slider {
 
 .FromContainer {
   position: relative;
-  width: 933px;
-  height: auto;
+  /* width: 933px; */
+  /* height: auto; */
   border: 1px solid var(--chart-color);
-  margin-top: 20px;
+  margin-top: 12px;
   display: block;
+  padding: 10px 20px;
   /* Відновлюємо стандартне блокове відображення */
-  padding: 20px;
+  /* padding: 20px; */
   box-sizing: border-box;
   /* Ураховуємо padding у ширині */
 }
@@ -395,4 +396,26 @@ input:focus + .slider {
   max-width: 100%;
   margin-top: 10px;
   position: relative;
+}
+
+/*  */
+.limitsInputName {
+  width: 100%;
+}
+
+.limitsNameBox {
+  position: relative;
+  padding: 15px 25px;
+  border: 1px solid #91ccf4;
+  background-color: #fafafa;
+  margin-top: 20px;
+}
+
+.limitsSubtitle {
+  color: #678f95;
+  font-family: 'IBM Plex Mono';
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }

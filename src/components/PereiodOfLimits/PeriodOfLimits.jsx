@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './PeriodOfLimits.module.css';
 import limitsScopeStyles from '../LimitsScope/LimitsScope.module.css';
 import Shadow from 'components/Shadow/Shadow';
 import { PatchSettings } from '../../redux/settings/operation';
 import { selectSettingsData } from '../../redux/settings/selectors';
+import axios from '../../redux/axiosConfig';
 
 const PeriodOfLimits = ({
   selectedTargetRoles,
@@ -29,7 +30,7 @@ const PeriodOfLimits = ({
   setCoefficient,
   isPeriodUnlimited,
   setIsPeriodUnlimited,
-  handleSave
+  handleSave,
 }) => {
   const dispatch = useDispatch();
   const settings = useSelector(selectSettingsData);
@@ -39,6 +40,30 @@ const PeriodOfLimits = ({
   // const [selectedTargetChannels, setSelectedTargetChannels] = useState([]);
 
   const options = ['Адміністратор', 'Користувач', 'Модератор'];
+  const [targetRoles, setTragetRoles] = useState([]);
+  const [targetChannels, setTargetChannels] = useState([]);
+  const accessToken = localStorage.getItem('token');
+  useEffect(() => {
+    axios
+      .get('discord/roles', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then(data => {
+        // console.log(data.data.roles);
+        setTragetRoles(data.data.roles);
+      });
+    axios
+      .get('discord/channels?type=0', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then(data => {
+        setTargetChannels(data.data.channels);
+      });
+  }, []);
 
   // !events state
   // const [isEventMessages, setIsEventMessages] = useState('');
@@ -58,7 +83,7 @@ const PeriodOfLimits = ({
     inputValue = inputValue.replace(/(\d{2})(\d{3})/, '$1.$2');
     setCoefficient(inputValue);
     const numericValue = parseFloat(inputValue.replace('.', ''));
-    console.log(numericValue);
+    // console.log(numericValue);
   };
 
   // const handleAddNewPeriod = () => {
@@ -104,13 +129,13 @@ const PeriodOfLimits = ({
 
   return (
     <div className={styles.periodOfLimits}>
-      <button
+      {/* <button
         type="button"
         className={styles.addNewPeriodBtn}
         onClick={handleSave}
       >
         Додати новий період
-      </button>
+      </button> */}
 
       <h3 className={styles.periodOfLimitsTitle}>Період лімітів</h3>
 
@@ -296,27 +321,29 @@ const PeriodOfLimits = ({
               onClick={() => setIsOpenRoles(!isOpenRoles)}
             >
               {selectedTargetRoles.length > 0
-                ? selectedTargetRoles.join(', ')
+                ? selectedTargetRoles.map(role => role.name).join(', ')
                 : 'Цільові ролі'}
               <span className={limitsScopeStyles['dropdown-arrow']}>▼</span>
             </button>
             {isOpenRoles && (
               <ul className={limitsScopeStyles['dropdown-list']}>
-                {options.map((option, index) => (
+                {targetRoles.map((targetRole, index) => (
                   <li
-                    key={index}
+                    key={targetRole.id}
                     className={limitsScopeStyles['dropdown-item']}
                   >
                     <label className={styles.periodOfLimitsCheckboxLabel}>
                       <input
                         type="checkbox"
-                        checked={selectedTargetRoles.includes(option)}
+                        checked={selectedTargetRoles.includes(targetRole)}
                         onChange={evt =>
                           setSelectedTargetRoles(prevState => {
                             if (evt.target.checked) {
-                              return [...prevState, option];
+                              return [...prevState, targetRole];
                             } else {
-                              return prevState.filter(item => item !== option);
+                              return prevState.filter(
+                                item => item !== targetRole
+                              );
                             }
                           })
                         }
@@ -328,17 +355,24 @@ const PeriodOfLimits = ({
                     <p
                       className={styles.periodOfLimitsSubtitle}
                       onClick={() => {
-                        const isSelected = selectedTargetRoles.includes(option);
+                        const isSelected =
+                          selectedTargetRoles.includes(targetRole);
                         setSelectedTargetRoles(prevState => {
                           if (!isSelected) {
-                            return [...prevState, option];
+                            return [...prevState, targetRole];
                           } else {
-                            return prevState.filter(item => item !== option);
+                            return prevState.filter(
+                              item => item !== targetRole
+                            );
                           }
                         });
                       }}
+                      style={{
+                        color: targetRole.color,
+                        // textShadow: '0px 0px 10px #DEAB9A',
+                      }}
                     >
-                      {option}
+                      {targetRole.name}
                     </p>
                   </li>
                 ))}
@@ -363,27 +397,29 @@ const PeriodOfLimits = ({
               onClick={() => setIsOpenChannels(!isOpenChannels)}
             >
               {selectedTargetChannels.length > 0
-                ? selectedTargetChannels.join(', ')
+                ? selectedTargetChannels.map(channel => channel.name).join(', ')
                 : 'Цільові канали'}
               <span className={limitsScopeStyles['dropdown-arrow']}>▼</span>
             </button>
             {isOpenChannels && (
               <ul className={limitsScopeStyles['dropdown-list']}>
-                {options.map((option, index) => (
+                {targetChannels.map(targetChannel => (
                   <li
-                    key={index}
+                    key={targetChannel.id}
                     className={limitsScopeStyles['dropdown-item']}
                   >
                     <label className={styles.periodOfLimitsCheckboxLabel}>
                       <input
                         type="checkbox"
-                        checked={selectedTargetChannels.includes(option)}
+                        checked={selectedTargetChannels.includes(targetChannel)}
                         onChange={evt =>
                           setSelectedTargetChannels(prevState => {
                             if (evt.target.checked) {
-                              return [...prevState, option];
+                              return [...prevState, targetChannel];
                             } else {
-                              return prevState.filter(item => item !== option);
+                              return prevState.filter(
+                                item => item !== targetChannel
+                              );
                             }
                           })
                         }
@@ -396,17 +432,19 @@ const PeriodOfLimits = ({
                       className={styles.periodOfLimitsSubtitle}
                       onClick={() => {
                         const isSelected =
-                          selectedTargetChannels.includes(option);
+                          selectedTargetChannels.includes(targetChannel);
                         setSelectedTargetChannels(prevState => {
                           if (!isSelected) {
-                            return [...prevState, option];
+                            return [...prevState, targetChannel];
                           } else {
-                            return prevState.filter(item => item !== option);
+                            return prevState.filter(
+                              item => item !== targetChannel
+                            );
                           }
                         });
                       }} // Обробник кліку на текст
                     >
-                      {option}
+                      {targetChannel.name}
                     </p>
                   </li>
                 ))}
