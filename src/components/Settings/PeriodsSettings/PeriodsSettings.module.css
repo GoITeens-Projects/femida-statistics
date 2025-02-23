@@ -143,26 +143,6 @@
   color: var(--text-color);
   /* border: 2px solid var(--shadow-secondary-color); */
 }
-.dropdown-list {
-  position: absolute;
-  width: 100%;
-  background-color: var(--bg-primary-color);
-  border: 1px solid #b0c4c7;
-  border-radius: 8px;
-  margin-top: 5px;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  z-index: 10;
-}
-
-.dropdown-item {
-  padding: 10px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.dropdown-item:hover {
-  background: #f0f4f5;
-}
 
 .container {
   width: calc(100% - (1.771vw + 2.054vw));
@@ -188,7 +168,7 @@
   align-items: center;
   cursor: pointer;
   font-size: 16px;
-  margin: 8px 0;
+  /* margin: 8px 0; */
   position: relative;
   color: var(--text-color);
 }
@@ -232,6 +212,126 @@
   /* Білий колір галочки */
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
+}
+
+.limitsScope {
+  /* width: 70%; */
+  border: 1px solid #91ccf4;
+  background-color: var(--bg-modal-color);
+  padding: 15px 25px;
+  width: 78vw;
+}
+
+.limitsScopeBlock {
+}
+
+.limitsScopeTitle {
+  color: #678f95;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.limitsScopeBox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  /* margin-top: 12px; */
+}
+
+.limitsScopeSubtitle {
+  color: #000;
+  font-family: 'IBM Plex Sans';
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.limitsScopeList {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px 19px;
+}
+
+.limitsScopeItem {
+  position: relative;
+  width: 400px;
+  /* height: 36px; */
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--btn-accent-color);
+  background-color: #fff;
+  padding: 10px 20px;  
+}
+
+.limitsScopeSelect {
+  width: 300px;
+  height: 37px;
+}
+
+
+/*! випадаючий список */
+/* Dropdown.css */
+.dropdown-container {
+  position: relative;
+  /* width: 300px; */
+}
+
+.dropdown-button {
+  /* width: 100%; */
+  /* background: white; */
+  /* border: 2px solid #b0c4c7; */
+  /* border-radius: 8px; */
+  /* padding: 10px; */
+  /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
+  text-align: left;
+  cursor: pointer;
+  font-size: 16px;
+  position: relative;
+  width: 400px;
+}
+
+.dropdown-arrow {
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--shadow-secondary-border);
+  /* background: #96B8BD; */
+
+}
+
+.dropdown-list {
+  position: absolute;
+  max-height: 150px; /* Обмеження висоти для скролу */
+  overflow-y: auto;
+  width: 100%;
+  background: white;
+  border: 1px solid #b0c4c7;
+  border-radius: 8px;
+  margin-top: 5px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  /* justify-content:center; */
+  font-family: IBM Plex Mono;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
+  color: var(--text-color)
+}
+
+.dropdown-item:hover {
+  background: #f0f4f5;
 }
 
 .delete-button {

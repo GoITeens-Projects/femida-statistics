@@ -113,46 +113,40 @@ export const BasicXPSettings = () => {
             <input type="number" className={s['input']} />
           </label>
         </li>
+        <li>
+          <p className={s['subtitle']}>За войс з адміном</p>
+          <label className={s['label']}>
+            <Shadow
+              leftFirst={-7}
+              widthFirst={5}
+              heightSecond={5}
+              rightSecond={3}
+              bottomSecond={-7}
+              backgroundBoth={'var(--shadow-secondary-border)'}
+              borderColorBoth={'var( --shadow-settings-border)'}
+            />
+
+            <input type="number" className={s['input']} />
+          </label>
+        </li>
+        <li>
+          <p className={s['subtitle']}>Коефіцієнт набавки студентам</p>
+          <label className={s['label']}>
+            <Shadow
+              leftFirst={-7}
+              widthFirst={5}
+              heightSecond={5}
+              rightSecond={3}
+              bottomSecond={-7}
+              backgroundBoth={'var(--shadow-secondary-border)'}
+              borderColorBoth={'var( --shadow-settings-border)'}
+            />
+
+            <input type="number" className={s['input']} />
+          </label>
+        </li>
       </ul>
-      <div className={s['subcontainer']}>
-        <p className={s['subtitle']}>Надбавка студентам</p>
-        <div className={s['checkboxMainCountainer']}>
-          <div className={s['checkbox-container']}>
-            <label className={s.limitsScopesCheckboxLabel}>
-              <input
-                type="checkbox"
-                onChange={() => onChecked('коефіцієнт')}
-                checked={checked === 'коефіцієнт'}
-              />
-              <span className={s.limitsScopesCheckboxSpan}></span>
-            </label>
-            <p className={s.limitsScopeSubtitle}>Коефіцієнт</p>
-          </div>
-          <div className={s['checkbox-container']}>
-            <label className={s.limitsScopesCheckboxLabel}>
-              <input
-                type="checkbox"
-                onChange={() => onChecked('бали')}
-                checked={checked === 'бали'}
-              />
-              <span className={s.limitsScopesCheckboxSpan}></span>
-            </label>
-            <p className={s.limitsScopeSubtitle}>Кількість ХР</p>
-          </div>
-        </div>
-        <label className={s['students-label']}>
-          <Shadow
-            leftFirst={-7}
-            widthFirst={5}
-            heightSecond={5}
-            rightSecond={3}
-            bottomSecond={-7}
-            backgroundBoth={'var(--shadow-secondary-border)'}
-            borderColorBoth={'var( --shadow-settings-border)'}
-          />
-          <input type="number" className={s['input']} />
-        </label>
-      </div>
+      
       <div className={s.limitsScopeBox}>
         <label className={s.limitsScopesCheckboxLabel}>
           <input
@@ -252,7 +246,7 @@ export const BasicXPSettings = () => {
                         <span className={s.limitsScopesCheckboxSpan}></span>
                       </label>
                     </div>
-                    {option.name}
+                    <p className={s.limitsScopeSubtitle}>{option.name}</p>
                   </li>
                 ))}
               </ul>

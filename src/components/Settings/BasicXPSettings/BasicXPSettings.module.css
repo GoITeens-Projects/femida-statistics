@@ -42,7 +42,7 @@
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
     position: relative;
-    padding: 0.708vw 0.708vw 0.708vw 1.417vw;
+    padding: 0.425vw 0.07vw;
     /* padding: 0.708vw 0.708vw 0.708vw 1.417vw; */
     /* display: flex;
     align-items: center;
@@ -72,8 +72,9 @@
   .input{
     line-height: normal;
     border: none;
-    max-width: 7.225vw;
-    margin: 0.708vw 0.708vw 0.708vw 1.417vw;
+    max-width: 14.9vw; 
+    /* 205 */
+    margin: 0.35vw;
     background-color: var(--bg-primary-color);
     color: var(--text-color);
   }
@@ -108,7 +109,7 @@
     align-items: center;
     cursor: pointer;
     font-size: 16px;
-    margin: 8px 0;
+    /* margin: 8px 0; */
     position: relative;
     color: var(--text-color);
   }
@@ -176,7 +177,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    margin-top: 12px;
+    /* margin-top: 12px; */
   }
   
   .limitsScopeSubtitle {
@@ -245,6 +246,8 @@
   
   .dropdown-list {
     position: absolute;
+    max-height: 150px; /* Обмеження висоти для скролу */
+    overflow-y: auto;
     width: 100%;
     background: white;
     border: 1px solid #b0c4c7;
@@ -260,6 +263,12 @@
     transition: background 0.2s;
     display: flex;
     align-items: center;
+    /* justify-content:center; */
+    font-family: IBM Plex Mono;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+    color: var(--text-color)
   }
   
   .dropdown-item:hover {

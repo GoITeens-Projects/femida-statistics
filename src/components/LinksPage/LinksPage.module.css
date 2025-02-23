@@ -146,7 +146,7 @@
 input {
   border: none;
   outline: none;
-  padding: 5px;
+  /* padding: 5px; */
   flex-grow: 1;
   background: transparent;
   font-size: 14px;
