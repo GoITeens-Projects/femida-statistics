@@ -7,6 +7,7 @@ import LimitsScope from 'components/LimitsScope/LimitsScope';
 import {
   selectSettingsTextChannels,
   selectSettingsVoiceChannels,
+  selectSettingsRoles
 } from '../../../redux/settings/selectors';
 
 export const PeriodsSettings = ({
@@ -17,24 +18,28 @@ export const PeriodsSettings = ({
   thisDisabled,
   onSubmitChanges,
   onDelete,
-  thisStartDateStr,
-  thisEndDateStr,
+  thisTargetRoles,
+  thisTargetChannels
+  // thisStartDateStr,
+  // thisEndDateStr,
 }) => {
   const textChannels = useSelector(selectSettingsTextChannels);
   const voiceChannels = useSelector(selectSettingsVoiceChannels);
-  const [startDate, setStartDate] = useState(thisStartDate);
-  const [endDate, setEndDate] = useState(thisEndDate);
-  const [startDateStr, setStartDateStr] = useState(thisStartDateStr);
-  const [endDateStr, setEndDateStr] = useState(thisEndDateStr);
+  const roles = useSelector(selectSettingsRoles)
+  const [startDate, setStartDate] = useState(thisStartDate.slice(0, 10));
+  const [endDate, setEndDate] = useState(thisEndDate.slice(0, 10));
+  // const [ta, setStartDateStr] = useState(thisTargetRoles);
+  // const [endDateStr, setEndDateStr] = useState(thisTargetChannels);
   const [countOfXP, setCountOfXP] = useState(thisCountOfXP);
   const [disabled, setDisabled] = useState(thisDisabled);
   const [isIgnoreAdmins, setIsIgnoreAdmins] = useState(false);
   const [isOpenRoles, setIsOpenRoles] = useState(false);
-  const [selectedRoles, setSelectedRoles] = useState('Цільові ролі');
+  const [selectedRoles, setSelectedRoles] = useState(thisTargetRoles);
   const [isOpenChannels, setIsOpenChannels] = useState(false);
-  const [selectedChannels, setSelectedChannels] = useState([]);
-  const options = ['Адміністратор', 'Користувач', 'Модератор'];
+  const [selectedChannels, setSelectedChannels] = useState(thisTargetChannels);
+  // const options = ['Адміністратор', 'Користувач', 'Модератор'];
   const channels = [...textChannels, ...voiceChannels];
+console.log('thisTargetRoles', thisTargetRoles);
 
   const onCheckbox = () => {
     disabled ? setDisabled(false) : setDisabled(true);
@@ -47,8 +52,8 @@ export const PeriodsSettings = ({
     // locale: 'uk',
     // allowInput: true,
     onChange: (selectedDates, dateStr) => {
-      setStartDate(selectedDates[0]);
-      setStartDateStr(dateStr);
+      setStartDate(dateStr);
+      // setStartDateStr(dateStr);
     },
   });
 
@@ -59,15 +64,16 @@ export const PeriodsSettings = ({
     // locale: 'uk',
     // allowInput: true,
     onChange: (selectedDates, dateStr) => {
-      setEndDate(selectedDates[0]);
-      setEndDateStr(dateStr);
+      setEndDate(dateStr);
+      // setEndDateStr(dateStr);
     },
   });
 
  
   const onChennelChoose = channel => {
     let newArray = [];
-    if (selectedChannels.includes(channel)) {
+ 
+     if (selectedChannels.includes(channel)) {
       newArray = selectedChannels.filter(el => {
         const fltr = Object.values(el).includes(channel.id);
         console.log('fltr', fltr);
@@ -75,11 +81,26 @@ export const PeriodsSettings = ({
       });
     } else {
       newArray = [channel, ...selectedChannels];
-    }
+    }  
     console.log('new:', newArray);
     setSelectedChannels(newArray);
   };
 
+  const onRoleChoose = role => {
+    let newArray = [];
+    if (selectedRoles.includes(role)) {
+     newArray = selectedRoles.filter(el => {
+       const fltr = Object.values(el).includes(role.id);
+       console.log('fltr', fltr);
+       return !fltr;
+     });
+   } else {
+     newArray = [role, ...selectedRoles];
+   }  
+
+   console.log('new:', newArray);
+   setSelectedRoles(newArray);
+ };
   // const
   return (
     <>
@@ -119,7 +140,7 @@ export const PeriodsSettings = ({
                 autocomplete="off"
                 name="start"
                 id="start"
-                value={startDateStr}
+                value={startDate}
                 readOnly={true}
                 placeholder="DD/MM/YYYY"
               />
@@ -145,7 +166,7 @@ export const PeriodsSettings = ({
                 name="end"
                 id="end"
                 readOnly={true}
-                value={endDateStr}
+                value={endDate}
                 placeholder="DD/MM/YYYY"
               />
             </label>
@@ -182,11 +203,11 @@ export const PeriodsSettings = ({
             onChange={e => setCountOfXP(Number(e.currentTarget.value))}
           />
         </label>
-        <div>
+        <div className={s.subcountainer}>
           <p className={s['subtitle']}>
             Область дії видачі ХР за певний період
           </p>
-          <div className={s.limitsScopeBox}>
+          <div className={s.limitsScopeAdminBox}>
         <label className={s.limitsScopesCheckboxLabel}>
           <input
             type="checkbox"
@@ -216,26 +237,33 @@ export const PeriodsSettings = ({
               className={s['dropdown-button']}
               onClick={() => setIsOpenRoles(!isOpenRoles)}
             >
-              {selectedRoles}
+              {selectedRoles.length > 0
+                ? selectedRoles.map(ch => ch.name).join('; ').length > 40
+                  ? `${selectedRoles
+                      .map(ch => ch.name)
+                      .join('; ')
+                      .slice(0, 40)}...`
+                  : selectedRoles.map(ch => ch.name).join('; ')
+                : 'Цільові ролі'}
               <span className={s['dropdown-arrow']}>{isOpenRoles ? '▼' : '◄'}</span>
             </button>
             {isOpenRoles && (
               <ul className={s['dropdown-list']}>
-                {options.map((option, index) => (
+                {roles.map((option, index) => (
                   <li key={index} className={s['dropdown-item']}>
-                    {option}
                     <div className={s.limitsScopeBox}>
                       <label className={s.limitsScopesCheckboxLabel}>
                         <input
                           type="checkbox"
-                          onChange={evt => {
-                            setIsIgnoreAdmins(evt.target.checked);
+                          onChange={() => {
+                            onRoleChoose(option);
                           }}
+                          checked={selectedRoles.includes(option)}
                         />
                         <span className={s.limitsScopesCheckboxSpan}></span>
                       </label>
                       <p className={s.limitsScopeSubtitle}>
-                        Не поширювати на Адміністраторів і Модераторів
+                        {option.name}
                       </p>
                     </div>
                   </li>
@@ -300,13 +328,13 @@ export const PeriodsSettings = ({
             className={s['confirm-changes-button']}
             onClick={() =>
               onSubmitChanges(
-                `${startDate}`,
-                `${endDate}`,
-                startDateStr,
-                endDateStr,
+                `${startDate}T00:00:00.000Z`,
+                `${endDate}T00:00:00.000Z`,
                 countOfXP,
                 disabled,
-                id
+                id,
+                selectedChannels,
+                selectedRoles,
               )
             }
           >

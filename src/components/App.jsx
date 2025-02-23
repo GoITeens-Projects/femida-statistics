@@ -17,6 +17,7 @@ import {
   fetchStatistics,
   fetchVoiceAndStage,
 } from '../redux/statistics/operation';
+import { fetchChannels, fetchSettings, fetchRoles } from '../redux/settings/operation';
 import Footer from './Footer/Footer';
 import {
   selectLoading,
@@ -28,6 +29,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import BurgerMenu from './BurgerMenu/BurgerMenu';
 import LimitsScope from './LimitsScope/LimitsScope';
 import { Bounce, ToastContainer } from 'react-toastify';
+
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -41,6 +43,9 @@ export const App = () => {
     dispatch(setWindowWidth(window.innerWidth));
     dispatch(fetchStatistics());
     dispatch(fetchVoiceAndStage());
+    dispatch(fetchSettings());
+    dispatch(fetchChannels());
+    dispatch(fetchRoles())
     // dispatch(updateToken)
   }, []);
   const [isOpenBurger, setIsOpenBurger] = useState(false);

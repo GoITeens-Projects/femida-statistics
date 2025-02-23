@@ -1,59 +1,83 @@
 import { PeriodsSettings } from '../PeriodsSettings/PeriodsSettings';
+import { fetchChannels, fetchSettings, fetchRoles, PatchSettings } from '../../../redux/settings/operation';
 import styles from './CountOfXPPage.module.css';
 import { SettingsNavigation } from '../SettingsNavigation/SettingsNavigation';
 import Shadow from '../../Shadow/Shadow';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCountOfXP } from '../../../redux/improvised/selectors';
 import { addInfo } from '../../../redux/improvised/operation';
 import { BasicXPSettings } from '../BasicXPSettings/BasicXPSettings';
 import { nanoid } from 'nanoid';
+import {selectSettingsData} from '../../../redux/settings/selectors'
 
 export const CountOfXPPage = () => {
-  const [isActivityDropdownOpen, setIsActivityDropdownOpen] = useState(false);
-  const [selectedActivity, setSelectedActivity] = useState('За повідомлення');
-  const countOfXpArray = useSelector(selectCountOfXP);
   const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(fetchSettings());
+  //   dispatch(fetchChannels());
+  //   dispatch(fetchRoles())
+  // }, [dispatch]); 
+
+  const [isActivityDropdownOpen, setIsActivityDropdownOpen] = useState(false);
+  const [selectedActivity, setSelectedActivity] = useState('messages');
+  const countOfXpArray = useSelector(selectCountOfXP);
+  const settings = useSelector(selectSettingsData)
+  const events = settings.settings.events ? settings.settings.events : []
+
 
   const options = [
-    'За повідомлення',
-    'За войс',
-    'За триюуну',
-    'За буст',
+    'messages',
+    'voice',
+    'stage',
+    'boost',
     'За замовчуванням',
   ];
+
+  console.log('events', events);
+
   const save = () => {};
-  const currentArray = countOfXpArray.filter(el => {
-    const fltr = el.type === selectedActivity;
+  const currentArray = events.filter(el => {
+    const fltr = el.activities[selectedActivity];
     return fltr;
   });
+
+  console.log('currentArray', currentArray);
 
   const onSubmitChanges = (
     startDate,
     endDate,
-    startDateStr,
-    endDateStr,
     countOfXP,
     disabled,
-    id
+    id,
+    targetChannels,
+    targetRoles
   ) => {
-    const newArray = countOfXpArray.map(element => {
-      if (element.id === id) {
+    const newArray = events.map(element => {
+      // console.log('_id', element._id)
+      // console.log('id', id);;
+      if (element._id === id) {
         return {
+          activities:{
+            messages: selectedActivity === 'messages', 
+            voice: selectedActivity === 'voice', 
+            stage: selectedActivity === 'stage', 
+            boost: selectedActivity === 'boost', 
+          },
           startDate,
           endDate,
-          startDateStr,
-          endDateStr,
-          countOfXP,
-          disabled,
-          id,
-          type: element.type,
+          k: countOfXP,
+          _id: id,
+          targetChannels,
+          targetRoles
         };
       } else {
         return element;
       }
     });
-    dispatch(addInfo({ type: 'countOfXP', info: newArray }));
+    dispatch(PatchSettings({settings: {
+      events: newArray
+    }}));
   };
 
   const onDelete = id => {
@@ -149,14 +173,16 @@ export const CountOfXPPage = () => {
      { currentArray.map(el => {
           return (
             <PeriodsSettings
-              key={el.id}
-              id={el.id}
+              key={el._id}
+              id={el._id}
               thisStartDate={el.startDate}
               thisEndDate={el.endDate}
-              thisStartDateStr={el.startDateStr}
-              thisEndDateStr={el.endDateStr}
-              thisCountOfXP={el.countOfXP}
-              thisDisabled={el.disabled}
+              // thisStartDateStr={el.startDateStr}
+              // thisEndDateStr={el.endDateStr}
+              thisCountOfXP={el.k}
+              thisThisDisabled={false}
+              thisTargetChannels={el.targetChannels}
+              thisTargetRoles={el.targetRoles}
               onSubmitChanges={onSubmitChanges}
               onDelete={onDelete}
             />

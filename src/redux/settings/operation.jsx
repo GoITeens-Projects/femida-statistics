@@ -63,3 +63,24 @@ export const fetchChannels = createAsyncThunk('settings/fetchChannels', async (_
     }
 });
 
+export const fetchRoles = createAsyncThunk('settings/fetchRoles', async (_, thunkApi) => {
+    try {
+        const accessToken = localStorage.getItem('token');
+        const response = await axios.get('https://femida-api.onrender.com/discord/roles',
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            },);
+
+        return response.data.roles // Передача отриманих даних
+    } catch (error) {
+        return thunkApi.rejectWithValue(
+            error.response?.data?.message || 'Помилка завантаження налаштувань'
+        );
+    }
+});
+
+
+
+

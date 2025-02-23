@@ -33,6 +33,10 @@
   align-items: center;
 }
 
+.subcontainer{
+  margin-top: 0.85vw
+}
+
 .checkbox-container {
   display: flex;
   align-items: center;
@@ -232,11 +236,18 @@
   line-height: normal;
 }
 
+.limitsScopeAdminBox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 0.85vw;
+}
+
 .limitsScopeBox {
   display: flex;
   align-items: center;
   gap: 5px;
-  /* margin-top: 12px; */
+  /* margin-top: 0.85vw; */
 }
 
 .limitsScopeSubtitle {
