@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 export const SettingsNavigation = ({ onHandleSave, onHandleBackClick }) => {
   return (
     <div className={styles.ConatinerNavigation}>
-      <button type="button" onClick={onHandleBackClick} className={styles.ExitButton}>
+
+      <button className={styles.ExitButton} type="button" onClick={onHandleBackClick}>
         <svg
           width="8"
           height="10"
@@ -15,9 +16,9 @@ export const SettingsNavigation = ({ onHandleSave, onHandleBackClick }) => {
           <path
             d="M3 1L1 3L3 5"
             stroke="#678F95"
-            strokeWidth="0.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            stroke-width="0.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
           />
         </svg>
         Назад

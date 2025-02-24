@@ -210,23 +210,32 @@ export const SpamPage = () => {
                         backgroundBoth={'#6EABD4'}
                         borderColorBoth={'#558DB2'}
                     />
-
                     <label className={styles.LabelFormBadWords}>Кількість однакових повідомлень</label>
+                    <div className={styles.FromContainer2}>
 
-                    <div className={styles.InputContainer}>
+
 
                         <input
-                            type="number"
+                            type="text"
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
 
-                            className={styles.InputInsideContainer}
                             placeholder="Введіть число..."
                         />
 
-                    </div>
 
-                    <div className={styles.ContainerCheckBoxAction2}>
+                        <Shadow
+                            leftFirst={-8}
+                            widthFirst={5}
+                            heightSecond={5}
+                            rightSecond={4}
+                            bottomSecond={-8}
+                            backgroundBoth={'var(--shadow-secondary-border)'}
+                            borderColorBoth={'var(--chart-accent-color)'}
+                        />
+                    </div >
+
+                    <div className={styles.ContainerCheckBoxAction1}>
                         <label className={styles.CustomCheckbox}>
                             <input
                                 type="checkbox"
@@ -258,6 +267,29 @@ export const SpamPage = () => {
 
 
                 </div>
+                {/* <div className={styles.FromContainer}>
+
+
+                    <label className={styles.LabelFormBadWords}>Кількість однакових повідомлень</label>
+                    <input
+                        type="text"
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+
+                        placeholder="Введіть число..."
+                    />
+
+
+                    <Shadow
+                        leftFirst={-8}
+                        widthFirst={5}
+                        heightSecond={5}
+                        rightSecond={4}
+                        bottomSecond={-8}
+                        backgroundBoth={'var(--shadow-secondary-border)'}
+                        borderColorBoth={'var(--chart-accent-color)'}
+                    />
+                </div > */}
 
                 <div className={styles.SliderContainer}>
                     <label className={styles.switch}>
@@ -285,18 +317,32 @@ export const SpamPage = () => {
 
                     <label className={styles.LabelFormBadWords}>Затримка видалення повідомлення</label>
 
-                    <div className={styles.InputContainer}>
+                    <div className={styles.FromContainer2}>
+
+
 
                         <input
                             type="number"
                             value={inputValueDelay}
                             onChange={(e) => setInputValueDelay(e.target.value)}
 
-                            className={styles.InputInsideContainer}
+
                             placeholder="Введіть число..."
                         />
+
+
+                        <Shadow
+                            leftFirst={-8}
+                            widthFirst={5}
+                            heightSecond={5}
+                            rightSecond={4}
+                            bottomSecond={-8}
+                            backgroundBoth={'var(--shadow-secondary-border)'}
+                            borderColorBoth={'var(--chart-accent-color)'}
+                        />
                         <p className={styles.Sec} >сек.</p>
-                    </div>
+                    </div >
+
 
 
 

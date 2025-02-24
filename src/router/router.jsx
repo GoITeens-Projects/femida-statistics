@@ -15,11 +15,12 @@ import { BadWordPage } from 'components/Settings/BadWord/BadWordModal';
 import { SpamPage } from 'components/Settings/Spam/Spam';
 import { CountOfXPPage } from 'components/Settings/CountOfXp/CountOfXpPage';
 import LinksPage from 'components/LinksPage/LinksPage';
+import { CommandsPage } from 'components/Settings/Commands/CommandsPage';
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />, 
+    element: <App />,
     children: [
       {
         path: '/overview',
@@ -72,6 +73,10 @@ export const router = createBrowserRouter([
       {
         path: '/settings/links',
         element: <PrivateRoute component={LinksPage} redirectTo='/' />,
+      },
+      {
+        path: '/settings/commands',
+        element: <PrivateRoute component={CommandsPage} redirectTo='/' />,
       },
     ],
   },

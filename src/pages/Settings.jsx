@@ -1,4 +1,4 @@
-import { AutoModerationFilter } from 'components/Settings/BadWord/AutoModerationFilter';
+import { AutoModerationFilter } from 'components/Settings/AutoModerationFilter/AutoModerationFilter';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchChannels, fetchSettings, fetchRoles } from '../redux/settings/operation';
@@ -41,6 +41,7 @@ export const Settings = () => {
              exit={{ opacity: 0, y: 50 }}     // Стан при зникненні
              transition={{ duration: 1.5 }}   // Тривалість переходу
            > */}
+
       <div className={styles.generalSettings}>
         <h2 className={styles.generalSettingsTitle}>Загальне</h2>
         <div className={styles.generalSettingsBox}>
@@ -51,9 +52,8 @@ export const Settings = () => {
             >
               <span>{selectedOption}</span>
               <ChevronDown
-                className={`${styles.icon} ${
-                  isOpenDropDown ? `${styles.rotate}` : ''
-                }`}
+                className={`${styles.icon} ${isOpenDropDown ? `${styles.rotate}` : ''
+                  }`}
               />
             </button>
             {isOpenDropDown && (
@@ -99,8 +99,8 @@ export const Settings = () => {
               <label className={styles.switch}>
                 <input
                   type="checkbox"
-                  // checked={isEnabled}
-                  // onChange={handleToggle}
+                // checked={isEnabled}
+                // onChange={handleToggle}
                 />
                 <span className={`${styles.slider} ${styles.round}`}></span>
               </label>
@@ -111,30 +111,58 @@ export const Settings = () => {
           </div>
         </div>
       </div>
-      <AutoModerationFilter
-        moderationTitle="Погані слова"
-        moderationList="Мат, небажані вирази"
-        endpoint="badword"
-        nameForUpdate="badwords"
-      />
-      <AutoModerationFilter
-        moderationTitle="Ліміти"
-        moderationList="Редагувати ліміти"
-        endpoint="limits"
-        nameForUpdate="badwords"
-      />
-      <AutoModerationFilter
-        moderationTitle="Повторний текст"
-        moderationList="Нікому надмірний флуд не потрібний"
-        endpoint="spam"
-        nameForUpdate="badwords"
-      />
-      <AutoModerationFilter
-        moderationTitle="Посилання та фішингові сайти"
-        moderationList="Небажані посилання та сайти"
-        endpoint="links"
-        nameForUpdate="scamLinks"
-      />
+
+      <section >
+        <h1 className={styles.TitleModeration}>Фільтри автомодерації</h1>
+        <div className={styles.settingsContainer}>
+
+          <AutoModerationFilter
+            moderationTitle="Погані слова"
+            moderationList="Мат, небажані вирази"
+            endpoint="badword"
+            nameForUpdate="badwords"
+            activeSlider={true}
+
+          />
+          <AutoModerationFilter
+            moderationTitle="Ліміти"
+            moderationList="Редагувати ліміти"
+            endpoint="limits"
+            activeSlider={false}
+
+          />
+          <AutoModerationFilter
+            moderationTitle="Повторний текст"
+            moderationList="Нікому надмірний флуд не потрібний"
+            endpoint="spam"
+            nameForUpdate="spam"
+            activeSlider={true}
+          />
+          <AutoModerationFilter
+            moderationTitle="Посилання та фішингові сайти"
+            moderationList="Небажані посилання та сайти"
+            endpoint="links"
+            nameForUpdate="scamLinks"
+            activeSlider={true}
+          />
+
+          <AutoModerationFilter
+            moderationTitle="Кількість ХР"
+            moderationList="Редагувати видачу досвіду учасникам"
+            endpoint="number-of-xp"
+            activeSlider={false}
+
+          />
+          <AutoModerationFilter
+            moderationTitle="Фан команди"
+            moderationList="Редагувати доступ користування команд"
+            endpoint="commands"
+            activeSlider={false} // без лапок!
+          />
+        </div>
+
+      </section>
+
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -147,12 +175,6 @@ export const Settings = () => {
         pauseOnHover
         theme="dark"
         transition={Bounce}
-      />
-      <AutoModerationFilter
-        moderationTitle="Кількість ХР"
-        moderationList="Редагувати видачу досвіду учасникам"
-        endpoint="number-of-xp"
-        nameForUpdate="badwords"
       />
       {/* </motion.div> */}
     </>

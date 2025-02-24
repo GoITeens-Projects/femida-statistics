@@ -339,14 +339,4 @@ export const BadWordPage = () => {
 
 
 
-// funCommands: {
-//     winkLvl: { type: Number, default: 15 },
-//     cryLvl: { type: Number, default: 15 },
-//     patLvl: { type: Number, default: 15 },
-//     nopeLvl: { type: Number, default: 10 },
-//     waveLvl: { type: Number, default: 10 },
-//     highfiveLvl: { type: Number, default: 5 },
-//     hugLvl: { type: Number, default: 0 },
-//     pokeLvl: { type: Number, default: 0 },
-//     slapLvl: { type: Number, default: 0 },
-// },
+
