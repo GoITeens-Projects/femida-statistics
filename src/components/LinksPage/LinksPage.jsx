@@ -109,7 +109,7 @@ const LinksPage = () => {
   const handleBackClick = () => {
     console.log(tags.length);
     if (settings.settings.scamLinks.targetLinks.length !== tags.length) {
-      console.log('slslslsl');
+      // console.log('slslslsl');
       setIsChangesSaved(false);
     } else {
         navigate('/settings')

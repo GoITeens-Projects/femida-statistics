@@ -163,6 +163,24 @@
   margin-top: 5px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   z-index: 10;
+  height: 200px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: var(--chart-accent-color) transparent;
+
+  ::-webkit-scrollbar {
+    width: 2px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #91ccf4;
+    border-radius: 20px;
+  }
+
 }
 
 .dropdown-item {

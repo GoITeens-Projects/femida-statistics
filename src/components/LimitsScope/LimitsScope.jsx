@@ -21,18 +21,18 @@ const LimitsScope = () => {
 
   const handleSaveLimits = evt => {
     evt.preventDefault();
-    dispatch({
-      type: 'limits',
-      settings: {
-        actions: {
-          ignoreAdmins: isIgnoreAdmins,
-        },
-        targetRoles: selectedRoles,
-        missedRoles: selectedMissedRoles,
-        targetChannels: selectedChannels,
-        missedChannels: selectedMissedChannel,
-      },
-    });
+    // dispatch({
+    //   type: 'limits',
+    //   settings: {
+    //     actions: {
+    //       ignoreAdmins: isIgnoreAdmins,
+    //     },
+    //     targetRoles: selectedRoles,
+    //     missedRoles: selectedMissedRoles,
+    //     targetChannels: selectedChannels,
+    //     missedChannels: selectedMissedChannel,
+    //   },
+    // });
     toast.success('Область дії загальних лімітів збережено', {
       position: 'top-right',
       autoClose: 5000,

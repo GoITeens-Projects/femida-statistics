@@ -1,0 +1,283 @@
+.container {
+    width: calc(100% - (1.771vw + 2.054vw));
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85vw;
+    background-color: var(--bg-modal-color);
+    border: 1px solid var(--chart-color);
+    padding: 0 1.771vw 1.346vw 2.054vw;
+    font-family: IBM Plex Sans;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: var(--text-color);
+  }
+
+  .subcontainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.06vw;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .checkboxMainCountainer{
+    display: flex;
+    flex-direction: row;
+    gap: 1.06vw;
+  }
+
+  .label {
+    background-color: var(--bg-primary-color);
+    border: 2px solid var(--shadow-secondary-color);
+    font-family: IBM Plex Sans;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 13px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    position: relative;
+    padding: 0.425vw 0.07vw;
+    /* padding: 0.708vw 0.708vw 0.708vw 1.417vw; */
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    
+  }
+  
+  .students-label {
+    background-color: var(--bg-primary-color);
+    border: 2px solid var(--shadow-secondary-color);
+    font-family: IBM Plex Sans;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 13px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    position: relative;
+    /* padding: 0.708vw 0.708vw 0.708vw 1.417vw; */
+    /* padding: 0.708vw 0.708vw 0.708vw 1.417vw; */
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    
+  }
+
+  .input{
+    line-height: normal;
+    border: none;
+    max-width: 14.9vw; 
+    /* 205 */
+    margin: 0.35vw;
+    background-color: var(--bg-primary-color);
+    color: var(--text-color);
+  }
+
+  .subtitle {
+    font-family: IBM Plex Mono;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+    /* text-align: left; */
+    /* text-underline-position: from-font; */
+    /* text-decoration-skip-ink: none; */
+    color: var(--text-accent-color);
+    margin-top: 1.06vw;
+  }
+
+  .list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.06vw;
+  }
+
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 0.354vw;
+  }
+
+  .limitsScopesCheckboxLabel {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+    /* margin: 8px 0; */
+    position: relative;
+    color: var(--text-color);
+  }
+  
+  .limitsScopesCheckboxLabel input {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+  
+  .limitsScopesCheckboxSpan {
+    height: 20px;
+    width: 20px;
+    background-color: var(--bg-modal-color);
+    /* Світлий фон */
+    border: 1px solid var(--shadow-secondary-border);
+    /* Колір рамки */
+    border-radius: 2px;
+    /* Скруглені кути */
+    display: inline-block;
+    position: relative;
+    margin-right: 8px;
+  }
+  
+  .limitsScopesCheckboxLabel input:checked + .limitsScopesCheckboxSpan {
+    background-color: var(--shadow-secondary-border);
+    /* Колір фону для чекнутого стану */
+    border-color: var(--shadow-secondary-border);
+    /* Синхронізуємо колір рамки з фоном */
+  }
+  
+  .limitsScopesCheckboxLabel input:checked + .limitsScopesCheckboxSpan::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid #fff;
+    /* Білий колір галочки */
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .limitsScope {
+    /* width: 70%; */
+    border: 1px solid #91ccf4;
+    background-color: var(--bg-modal-color);
+    padding: 15px 25px;
+    width: 78vw;
+  }
+  
+  .limitsScopeBlock {
+  }
+  
+  .limitsScopeTitle {
+    color: #678f95;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+  }
+  
+  .limitsScopeBox {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    /* margin-top: 12px; */
+  }
+  
+  .limitsScopeSubtitle {
+    color: #000;
+    font-family: 'IBM Plex Sans';
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+  }
+  
+  .limitsScopeList {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px 19px;
+  }
+  
+  .limitsScopeItem {
+    position: relative;
+    width: 400px;
+    /* height: 36px; */
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--btn-accent-color);
+    background-color: #fff;
+    padding: 10px 20px;  
+  }
+  
+  .limitsScopeSelect {
+    width: 300px;
+    height: 37px;
+  }
+
+  
+/*! випадаючий список */
+/* Dropdown.css */
+.dropdown-container {
+    position: relative;
+    /* width: 300px; */
+  }
+  
+  .dropdown-button {
+    /* width: 100%; */
+    /* background: white; */
+    /* border: 2px solid #b0c4c7; */
+    /* border-radius: 8px; */
+    /* padding: 10px; */
+    /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
+    text-align: left;
+    cursor: pointer;
+    font-size: 16px;
+    position: relative;
+    width: 400px;
+  }
+  
+  .dropdown-arrow {
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--shadow-secondary-border);
+    /* background: #96B8BD; */
+  
+  }
+  
+  .dropdown-list {
+    position: absolute;
+    max-height: 150px; /* Обмеження висоти для скролу */
+    overflow-y: auto;
+    width: 100%;
+    background: white;
+    border: 1px solid #b0c4c7;
+    border-radius: 8px;
+    margin-top: 5px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+  }
+  
+  .dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    /* justify-content:center; */
+    font-family: IBM Plex Mono;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+    color: var(--text-color)
+  }
+  
+  .dropdown-item:hover {
+    background: #f0f4f5;
+  }
+
+  .confirm-changes-button{
+    padding: 0.425vw 1.275vw;
+    background-color: var(--chart-accent-color);
+    color: var(--bg-primary-color);
+    margin-top: 1.06vw;
+  }

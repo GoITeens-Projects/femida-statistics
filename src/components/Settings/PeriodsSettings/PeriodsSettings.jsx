@@ -1,8 +1,14 @@
-import styles from './PeriodsSettings.module.css';
+import s from './PeriodsSettings.module.css';
 import Shadow from '../../Shadow/Shadow';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import flatpickr from 'flatpickr';
 import LimitsScope from 'components/LimitsScope/LimitsScope';
+import {
+  selectSettingsTextChannels,
+  selectSettingsVoiceChannels,
+  selectSettingsRoles
+} from '../../../redux/settings/selectors';
 
 export const PeriodsSettings = ({
   id,
@@ -12,15 +18,30 @@ export const PeriodsSettings = ({
   thisDisabled,
   onSubmitChanges,
   onDelete,
-  thisStartDateStr,
-  thisEndDateStr,
+  thisTargetRoles,
+  thisTargetChannels
+  // thisStartDateStr,
+  // thisEndDateStr,
 }) => {
-  const [startDate, setStartDate] = useState(thisStartDate);
-  const [endDate, setEndDate] = useState(thisEndDate);
-  const [startDateStr, setStartDateStr] = useState(thisStartDateStr);
-  const [endDateStr, setEndDateStr] = useState(thisEndDateStr);
+  const textChannels = useSelector(selectSettingsTextChannels);
+  const voiceChannels = useSelector(selectSettingsVoiceChannels);
+  const channels = [...textChannels, ...voiceChannels];
+  const roles = useSelector(selectSettingsRoles)
+  const [startDate, setStartDate] = useState(thisStartDate === null ? '' : thisStartDate.slice(0, 10));
+  const [endDate, setEndDate] = useState(thisEndDate === null ? '' : thisEndDate.slice(0, 10));
+  const [requireEndDate, setRequireEndDate] = useState(thisEndDate)
+  const [requireStartDate, setRequireStartDate] = useState(thisStartDate)
+  // const [ta, setStartDateStr] = useState(thisTargetRoles);
+  // const [endDateStr, setEndDateStr] = useState(thisTargetChannels);
   const [countOfXP, setCountOfXP] = useState(thisCountOfXP);
   const [disabled, setDisabled] = useState(thisDisabled);
+  const [isIgnoreAdmins, setIsIgnoreAdmins] = useState(false);
+  const [isOpenRoles, setIsOpenRoles] = useState(false);
+  const [selectedRoles, setSelectedRoles] = useState(roles.filter(role =>  thisTargetRoles.some(cur => role.id === cur )));
+  const [isOpenChannels, setIsOpenChannels] = useState(false);
+  const [selectedChannels, setSelectedChannels] = useState(channels.filter(role =>  thisTargetChannels.some(cur => role.id === cur )));
+  // const options = ['Адміністратор', 'Користувач', 'Модератор'];
+console.log('requireStartDate',requireStartDate);
 
   const onCheckbox = () => {
     disabled ? setDisabled(false) : setDisabled(true);
@@ -33,8 +54,11 @@ export const PeriodsSettings = ({
     // locale: 'uk',
     // allowInput: true,
     onChange: (selectedDates, dateStr) => {
-      setStartDate(selectedDates[0]);
-      setStartDateStr(dateStr);
+      setStartDate(dateStr);
+      // console.log('selectedDates', selectedDates);
+      const date = new Date(selectedDates[0])
+      setRequireStartDate(date.toJSON())
+      // setStartDateStr(dateStr);
     },
   });
 
@@ -45,15 +69,61 @@ export const PeriodsSettings = ({
     // locale: 'uk',
     // allowInput: true,
     onChange: (selectedDates, dateStr) => {
-      setEndDate(selectedDates[0]);
-      setEndDateStr(dateStr);
+      setEndDate(dateStr);
+      const date = new Date(selectedDates[0])
+      setRequireEndDate(date.toJSON())
+      // console.log(date.toJSON());
     },
   });
 
+ 
+  const onChennelChoose = channel => {
+    let newArray = [];
+ 
+     if (selectedChannels.includes(channel)) {
+      newArray = selectedChannels.filter(el => {
+        const fltr = Object.values(el).includes(channel.id);
+        console.log('fltr', fltr);
+        return !fltr;
+      });
+    } else {
+      newArray = [channel, ...selectedChannels];
+    }  
+    console.log('new:', newArray);
+    setSelectedChannels(newArray);
+  };
+
+  const onRoleChoose = role => {
+    let newArray = [];
+    if (selectedRoles.includes(role)) {
+     newArray = selectedRoles.filter(el => {
+       const fltr = Object.values(el).includes(role.id);
+       console.log('fltr', fltr);
+       return !fltr;
+     });
+   } else {
+     newArray = [role, ...selectedRoles];
+   }  
+
+   console.log('new:', newArray);
+   setSelectedRoles(newArray);
+ };
+
+ const onSubmitClick = ()=> {
+  onSubmitChanges(
+    requireStartDate,
+    requireEndDate,
+    countOfXP,
+    disabled,
+    id,
+    selectedChannels,
+    selectedRoles,
+  )
+ }
   // const
   return (
     <>
-      <div className={styles['container']}>
+      <div className={s['container']}>
         <Shadow
           leftFirst={-7}
           widthFirst={5}
@@ -63,15 +133,15 @@ export const PeriodsSettings = ({
           backgroundBoth={'var(--chart-accent-color)'}
           borderColorBoth={'var(--border-accent-color)'}
         />
-        <button type="button" className={styles['close-button']}>
+        <button type="button" className={s['close-button']}>
           ◄
         </button>
-        <p className={styles['subtitle']}>Період видачі ХР</p>
-        <div className={styles['date-subcountainer']}>
-          <div className={styles['date-countainer']}>
+        <p className={s['subtitle']}>Період видачі ХР</p>
+        <div className={s['date-subcountainer']}>
+          <div className={s['date-countainer']}>
             <p>З</p>
             <label
-              className={styles[`date-label${disabled ? '-disabled' : ''}`]}
+              className={s[`date-label${disabled ? '-disabled' : ''}`]}
             >
               <Shadow
                 leftFirst={-7}
@@ -83,20 +153,20 @@ export const PeriodsSettings = ({
                 borderColorBoth={'var( --shadow-settings-border)'}
               />
               <input
-                className={styles['date-input']}
+                className={s['date-input']}
                 disabled={disabled}
                 type="text"
                 autocomplete="off"
                 name="start"
                 id="start"
-                value={startDateStr}
+                value={startDate}
                 readOnly={true}
                 placeholder="DD/MM/YYYY"
               />
             </label>
             <p>до</p>
             <label
-              className={styles[`date-label${disabled ? '-disabled' : ''}`]}
+              className={s[`date-label${disabled ? '-disabled' : ''}`]}
             >
               <Shadow
                 leftFirst={-7}
@@ -108,29 +178,29 @@ export const PeriodsSettings = ({
                 borderColorBoth={'var(--shadow-settings-border)'}
               />
               <input
-                className={styles['date-input']}
+                className={s['date-input']}
                 disabled={disabled}
                 type="text"
                 autocomplete="off"
                 name="end"
                 id="end"
                 readOnly={true}
-                value={endDateStr}
+                value={endDate}
                 placeholder="DD/MM/YYYY"
               />
             </label>
           </div>
-          <div className={styles['checkbox-container']}>
-            <label className={styles.limitsScopesCheckboxLabel}>
+          <div className={s['checkbox-container']}>
+            <label className={s.limitsScopesCheckboxLabel}>
               <input type="checkbox" onChange={onCheckbox} checked={disabled} />
-              <span className={styles.limitsScopesCheckboxSpan}></span>
+              <span className={s.limitsScopesCheckboxSpan}></span>
             </label>
-            <p className={styles.limitsScopeSubtitle}>Необмежений</p>
+            <p className={s.limitsScopeSubtitle}>Необмежений</p>
           </div>
         </div>
 
-        <p className={styles['subtitle']}>Кількість ХР</p>
-        <label className={styles['count-label']}>
+        <p className={s['subtitle']}>Кількість ХР</p>
+        <label className={s['count-label']}>
           <Shadow
             leftFirst={-7}
             widthFirst={5}
@@ -141,7 +211,7 @@ export const PeriodsSettings = ({
             borderColorBoth={'var(--shadow-settings-border)'}
           />
           <input
-            className={styles['count-input']}
+            className={s['count-input']}
             type="number"
             min={0}
             autocomplete="off"
@@ -152,28 +222,130 @@ export const PeriodsSettings = ({
             onChange={e => setCountOfXP(Number(e.currentTarget.value))}
           />
         </label>
-        <div>
-          <p className={styles['subtitle']}>
+        <div className={s.subcountainer}>
+          <p className={s['subtitle']}>
             Область дії видачі ХР за певний період
           </p>
-
-          <LimitsScope />
+          <div className={s.limitsScopeAdminBox}>
+        <label className={s.limitsScopesCheckboxLabel}>
+          <input
+            type="checkbox"
+            onChange={evt => {
+              setIsIgnoreAdmins(evt.target.checked);
+            }}
+          />
+          <span className={s.limitsScopesCheckboxSpan}></span>
+        </label>
+        <p className={s.limitsScopeSubtitle}>
+          Не поширювати на Адміністраторів і Модераторів
+        </p>
+      </div>
+      <ul className={s.limitsScopeList}>
+        <li className={s.limitsScopeItem}>
+          <Shadow
+            leftFirst={-7}
+            widthFirst={5}
+            heightSecond={5}
+            rightSecond={3}
+            bottomSecond={-7}
+            backgroundBoth={'var(--shadow-secondary-border)'}
+            borderColorBoth={'var(--chart-accent-color)'}
+          />
+          <div className={s['dropdown-container']}>
+            <button
+              className={s['dropdown-button']}
+              onClick={() => setIsOpenRoles(!isOpenRoles)}
+            >
+              {selectedRoles.length > 0
+                ? selectedRoles.map(ch => ch.name).join('; ').length > 40
+                  ? `${selectedRoles
+                      .map(ch => ch.name)
+                      .join('; ')
+                      .slice(0, 40)}...`
+                  : selectedRoles.map(ch => ch.name).join('; ')
+                : 'Цільові ролі'}
+              <span className={s['dropdown-arrow']}>{isOpenRoles ? '▼' : '◄'}</span>
+            </button>
+            {isOpenRoles && (
+              <ul className={s['dropdown-list']}>
+                {roles.map((option, index) => (
+                  <li key={index} className={s['dropdown-item']}>
+                    <div className={s.limitsScopeBox}>
+                      <label className={s.limitsScopesCheckboxLabel}>
+                        <input
+                          type="checkbox"
+                          onChange={() => {
+                            onRoleChoose(option);
+                          }}
+                          checked={selectedRoles.includes(option)}
+                        />
+                        <span className={s.limitsScopesCheckboxSpan}></span>
+                      </label>
+                      <p className={s.limitsScopeSubtitle}>
+                        {option.name}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </li>
+        <li className={s.limitsScopeItem}>
+          <Shadow
+            leftFirst={-7}
+            widthFirst={5}
+            heightSecond={5}
+            rightSecond={3}
+            bottomSecond={-7}
+            backgroundBoth={'var(--shadow-secondary-border)'}
+            borderColorBoth={'var(--chart-accent-color)'}
+          />
+          <div className={s['dropdown-container']}>
+            <button
+              className={s['dropdown-button']}
+              onClick={() => setIsOpenChannels(!isOpenChannels)}
+            >
+              {selectedChannels.length > 0
+                ? selectedChannels.map(ch => ch.name).join('; ').length > 40
+                  ? `${selectedChannels
+                      .map(ch => ch.name)
+                      .join('; ')
+                      .slice(0, 40)}...`
+                  : selectedChannels.map(ch => ch.name).join('; ')
+                : 'Цільові канали'}
+              <span className={s['dropdown-arrow']}>{isOpenChannels ? '▼' : '◄'}</span>
+            </button>
+            {isOpenChannels && (
+              <ul className={s['dropdown-list']}>
+                {channels.map((option, index) => (
+                  <li key={index} className={s['dropdown-item']}>
+                    <div className={s.limitsScopeBox}>
+                      <label className={s.limitsScopesCheckboxLabel}>
+                        <input
+                          type="checkbox"
+                          onChange={() => {
+                            onChennelChoose(option);
+                          }}
+                          checked={selectedChannels.includes(option)}
+                        />
+                        <span className={s.limitsScopesCheckboxSpan}></span>
+                      </label>
+                    </div>
+                    <p className={s.limitsScopeSubtitle}>{option.name}</p>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </li>
+      </ul>
         </div>
         <div>
           <button
             type="button"
-            className={styles['confirm-changes-button']}
-            onClick={() =>
-              onSubmitChanges(
-                `${startDate}`,
-                `${endDate}`,
-                startDateStr,
-                endDateStr,
-                countOfXP,
-                disabled,
-                id
-              )
-            }
+            className={s['confirm-changes-button']}
+            onClick={onSubmitClick}
           >
             Підтвердити зміни
           </button>
@@ -181,7 +353,7 @@ export const PeriodsSettings = ({
 
         <button
           type="button"
-          className={styles['delete-button']}
+          className={s['delete-button']}
           onClick={() => onDelete(id)}
         >
           <svg

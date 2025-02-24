@@ -1,10 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchSettings } from './operation';
+import { fetchChannels, fetchSettings, fetchRoles } from './operation';
 
 const settingsSlice = createSlice({
     name: 'settings',
     initialState: {
-        data: null,
+        data: [],
+        textChannels: [],
+        voiceChannels: [],
+        roles: [],
         loading: false,
         error: null,
     },
@@ -20,6 +23,28 @@ const settingsSlice = createSlice({
                 state.data = action.payload;
             })
             .addCase(fetchSettings.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+                console.log(state.data);
+
+            })
+            .addCase(fetchChannels.fulfilled, (state, action) => {
+                state.loading = false;
+                state.textChannels = action.payload.text.channels;
+                state.voiceChannels = action.payload.voice.channels
+            })
+            .addCase(fetchChannels.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+                console.log(state.data);
+
+            })
+            .addCase(fetchRoles.fulfilled, (state, action) => {
+                state.loading = false;
+                state.roles = action.payload
+                
+            })
+            .addCase(fetchRoles.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
                 console.log(state.data);
