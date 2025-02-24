@@ -7,10 +7,25 @@ import {
   selectSettingsVoiceChannels,
 } from '../../../redux/settings/selectors';
 
-export const BasicXPSettings = () => {
+export const BasicXPSettings = (
+ { thisMessage,
+  thisVoice,
+  thisStage,
+  thisBoost,
+  thisVoiceWithAdmin,
+  // thisStudentsK
+  thisInvite,
+  onSubmit}
+) => {
   const textChannels = useSelector(selectSettingsTextChannels);
   const voiceChannels = useSelector(selectSettingsVoiceChannels);
-  const [checked, setChecked] = useState('коефіцієнт');
+  const [studentsK, setStudentsK] = useState(0);
+  const [message, setMessage] = useState(thisMessage);
+  const [voice, setVoice] = useState(thisVoice);
+  const [stage, setStage] = useState(thisStage);
+  const [boost, setBoost] = useState(thisBoost);
+  const [voiceWithAdmin, setVoiceWithAdmin] = useState(thisVoiceWithAdmin);
+  const [invite, setInvite] = useState(thisInvite);
   const [isIgnoreAdmins, setIsIgnoreAdmins] = useState(false);
   const [isOpenRoles, setIsOpenRoles] = useState(false);
   const [selectedRoles, setSelectedRoles] = useState('Цільові ролі');
@@ -19,9 +34,11 @@ export const BasicXPSettings = () => {
   const options = ['Адміністратор', 'Користувач', 'Модератор'];
   const channels = [...textChannels, ...voiceChannels];
 
-  const onChecked = el => {
-    setChecked(el);
-  };
+  // const onChecked = el => {
+  //   setChecked(el);
+  // };
+  console.log('message', message);
+  console.log('thisMessage', thisMessage);
 
   const onChennelChoose = channel => {
     let newArray = [];
@@ -62,7 +79,13 @@ export const BasicXPSettings = () => {
               borderColorBoth={'var( --shadow-settings-border)'}
             />
 
-            <input type="number" className={s['input']} />
+            <input
+              type="number"
+              name="message"
+              value={`${message}`}
+              onChange={e => setMessage(Number(e.currentTarget.value))}
+              className={s['input']}
+            />
           </label>
         </li>
         <li>
@@ -78,7 +101,13 @@ export const BasicXPSettings = () => {
               borderColorBoth={'var( --shadow-settings-border)'}
             />
 
-            <input type="number" className={s['input']} />
+            <input
+              type="number"
+              name="voice"
+              value={`${voice}`}
+              onChange={e => setVoice(Number(e.currentTarget.value))}
+              className={s['input']}
+            />
           </label>
         </li>
         <li>
@@ -94,7 +123,13 @@ export const BasicXPSettings = () => {
               borderColorBoth={'var( --shadow-settings-border)'}
             />
 
-            <input type="number" className={s['input']} />
+            <input
+              type="number"
+              name="stage"
+              value={`${stage}`}
+              onChange={e => setStage(Number(e.currentTarget.value))}
+              className={s['input']}
+            />
           </label>
         </li>
         <li>
@@ -110,7 +145,13 @@ export const BasicXPSettings = () => {
               borderColorBoth={'var( --shadow-settings-border)'}
             />
 
-            <input type="number" className={s['input']} />
+            <input
+              type="number"
+              name="boost"
+              value={`${boost}`}
+              onChange={e => setBoost(Number(e.currentTarget.value))}
+              className={s['input']}
+            />
           </label>
         </li>
         <li>
@@ -126,7 +167,35 @@ export const BasicXPSettings = () => {
               borderColorBoth={'var( --shadow-settings-border)'}
             />
 
-            <input type="number" className={s['input']} />
+            <input
+              type="number"
+              name="voiceWithAdmin"
+              value={`${voiceWithAdmin}`}
+              onChange={e => setVoiceWithAdmin(Number(e.currentTarget.value))}
+              className={s['input']}
+            />
+          </label>
+        </li>
+        <li>
+          <p className={s['subtitle']}>За запрошення</p>
+          <label className={s['label']}>
+            <Shadow
+              leftFirst={-7}
+              widthFirst={5}
+              heightSecond={5}
+              rightSecond={3}
+              bottomSecond={-7}
+              backgroundBoth={'var(--shadow-secondary-border)'}
+              borderColorBoth={'var( --shadow-settings-border)'}
+            />
+
+            <input
+              type="number"
+              name="invite"
+              value={`${invite}`}
+              onChange={e => setInvite(Number(e.currentTarget.value))}
+              className={s['input']}
+            />
           </label>
         </li>
         <li>
@@ -142,12 +211,18 @@ export const BasicXPSettings = () => {
               borderColorBoth={'var( --shadow-settings-border)'}
             />
 
-            <input type="number" className={s['input']} />
+            <input
+              type="number"
+              name="studentsK"
+              value={`${studentsK}`}
+              onChange={e => setStudentsK(Number(e.currentTarget.value))}
+              className={s['input']}
+            />
           </label>
         </li>
       </ul>
-      
-      <div className={s.limitsScopeBox}>
+
+      {/* <div className={s.limitsScopeBox}>
         <label className={s.limitsScopesCheckboxLabel}>
           <input
             type="checkbox"
@@ -161,8 +236,8 @@ export const BasicXPSettings = () => {
           Не поширювати на Адміністраторів і Модераторів
         </p>
       </div>
-      <ul className={s.limitsScopeList}>
-        <li className={s.limitsScopeItem}>
+      <ul className={s.limitsScopeList}> */}
+        {/* <li className={s.limitsScopeItem}>
           <Shadow
             leftFirst={-7}
             widthFirst={5}
@@ -253,7 +328,14 @@ export const BasicXPSettings = () => {
             )}
           </div>
         </li>
-      </ul>
+      </ul> */}
+      <button
+            type="button"
+            className={s['confirm-changes-button']}
+            onClick={()=>onSubmit(message, voice, stage, boost, voiceWithAdmin, invite)}
+          >
+            Підтвердити зміни
+          </button>
     </div>
   );
 };

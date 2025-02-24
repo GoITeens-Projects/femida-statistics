@@ -274,3 +274,10 @@
   .dropdown-item:hover {
     background: #f0f4f5;
   }
+
+  .confirm-changes-button{
+    padding: 0.425vw 1.275vw;
+    background-color: var(--chart-accent-color);
+    color: var(--bg-primary-color);
+    margin-top: 1.06vw;
+  }

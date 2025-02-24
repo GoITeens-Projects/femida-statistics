@@ -25,21 +25,23 @@ export const PeriodsSettings = ({
 }) => {
   const textChannels = useSelector(selectSettingsTextChannels);
   const voiceChannels = useSelector(selectSettingsVoiceChannels);
+  const channels = [...textChannels, ...voiceChannels];
   const roles = useSelector(selectSettingsRoles)
-  const [startDate, setStartDate] = useState(thisStartDate.slice(0, 10));
-  const [endDate, setEndDate] = useState(thisEndDate.slice(0, 10));
+  const [startDate, setStartDate] = useState(thisStartDate === null ? '' : thisStartDate.slice(0, 10));
+  const [endDate, setEndDate] = useState(thisEndDate === null ? '' : thisEndDate.slice(0, 10));
+  const [requireEndDate, setRequireEndDate] = useState(thisEndDate)
+  const [requireStartDate, setRequireStartDate] = useState(thisStartDate)
   // const [ta, setStartDateStr] = useState(thisTargetRoles);
   // const [endDateStr, setEndDateStr] = useState(thisTargetChannels);
   const [countOfXP, setCountOfXP] = useState(thisCountOfXP);
   const [disabled, setDisabled] = useState(thisDisabled);
   const [isIgnoreAdmins, setIsIgnoreAdmins] = useState(false);
   const [isOpenRoles, setIsOpenRoles] = useState(false);
-  const [selectedRoles, setSelectedRoles] = useState(thisTargetRoles);
+  const [selectedRoles, setSelectedRoles] = useState(roles.filter(role =>  thisTargetRoles.some(cur => role.id === cur )));
   const [isOpenChannels, setIsOpenChannels] = useState(false);
-  const [selectedChannels, setSelectedChannels] = useState(thisTargetChannels);
+  const [selectedChannels, setSelectedChannels] = useState(channels.filter(role =>  thisTargetChannels.some(cur => role.id === cur )));
   // const options = ['Адміністратор', 'Користувач', 'Модератор'];
-  const channels = [...textChannels, ...voiceChannels];
-console.log('thisTargetRoles', thisTargetRoles);
+console.log('requireStartDate',requireStartDate);
 
   const onCheckbox = () => {
     disabled ? setDisabled(false) : setDisabled(true);
@@ -53,6 +55,9 @@ console.log('thisTargetRoles', thisTargetRoles);
     // allowInput: true,
     onChange: (selectedDates, dateStr) => {
       setStartDate(dateStr);
+      // console.log('selectedDates', selectedDates);
+      const date = new Date(selectedDates[0])
+      setRequireStartDate(date.toJSON())
       // setStartDateStr(dateStr);
     },
   });
@@ -65,7 +70,9 @@ console.log('thisTargetRoles', thisTargetRoles);
     // allowInput: true,
     onChange: (selectedDates, dateStr) => {
       setEndDate(dateStr);
-      // setEndDateStr(dateStr);
+      const date = new Date(selectedDates[0])
+      setRequireEndDate(date.toJSON())
+      // console.log(date.toJSON());
     },
   });
 
@@ -101,6 +108,18 @@ console.log('thisTargetRoles', thisTargetRoles);
    console.log('new:', newArray);
    setSelectedRoles(newArray);
  };
+
+ const onSubmitClick = ()=> {
+  onSubmitChanges(
+    requireStartDate,
+    requireEndDate,
+    countOfXP,
+    disabled,
+    id,
+    selectedChannels,
+    selectedRoles,
+  )
+ }
   // const
   return (
     <>
@@ -326,17 +345,7 @@ console.log('thisTargetRoles', thisTargetRoles);
           <button
             type="button"
             className={s['confirm-changes-button']}
-            onClick={() =>
-              onSubmitChanges(
-                `${startDate}T00:00:00.000Z`,
-                `${endDate}T00:00:00.000Z`,
-                countOfXP,
-                disabled,
-                id,
-                selectedChannels,
-                selectedRoles,
-              )
-            }
+            onClick={onSubmitClick}
           >
             Підтвердити зміни
           </button>
