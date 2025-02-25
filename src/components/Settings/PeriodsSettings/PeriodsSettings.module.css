@@ -149,7 +149,7 @@
 }
 
 .container {
-  width: calc(100% - (1.771vw + 2.054vw));
+  width: calc(90% - (1.771vw + 2.054vw));
   position: relative;
   display: flex;
   flex-direction: column;
