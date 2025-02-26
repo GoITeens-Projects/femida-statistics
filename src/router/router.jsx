@@ -16,6 +16,7 @@ import { SpamPage } from 'components/Settings/Spam/Spam';
 import { CountOfXPPage } from 'components/Settings/CountOfXp/CountOfXpPage';
 import LinksPage from 'components/LinksPage/LinksPage';
 import { CommandsPage } from 'components/Settings/Commands/CommandsPage';
+import { Emojis } from 'components/Settings/Emojis/Emojis';
 
 export const router = createBrowserRouter([
   {
@@ -78,6 +79,10 @@ export const router = createBrowserRouter([
         path: '/settings/commands',
         element: <PrivateRoute component={CommandsPage} redirectTo='/' />,
       },
+      {
+        path: '/settings/emojis',
+        element: <PrivateRoute component={Emojis} redirectTo='/' />,
+      }
     ],
   },
 ]);

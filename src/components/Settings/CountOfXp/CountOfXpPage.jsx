@@ -155,6 +155,7 @@ export const CountOfXPPage = () => {
       <div className={styles['navigation-container']}>
         <SettingsNavigation onHandleSave={save} onHandleBackClick={()=> navigate('/settings')}/>
       </div>
+      <h1 className={styles['title']}>Кількість XP</h1>
       <div className={styles['container']}>
         <Shadow
           leftFirst={-7}
