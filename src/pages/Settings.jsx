@@ -25,9 +25,9 @@ export const Settings = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchSettings());
-    dispatch(fetchChannels());
-    dispatch(fetchRoles())
+    // dispatch(fetchSettings());
+    // dispatch(fetchChannels());
+    // dispatch(fetchRoles())
   }, [dispatch]);
 
   if (loading) return <p>Завантаження...</p>;
