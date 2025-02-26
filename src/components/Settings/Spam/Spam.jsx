@@ -53,10 +53,7 @@ export const SpamPage = () => {
     };
 
 
-    // Завантаження налаштувань при рендері компонента
-    useEffect(() => {
-        dispatch(fetchSettings()); // Виклик дії для завантаження налаштувань
-    }, [dispatch]);
+
 
     useEffect(() => {
         if (settings?.settings?.spam?.actions?.mute?.muteTimeMs) {

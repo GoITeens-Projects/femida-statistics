@@ -16,7 +16,7 @@ import { ClimbingBoxLoader } from 'react-spinners';
 // ();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={router}>
         <PersistGate loading={
@@ -32,5 +32,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         </PersistGate>
       </RouterProvider>
     </Provider>
-  // </React.StrictMode>
+   </React.StrictMode>
 );
