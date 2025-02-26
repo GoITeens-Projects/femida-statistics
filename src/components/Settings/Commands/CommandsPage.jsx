@@ -34,9 +34,7 @@ export const CommandsPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        dispatch(fetchSettings());
-    }, [dispatch]);
+
     useEffect(() => {
         if (settings?.settings?.funCommands) {
             setCommandLevels(prevLevels => {

@@ -45,6 +45,7 @@ export const FormContainer = ({
                     </button>
                 )}
                 <input
+                    className={styles.Input}
                     type="text"
                     value={inputValue}
                     onChange={(e) => onInputChange(e.target.value)}

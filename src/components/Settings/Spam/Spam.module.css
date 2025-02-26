@@ -210,23 +210,34 @@ input:checked+.slider:before {
 /* Додаткові стилі слайдера */
 
 .slider {
-    background-color: white;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--slider-background);
     border: 2px solid var(--btn-accent-color);
     border-radius: 34px;
-    -webkit-transition: 0.4s;
     transition: 0.4s;
     box-sizing: border-box;
 }
 
 .slider:before {
+    position: absolute;
+    content: "";
     left: 1px;
     top: 51%;
     transform: translateY(-50%);
-    background-color: var(--shadow-secondary-border);
+    background-color: var(--slider-background-before);
+    border-radius: 50%;
+    transition: 0.4s;
+    width: 15px;
+    height: 15px;
 }
 
 input:checked+.slider {
-    background-color: var(--btn-accent-color);
+    background-color: var(--slider-background-checked);
     border-color: var(--btn-accent-color);
 }
 
@@ -289,4 +300,15 @@ input {
     font-size: 14px;
     color: var(--text-color);
     width: 833px;
+}
+
+.SliderText {
+    font-family: IBM Plex Sans;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 10.4px;
+    letter-spacing: 0%;
+    color: var(--text-color);
+    margin-top: 3px;
+    margin-left: 5px;
 }

@@ -241,48 +241,33 @@ input:checked+.slider:before {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: white;
+    background-color: var(--slider-background);
     border: 2px solid var(--btn-accent-color);
     border-radius: 34px;
-    /* Забезпечує округлення */
-    -webkit-transition: 0.4s;
     transition: 0.4s;
     box-sizing: border-box;
-    /* Гарантує, що padding і border враховані */
 }
 
 .slider:before {
     position: absolute;
     content: "";
     left: 1px;
-    /* Центруємо по горизонталі */
     top: 51%;
-    /* Вирівнюємо по вертикалі */
     transform: translateY(-50%);
-    /* Центруємо точно по центру */
-    background-color: var(--shadow-secondary-border);
-    /* Кольор кругляшка */
+    background-color: var(--slider-background-before);
     border-radius: 50%;
-    /* Зробити кругляшок круглим */
-    -webkit-transition: 0.4s;
     transition: 0.4s;
+    width: 15px;
+    height: 15px;
 }
 
-
-/* Styles when checked */
-
 input:checked+.slider {
-    background-color: var(--btn-accent-color);
-    /* Той самий фон */
+    background-color: var(--slider-background-checked);
     border-color: var(--btn-accent-color);
-    /* Той самий колір обводки */
 }
 
 input:checked+.slider:before {
     transform: translate(25px, -50%);
-    /* Переміщаємо кругляшок в праву частину */
-    background-color: var(--shadow-secondary-border);
-    /* Кольор кругляшка лишається незмінним */
 }
 
 
