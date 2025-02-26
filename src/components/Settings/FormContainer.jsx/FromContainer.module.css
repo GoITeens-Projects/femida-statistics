@@ -454,14 +454,15 @@
         color: #2d4a5d;
     }
     
-    input {
+    .Input {
         border: none;
         outline: none;
         padding: 5px;
         flex-grow: 1;
         background: transparent;
         font-size: 14px;
-        color: #d6d6d6;
+        color: var(--text-color);
+        width: 50px;
     }
     /* ? */
     /* *modal */

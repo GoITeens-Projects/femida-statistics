@@ -30,7 +30,7 @@ export const AutoModerationFilter = ({
     setIsEnabled(!isEnabled);
     dispatch(PatchSettings({ settings: { [nameForUpdate]: { enabled: !isEnabled } } }));
   };
-  console.log(isEnabled);
+
 
 
 

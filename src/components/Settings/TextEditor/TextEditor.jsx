@@ -80,15 +80,14 @@ const TextEditor = ({ onChange, initialContent = "" }) => {
   const modules = {
     toolbar: [
       ["bold", "italic", "underline", "strike"],
-      ["blockquote"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      ["link", "image"],
+
       ["clean"],
     ],
   };
 
   return (
-    <div>
+    <div className={styles.Container}>
+      <h1 className={styles.Title}>Поле для повідомлення участнику</h1>
       <ReactQuill
         value={content}
         onChange={handleChange}

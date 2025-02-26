@@ -28,6 +28,8 @@ export const Settings = () => {
     dispatch(fetchSettings());
     dispatch(fetchChannels());
     dispatch(fetchRoles())
+
+
   }, [dispatch]);
 
   if (loading) return <p>Завантаження...</p>;

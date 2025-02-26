@@ -11,6 +11,8 @@ export const fetchSettings = createAsyncThunk('settings/fetchSettings', async (_
                     Authorization: `Bearer ${accessToken}`,
                 },
             },);
+        console.log('фетч сетінг');
+
         return response.data; // Передача отриманих даних
     } catch (error) {
         return thunkApi.rejectWithValue(
@@ -22,10 +24,10 @@ export const fetchSettings = createAsyncThunk('settings/fetchSettings', async (_
 export const PatchSettings = createAsyncThunk('settings/setting', async (body, thunkApi) => {
     try {
         const accessToken = localStorage.getItem('token');
-        console.log(accessToken);
-        console.log('Headers:', {
-            Authorization: `Bearer ${accessToken}`,
-        });
+
+        // console.log('Headers:', {
+        //     Authorization: `Bearer ${accessToken}`,
+        // });
         const res = await axios.patch('/settings', body,
             {
                 headers: {
@@ -49,13 +51,13 @@ export const fetchChannels = createAsyncThunk('settings/fetchChannels', async (_
                 },
             },);
 
-            const voiceChannels = await axios.get('https://femida-api.onrender.com/discord/channels?type=2',
-                {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    },
-                },);
-        return {text: textChannels.data, voice: voiceChannels.data} // Передача отриманих даних
+        const voiceChannels = await axios.get('https://femida-api.onrender.com/discord/channels?type=2',
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            },);
+        return { text: textChannels.data, voice: voiceChannels.data } // Передача отриманих даних
     } catch (error) {
         return thunkApi.rejectWithValue(
             error.response?.data?.message || 'Помилка завантаження налаштувань'

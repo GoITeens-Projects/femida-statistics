@@ -104,3 +104,24 @@
 .tiptap {
     border: 1px solid transparent !important;
 }
+
+.Container {
+    margin-top: 50px;
+}
+
+.Title {
+    font-family: IBM Plex Mono;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 20.8px;
+    letter-spacing: 0%;
+    color: var(--text-color);
+}
+
+.ql-snow .ql-stroke {
+    fill: none;
+    stroke: red;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+}
