@@ -269,7 +269,22 @@ input:focus + .slider {
 /* компонент лімітів */
 
 .Container {
-  margin-top: 20px;
+  width: calc(100% - (1.771vw + 2.054vw));
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85vw;
+  background-color: var(--bg-modal-color);
+  border: 1px solid var(--chart-color);
+  padding: 0 1.771vw 1.346vw 2.054vw;
+  font-family: IBM Plex Sans;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: var(--text-color);
 }
 
 .TitleBadWords {

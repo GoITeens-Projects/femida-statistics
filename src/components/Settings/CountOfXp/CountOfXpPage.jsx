@@ -16,6 +16,8 @@ import { BasicXPSettings } from '../BasicXPSettings/BasicXPSettings';
 import { nanoid } from 'nanoid';
 import { selectSettingsData } from '../../../redux/settings/selectors';
 import { useNavigate } from 'react-router-dom';
+import { UnsavedChangesModal } from '../BadWord/UnsavedChangesModal';
+import { RiKeyLine } from 'react-icons/ri';
 
 export const CountOfXPPage = () => {
   const dispatch = useDispatch();
@@ -28,6 +30,8 @@ export const CountOfXPPage = () => {
 
   const [isActivityDropdownOpen, setIsActivityDropdownOpen] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState('messages');
+  const [isChangesSaved, setIsChangesSaved] = useState(true);
+
   const countOfXpArray = useSelector(selectCountOfXP);
   const settings = useSelector(selectSettingsData);
   const events = settings.settings.events ? settings.settings.events : [];
@@ -36,21 +40,21 @@ export const CountOfXPPage = () => {
 
   console.log('settings.settings', settings.settings.xps.message);
 
-  const currentArray = events.filter(el => {
-    const fltr = el.activities[selectedActivity];
-    return fltr;
-  });
+  // const events = events.filter(el => {
+  //   const fltr = el.activities[selectedActivity];
+  //   return fltr;
+  // });
 
   const save = () => {
     const newArray = events.map(element => {
       if (
-        currentArray.some(
+        events.some(
           cur =>
             element._id === cur._id &&
             JSON.stringify(element) === JSON.stringify(cur)
         )
       ) {
-        return currentArray.find(el => el._id === element._id);
+        return events.find(el => el._id === element._id);
       } else {
         return element;
       }
@@ -58,16 +62,22 @@ export const CountOfXPPage = () => {
     console.log('newArray', newArray);
   };
 
-  console.log('currentArray', currentArray);
+  const handleDiscardChanges = () => {
+    setIsChangesSaved(true);
+    navigate('/settings');
+  };
 
   const onSubmitChanges = (
     startDate,
     endDate,
     countOfXP,
-    disabled,
     id,
     targetChannels,
-    targetRoles
+    targetRoles,
+    messages,
+    voice,
+    stage,
+    boosts
   ) => {
     // if(startDate === '' || endDate === '') return
     const newArray = events.map(element => {
@@ -76,10 +86,10 @@ export const CountOfXPPage = () => {
       if (element._id === id) {
         return {
           activities: {
-            messages: selectedActivity === 'messages',
-            voice: selectedActivity === 'voice',
-            stage: selectedActivity === 'stage',
-            boosts: selectedActivity === 'boosts',
+            messages: messages,
+            voice: voice,
+            stage: stage,
+            boosts: boosts,
           },
           startDate,
           endDate,
@@ -124,15 +134,15 @@ export const CountOfXPPage = () => {
           events: [
             {
               activities: {
-                messages: selectedActivity === 'messages',
-                voice: selectedActivity === 'voice',
-                stage: selectedActivity === 'stage',
-                boosts: selectedActivity === 'boosts',
+                messages: false,
+                voice: false,
+                stage: false,
+                boosts: false,
               },
               startDate: '',
               endDate: '',
-              k: 0,
-              disabled: false,
+              k: 1,
+              kLimit: 1,
             },
             ...events,
           ],
@@ -156,55 +166,43 @@ export const CountOfXPPage = () => {
         <SettingsNavigation onHandleSave={save} onHandleBackClick={()=> navigate('/settings')}/>
       </div>
       <h1 className={styles['title']}>Кількість XP</h1>
-      <div className={styles['container']}>
-        <Shadow
-          leftFirst={-7}
-          widthFirst={5}
-          heightSecond={5}
-          rightSecond={3}
-          bottomSecond={-7}
-          backgroundBoth={'var(--chart-accent-color)'}
-          borderColorBoth={'var(--border-accent-color)'}
-        />
-        <p className={styles['subtitle']}>Умови видачі ХР</p>
-        <div className={styles['dropdown-display']}>
+      
+        <div className={styles.container}>
+          <h3 className={styles.subtitle}>Назва ліміта</h3>
+          <div className={styles['dropdown-display']}>
+            <Shadow
+              leftFirst={-7}
+              widthFirst={5}
+              heightSecond={5}
+              rightSecond={3}
+              bottomSecond={-7}
+              backgroundBoth={'var(--shadow-secondary-border)'}
+              borderColorBoth={'#558DB2'}
+            />
+            <input
+              type="text"
+              placeholder="Введіть назву активності"
+              className={styles.limitsInputName}
+            />
+          </div>
           <Shadow
             leftFirst={-7}
             widthFirst={5}
             heightSecond={5}
             rightSecond={3}
             bottomSecond={-7}
-            backgroundBoth={'var(--shadow-secondary-border)'}
-            borderColorBoth={'var( --shadow-settings-border)'}
+            backgroundBoth={'var(--chart-accent-color)'}
+            borderColorBoth={'var(--border-accent-color)'}
           />
-          <button
-            className={styles['dropdown-button']}
-            onClick={() => setIsActivityDropdownOpen(!isActivityDropdownOpen)}
-          >
-            {selectedActivity}
-            <span className={styles['dropdown-arrow']}>
-              {isActivityDropdownOpen ? '◄' : '▼'}{' '}
-            </span>
-          </button>
-          {isActivityDropdownOpen && (
-            <ul className={styles['dropdown-list']}>
-              {options.map((option, index) => (
-                <li
-                  key={index}
-                  className={styles['dropdown-item']}
-                  onClick={() => {
-                    setSelectedActivity(option);
-                    setIsActivityDropdownOpen(false);
-                  }}
-                >
-                  {option}
-                </li>
-              ))}
-            </ul>
-          )}
         </div>
-      </div>
 
+        {!isChangesSaved && (
+                <UnsavedChangesModal
+                  onClose={handleDiscardChanges}
+                  onSave={save}
+                />
+              )}
+     
       {selectedActivity !== 'За замовчуванням' ? (
         <>
           <button
@@ -214,7 +212,7 @@ export const CountOfXPPage = () => {
           >
             Додати новий період
           </button>
-          {currentArray.map(el => {
+          {events.map(el => {
             return (
               <PeriodsSettings
                 key={el._id}
@@ -229,9 +227,14 @@ export const CountOfXPPage = () => {
                 thisTargetRoles={el.targetRoles}
                 onSubmitChanges={onSubmitChanges}
                 onDelete={onDelete}
+                thisMessages={el.activities.messages}
+                thisVoice={el.activities.voice}
+                thisStage={el.activities.stage}
+                thisBoosts={el.activities.boosts}
+                thisType='xp'
               />
             );
-          })}{' '}
+          })}
         </>
       ) : (
         <BasicXPSettings 

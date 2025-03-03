@@ -3,7 +3,7 @@ import { UnsavedChangesModal } from '../BadWord/UnsavedChangesModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { SettingsNavigation } from '../SettingsNavigation/SettingsNavigation';
-import styles from './Limits.module.css';
+import styles from '../CountOfXp/CountOfXPPage.module.css';
 import Shadow from 'components/Shadow/Shadow';
 import LimitsScope from 'components/LimitsScope/LimitsScope';
 import PeriodOfLimits from 'components/PereiodOfLimits/PeriodOfLimits';
@@ -13,8 +13,13 @@ import { PatchSettings } from '../../../redux/settings/operation';
 import { Trash2, ChevronDown } from 'lucide-react';
 import limitsScopeStyles from '../../LimitsScope/LimitsScope.module.css';
 import axios from '../../../redux/axiosConfig';
+import { PeriodsSettings } from '../PeriodsSettings/PeriodsSettings';
 
 export const LimitsPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const settings = useSelector(selectSettingsData);
+
   const [isChangesSaved, setIsChangesSaved] = useState(true);
   const [selectedTargetRoles, setSelectedTargetRoles] = useState([]);
   const [selectedTargetChannels, setSelectedTargetChannels] = useState([]);
@@ -39,33 +44,15 @@ export const LimitsPage = () => {
   const [isPeriodUnlimited, setIsPeriodUnlimited] = useState('');
   const [events, setEvents] = useState([]);
   const [isUnsavedModalOpen, setIsUnsavedModalOpen] = useState(false);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const settings = useSelector(selectSettingsData);
+  
+  // const settings = useSelector(selectSettingsData);
   const [targetRoles, setTargetRoles] = useState([]);
   const [targetChannels, setTargetChannels] = useState([]);
   const accessToken = localStorage.getItem('token');
-  useEffect(() => {
-    axios
-      .get('discord/roles', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then(data => {
-        // console.log(data.data.roles);
-        setTargetRoles(data.data.roles);
-      });
-    axios
-      .get('discord/channels?type=0', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then(data => {
-        setTargetChannels(data.data.channels);
-      });
-  }, []);
+
+  // useEffect(() => {
+    
+  // }, []);
 
   useEffect(() => {
     dispatch(fetchSettings()); // Виклик дії для завантаження налаштувань
@@ -209,18 +196,101 @@ export const LimitsPage = () => {
   };
   console.log(events);
 
+  const onSubmitChanges = (
+    startDate,
+    endDate,
+    coefficient,
+    id,
+    targetChannels,
+    targetRoles
+  ) => {
+    // if(startDate === '' || endDate === '') return
+    const newArray = events.map(element => {
+      // console.log('_id', element._id)
+      // console.log('id', id);;
+      if (element._id === id) {
+        return {
+          activities: {
+            messages: element.activities.messages,
+            voice: element.activities.voice,
+            stage:  element.activities.stage,
+            boosts: element.activities.boosts,
+          },
+          startDate,
+          endDate,
+          k: element.k,
+          kLimit: coefficient,
+          _id: id,
+          targetChannels: targetChannels.map(ch => ch.id),
+          targetRoles: targetRoles.map(role => role.id),
+        };
+      } else {
+        return element;
+      }
+    });
+    dispatch(
+      PatchSettings({
+        settings: {
+          events: newArray,
+        },
+      })
+    );
+    dispatch(fetchSettings());
+  };
+
+  const onDelete = id => {
+    const newArray = events.filter(el => {
+      const fltr = Object.values(el).includes(id);
+      return !fltr;
+    });
+    dispatch(
+      PatchSettings({
+        settings: {
+          events: newArray,
+        },
+      })
+    );
+    dispatch(fetchSettings());
+    // dispatch(addInfo({ type: 'countOfXP', info: newArray }));
+  };
+  const addNew = () => {
+    dispatch(
+      PatchSettings({
+        settings: {
+          events: [
+            {
+              activities: {
+                messages: false,
+                voice: false,
+                stage: false,
+                boosts:false,
+              },
+              startDate: '',
+              endDate: '',
+              k: 1,
+              kLimit: 1,
+            },
+            ...events,
+          ],
+        },
+      })
+    );
+    dispatch(fetchSettings());
+  };
+
+
   return (
-    <section>
+    <>
+       <div className={styles['navigation-container']}>
       <SettingsNavigation
         onHandleBackClick={handleBackClick}
         onHandleSave={handleSave}
       />
+</div>
 
-      <div className={styles.Container}>
-        <h1 className={styles.TitleBadWords}>Ліміти</h1>
-        <div className={styles.limitsNameBox}>
-          <h3 className={styles.limitsSubtitle}>Назва ліміта</h3>
-          <div className={styles.FromContainer}>
+      <div className={styles.container}>
+          <h3 className={styles.subtitle}>Назва ліміта</h3>
+          <div className={styles['dropdown-display']}>
             <Shadow
               leftFirst={-7}
               widthFirst={5}
@@ -246,7 +316,6 @@ export const LimitsPage = () => {
             borderColorBoth={'var(--border-accent-color)'}
           />
         </div>
-      </div>
       {!isChangesSaved && (
         <UnsavedChangesModal
           onClose={handleDiscardChanges}
@@ -254,175 +323,34 @@ export const LimitsPage = () => {
         />
       )}
 
-      <div style={{ marginTop: '50px' }}>
-        <PeriodOfLimits
-          selectedTargetRoles={selectedTargetRoles}
-          setSelectedTargetRoles={setSelectedTargetRoles}
-          selectedTargetChannels={selectedTargetChannels}
-          setSelectedTargetChannels={setSelectedTargetChannels}
-          isEventMessages={isEventMessages}
-          setIsEventMessages={setIsEventMessages}
-          isEventVoice={isEventVoice}
-          setIsEventVoice={setIsEventVoice}
-          isEventStage={isEventStage}
-          setIsEventStage={setIsEventStage}
-          isEventBoost={isEventBoost}
-          setIsEventBoost={setIsEventBoost}
-          isIgnoreAdmins={isIgnoreAdmins}
-          setIsIgnoreAdmins={setIsIgnoreAdmins}
-          startDateLimit={startDateLimit}
-          setStartDateLimit={setStartDateLimit}
-          endDateLimit={endDateLimit}
-          setEndDateLimit={setEndDateLimit}
-          coefficient={coefficient}
-          setCoefficient={setCoefficient}
-          isPeriodUnlimited={isPeriodUnlimited}
-          setIsPeriodUnlimited={setIsPeriodUnlimited}
-          handleSave={handleSave}
-        />
-      </div>
+<button
+            type="button"
+            className={styles['add-new-button']}
+            onClick={addNew}
+          >
+            Додати новий період
+          </button>
 
-      {/* <div style={{ marginTop: '50px' }}>
-        <LimitsScope />
-      </div> */}
-
-      <div style={{ marginTop: '50px' }}>
-        {events.length !== 0 && (
-          <ul className={styles.eventsList}>
-            {events.map((event, index) => {
-              const startDate = new Date(event.startDate);
-              const endDate = new Date(event.endDate);
-              const testArr = [];
-              const filtredRoles = targetRoles.filter(
-                (targetRole, index) =>
-                  targetRole.id === event.targetRoles[index]
-              );
-              const filtredChannels = targetChannels.filter(
-                (targetChannel, index) =>
-                  targetChannel.id === event.targetChannels[index]
-              );
-
-              if (event.activities.messages === true) {
-                testArr.push('Спілкування в текстових каналах');
-              }
-              if (event.activities.voice === true) {
-                testArr.push('Спілкування в голосових чатах');
-              }
-              if (event.activities.stage === true) {
-                testArr.push('Перебування на трибунах');
-              }
-              if (event.activities.boosts === true) {
-                testArr.push('Буст серверу');
-              }
-
-              return (
-                <li key={index} className={styles.eventsItem}>
-                  <p className={styles.eventsText}>
-                    Ліміт з
-                    <span className={styles.eventSpan}>
-                      {startDate.getDate()}/{startDate.getMonth() + 1}/
-                      {startDate.getFullYear()}
-                    </span>
-                    до
-                    <span className={styles.eventSpan}>
-                      {endDate.getDate()}/{endDate.getMonth() + 1}/
-                      {endDate.getFullYear()}
-                    </span>
-                    за
-                    <span className={styles.eventSpan}>
-                      {testArr.join(', ')}
-                    </span>
-                  </p>
-                  <div className={styles.eventsBox}>
-                    <button
-                      type="button"
-                      className={styles.deleteEventBtn}
-                      onClick={handleDeleteEvent}
-                      data-id={event._id}
-                    >
-                      <Trash2 />
-                    </button>
-                    <button
-                      type="button"
-                      className={styles.showMoreEventBtn}
-                      onClick={() => toggleEventDetails(index)}
-                    >
-                      <ChevronDown />
-                    </button>
-                  </div>
-                  {openEvents[index] && (
-                    <div className={styles.fullEventBox}>
-                      <h3 className={styles.fullEventTitle}>Коефіцієнт</h3>
-                      <div className={styles.fullEventCoefficientBox}>
-                        {/* <input type="text" value={event.kLimit} /> */}
-                        {event.kLimit}
-                        {/* <input
-                          type="text"
-                          className={styles.periodOfLimitsCoefficientInput}
-                          onChange={e => handleCoefficientChange(e, index)}
-                          value={event.kLimit}
-                          maxLength="6"
-                        /> */}
-                        <Shadow
-                          leftFirst={-7}
-                          widthFirst={5}
-                          heightSecond={5}
-                          rightSecond={3}
-                          bottomSecond={-7}
-                          backgroundBoth={'var(--shadow-secondary-border)'}
-                          borderColorBoth={'var(--chart-accent-color)'}
-                        />
-                      </div>
-                      <div className={styles.fullEventTargesBox}>
-                        <div className={styles.fullEventTargetRolesBox}>
-                          <h3 className={styles.fullEventTitle}>
-                            Цільові ролі
-                          </h3>
-                          <div className={styles.fullEventTargetRolesBlock}>
-                            <p>
-                              {filtredRoles.map(role => role.name).join(', ')}
-                            </p>
-                            <Shadow
-                              leftFirst={-7}
-                              widthFirst={5}
-                              heightSecond={5}
-                              rightSecond={3}
-                              bottomSecond={-7}
-                              backgroundBoth={'var(--shadow-secondary-border)'}
-                              borderColorBoth={'var(--chart-accent-color)'}
-                            />
-                          </div>
-                        </div>
-                        <div className={styles.fullEventTargetChannelsBox}>
-                          <h3 className={styles.fullEventTitle}>
-                            Цільові канали
-                          </h3>
-                          <div className={styles.fullEventTargetChannelsBlock}>
-                            <p>
-                              {filtredChannels
-                                .map(channel => channel.name)
-                                .join(', ')}
-                            </p>
-                            <Shadow
-                              leftFirst={-7}
-                              widthFirst={5}
-                              heightSecond={5}
-                              rightSecond={3}
-                              bottomSecond={-7}
-                              backgroundBoth={'var(--shadow-secondary-border)'}
-                              borderColorBoth={'var(--chart-accent-color)'}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </div>
-    </section>
+{events.map(el => {
+            return (
+              <PeriodsSettings
+                key={el._id}
+                id={el._id}
+                thisStartDate={el.startDate}
+                thisEndDate={el.endDate}
+                thisCountOfXP={el.kLimit}
+                thisTargetChannels={el.targetChannels}
+                thisTargetRoles={el.targetRoles}
+                onSubmitChanges={onSubmitChanges}
+                onDelete={onDelete}
+                thisMessages={el.activities.messages}
+                thisVoice={el.activities.voice}
+                thisStage={el.activities.stage}
+                thisBoosts={el.activities.boosts}
+                thisType='limit'
+              />
+            );
+          })}
+    </>
   );
 };
