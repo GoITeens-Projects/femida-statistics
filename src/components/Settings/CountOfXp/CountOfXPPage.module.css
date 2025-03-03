@@ -12,6 +12,44 @@
   gap: 0.85vw;
 }
 
+.limitsInputName {
+  width: 100%;
+}
+
+.FromContainer {
+  position: relative;
+  /* width: 933px; */
+  /* height: auto; */
+  border: 1px solid var(--chart-color);
+  margin-top: 12px;
+  display: block;
+  padding: 10px 20px;
+  /* Відновлюємо стандартне блокове відображення */
+  /* padding: 20px; */
+  box-sizing: border-box;
+  /* Ураховуємо padding у ширині */
+}
+
+.limitsNameBox {
+  position: relative;
+  padding: 15px 25px;
+  border: 1px solid var(--chart-color);
+  background-color: var(--bg-modal-color);
+  margin-top: 20px;
+}
+.limitsSubtitle {
+  color: var(--text-accent-color);
+  font-family: 'IBM Plex Mono';
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.Container {
+  margin-top: 20px;
+}
+
 .second-helper-container{
   /* width: 90%;
   position: relative;
