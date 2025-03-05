@@ -53,6 +53,10 @@ export const SpamPage = () => {
     };
 
 
+    const [thisTargetRoles, setThisTargetRoles] = useState()
+
+
+    const [thisTargetChannels, setThisTargetChannels] = useState()
 
 
     useEffect(() => {
@@ -363,6 +367,8 @@ export const SpamPage = () => {
                     onHours={hours}
                     onMinutes={minutes}
                     onIsCheckedAdmin={isCheckedAdmin}
+                    onThisTargetRoles={thisTargetRoles}
+                    onThisTargetChannels={thisTargetChannels}
 
                 />
 

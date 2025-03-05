@@ -25,6 +25,11 @@ export const Emojis = () => {
   const [isDeleteMessage, setIsDeleteMessage] = useState(false);
   const [isDeleteTimeoutSec, setIsDeleteTimeoutSec] = useState(0);
 
+  const [thisTargetRoles, setThisTargetRoles] = useState()
+
+
+  const [thisTargetChannels, setThisTargetChannels] = useState()
+
   useEffect(() => {
     if (settings) {
       setIsEnabled(settings?.settings?.emojisSpam?.actions?.giveWarn);
@@ -142,6 +147,9 @@ export const Emojis = () => {
         onHours={hours}
         onMinutes={minutes}
         onIsCheckedAdmin={isCheckedAdmin}
+        onThisTargetRoles={thisTargetRoles}
+        onThisTargetChannels={thisTargetChannels}
+
       />
       <div className={styles.subhelp}>
         <TextEditor

@@ -5,12 +5,19 @@ import styles from "./ActionSettings.module.css";
 
 
 
-
+import {
+    selectSettingsTextChannels,
+    selectSettingsVoiceChannels,
+    selectSettingsRoles,
+} from '../../../redux/settings/selectors';
 
 
 import 'react-toastify/dist/ReactToastify.css';
 import CustomDropdown from "../CustomDropdown";
 import { ScrollableNumbers } from "./ScrollableNumbers";
+import { useSelector } from "react-redux";
+import { useStateManager } from "react-select";
+import { useState } from "react";
 
 const padNumber = (num) => String(num).padStart(2, "0");
 
@@ -26,9 +33,54 @@ export const ActionSettings = ({
     onDays,
     onHours,
     onMinutes,
-    onIsCheckedAdmin
+    onIsCheckedAdmin,
+    onThisTargetRoles,
+    onThisTargetChannels
 }
 ) => {
+    const textChannels = useSelector(selectSettingsTextChannels);
+    const voiceChannels = useSelector(selectSettingsVoiceChannels);
+    const channels = [...textChannels, ...voiceChannels];
+    const roles = useSelector(selectSettingsRoles);
+
+    const [isOpenRoles, setIsOpenRoles] = useState(false);
+    const [selectedRoles, setSelectedRoles] = useState(
+        roles.filter(role => onThisTargetRoles.some(cur => role.id === cur))
+    );
+    const [isOpenChannels, setIsOpenChannels] = useState(false);
+    const [selectedChannels, setSelectedChannels] = useState(
+        channels.filter(role => onThisTargetChannels.some(cur => role.id === cur))
+    );
+    const onChennelChoose = channel => {
+        let newArray = selectedChannels.includes(channel)
+            ? selectedChannels.filter(el => el.id !== channel.id)
+            : [channel, ...selectedChannels];
+
+        setSelectedChannels(newArray);
+    };
+
+    const onRoleChoose = role => {
+        let newArray = selectedRoles.includes(role)
+            ? selectedRoles.filter(el => el.id !== role.id)
+            : [role, ...selectedRoles];
+
+        setSelectedRoles(newArray);
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // Обробка зміни чекбокса для адміністраторів
     const handleCheckboxChangeAdmin = (event) => {
         onIsCheckedAdminChange(event.target.checked); // Встановлення стану для чекбокса
@@ -105,7 +157,115 @@ export const ActionSettings = ({
                     Не поширювати на Адміністраторів і Модераторів
                 </label>
             </div>
-
+            <ul className={styles.limitsScopeList}>
+                <li className={styles.limitsScopeItem}>
+                    <Shadow
+                        leftFirst={-7}
+                        widthFirst={5}
+                        heightSecond={5}
+                        rightSecond={3}
+                        bottomSecond={-7}
+                        backgroundBoth={'var(--shadow-secondary-border)'}
+                        borderColorBoth={'var(--chart-accent-color)'}
+                    />
+                    <div className={styles['dropdown-container']}>
+                        <button
+                            className={styles['dropdown-button']}
+                            onClick={() => setIsOpenRoles(!isOpenRoles)}
+                        >
+                            {selectedRoles.length > 0
+                                ? selectedRoles.map(ch => ch.name).join('; ').length > 40
+                                    ? `${selectedRoles
+                                        .map(ch => ch.name)
+                                        .join('; ')
+                                        .slice(0, 40)}...`
+                                    : selectedRoles.map(ch => ch.name).join('; ')
+                                : 'Цільові ролі'}
+                            <span className={styles['dropdown-arrow']}>
+                                {isOpenRoles ? '▼' : '◄'}
+                            </span>
+                        </button>
+                        {isOpenRoles && (
+                            <ul className={styles['dropdown-list']}>
+                                {roles.map((option, index) => (
+                                    <li key={index} className={styles['dropdown-item']}>
+                                        <div className={styles.limitsScopeBox}>
+                                            <label className={styles.limitsScopesCheckboxLabel}>
+                                                <input
+                                                    type="checkbox"
+                                                    onChange={() => {
+                                                        onRoleChoose(option);
+                                                    }}
+                                                    checked={selectedRoles.includes(option)}
+                                                />
+                                                <span
+                                                    className={styles.limitsScopesCheckboxSpan}
+                                                ></span>
+                                            </label>
+                                            <p className={styles.limitsScopeSubtitle}>
+                                                {option.name}
+                                            </p>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                </li>
+                <li className={styles.limitsScopeItem}>
+                    <Shadow
+                        leftFirst={-7}
+                        widthFirst={5}
+                        heightSecond={5}
+                        rightSecond={3}
+                        bottomSecond={-7}
+                        backgroundBoth={'var(--shadow-secondary-border)'}
+                        borderColorBoth={'var(--chart-accent-color)'}
+                    />
+                    <div className={styles['dropdown-container']}>
+                        <button
+                            className={styles['dropdown-button']}
+                            onClick={() => setIsOpenChannels(!isOpenChannels)}
+                        >
+                            {selectedChannels.length > 0
+                                ? selectedChannels.map(ch => ch.name).join('; ').length >
+                                    40
+                                    ? `${selectedChannels
+                                        .map(ch => ch.name)
+                                        .join('; ')
+                                        .slice(0, 40)}...`
+                                    : selectedChannels.map(ch => ch.name).join('; ')
+                                : 'Цільові канали'}
+                            <span className={styles['dropdown-arrow']}>
+                                {isOpenChannels ? '▼' : '◄'}
+                            </span>
+                        </button>
+                        {isOpenChannels && (
+                            <ul className={styles['dropdown-list']}>
+                                {channels.map((option, index) => (
+                                    <li key={index} className={styles['dropdown-item']}>
+                                        <div className={styles.limitsScopeBox}>
+                                            <label className={styles.limitsScopesCheckboxLabel}>
+                                                <input
+                                                    type="checkbox"
+                                                    onChange={() => {
+                                                        onChennelChoose(option);
+                                                    }}
+                                                    checked={selectedChannels.includes(option)}
+                                                />
+                                                <span
+                                                    className={styles.limitsScopesCheckboxSpan}
+                                                ></span>
+                                            </label>
+                                        </div>
+                                        <p className={styles.limitsScopeSubtitle}>{option.name}</p>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                </li>
+            </ul>
         </div>
 
 
