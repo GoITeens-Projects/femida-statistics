@@ -25,10 +25,10 @@ export const Emojis = () => {
   const [isDeleteMessage, setIsDeleteMessage] = useState(false);
   const [isDeleteTimeoutSec, setIsDeleteTimeoutSec] = useState(0);
 
-  const [thisTargetRoles, setThisTargetRoles] = useState()
+  const [thisTargetRoles, setThisTargetRoles] = useState([])
 
 
-  const [thisTargetChannels, setThisTargetChannels] = useState()
+  const [thisTargetChannels, setThisTargetChannels] = useState([])
 
   useEffect(() => {
     if (settings) {
@@ -76,7 +76,7 @@ export const Emojis = () => {
   return (
     <>
       <div className={styles['navigation-container']}>
-        <SettingsNavigation onHandleSave={save} onHandleBackClick={()=> navigate('/settings')}/>
+        <SettingsNavigation onHandleSave={save} onHandleBackClick={() => navigate('/settings')} />
       </div>
       <div className={styles['helper-container']}>
         <h1 className={styles['title']}>Емоджі</h1>

@@ -53,10 +53,10 @@ export const SpamPage = () => {
     };
 
 
-    const [thisTargetRoles, setThisTargetRoles] = useState()
+    const [thisTargetRoles, setThisTargetRoles] = useState([])
 
 
-    const [thisTargetChannels, setThisTargetChannels] = useState()
+    const [thisTargetChannels, setThisTargetChannels] = useState([])
 
 
     useEffect(() => {
