@@ -5,17 +5,31 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { PatchSettings } from '../../../redux/settings/operation';
 import { fetchSettings } from '../../../redux/settings/operation';
+import { ActionsElement } from './ActionsElement';
+
 
 export const Actions = () => {
     const dispatch = useDispatch();
   const [isOpenDropDown, setIsOpenDropdown] = useState(false);
   const [selectedOption, setSelectedOption] = useState('Оберіть опцію');
+  const [selectedAction, setSelectedAction] = useState("null");
 
   const options = [
     'Скинути всі попередження, окрім останнього',
     'Скинути всі попередження, включаючи останнє',
-    'Лишити попередження',
+    'Лишити всі попередження',
   ];
+  const restrictedOptions = [
+    { value: 'null', label: 'Немає', color: 'var(--text-color)' },
+    { value: '1', label: 'Скинути всі попередження, окрім останнього', color: 'var(--text-color)' },
+    { value: '2', label: 'Скинути всі попередження, включаючи останнє', color: 'var(--text-color)' },
+    { value: '2', label: 'Лишити всі попередження', color: 'var(--text-color)' },
+];
+
+const handleSelectChange = (selectedOption) => {
+  setSelectedAction(selectedOption?.value || 'null'); // Змінення вибору дії
+
+};
 
   const handleSelectDropdown = option => {
     setSelectedOption(option);
@@ -50,6 +64,16 @@ export const Actions = () => {
   return (
     <>
       <div className={styles.generalSettingsBox}>
+      <Shadow
+            leftFirst={-7}
+            widthFirst={5}
+            heightSecond={5}
+            rightSecond={3}
+            bottomSecond={-7}
+            backgroundBoth={'var(--chart-accent-color)'}
+            borderColorBoth={'var(--border-accent-color)'}
+          />
+      <p className={styles['subtitle']}>При м’юті на сервері...</p>
         <div className={styles.dropdown}>
           <button
             className={styles['dropdown-button']}
@@ -89,18 +113,8 @@ export const Actions = () => {
           >
             Додати новий період
           </button>
-          <div className={styles['container']}>
-          <Shadow
-            leftFirst={-7}
-            widthFirst={5}
-            heightSecond={5}
-            rightSecond={3}
-            bottomSecond={-7}
-            backgroundBoth={'var(--chart-accent-color)'}
-            borderColorBoth={'var(--border-accent-color)'}
-          />
-          <p className={styles['subtitle']}>Дія</p>
-        </div>
+          <ActionsElement />
+          
     </>
   );
 };

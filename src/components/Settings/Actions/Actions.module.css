@@ -1,14 +1,24 @@
 .generalSettingsBox {
-    border: 1px solid #91ccf4;
-    background: #fafafa;
-    padding: 15px 25px;
-    width: 1000px;
-    margin-top: 20px;
+    position: relative;
+    border: 1px solid var(--chart-color);
+    background: var(--bg-modal-color);
+    width: calc(90% - (1.771vw + 2.054vw));
+    display: flex;
+    flex-direction: column;
+    gap: 0.85vw;
+    padding: 1.06vw 1.77vw 1.42vw 2.125vw;
+    
 }
 
 .dropdown {
     position: relative;
     width: 100%;
+}
+
+.secondDropdown {
+    position: relative;
+    width: calc(50% - 1.63vw);
+    border: 2px solid var(--shadow-secondary-color)
 }
 
 .dropdown-button {
@@ -17,7 +27,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 15px;
-    border: 2px solid #acd0d6;
+    /* border: 2px solid #acd0d6; */
     /* border-radius: 4px; */
     /* background: #edf6fa; Фон, схожий на зображення */
     color: #2d4a5d;
@@ -85,6 +95,12 @@
     color: var(--text-color);
   }
 
+  .subcontainer {
+    display: flex;
+    flex-direction: row;
+    gap: 1.63vw;
+  }
+
   .subtitle {
     font-family: IBM Plex Mono;
     font-size: 12px;
@@ -96,3 +112,52 @@
     color: var(--text-accent-color);
     margin-top: 1.06vw;
   }
+
+  .inputText {
+    font-family: IBM Plex Mono;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+    /* text-align: left; */
+    /* text-underline-position: from-font; */
+    /* text-decoration-skip-ink: none; */
+    color: var(--text-accent-color);
+  }
+
+  .inputContainer{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: calc(50% - 1.63vw);
+    padding: 0.71vw 1.77vw 0.71vw 1.42vw;
+    border: 2px solid var(--shadow-secondary-color)
+  }
+
+  .input{
+    max-width: 12.75vw;
+  }
+
+  .NumbersContainer {
+    display: flex;
+}
+
+.NumbersContainer>div:not(:last-child) {
+    margin-left: 20px;
+}
+
+.Decor {
+    margin-top: 15px;
+}
+
+.TotalNumber {
+    font-family: IBM Plex Sans;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 10.4px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    margin-top: 30px;
+    margin-left: 30px;
+    color: var(--text-color);
+}
