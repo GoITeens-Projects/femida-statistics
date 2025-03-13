@@ -11,6 +11,7 @@ import { Bounce, ToastContainer } from 'react-toastify';
 import styles from './Settings.module.css';
 import { ChevronDown } from 'lucide-react';
 import Shadow from 'components/Shadow/Shadow';
+import { Actions } from 'components/Settings/Actions/Actions';
 
 export const Settings = () => {
   const dispatch = useDispatch();
@@ -160,6 +161,8 @@ export const Settings = () => {
             activeSlider={false} // без лапок!
           />
         </div>
+
+        <Actions/>
 
       </section>
 

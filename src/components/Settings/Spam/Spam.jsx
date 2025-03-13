@@ -92,6 +92,10 @@ export const SpamPage = () => {
             setIsDeleteMessage(!!deleteMsg);
             setIsChecked(!!ignoreAdmins);
             setIsCheckedNotifyUser(notifyUser.enabled);
+            setThisTargetChannels(
+                settings?.settings?.spam?.targetChannels || []
+              );
+              setThisTargetRoles(settings?.settings?.spam?.targetRoles || []);
         }
 
         if (settings?.settings?.spam?.messagesLimit !== undefined) {
@@ -142,7 +146,9 @@ export const SpamPage = () => {
                             ignoreAdmins: isCheckedAdmin,
                         },
                         messagesLimit: inputValue,
-                        resetCounter: isResetSpam
+                        resetCounter: isResetSpam,
+                        targetRoles: thisTargetRoles,
+                        targetChannels: thisTargetChannels,
                     },
                 },
             })
@@ -369,6 +375,8 @@ export const SpamPage = () => {
                     onIsCheckedAdmin={isCheckedAdmin}
                     onThisTargetRoles={thisTargetRoles}
                     onThisTargetChannels={thisTargetChannels}
+                    onSetThisTargetRoles={setThisTargetRoles}
+                    onSetThisTargetChannels={setThisTargetChannels}
 
                 />
 

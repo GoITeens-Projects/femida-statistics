@@ -9,64 +9,93 @@ import TextEditor from '../TextEditor/TextEditor';
 import { PatchSettings } from '../../../redux/settings/operation';
 import { useNavigate } from 'react-router-dom';
 
+const parseMuteTime = (timeInMs) => {
+  const totalMinutes = Math.floor(timeInMs / 60000);
+  const days = Math.floor(totalMinutes / (24 * 60));
+  const hours = Math.floor((totalMinutes % (24 * 60)) / 60);
+  const minutes = totalMinutes % 60;
+
+  return { days, hours, minutes };
+};
+
 export const Emojis = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-  const { data: settings, loading, error } = useSelector((state) => state.settings);
+  const navigate = useNavigate();
+  const {
+    data: settings,
+    loading,
+    error,
+  } = useSelector(state => state.settings);
 
   const [maxEmojis, setMaxEmojis] = useState(0);
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState('');
   const [isEnabled, setIsEnabled] = useState(false);
   const [days, setDays] = useState(0);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
-  const [selectedAction, setSelectedAction] = useState("null");
+  const [selectedAction, setSelectedAction] = useState('null');
   const [isCheckedAdmin, setIsChecked] = useState(false);
   const [isDeleteMessage, setIsDeleteMessage] = useState(false);
   const [isDeleteTimeoutSec, setIsDeleteTimeoutSec] = useState(0);
 
-  const [thisTargetRoles, setThisTargetRoles] = useState([])
+  const [thisTargetRoles, setThisTargetRoles] = useState([]);
 
-
-  const [thisTargetChannels, setThisTargetChannels] = useState([])
+  const [thisTargetChannels, setThisTargetChannels] = useState([]);
 
   useEffect(() => {
     if (settings) {
       setIsEnabled(settings?.settings?.emojisSpam?.actions?.giveWarn);
-      setDays(Math.floor(settings?.settings?.emojisSpam?.actions?.mute?.muteTimeMs / (1000 * 60 * 60 * 24)));
-      setHours(Math.floor((settings?.settings?.emojisSpam?.actions?.mute?.muteTimeMs - (days * (1000 * 60 * 60 * 24))) / (1000 * 60 * 60)));
-      setMinutes(Math.floor((settings?.settings?.emojisSpam?.actions?.mute?.muteTimeMs - ((days * (1000 * 60 * 60 * 24)) + hours * (1000 * 60 * 60))) / (1000 * 60)));
+      if (settings?.settings?.emojisSpam?.actions?.mute?.muteTimeMs) {
+        const { days, hours, minutes } = parseMuteTime(
+            settings.settings.spam.actions.mute.muteTimeMs
+        );
+        setDays(days);
+        setHours(hours);
+        setMinutes(minutes);
+    }
       setIsChecked(settings?.settings?.emojisSpam?.actions?.ignoreAdmins);
       setIsDeleteMessage(settings?.settings?.emojisSpam?.actions?.deleteMsg);
-      setIsDeleteTimeoutSec(settings?.settings?.emojisSpam?.actions?.notifyUser?.deleteTimeoutMs / 1000);
-      // console.log('days', Math.floor(settings?.settings?.emojisSpam?.actions?.mute?.muteTimeMs / (1000 * 60 * 60 * 24)))
-      // console.log('hours',Math.floor((settings?.settings?.emojisSpam?.actions?.mute?.muteTimeMs - ((days * (1000 * 60 * 60 * 24)) + hours * (1000 * 60 * 60))) / (1000 * 60)))
+      setIsDeleteTimeoutSec(
+        settings?.settings?.emojisSpam?.actions?.notifyUser?.deleteTimeoutMs /
+          1000
+      );
+      setThisTargetChannels(
+        settings?.settings?.emojisSpam?.targetChannels || []
+      );
+      setThisTargetRoles(settings?.settings?.emojisSpam?.targetRoles || []);
+      setMaxEmojis(settings?.settings?.emojisSpam?.maxEmojis || 0);
+      console.log(settings?.settings?.emojisSpam?.targetRoles);
+      console.log(settings?.settings?.emojisSpam?.maxEmojis);
       // console.log('hominutesurs', settings?.settings?.emojisSpam?.actions?.mute?.muteTimeMs)
     }
   }, [settings]);
 
   const save = () => {
-    dispatch(PatchSettings({
-      settings: {
-        emojisSpam: {
-          maxEmojis: maxEmojis,
-          actions: {
-            deleteMsg: isDeleteMessage,
-            giveWarn: isEnabled,
-            ignoreAdmins: isCheckedAdmin,
-            mute: {
-              enabled: selectedAction === 'mute',
-              muteTimeMs: days * 86400000 + hours * 3600000 + minutes * 60000
+    dispatch(
+      PatchSettings({
+        settings: {
+          emojisSpam: {
+            maxEmojis: maxEmojis,
+            targetChannels: thisTargetChannels,
+            targetRoles: thisTargetRoles,
+            actions: {
+              deleteMsg: isDeleteMessage,
+              giveWarn: isEnabled,
+              ignoreAdmins: isCheckedAdmin,
+              mute: {
+                enabled: selectedAction === 'mute',
+                muteTimeMs: days * 86400000 + hours * 3600000 + minutes * 60000,
+              },
+              notifyUser: {
+                enabled: selectedAction === 'warning',
+                messageFn: content,
+                deleteTimeoutMs: isDeleteTimeoutSec * 1000,
+              },
             },
-            notifyUser: {
-              enabled: selectedAction === 'warning',
-              messageFn: content,
-              deleteTimeoutMs: isDeleteTimeoutSec * 1000
-            }
-          }
-        }
-      }
-    }));
+          },
+        },
+      })
+    );
   };
 
   const handleToggle = () => {
@@ -76,7 +105,10 @@ export const Emojis = () => {
   return (
     <>
       <div className={styles['navigation-container']}>
-        <SettingsNavigation onHandleSave={save} onHandleBackClick={() => navigate('/settings')} />
+        <SettingsNavigation
+          onHandleSave={save}
+          onHandleBackClick={() => navigate('/settings')}
+        />
       </div>
       <div className={styles['helper-container']}>
         <h1 className={styles['title']}>Емоджі</h1>
@@ -149,12 +181,15 @@ export const Emojis = () => {
         onIsCheckedAdmin={isCheckedAdmin}
         onThisTargetRoles={thisTargetRoles}
         onThisTargetChannels={thisTargetChannels}
-
+        onSetTargetRoles={setThisTargetRoles}
+        onSetTargetChannels={setThisTargetChannels}
       />
       <div className={styles.subhelp}>
         <TextEditor
           onChange={setContent}
-          initialContent={settings?.settings?.emojisSpam?.actions?.notifyUser?.messageFn || ""}
+          initialContent={
+            settings?.settings?.emojisSpam?.actions?.notifyUser?.messageFn || ''
+          }
         />
       </div>
       <div className={styles['helper-container']}>
@@ -186,4 +221,3 @@ export const Emojis = () => {
     </>
   );
 };
-
