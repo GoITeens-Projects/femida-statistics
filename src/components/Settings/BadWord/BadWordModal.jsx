@@ -28,8 +28,23 @@ import { FormContainer } from "../FormContainer.jsx/FormContainer";
 
 
 
-
 export const BadWordPage = () => {
+
+
+
+
+
+
+
+    const [thisTargetRoles, setThisTargetRoles] = useState([])
+
+
+    const [thisTargetChannels, setThisTargetChannels] = useState([])
+
+
+
+
+
 
 
     const [days, setDays] = useState(0); // Стан для днів
@@ -292,6 +307,8 @@ export const BadWordPage = () => {
                     onHours={hours}
                     onMinutes={minutes}
                     onIsCheckedAdmin={isCheckedAdmin}
+                    onThisTargetRoles={thisTargetRoles}
+                    onThisTargetChannels={thisTargetChannels}
 
                 />
 
