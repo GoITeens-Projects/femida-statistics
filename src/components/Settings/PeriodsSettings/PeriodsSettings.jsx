@@ -310,7 +310,7 @@ export const PeriodsSettings = ({
             <p className={s['subtitle']}>
               Область дії видачі ХР за певний період
             </p>
-            <div className={s.limitsScopeAdminBox}>
+            {/* <div className={s.limitsScopeAdminBox}>
               <label className={s.limitsScopesCheckboxLabel}>
                 <input
                   type="checkbox"
@@ -323,7 +323,7 @@ export const PeriodsSettings = ({
               <p className={s.limitsScopeSubtitle}>
                 Не поширювати на Адміністраторів і Модераторів
               </p>
-            </div>
+            </div> */}
             <ul className={s.limitsScopeList}>
               <li className={s.limitsScopeItem}>
                 <Shadow
