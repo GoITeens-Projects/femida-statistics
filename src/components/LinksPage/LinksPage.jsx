@@ -12,6 +12,7 @@ import { toast, Bounce } from 'react-toastify';
 import { fetchSettings } from '../../redux/settings/operation';
 import { UnsavedChangesModal } from 'components/Settings/BadWord/UnsavedChangesModal';
 import { useNavigate } from 'react-router-dom';
+import TextEditor from 'components/Settings/TextEditor/TextEditor';
 
 const LinksPage = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const LinksPage = () => {
   const [tags, setTags] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [messageContent, setMessageContent] = useState('');
   const maxVisibleTags = 7;
   //   !
   const options = [
@@ -32,12 +34,12 @@ const LinksPage = () => {
     'Ще щось за потреби',
   ];
   const [editorInstance, setEditorInstance] = useState(null);
+  console.log(messageContent);
 
   useEffect(() => {
-    dispatch(fetchSettings()); // Виклик дії для завантаження налаштувань
+    dispatch(fetchSettings());
   }, [dispatch]);
 
-  // Оновлення доданих слів при змінах налаштувань
   useEffect(() => {
     if (settings?.settings?.scamLinks?.targetLinks) {
       setTags(settings.settings.scamLinks.targetLinks);
@@ -52,7 +54,7 @@ const LinksPage = () => {
   const addTag = () => {
     if (inputValue.trim() && !tags.includes(inputValue.trim())) {
       setTags([...tags, inputValue.trim()]);
-      setInputValue(''); // Очистити поле після додавання
+      setInputValue('');
     }
   };
 
@@ -62,7 +64,7 @@ const LinksPage = () => {
 
   const handleKeyDown = event => {
     if (event.key === 'Enter') {
-      event.preventDefault(); // Щоб не додавало новий рядок
+      event.preventDefault();
       addTag();
     }
   };
@@ -75,11 +77,11 @@ const LinksPage = () => {
         .map(word => word.trim())
         .filter(Boolean);
 
-      setTags(updatedBadWords); // Оновлення доданих слів
+      setTags(updatedBadWords);
     }
 
     setTimeout(() => {
-      setIsModalOpen(false); // Закриття модального вікна
+      setIsModalOpen(false);
     }, 300);
   };
 
@@ -89,6 +91,11 @@ const LinksPage = () => {
         settings: {
           scamLinks: {
             targetLinks: tags,
+            actions: {
+              notifyUser: {
+                messageFn: messageContent,
+              },
+            },
           },
         },
       })
@@ -108,11 +115,15 @@ const LinksPage = () => {
 
   const handleBackClick = () => {
     console.log(tags.length);
-    if (settings.settings.scamLinks.targetLinks.length !== tags.length) {
+    if (
+      settings.settings.scamLinks.targetLinks.length !== tags.length ||
+      messageContent !==
+        settings.settings.scamLinks.actions.notifyUser.messageFn
+    ) {
       // console.log('slslslsl');
       setIsChangesSaved(false);
     } else {
-        navigate('/settings')
+      navigate('/settings');
     }
   };
 
@@ -130,7 +141,7 @@ const LinksPage = () => {
           }}
           onSave={() => {
             handleSaveData();
-            navigate('/settings')
+            navigate('/settings');
           }}
         />
       )}
@@ -230,6 +241,12 @@ const LinksPage = () => {
           </div>
         </div>
       </div>
+      <TextEditor
+        onChange={setMessageContent}
+        initialContent={
+          settings?.settings?.scamLinks?.actions?.notifyUser?.messageFn || ''
+        }
+      />
     </div>
   );
 };
