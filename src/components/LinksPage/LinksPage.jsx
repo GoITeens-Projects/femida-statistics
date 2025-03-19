@@ -13,6 +13,7 @@ import { fetchSettings } from '../../redux/settings/operation';
 import { UnsavedChangesModal } from 'components/Settings/BadWord/UnsavedChangesModal';
 import { useNavigate } from 'react-router-dom';
 import TextEditor from 'components/Settings/TextEditor/TextEditor';
+import { ActionSettings } from 'components/Settings/ActionSettings/ActionSettings';
 
 const LinksPage = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,23 @@ const LinksPage = () => {
   ];
   const [editorInstance, setEditorInstance] = useState(null);
   console.log(messageContent);
+  const [days, setDays] = useState(0); // Стан для днів
+  const [hours, setHours] = useState(0); // Стан для годин
+  const [minutes, setMinutes] = useState(0); // Стан для хвилин
+  const [selectedAction, setSelectedAction] = useState('null'); // Стан для вибору дії
+  const [isCheckedAdmin, setIsChecked] = useState(false); // Стан для перевірки адмінських прав
+  const [isDeleteMessage, setIsDeleteMessage] = useState(false); // Стан для видалення повідомлень
+  const [thisTargetRoles, setThisTargetRoles] = useState([]);
+  const [thisTargetChannels, setThisTargetChannels] = useState([]);
+
+  const parseMuteTime = timeInMs => {
+    const totalMinutes = Math.floor(timeInMs / 60000);
+    const days = Math.floor(totalMinutes / (24 * 60));
+    const hours = Math.floor((totalMinutes % (24 * 60)) / 60);
+    const minutes = totalMinutes % 60;
+
+    return { days, hours, minutes };
+  };
 
   useEffect(() => {
     dispatch(fetchSettings());
@@ -44,8 +62,36 @@ const LinksPage = () => {
     if (settings?.settings?.scamLinks?.targetLinks) {
       setTags(settings.settings.scamLinks.targetLinks);
     }
+    if (settings?.settings?.badwords?.actions?.mute?.muteTimeMs) {
+      const { days, hours, minutes } = parseMuteTime(
+        settings.settings.badwords.actions.mute.muteTimeMs
+      );
+      setDays(days);
+      setHours(hours);
+      setMinutes(minutes);
+    }
+    if (settings?.settings?.scamLinks?.actions) {
+      const { enabled, giveWarn, deleteMsg, ignoreAdmins, notifyUser } =
+        settings.settings.scamLinks.actions;
+
+      const isMuteEnabled =
+        settings?.settings?.scamLinks?.actions?.mute?.enabled;
+      const isGiveWarnEnabled =
+        settings?.settings?.scamLinks?.actions?.giveWarn;
+
+      if (isMuteEnabled) {
+        setSelectedAction('mute');
+      } else if (isGiveWarnEnabled) {
+        setSelectedAction('warning');
+      } else {
+        setSelectedAction('null');
+      }
+      setIsDeleteMessage(!!deleteMsg); // Встановлення стану для видалення повідомлень
+      setIsChecked(!!ignoreAdmins); // Встановлення стану для адміністраторів
+    }
   }, [settings]);
   //   console.log(settings.settings.scamLinks.targetLinks);
+
   const handleSelectDropdown = option => {
     setSelectedOption(option);
     setIsOpenDropdown(false);
@@ -86,12 +132,24 @@ const LinksPage = () => {
   };
 
   const handleSaveData = () => {
+    const muteTimeMs =
+      (days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60) * 1000; // Розрахунок часу муту у мілісекундах
+    const isMuteEnabled = selectedAction === 'mute';
+    const isGiveWarn = selectedAction === 'warning';
+
     dispatch(
       PatchSettings({
         settings: {
           scamLinks: {
             targetLinks: tags,
             actions: {
+              mute: {
+                enabled: isMuteEnabled,
+                muteTimeMs,
+              },
+              giveWarn: isGiveWarn,
+              deleteMsg: isDeleteMessage,
+              // giveWarn: iisGi
               notifyUser: {
                 messageFn: messageContent,
               },
@@ -246,6 +304,24 @@ const LinksPage = () => {
         initialContent={
           settings?.settings?.scamLinks?.actions?.notifyUser?.messageFn || ''
         }
+      />
+      <ActionSettings
+        onDaysChange={setDays}
+        onHoursChange={setHours}
+        onMinutesChange={setMinutes}
+        onSelectedActionChange={setSelectedAction}
+        onIsCheckedAdminChange={setIsChecked}
+        onIsDeleteMessageChange={setIsDeleteMessage}
+        onIsDeleteMessage={isDeleteMessage}
+        onSelectedAction={selectedAction}
+        onDays={days}
+        onHours={hours}
+        onMinutes={minutes}
+        onIsCheckedAdmin={isCheckedAdmin}
+        onThisTargetRoles={thisTargetRoles}
+        onThisTargetChannels={thisTargetChannels}
+        onSetTargetRoles={setThisTargetRoles}
+        onSetTargetChannels={setThisTargetChannels}
       />
     </div>
   );
