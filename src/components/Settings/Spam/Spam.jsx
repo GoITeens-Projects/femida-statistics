@@ -53,6 +53,10 @@ export const SpamPage = () => {
     };
 
 
+
+
+
+
     const [thisTargetRoles, setThisTargetRoles] = useState([])
 
 
@@ -94,8 +98,8 @@ export const SpamPage = () => {
             setIsCheckedNotifyUser(notifyUser.enabled);
             setThisTargetChannels(
                 settings?.settings?.spam?.targetChannels || []
-              );
-              setThisTargetRoles(settings?.settings?.spam?.targetRoles || []);
+            );
+            setThisTargetRoles(settings?.settings?.spam?.targetRoles || []);
         }
 
         if (settings?.settings?.spam?.messagesLimit !== undefined) {
@@ -192,7 +196,8 @@ export const SpamPage = () => {
         navigate("/settings"); // Переход на сторінку налаштувань
     };
 
-    console.log("редактор", content);
+    console.log("ролі", thisTargetRoles);
+    console.log("канали", thisTargetChannels)
 
     return (<>
 
@@ -377,6 +382,7 @@ export const SpamPage = () => {
                     onThisTargetChannels={thisTargetChannels}
                     onSetThisTargetRoles={setThisTargetRoles}
                     onSetThisTargetChannels={setThisTargetChannels}
+
 
                 />
 
