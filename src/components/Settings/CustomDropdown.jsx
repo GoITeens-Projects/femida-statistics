@@ -7,13 +7,14 @@ const CustomDropdown = ({ options, placeholder, onChange, value }) => {
     const [selectedOption, setSelectedOption] = useState(value || null);
 
     useEffect(() => {
-        setSelectedOption(value); // Оновлюємо вибір, якщо змінюється початкове значення
-    }, [value]);
-
+        if (value?.value !== selectedOption?.value) {
+            setSelectedOption(value);
+        }
+    }, [value, selectedOption]);
     const customStyles = {
         control: (provided) => ({
             ...provided,
-            border: '1px solid #ccc',
+            border: '1px solid #180d0d',
             borderRadius: '8px',
             padding: '5px',
             backgroundColor: 'var(--input-badword)',
@@ -32,8 +33,10 @@ const CustomDropdown = ({ options, placeholder, onChange, value }) => {
     };
 
     const handleChange = (option) => {
-        setSelectedOption(option);
-        if (onChange) onChange(option); // Викликаємо зворотній виклик
+        if (option?.value !== selectedOption?.value) {
+            setSelectedOption(option);
+            if (onChange) onChange(option);
+        }
     };
 
     return (
