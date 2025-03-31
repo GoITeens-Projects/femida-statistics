@@ -53,6 +53,10 @@ export const SpamPage = () => {
     };
 
 
+
+
+
+
     const [thisTargetRoles, setThisTargetRoles] = useState([])
 
 
@@ -82,10 +86,12 @@ export const SpamPage = () => {
             const isMuteEnabled = settings?.settings?.spam?.actions?.mute?.enabled;
             const isGiveWarnEnabled = settings?.settings?.spam?.actions?.giveWarn;
 
-            if (isMuteEnabled) {
-                setSelectedAction('mute');
+            if (isMuteEnabled && isGiveWarnEnabled) {
+                setSelectedAction('muteWarning');  // Якщо обидва значення true, то вибираємо muteWarning
+            } else if (isMuteEnabled) {
+                setSelectedAction('mute');  // Якщо тільки mute включено
             } else if (isGiveWarnEnabled) {
-                setSelectedAction('warning');
+                setSelectedAction('warning');  // Якщо тільки giveWarn включено
             } else {
                 setSelectedAction('null');
             }
@@ -94,8 +100,8 @@ export const SpamPage = () => {
             setIsCheckedNotifyUser(notifyUser.enabled);
             setThisTargetChannels(
                 settings?.settings?.spam?.targetChannels || []
-              );
-              setThisTargetRoles(settings?.settings?.spam?.targetRoles || []);
+            );
+            setThisTargetRoles(settings?.settings?.spam?.targetRoles || []);
         }
 
         if (settings?.settings?.spam?.messagesLimit !== undefined) {
@@ -124,8 +130,8 @@ export const SpamPage = () => {
     const handleSave = () => {
         const muteTimeMs = (days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60) * 1000; // Розрахунок часу муту у мілісекундах
 
-        const isMuteEnabled = selectedAction === "mute";
-        const isGiveWarn = selectedAction === "warning";
+        const isMuteEnabled = selectedAction === "mute" || selectedAction === "muteWarning";
+        const isGiveWarn = selectedAction === "warning" || selectedAction === "muteWarning";
 
         dispatch(
             PatchSettings({
@@ -153,7 +159,6 @@ export const SpamPage = () => {
                 },
             })
         ).then(() => {
-
             navigate("/settings"); // Перенаправлення на сторінку налаштувань
         });
     };
@@ -175,7 +180,7 @@ export const SpamPage = () => {
 
         if (
             isMuteTimeChanged ||
-            isGiveWarnChanged ||
+
             isDeleteMsgChanged ||
             isCheckedAdminChanged ||
             isDeleteTimeoutChanged
@@ -192,7 +197,8 @@ export const SpamPage = () => {
         navigate("/settings"); // Переход на сторінку налаштувань
     };
 
-    console.log("редактор", content);
+    console.log("ролі", thisTargetRoles);
+    console.log("канали", thisTargetChannels)
 
     return (<>
 
@@ -375,8 +381,11 @@ export const SpamPage = () => {
                     onIsCheckedAdmin={isCheckedAdmin}
                     onThisTargetRoles={thisTargetRoles}
                     onThisTargetChannels={thisTargetChannels}
-                    onSetThisTargetRoles={setThisTargetRoles}
-                    onSetThisTargetChannels={setThisTargetChannels}
+                    onSetTargetRoles={setThisTargetRoles}
+                    onSetTargetChannels={setThisTargetChannels}
+
+
+
 
                 />
 

@@ -99,20 +99,28 @@ export const BadWordPage = () => {
       const { enabled, giveWarn, deleteMsg, ignoreAdmins, notifyUser } =
         settings.settings.badwords.actions;
 
-      const isMuteEnabled = settings?.settings?.spam?.actions?.mute?.enabled;
-      const isGiveWarnEnabled = settings?.settings?.spam?.actions?.giveWarn;
+      const isMuteEnabled = settings?.settings?.badwords?.actions?.mute?.enabled;
+      const isGiveWarnEnabled = settings?.settings?.badwords?.actions?.giveWarn;
 
-      if (isMuteEnabled) {
-        setSelectedAction('mute');
+      if (isMuteEnabled && isGiveWarnEnabled) {
+        setSelectedAction('muteWarning');  // Якщо обидва значення true, то вибираємо muteWarning
+      } else if (isMuteEnabled) {
+        setSelectedAction('mute');  // Якщо тільки mute включено
       } else if (isGiveWarnEnabled) {
-        setSelectedAction('warning');
+        setSelectedAction('warning');  // Якщо тільки giveWarn включено
       } else {
         setSelectedAction('null');
       }
+
+      setThisTargetChannels(
+        settings?.settings?.badwords?.targetChannels || []
+      );
+      setThisTargetRoles(settings?.settings?.badwords?.targetRoles || []);
       setIsDeleteMessage(!!deleteMsg); // Встановлення стану для видалення повідомлень
       setIsChecked(!!ignoreAdmins); // Встановлення стану для адміністраторів
       setIsCheckedNotifyUser(notifyUser.enabled); // Встановлення стану для повідомлення користувача
     }
+
   }, [settings]);
 
   // Обробка збереження налаштувань
@@ -120,8 +128,9 @@ export const BadWordPage = () => {
     const muteTimeMs =
       (days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60) * 1000; // Розрахунок часу муту у мілісекундах
 
-    const isMuteEnabled = selectedAction === 'mute';
-    const isGiveWarn = selectedAction === 'warning';
+    const isMuteEnabled = selectedAction === "mute" || selectedAction === "muteWarning";
+    const isGiveWarn = selectedAction === "warning" || selectedAction === "muteWarning";
+
 
     dispatch(
       PatchSettings({
@@ -143,6 +152,8 @@ export const BadWordPage = () => {
                 ),
               },
             },
+            targetRoles: thisTargetRoles,
+            targetChannels: thisTargetChannels,
           },
         },
       })
@@ -279,6 +290,10 @@ export const BadWordPage = () => {
           onThisTargetChannels={thisTargetChannels}
           onSetTargetRoles={setThisTargetRoles}
           onSetTargetChannels={setThisTargetChannels}
+
+
+
+
         />
 
         {/* <CodeEditor
