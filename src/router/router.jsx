@@ -2,7 +2,7 @@ import { App } from 'components/App';
 import { Overview } from 'pages/Overview';
 import Login from 'components/Login/Login';
 import PrivateRoute from 'components/PrivateRoute';
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import RestrictedRouter from '../components/RestrictedRout';
 import { Messages } from 'pages/Messages';
 import { Voice } from 'pages/Voice';
@@ -23,66 +23,71 @@ export const router = createBrowserRouter([
     path: '/',
     element: <App />,
     children: [
+      // 🔄 Якщо користувач заходить на "/", перекидаємо його на /overview
       {
-        path: '/overview',
-        element: <PrivateRoute component={Overview} redirectTo='/' />,
+        index: true, // те саме що path: "/"
+        element: <Navigate to="/overview" />,
       },
       {
-        path: '/',
-        element: <RestrictedRouter component={Login} redirectTo='/overview' />,
+        path: 'login',
+        element: <RestrictedRouter component={Login} redirectTo="/overview" />,
       },
       {
-        path: '/messages',
-        element: <PrivateRoute component={Messages} redirectTo='/' />,
+        path: 'overview',
+        element: <PrivateRoute component={Overview} redirectTo="/login" />,
       },
       {
-        path: '/voice',
-        element: <PrivateRoute component={Voice} redirectTo='/' />,
+        path: 'messages',
+        element: <PrivateRoute component={Messages} redirectTo="/login" />,
       },
       {
-        path: '/stage',
-        element: <PrivateRoute component={Stage} redirectTo='/' />,
+        path: 'voice',
+        element: <PrivateRoute component={Voice} redirectTo="/login" />,
       },
       {
-        path: '/status',
-        element: <PrivateRoute component={Status} redirectTo='/' />,
+        path: 'stage',
+        element: <PrivateRoute component={Stage} redirectTo="/login" />,
       },
       {
-        path: '/economic',
-        element: <PrivateRoute component={Economic} redirectTo='/' />,
+        path: 'status',
+        element: <PrivateRoute component={Status} redirectTo="/login" />,
       },
       {
-        path: '/settings',
-        element: <PrivateRoute component={Settings} redirectTo='/' />,
+        path: 'economic',
+        element: <PrivateRoute component={Economic} redirectTo="/login" />,
       },
       {
-        path: '/settings/badword',
-        element: <PrivateRoute component={BadWordPage} redirectTo='/' />,
+        path: 'settings',
+        element: <PrivateRoute component={Settings} redirectTo="/login" />,
       },
       {
-        path: '/settings/limits',
-        element: <PrivateRoute component={LimitsPage} redirectTo='/' />,
+        path: 'settings/badword',
+        element: <PrivateRoute component={BadWordPage} redirectTo="/login" />,
       },
       {
-        path: '/settings/spam',
-        element: <PrivateRoute component={SpamPage} redirectTo='/' />,
+        path: 'settings/limits',
+        element: <PrivateRoute component={LimitsPage} redirectTo="/login" />,
       },
       {
-        path: '/settings/number-of-xp',
-        element: <PrivateRoute component={CountOfXPPage} redirectTo='/' />,
+        path: 'settings/spam',
+        element: <PrivateRoute component={SpamPage} redirectTo="/login" />,
       },
       {
-        path: '/settings/links',
-        element: <PrivateRoute component={LinksPage} redirectTo='/' />,
+        path: 'settings/number-of-xp',
+        element: <PrivateRoute component={CountOfXPPage} redirectTo="/login" />,
       },
       {
-        path: '/settings/commands',
-        element: <PrivateRoute component={CommandsPage} redirectTo='/' />,
+        path: 'settings/links',
+        element: <PrivateRoute component={LinksPage} redirectTo="/login" />,
       },
       {
-        path: '/settings/emojis',
-        element: <PrivateRoute component={Emojis} redirectTo='/' />,
-      }
+        path: 'settings/commands',
+        element: <PrivateRoute component={CommandsPage} redirectTo="/login" />,
+      },
+      {
+        path: 'settings/emojis',
+        element: <PrivateRoute component={Emojis} redirectTo="/login" />,
+      },
     ],
   },
 ]);
