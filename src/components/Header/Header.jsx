@@ -62,7 +62,7 @@ const Header = ({ isOpenBurger, setIsOpenBurger }) => {
         ) : (
           <div className={styles.headerBox}>
             <ToggleTheme />
-            <WhenLoginBox />
+            <WhenLoginBox onlogout={logout} />
           </div>
         )}
         {isOpenBurger ? (

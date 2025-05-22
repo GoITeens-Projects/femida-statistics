@@ -10,7 +10,7 @@
 }
 .loginLogo {
   position: absolute;
-  top: 5vh;
+  top: 10vh;
   right: 50%;
   left: 50%;
   transform: translate(-50%);
@@ -124,7 +124,7 @@
     padding: 9px 20px 10px 20px;
     width: 336px;
     &::placeholder {
-      font-size: 8px;
+      font-size: 10px;
     }
   }
 }

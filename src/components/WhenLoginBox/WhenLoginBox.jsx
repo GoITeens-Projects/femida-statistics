@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import styles from './WhenLoginBox.module.css';
 import femidaImg from '../../imgs/femida.png';
 
-const WhenLoginBox = () => {
+const WhenLoginBox = (onlogout) => {
   const userName = useSelector(selectUser);
 
   return (
@@ -47,7 +47,8 @@ const WhenLoginBox = () => {
                   />
                 </svg>
               </button>
-              <button type="button" className={styles.navLogoutBtn}>
+              </Link>
+              <button type="button" className={styles.navLogoutBtn} >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -64,7 +65,7 @@ const WhenLoginBox = () => {
                   />
                 </svg>
               </button>
-            </Link>
+          
           </div>
         </div>
       ) : (
