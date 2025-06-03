@@ -12,6 +12,7 @@ import styles from './Settings.module.css';
 import { ChevronDown } from 'lucide-react';
 import Shadow from 'components/Shadow/Shadow';
 import { Actions } from 'components/Settings/Actions/Actions';
+import { GiftAndTicketCard } from 'components/Settings/Gift&TicketSettings/GiftAndTicketCard';
 
 export const Settings = () => {
   const dispatch = useDispatch();
@@ -161,10 +162,39 @@ export const Settings = () => {
             activeSlider={false} // без лапок!
           />
         </div>
+<div className={styles.GiftAndTicketContainer}>
+  <div>
+    <h1 className={styles.TitleModeration}>Подарунки</h1>
+    <GiftAndTicketCard
+      moderationTitle="Керування подарунками, перегляд запитів та відправлень"
+      moderationList=""
+      endpoint="gift"
+      activeSlider={false}
+    />
+  </div>
 
-        <Actions/>
+  <div>
+    <h1 className={styles.TitleModeration}>Ticket Tool</h1>
+    <GiftAndTicketCard
+      moderationTitle="Керування та перегляд заявок"
+      moderationList=""
+      endpoint="ticket-tool"
+      activeSlider={false}
+    />
+  </div>
+</div>
+               
+   
 
       </section>
+
+       
+
+
+           <Actions/>
+ 
+
+
 
       <ToastContainer
         position="top-right"

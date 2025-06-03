@@ -17,6 +17,8 @@ import { CountOfXPPage } from 'components/Settings/CountOfXp/CountOfXpPage';
 import LinksPage from 'components/LinksPage/LinksPage';
 import { CommandsPage } from 'components/Settings/Commands/CommandsPage';
 import { Emojis } from 'components/Settings/Emojis/Emojis';
+import { GiftPage } from 'components/Settings/Gift&TicketSettings/Gift/GiftPage';
+import { TicketToolPage } from 'components/Settings/Gift&TicketSettings/TicketTool/TicketToolPage';
 
 export const router = createBrowserRouter([
   {
@@ -87,6 +89,14 @@ export const router = createBrowserRouter([
       {
         path: 'settings/emojis',
         element: <PrivateRoute component={Emojis} redirectTo="/login" />,
+      },
+        {
+        path: 'settings/gift',
+        element: <PrivateRoute component={GiftPage} redirectTo="/login" />,
+      },
+       {
+        path: 'settings/ticket-tool',
+        element: <PrivateRoute component={TicketToolPage} redirectTo="/login" />,
       },
     ],
   },

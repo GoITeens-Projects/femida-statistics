@@ -240,3 +240,9 @@ input:checked+.slider:before {
     color: var(--text-color);
     margin-left: 20px;
 }
+.GiftAndTicketContainer{
+    display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px; /* або скільки потрібно відступу між колонками */
+
+}

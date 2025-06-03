@@ -17,7 +17,7 @@ import authReducer from './auth/slice';
 import { filterReducer } from './filter/slice'
 import { settingsReducer } from "./settings/slice";
 
-
+import { giftsReducer } from './gift/slice';
 
 const persistConfig = {
   key: 'root',
@@ -31,7 +31,8 @@ const rootReducer = combineReducers({
   auth: authReducer,
   filter: filterReducer,
   settings: settingsReducer,
-  improvised: improvisedReducer
+  improvised: improvisedReducer,
+  gifts: giftsReducer
 });
 
 
