@@ -67,3 +67,15 @@ line-height: 100%;
 letter-spacing: 0%;
 color:var(--text-color)
 }
+.UserCell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.UserAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+}

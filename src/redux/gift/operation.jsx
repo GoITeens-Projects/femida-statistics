@@ -21,3 +21,26 @@ console.log('подарунки:', response.data);
         );
     }
 });
+
+
+export const fetchUserName = createAsyncThunk(
+  'settings/fetchUserName',
+  async (ids, thunkApi) => {
+    try {
+      const accessToken = localStorage.getItem('token');
+      const response = await axios.get(
+        `https://femida-api.onrender.com/discord/usernames?ids=${ids}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(
+        error.response?.data?.message || 'Помилка завантаження імен користувачів'
+      );
+    }
+  }
+);

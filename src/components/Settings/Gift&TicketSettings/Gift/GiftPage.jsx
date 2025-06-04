@@ -4,79 +4,105 @@ import styles from './GiftPage.module.css';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import Vector from './Vector.svg'
-import { useEffect } from 'react';
-import { fetchGifts } from '../../../../redux/gift/operation';
+import { useEffect, useState } from 'react';
+import { fetchGifts, fetchUserName } from '../../../../redux/gift/operation';
 import { FilterGift } from './FilterGift/FilterGift';
 import Shadow from 'components/Shadow/Shadow';
 
 
 export const GiftPage = () => {
-       const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const { giftRequests, usernames, loading } = useSelector(state => state.gifts);
+  const [visibleCount, setVisibleCount] = useState(3); // Початково показуємо 3 записи
 
+  useEffect(() => {
+    dispatch(fetchGifts());
+  }, [dispatch]);
 
-    useEffect(() => {
-        dispatch(fetchGifts());
-    }, [dispatch]);
-    const handleSave = ()=>{
-        
+  useEffect(() => {
+    if (giftRequests.length > 0) {
+      const ids = [...new Set(giftRequests.map(req => req.clientData?.discordId).filter(Boolean))].join(',');
+      if (ids) {
+        dispatch(fetchUserName(ids));
+      }
     }
-  const { giftRequests, loading, error } = useSelector((state) => state.gifts);
-    const handleBackClick = () =>{
-return  navigate("/settings");
-}
+  }, [giftRequests, dispatch]);
 
-console.log('стейт подарунків:', giftRequests);
+  const handleBackClick = () => navigate("/settings");
+  const handleLoadMore = () => setVisibleCount(prev => prev + 3);
 
-   
+  const visibleRequests = giftRequests.slice(0, visibleCount);
 
-return(
-       <section>
-                  <SettingsNavigation
-                      onHandleBackClick={handleBackClick}
-                      onHandleSave={handleSave}
-                  />
-                  <div className={styles.Container}>
-                      <h1 className={styles.TitleBadWords}>Подарунки</h1>
+  return (
+    <section>
+      <SettingsNavigation onHandleBackClick={handleBackClick} onHandleSave={() => {}} />
+      <div className={styles.Container}>
+        <h1 className={styles.TitleBadWords}>Подарунки</h1>
+        <div className={styles.FilterTitleContainer}>
+          <img src={Vector} alt='svg' />
+          <h3 className={styles.FilterTitle}>Фільтри</h3>
+        </div>
 
-                      <div className={styles.FilterTitleContainer}>
-                      <img src={Vector} alt='svg'></img>
-                      <h3 className={styles.FilterTitle} >Фільтри</h3>
+        <div className={styles.FromContainer}>
+          <Shadow leftFirst={-7} widthFirst={5} heightSecond={5} rightSecond={3} bottomSecond={-7} backgroundBoth={'#6EABD4'} borderColorBoth={'#558DB2'} />
+          <table>
+            <thead>
+              <tr>
+                <td className={styles.TableHeaderCell}>Ім’я користувача</td>
+                <td className={styles.TableHeaderCell}>E-mail</td>
+                <td className={styles.TableHeaderCell}>Рейтинг (XP)</td>
+                <td className={styles.TableHeaderCell}>Поточний подарунок</td>
+                <td className={styles.TableHeaderCell}>Адреса для надсилання</td>
+                <td className={styles.TableHeaderCell}>Статус</td>
+                <td className={styles.TableHeaderCell}>Коментар</td>
+              </tr>
+            </thead>
+            <tbody>
+              {visibleRequests.map((req) => {
+                const discordId = req.clientData?.discordId;
+                const user = usernames[discordId];
+                const displayName = user
+                  ? `${user.username} (${user.globalName})`
+                  : discordId || 'Невідомо';
+
+                return (
+                  <tr key={req.id}>
+                    <td className={styles.TableBodyCell}>
+                      <div className={styles.UserCell}>
+                        {user?.avatar && (
+                          <img
+                            src={user.avatar}
+                            alt="avatar"
+                            className={styles.UserAvatar}
+                          />
+                        )}
+                        {displayName}
                       </div>
-                      {/* <FilterGift/> */}
-                
-                      <div className={styles.FromContainer}>
-                    <Shadow leftFirst={-7} widthFirst={5} heightSecond={5} rightSecond={3} bottomSecond={-7} backgroundBoth={'#6EABD4'} borderColorBoth={'#558DB2'} />
+                    </td>
+                    <td className={styles.TableBodyCell}>example@gmail.com</td>
+                    <td className={styles.TableBodyCell}>{req.requestedGift.toReceive.presentXpPrice}</td>
+                    <td className={styles.TableBodyCell}>{req.requestedGift.title}</td>
+                    <td className={styles.TableBodyCell}>Адреса для надсилання</td>
+                    <td className={styles.TableBodyCell}><button>очікується</button></td>
+                    <td className={styles.TableBodyCell}>Коментар/нотатка</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
 
-
-<table>
-  <tr>
-    <td className={styles.TableHeaderCell}>Ім’я користувача</td>
-    <td className={styles.TableHeaderCell}>E-mail</td>
-    <td className={styles.TableHeaderCell}>Рейтинг (ХР)</td>
-    <td className={styles.TableHeaderCell}>Поточний подарунок</td>
-    <td className={styles.TableHeaderCell}>Адреса для надсилання</td>
-    <td className={styles.TableHeaderCell}>Статус</td>
-    <td className={styles.TableHeaderCell}>Коментар</td>
-  </tr>
-
-  <tr>
-    <td className={styles.TableBodyCell}>Breed</td>
-    <td className={styles.TableBodyCell}>example@gmail.com</td>
-    <td className={styles.TableBodyCell}>00000</td>
-    <td className={styles.TableBodyCell}>Поточний подарунок</td>
-    <td className={styles.TableBodyCell}>Адреса для надсилання</td>
-    <td className={styles.TableBodyCell}><button>очікується</button></td>
-    <td className={styles.TableBodyCell}>Коментар/нотатка</td>
-  </tr>
-</table>
-
-                      </div>
-                  
-                  </div>
-              
-              </section>
-       
-    )
-}
+          {/* Кнопка для завантаження ще */}
+          {visibleCount < giftRequests.length && (
+            <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+              <button onClick={handleLoadMore} className={styles.LoadMoreButton}>
+                Завантажити ще
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+};
