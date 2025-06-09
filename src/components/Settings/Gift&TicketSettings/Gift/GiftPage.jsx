@@ -43,16 +43,19 @@ export const GiftPage = () => {
         <div className={styles.FilterTitleContainer}>
           <img src={Vector} alt='svg' />
           <h3 className={styles.FilterTitle}>Фільтри</h3>
+          {/* <FilterGift/> */}
         </div>
 
         <div className={styles.FromContainer}>
+         
           <Shadow leftFirst={-7} widthFirst={5} heightSecond={5} rightSecond={3} bottomSecond={-7} backgroundBoth={'#6EABD4'} borderColorBoth={'#558DB2'} />
+
           <table>
             <thead>
               <tr>
                 <td className={styles.TableHeaderCell}>Ім’я користувача</td>
                 <td className={styles.TableHeaderCell}>E-mail</td>
-                <td className={styles.TableHeaderCell}>Рейтинг (XP)</td>
+                <td className={styles.TableHeaderCell}>Вартість подарунку (XP)</td>
                 <td className={styles.TableHeaderCell}>Поточний подарунок</td>
                 <td className={styles.TableHeaderCell}>Адреса для надсилання</td>
                 <td className={styles.TableHeaderCell}>Статус</td>
