@@ -21,7 +21,22 @@ console.log('подарунки:', response.data);
         );
     }
 });
-
+export const fetchGift = createAsyncThunk('settings/fetchGift', async (id, thunkApi) => {
+    try {
+        const accessToken = localStorage.getItem('token');
+        const response = await axios.get(`https://femida-api.onrender.com/gifts/requests/${id}`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+        console.log('подарунки:', response.data);
+        return response.data;
+    } catch (error) {
+        return thunkApi.rejectWithValue(
+            error.response?.data?.message || 'Помилка завантаження подарунка'
+        );
+    }
+});
 
 export const fetchUserName = createAsyncThunk(
   'settings/fetchUserName',

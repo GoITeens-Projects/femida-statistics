@@ -39,8 +39,9 @@ letter-spacing: 0%;
 color: var(--text-color)
 }
 
-.TableHeaderCell:not(:last-child) {
+.TableHeaderCell {
   padding-right: 50px;
+  text-align: center;
 
 
 
@@ -54,18 +55,24 @@ letter-spacing: 0%;
 color: var(--text-accent-color);
 }
 
-.TableBodyCell:not(:last-child) {
-  padding-right: 50px;
+.TableBodyCell {
+  padding-right:50px;
+  text-align: center;
  
 
 }
-.TableBodyCell{
- font-family: IBM Plex Mono;
-font-weight: 400;
-font-size: 14px;
-line-height: 100%;
-letter-spacing: 0%;
-color:var(--text-color)
+.TableBodyCell {
+  font-family: IBM Plex Mono;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: var(--text-color);
+  height: 85px; /* ✅ додаємо ширину */
+
+  overflow: hidden; /* на всякий випадок */
+  text-overflow: ellipsis; /* якщо текст довгий */
+  white-space: nowrap;
 }
 .UserCell {
   display: flex;
@@ -78,4 +85,36 @@ color:var(--text-color)
   height: 28px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.StatusRadios {
+width: 70px;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px; /* Зменшує розмір тексту */
+}
+
+.StatusRadios input[type="radio"] {
+  transform: scale(0.8); /* Зменшує розмір самої кнопки */
+  margin-right: 4px;
+}
+
+.StatusRadioGroup {
+  display: flex;
+  flex-direction: row; /* з вертикального на горизонтальний */
+  gap: 8px;
+  justify-content: center; /* щоб красиво вирівняти */
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+.StatusRadioGroup label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.Comment{
+  width: 188px;
+  height: 34px;
+   background-color: var(--gift-background);
 }

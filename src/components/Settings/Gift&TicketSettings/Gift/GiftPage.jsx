@@ -1,21 +1,46 @@
-
 import { SettingsNavigation } from 'components/Settings/SettingsNavigation/SettingsNavigation';
 import styles from './GiftPage.module.css';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Vector from './Vector.svg'
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { fetchGifts, fetchUserName } from '../../../../redux/gift/operation';
 import { FilterGift } from './FilterGift/FilterGift';
 import Shadow from 'components/Shadow/Shadow';
-
+import Polygon from './Polygon 6.svg';
+import { GiftDetailsModal } from './GiftDetailsModal';
 
 export const GiftPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { giftRequests, usernames } = useSelector((state) => state.gifts);
+  const [visibleCount, setVisibleCount] = useState(3);
+  const [expandedRowId, setExpandedRowId] = useState(null);
 
-  const { giftRequests, usernames, loading } = useSelector(state => state.gifts);
-  const [visibleCount, setVisibleCount] = useState(3); // Початково показуємо 3 записи
+  // Ініціалізуємо comments зі localStorage
+  const [comments, setComments] = useState(() => {
+    const saved = localStorage.getItem('giftComments');
+    return saved ? JSON.parse(saved) : {};
+  });
+
+  const handleCommentChange = (id, value) => {
+    if (value.length <= 26) {
+      setComments(prev => {
+        const updated = { ...prev, [id]: value };
+        localStorage.setItem('giftComments', JSON.stringify(updated));
+        return updated;
+      });
+    }
+  };
+
+  const getInitialFilters = () => {
+    const savedFilters = localStorage.getItem('giftFilters');
+    return savedFilters
+      ? JSON.parse(savedFilters)
+      : { giftTypeIds: [], minXp: null, maxXp: null };
+  };
+
+  const [filters, setFilters] = useState(getInitialFilters);
+  const [filteredRequests, setFilteredRequests] = useState([]);
 
   useEffect(() => {
     dispatch(fetchGifts());
@@ -23,43 +48,74 @@ export const GiftPage = () => {
 
   useEffect(() => {
     if (giftRequests.length > 0) {
-      const ids = [...new Set(giftRequests.map(req => req.clientData?.discordId).filter(Boolean))].join(',');
-      if (ids) {
-        dispatch(fetchUserName(ids));
-      }
+      const ids = [
+        ...new Set(giftRequests.map((req) => req.clientData?.discordId).filter(Boolean)),
+      ].join(',');
+      if (ids) dispatch(fetchUserName(ids));
     }
   }, [giftRequests, dispatch]);
 
-  const handleBackClick = () => navigate("/settings");
-  const handleLoadMore = () => setVisibleCount(prev => prev + 3);
+  useEffect(() => {
+    let result = giftRequests;
 
-  const visibleRequests = giftRequests.slice(0, visibleCount);
+    if (filters.giftTypeIds.length > 0) {
+      result = result.filter((req) =>
+        filters.giftTypeIds.includes(String(req.requestedGift.giftId))
+      );
+    }
+
+    if (filters.minXp !== null) {
+      result = result.filter((req) => req.requestedGift.toReceive.presentXpPrice >= filters.minXp);
+    }
+
+    if (filters.maxXp !== null) {
+      result = result.filter((req) => req.requestedGift.toReceive.presentXpPrice <= filters.maxXp);
+    }
+
+    setFilteredRequests(
+      result.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    );
+  }, [filters, giftRequests]);
+
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters);
+    localStorage.setItem('giftFilters', JSON.stringify(newFilters));
+  };
+
+  const handleBackClick = () => navigate('/settings');
+  const handleLoadMore = () => setVisibleCount((prev) => prev + 3);
+  const toggleRow = (id) => {
+    setExpandedRowId((prevId) => (prevId === id ? null : id));
+  };
+
+  const visibleRequests = filteredRequests.slice(0, visibleCount);
 
   return (
     <section>
       <SettingsNavigation onHandleBackClick={handleBackClick} onHandleSave={() => {}} />
       <div className={styles.Container}>
         <h1 className={styles.TitleBadWords}>Подарунки</h1>
-        <div className={styles.FilterTitleContainer}>
-          <img src={Vector} alt='svg' />
-          <h3 className={styles.FilterTitle}>Фільтри</h3>
-          {/* <FilterGift/> */}
-        </div>
-
+        <FilterGift onFilterChange={handleFilterChange} />
         <div className={styles.FromContainer}>
-         
-          <Shadow leftFirst={-7} widthFirst={5} heightSecond={5} rightSecond={3} bottomSecond={-7} backgroundBoth={'#6EABD4'} borderColorBoth={'#558DB2'} />
-
+          <Shadow
+            leftFirst={-7}
+            widthFirst={5}
+            heightSecond={5}
+            rightSecond={3}
+            bottomSecond={-7}
+            backgroundBoth={'#6EABD4'}
+            borderColorBoth={'#558DB2'}
+          />
           <table>
             <thead>
               <tr>
-                <td className={styles.TableHeaderCell}>Ім’я користувача</td>
-                <td className={styles.TableHeaderCell}>E-mail</td>
-                <td className={styles.TableHeaderCell}>Вартість подарунку (XP)</td>
-                <td className={styles.TableHeaderCell}>Поточний подарунок</td>
-                <td className={styles.TableHeaderCell}>Адреса для надсилання</td>
-                <td className={styles.TableHeaderCell}>Статус</td>
-                <td className={styles.TableHeaderCell}>Коментар</td>
+                <td className={`${styles.TableHeaderCell} ${styles.UserColumn}`}>Ім’я користувача</td>
+                <td className={`${styles.TableHeaderCell} ${styles.DateColumn}`}>Дата</td>
+                <td className={`${styles.TableHeaderCell}`}>Вартість подарунку (XP)</td>
+                <td className={`${styles.TableHeaderCell} ${styles.GiftColumn}`}>Поточний подарунок</td>
+                <td className={`${styles.TableHeaderCell} ${styles.StatusColumn}`}>Статус</td>
+                <td className={`${styles.TableHeaderCell} ${styles.CommentColumn}`}>Коментар</td>
+                <td className={`${styles.TableHeaderCell} ${styles.CommentColumn}`}></td>
               </tr>
             </thead>
             <tbody>
@@ -71,33 +127,61 @@ export const GiftPage = () => {
                   : discordId || 'Невідомо';
 
                 return (
-                  <tr key={req.id}>
-                    <td className={styles.TableBodyCell}>
-                      <div className={styles.UserCell}>
-                        {user?.avatar && (
-                          <img
-                            src={user.avatar}
-                            alt="avatar"
-                            className={styles.UserAvatar}
-                          />
-                        )}
-                        {displayName}
-                      </div>
-                    </td>
-                    <td className={styles.TableBodyCell}>example@gmail.com</td>
-                    <td className={styles.TableBodyCell}>{req.requestedGift.toReceive.presentXpPrice}</td>
-                    <td className={styles.TableBodyCell}>{req.requestedGift.title}</td>
-                    <td className={styles.TableBodyCell}>Адреса для надсилання</td>
-                    <td className={styles.TableBodyCell}><button>очікується</button></td>
-                    <td className={styles.TableBodyCell}>Коментар/нотатка</td>
-                  </tr>
+                  <React.Fragment key={req.id}>
+                    <tr>
+                      <td className={`${styles.TableBodyCell} ${styles.UserColumn}`}>
+                        <div className={styles.UserCell}>
+                          {user?.avatar && (
+                            <img src={user.avatar} alt="avatar" className={styles.UserAvatar} />
+                          )}
+                          {displayName}
+                        </div>
+                      </td>
+                      <td className={`${styles.TableBodyCell} ${styles.DateColumn}`}>
+                        {new Date(req.createdAt).toLocaleString('uk-UA', {
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                      </td>
+                      <td className={`${styles.TableBodyCell} ${styles.XpColumn}`}>
+                        {req.requestedGift.toReceive.presentXpPrice}
+                      </td>
+                      <td
+                        className={`${styles.TableBodyCell} ${styles.GiftColumn}`}
+                        data-gift-id={req.requestedGift.giftId}
+                      >
+                        {req.requestedGift.title}
+                      </td>
+                      <td className={`${styles.TableBodyCell} ${styles.StatusColumn}`}>
+                        очікується
+                      </td>
+                      <td className={`${styles.TableBodyCell} ${styles.CommentColumn}`}>
+                        <input
+                          className={styles.Comment}
+                          type="text"
+                          maxLength={26}
+                          value={comments[req.id] || ''}
+                          onChange={(e) => handleCommentChange(req.id, e.target.value)}
+                        />
+                      </td>
+                      <td className={`${styles.TableBodyCell} ${styles.CommentColumn}`}>
+                        <button onClick={() => toggleRow(req.id)} className={styles.ToggleButton}>
+                          <img src={Polygon} alt="Деталі" />
+                        </button>
+                      </td>
+                    </tr>
+                    {expandedRowId === req.id && (
+                      <GiftDetailsModal id={req.id} request={req} />
+                    )}
+                  </React.Fragment>
                 );
               })}
             </tbody>
           </table>
-
-          {/* Кнопка для завантаження ще */}
-          {visibleCount < giftRequests.length && (
+          {visibleCount < filteredRequests.length && (
             <div style={{ marginTop: '1rem', textAlign: 'center' }}>
               <button onClick={handleLoadMore} className={styles.LoadMoreButton}>
                 Завантажити ще

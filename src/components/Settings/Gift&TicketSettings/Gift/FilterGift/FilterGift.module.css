@@ -9,6 +9,7 @@
 .testDiv {
   margin-right: auto;
   /* width: 100px; */
+  margin-top: 20px;
 }
 
 .overlay {
@@ -439,4 +440,91 @@
   @media screen and (min-width: 850px) {
     border-bottom: 2px solid var(--text-accent-color);
   }
+}
+
+
+
+
+
+.CustomCheckbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 10px;
+    margin: 8px 0;
+    position: relative;
+    color: var(--text-color);
+}
+
+.CustomCheckbox input {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.CheckboxMark {
+    height: 10px;
+    width: 10px;
+    background-color: var(--bg-modal-color);
+    /* Світлий фон */
+    border: 1px solid var(--shadow-secondary-border);
+    /* Колір рамки */
+    border-radius: 2px;
+    /* Скруглені кути */
+    display: inline-block;
+    position: relative;
+    margin-right: 8px;
+}
+
+.CustomCheckbox input:checked+.CheckboxMark {
+    background-color: var(--shadow-secondary-border);
+    /* Колір фону для чекнутого стану */
+    border-color: var(--shadow-secondary-border);
+    /* Синхронізуємо колір рамки з фоном */
+}
+
+.CustomCheckbox input:checked+.CheckboxMark::after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid #fff;
+    /* Білий колір галочки */
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.ContainerCheckBox {
+    margin-top: 25px;
+}
+
+
+/* Додаємо відстань між чекбоксами */
+
+.CustomCheckbox+.CustomCheckbox {
+    margin-top: 15px;
+    /* Відстань між чекбоксами */
+}
+
+
+
+
+.RatingXpContainer {
+  display: flex;
+  align-items: center;   /* щоб інпут не розтягувався по висоті */
+  gap: 8px;              /* невеличкий відступ між елементами */
+}
+
+.RatingXpInput {
+  flex: 0 0 40px;        /* не росте, не стискається, basis = 30px */
+  min-width: 40px;       /* не стискається менше за 30px */
+  width: 40px;           /* ширина = 30px */
+  height: 20px;          /* висота = 14px */
+  box-sizing: border-box;/* padding/border враховуються в розмірах */
+  background-color: #E7F0F1;
+  /* якщо хочеш вирівняти інпут по верху контейнера: */
+  /* align-self: flex-start; */
 }

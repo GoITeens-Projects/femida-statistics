@@ -136,6 +136,7 @@ html[data-theme='light'] {
     --slider-background: white;
     --slider-background-before: #96b8bd;
     --slider-background-checked: #acd0d6;
+    --gift-background: #F3F3F3;
 }
 
 :root,
@@ -177,4 +178,5 @@ html[data-theme='dark'] {
     --slider-background: #27565d;
     --slider-background-before: #678f95;
     --slider-background-checked: #061c1f;
+     --gift-background: #262626;
 }

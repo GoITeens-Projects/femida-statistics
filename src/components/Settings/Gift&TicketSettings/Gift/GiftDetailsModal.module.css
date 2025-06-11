@@ -1,0 +1,12 @@
+.ModalRow {
+  background-color: var(--gift-background);
+  width: 500px;
+}
+
+.ModalContent {
+  padding: 16px;
+  font-family: IBM Plex Mono;
+  font-size: 14px;
+  color: var(--text-color);
+  text-align: left;
+}
