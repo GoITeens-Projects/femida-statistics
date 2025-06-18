@@ -168,7 +168,7 @@ width: 70px;
 }
 
 .ClickableRow:hover {
-  background-color: #f0f0f0; /* Або #e0e0e0 якщо хочеш темніше */
+    background-color: var(--gift-background); /* Або #e0e0e0 якщо хочеш темніше */
 }
 
 .FromContainer table {
@@ -183,5 +183,5 @@ width: 70px;
 }
 
 .activeRow {
-  background-color: #f2f2f2;
+  background-color: var(--gift-background);
 }

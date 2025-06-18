@@ -51,7 +51,7 @@ export const GiftDetailsModal = ({ id }) => {
                   
                 </tr>
                  
-    <div className={styles.RadioGroup}>
+    {/* <div className={styles.RadioGroup}>
       <label className={styles.statusSent}>
         <input type="radio"  /> Відправлено
       </label>
@@ -61,7 +61,7 @@ export const GiftDetailsModal = ({ id }) => {
       <label className={styles.statusCancelled}>
         <input type="radio"  /> Скасовано
       </label>
-    </div>
+    </div> */}
 
               </tbody>
             </table>

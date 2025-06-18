@@ -1,9 +1,11 @@
 @keyframes slideDown {
   0% {
+     width: 800px;
     opacity: 0;
     transform: translateY(-10px);
   }
   100% {
+     width: 800px;
     opacity: 1;
     transform: translateY(0);
   }
@@ -16,17 +18,20 @@
 }
 
 .ModalContent {
+  /* додано */
+
   padding: 16px;
   font-family: 'IBM Plex Mono', monospace;
   font-size: 14px;
-  color: var(--text-color);
+
   text-align: left;
   animation: slideDown 0.3s ease-out;
   border-top: 1px solid #ccc;
 }
 
+
 .GiftInfoTable {
-  width: 100%;
+
   border-collapse: collapse;
   margin-top: 8px;
 }
