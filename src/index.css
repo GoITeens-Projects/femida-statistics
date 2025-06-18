@@ -137,6 +137,9 @@ html[data-theme='light'] {
     --slider-background-before: #96b8bd;
     --slider-background-checked: #acd0d6;
     --gift-background: #F3F3F3;
+    --gift-status-pending:#D1A324;
+    --gift-status-sent:#B0E060;
+    --gift-status-cancelled: #EB7F71;
 }
 
 :root,
@@ -178,5 +181,8 @@ html[data-theme='dark'] {
     --slider-background: #27565d;
     --slider-background-before: #678f95;
     --slider-background-checked: #061c1f;
-     --gift-background: #262626;
+    --gift-background: #262626;
+    --gift-status-pending:#B28800;
+    --gift-status-sent:#577A1F;
+    --gift-status-cancelled: #8A2F22;
 }

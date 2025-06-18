@@ -16,7 +16,6 @@ export const GiftPage = () => {
   const [visibleCount, setVisibleCount] = useState(3);
   const [expandedRowId, setExpandedRowId] = useState(null);
 
-  // Ініціалізуємо comments зі localStorage
   const [comments, setComments] = useState(() => {
     const saved = localStorage.getItem('giftComments');
     return saved ? JSON.parse(saved) : {};
@@ -111,7 +110,7 @@ export const GiftPage = () => {
               <tr>
                 <td className={`${styles.TableHeaderCell} ${styles.UserColumn}`}>Ім’я користувача</td>
                 <td className={`${styles.TableHeaderCell} ${styles.DateColumn}`}>Дата</td>
-                <td className={`${styles.TableHeaderCell}`}>Вартість подарунку (XP)</td>
+                <td className={styles.TableHeaderCell}>Вартість подарунку (XP)</td>
                 <td className={`${styles.TableHeaderCell} ${styles.GiftColumn}`}>Поточний подарунок</td>
                 <td className={`${styles.TableHeaderCell} ${styles.StatusColumn}`}>Статус</td>
                 <td className={`${styles.TableHeaderCell} ${styles.CommentColumn}`}>Коментар</td>
@@ -128,51 +127,59 @@ export const GiftPage = () => {
 
                 return (
                   <React.Fragment key={req.id}>
-                    <tr>
-                      <td className={`${styles.TableBodyCell} ${styles.UserColumn}`}>
-                        <div className={styles.UserCell}>
-                          {user?.avatar && (
-                            <img src={user.avatar} alt="avatar" className={styles.UserAvatar} />
-                          )}
-                          {displayName}
-                        </div>
-                      </td>
-                      <td className={`${styles.TableBodyCell} ${styles.DateColumn}`}>
-                        {new Date(req.createdAt).toLocaleString('uk-UA', {
-                          day: '2-digit',
-                          month: '2-digit',
-                          year: 'numeric',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })}
-                      </td>
-                      <td className={`${styles.TableBodyCell} ${styles.XpColumn}`}>
-                        {req.requestedGift.toReceive.presentXpPrice}
-                      </td>
-                      <td
-                        className={`${styles.TableBodyCell} ${styles.GiftColumn}`}
-                        data-gift-id={req.requestedGift.giftId}
-                      >
-                        {req.requestedGift.title}
-                      </td>
-                      <td className={`${styles.TableBodyCell} ${styles.StatusColumn}`}>
-                        очікується
-                      </td>
-                      <td className={`${styles.TableBodyCell} ${styles.CommentColumn}`}>
-                        <input
-                          className={styles.Comment}
-                          type="text"
-                          maxLength={26}
-                          value={comments[req.id] || ''}
-                          onChange={(e) => handleCommentChange(req.id, e.target.value)}
-                        />
-                      </td>
-                      <td className={`${styles.TableBodyCell} ${styles.CommentColumn}`}>
-                        <button onClick={() => toggleRow(req.id)} className={styles.ToggleButton}>
-                          <img src={Polygon} alt="Деталі" />
-                        </button>
-                      </td>
-                    </tr>
+                  <tr
+  className={`${styles.ClickableRow} ${
+    expandedRowId === req.id ? styles.activeRow : ''
+  }`}
+  onClick={() => toggleRow(req.id)}
+>
+  <td className={`${styles.TableBodyCell} ${styles.UserColumn}`}>
+    <div className={styles.UserCell}>
+      {user?.avatar && (
+        <img src={user.avatar} alt="avatar" className={styles.UserAvatar} />
+      )}
+      {displayName}
+    </div>
+  </td>
+  <td className={`${styles.TableBodyCell} ${styles.DateColumn}`}>
+    {new Date(req.createdAt).toLocaleString('uk-UA', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    })}
+  </td>
+  <td className={`${styles.TableBodyCell} ${styles.XpColumn}`}>
+    {req.requestedGift.toReceive.presentXpPrice}
+  </td>
+  <td className={`${styles.TableBodyCell} ${styles.GiftColumn}`}>
+    {req.requestedGift.title}
+  </td>
+  <td className={`${styles.TableBodyCell} ${styles.StatusColumn}`}>
+    <div className={styles.RadioGroup}>
+      <label className={styles.statusSent}>
+        <input type="radio" name={`status-${req.id}`} /> Відправлено
+      </label>
+      <label className={styles.statusPending}>
+        <input type="radio" name={`status-${req.id}`} /> Очікується
+      </label>
+      <label className={styles.statusCancelled}>
+        <input type="radio" name={`status-${req.id}`} /> Скасовано
+      </label>
+    </div>
+  </td>
+  <td className={`${styles.TableBodyCell} ${styles.CommentColumn}`}>
+    <input
+      className={styles.Comment}
+      type="text"
+      maxLength={26}
+      value={comments[req.id] || ''}
+      onClick={(e) => e.stopPropagation()}
+      onChange={(e) => handleCommentChange(req.id, e.target.value)}
+    />
+  </td>
+</tr>
                     {expandedRowId === req.id && (
                       <GiftDetailsModal id={req.id} request={req} />
                     )}

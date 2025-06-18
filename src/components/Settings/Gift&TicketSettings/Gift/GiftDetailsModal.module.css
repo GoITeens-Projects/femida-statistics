@@ -1,12 +1,94 @@
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .ModalRow {
+
   background-color: var(--gift-background);
-  width: 500px;
+  animation: slideDown 0.3s ease-out;
 }
 
 .ModalContent {
   padding: 16px;
-  font-family: IBM Plex Mono;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 14px;
   color: var(--text-color);
   text-align: left;
+  animation: slideDown 0.3s ease-out;
+  border-top: 1px solid #ccc;
+}
+
+.GiftInfoTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+
+.GiftInfoTable td {
+  padding: 4px 8px;
+  vertical-align: top;
+}
+
+.GiftInfoTable td:first-child {
+  font-weight: bold;
+  width: 150px;
+  color: var(--text-color-secondary, #444);
+}
+
+
+
+
+
+
+
+
+
+.RadioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 0;
+  align-items: flex-start;
+  font-size: 13px;
+  line-height: 1.2;
+  justify-content: center;
+  height: 100%;
+}
+.RadioGroup label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  width: 15px;
+}
+
+.RadioGroup input[type='radio'] {
+ color: var(--shadow-secondary-border);
+}
+
+
+.StatusColumn {
+  width: 170px; /* або менше */
+  vertical-align: middle;
+}
+
+
+.statusPending {
+  color: var(--gift-status-pending);
+}
+
+.statusSent {
+  color: var(--gift-status-sent);
+}
+
+.statusCancelled {
+  color: var(--gift-status-cancelled);
 }

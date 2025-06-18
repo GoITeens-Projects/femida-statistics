@@ -48,7 +48,21 @@ export const GiftDetailsModal = ({ id }) => {
                 <tr>
                   <td><strong>Телефон:</strong></td>
                   <td>{client.phoneNumber}</td>
+                  
                 </tr>
+                 
+    <div className={styles.RadioGroup}>
+      <label className={styles.statusSent}>
+        <input type="radio"  /> Відправлено
+      </label>
+      <label className={styles.statusPending}>
+        <input type="radio"  /> Очікується
+      </label>
+      <label className={styles.statusCancelled}>
+        <input type="radio"  /> Скасовано
+      </label>
+    </div>
+
               </tbody>
             </table>
           ) : (
