@@ -154,13 +154,18 @@ width: 70px;
   color: var(--gift-status-pending);
 }
 
-.statusSent {
+.statusReceived {
   color: var(--gift-status-sent);
 }
 
 .statusCancelled {
   color: var(--gift-status-cancelled);
 }
+.statusSent {
+  color: #4A90E2;
+}
+
+
 
 .ClickableRow {
   cursor: pointer;

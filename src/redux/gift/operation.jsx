@@ -59,3 +59,36 @@ export const fetchUserName = createAsyncThunk(
     }
   }
 );
+
+
+
+
+
+
+
+export const PatchGift = createAsyncThunk(
+  'settings/PatchGift',
+  async ({ id, data }, thunkApi) => {
+    try {
+      const accessToken = localStorage.getItem('token');
+
+      const response = await axios.patch(
+        `https://femida-api.onrender.com/gifts/requests/${id}`,
+        data, // тіло запиту
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      console.log('Оновлено подарунок:', response.data);
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(
+        error.response?.data?.message || 'Помилка оновлення подарунка'
+      );
+    }
+  }
+);

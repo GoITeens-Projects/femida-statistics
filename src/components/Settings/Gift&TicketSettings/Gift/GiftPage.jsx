@@ -3,10 +3,9 @@ import styles from './GiftPage.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
-import { fetchGifts, fetchUserName } from '../../../../redux/gift/operation';
+import { fetchGifts, fetchUserName, PatchGift } from '../../../../redux/gift/operation';
 import { FilterGift } from './FilterGift/FilterGift';
 import Shadow from 'components/Shadow/Shadow';
-import Polygon from './Polygon 6.svg';
 import { GiftDetailsModal } from './GiftDetailsModal';
 
 export const GiftPage = () => {
@@ -21,6 +20,8 @@ export const GiftPage = () => {
     return saved ? JSON.parse(saved) : {};
   });
 
+  const [statuses, setStatuses] = useState({});
+
   const handleCommentChange = (id, value) => {
     if (value.length <= 26) {
       setComments(prev => {
@@ -29,6 +30,45 @@ export const GiftPage = () => {
         return updated;
       });
     }
+  };
+
+  const handleCommentBlur = (id) => {
+    const extraComment = comments[id] || '';
+    const currentStatus = statuses[id] || 'Очікується'; // дефолт статус, якщо не вибрано
+
+    dispatch(PatchGift({
+      id,
+      data: {
+        newState: {
+          status: {
+            text: currentStatus,
+          },
+          extraComment,
+        },
+        isXpDeducted: false,
+        postOrderId: '',
+      }
+    }));
+  };
+
+  const handleStatusChange = (id, status) => {
+    setStatuses(prev => ({ ...prev, [id]: status }));
+
+    const extraComment = comments[id] || '';
+
+    dispatch(PatchGift({
+      id,
+      data: {
+        newState: {
+          status: {
+            text: status,
+          },
+          extraComment,
+        },
+        isXpDeducted: false,
+        postOrderId: '',
+      }
+    }));
   };
 
   const getInitialFilters = () => {
@@ -83,7 +123,9 @@ export const GiftPage = () => {
 
   const handleBackClick = () => navigate('/settings');
   const handleLoadMore = () => setVisibleCount((prev) => prev + 3);
-  const toggleRow = (id) => {
+
+  const toggleRow = (e, id) => {
+    if (e.target.tagName === 'INPUT') return;
     setExpandedRowId((prevId) => (prevId === id ? null : id));
   };
 
@@ -127,59 +169,85 @@ export const GiftPage = () => {
 
                 return (
                   <React.Fragment key={req.id}>
-                  <tr
-  className={`${styles.ClickableRow} ${
-    expandedRowId === req.id ? styles.activeRow : ''
-  }`}
-  onClick={() => toggleRow(req.id)}
->
-  <td className={`${styles.TableBodyCell} ${styles.UserColumn}`}>
-    <div className={styles.UserCell}>
-      {user?.avatar && (
-        <img src={user.avatar} alt="avatar" className={styles.UserAvatar} />
-      )}
-      {displayName}
-    </div>
-  </td>
-  <td className={`${styles.TableBodyCell} ${styles.DateColumn}`}>
-    {new Date(req.createdAt).toLocaleString('uk-UA', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    })}
-  </td>
-  <td className={`${styles.TableBodyCell} ${styles.XpColumn}`}>
-    {req.requestedGift.toReceive.presentXpPrice}
-  </td>
-  <td className={`${styles.TableBodyCell} ${styles.GiftColumn}`}>
-    {req.requestedGift.title}
-  </td>
-  <td className={`${styles.TableBodyCell} ${styles.StatusColumn}`}>
-    <div className={styles.RadioGroup}>
-      <label className={styles.statusSent}>
-        <input type="radio" name={`status-${req.id}`} /> Відправлено
-      </label>
-      <label className={styles.statusPending}>
-        <input type="radio" name={`status-${req.id}`} /> Очікується
-      </label>
-      <label className={styles.statusCancelled}>
-        <input type="radio" name={`status-${req.id}`} /> Скасовано
-      </label>
-    </div>
-  </td>
-  <td className={`${styles.TableBodyCell} ${styles.CommentColumn}`}>
-    <input
-      className={styles.Comment}
-      type="text"
-      maxLength={26}
-      value={comments[req.id] || ''}
-      onClick={(e) => e.stopPropagation()}
-      onChange={(e) => handleCommentChange(req.id, e.target.value)}
-    />
-  </td>
-</tr>
+                    <tr
+                      className={`${styles.ClickableRow} ${expandedRowId === req.id ? styles.activeRow : ''}`}
+                      onClick={(e) => toggleRow(e, req.id)}
+                    >
+                      <td className={`${styles.TableBodyCell} ${styles.UserColumn}`}>
+                        <div className={styles.UserCell}>
+                          {user?.avatar && (
+                            <img src={user.avatar} alt="avatar" className={styles.UserAvatar} />
+                          )}
+                          {displayName}
+                        </div>
+                      </td>
+                      <td className={`${styles.TableBodyCell} ${styles.DateColumn}`}>
+                        {new Date(req.createdAt).toLocaleString('uk-UA', {
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                      </td>
+                      <td className={`${styles.TableBodyCell} ${styles.XpColumn}`}>
+                        {req.requestedGift.toReceive.presentXpPrice}
+                      </td>
+                      <td className={`${styles.TableBodyCell} ${styles.GiftColumn}`}>
+                        {req.requestedGift.title}
+                      </td>
+                      <td className={`${styles.TableBodyCell} ${styles.StatusColumn}`}>
+                        <div className={styles.RadioGroup}>
+                          <label className={styles.statusReceived}>
+                            <input
+                              type="radio"
+                              name={`status-${req.id}`}
+                              value="Отримано"
+                              checked={statuses[req.id] === 'Отримано'}
+                              onChange={() => handleStatusChange(req.id, 'Отримано')}
+                            /> ✅Отримано
+                          </label>
+                          <label className={styles.statusSent}>
+                            <input
+                              type="radio"
+                              name={`status-${req.id}`}
+                              value="Відправлено"
+                              checked={statuses[req.id] === 'Відправлено'}
+                              onChange={() => handleStatusChange(req.id, 'Відправлено')}
+                            /> 📦Відправлено
+                          </label>
+                          <label className={styles.statusPending}>
+                            <input
+                              type="radio"
+                              name={`status-${req.id}`}
+                              value="Очікується"
+                              checked={statuses[req.id] === 'Очікується'}
+                              onChange={() => handleStatusChange(req.id, 'Очікується')}
+                            /> ⏳Очікується
+                          </label>
+                          <label className={styles.statusCancelled}>
+                            <input
+                              type="radio"
+                              name={`status-${req.id}`}
+                              value="Скасовано"
+                              checked={statuses[req.id] === 'Скасовано'}
+                              onChange={() => handleStatusChange(req.id, 'Скасовано')}
+                            /> ❌Скасовано
+                          </label>
+                        </div>
+                      </td>
+                      <td className={`${styles.TableBodyCell} ${styles.CommentColumn}`}>
+                        <input
+                          className={styles.Comment}
+                          type="text"
+                          maxLength={26}
+                          value={comments[req.id] || ''}
+                          onClick={(e) => e.stopPropagation()}
+                          onChange={(e) => handleCommentChange(req.id, e.target.value)}
+                          onBlur={() => handleCommentBlur(req.id)}
+                        />
+                      </td>
+                    </tr>
                     {expandedRowId === req.id && (
                       <GiftDetailsModal id={req.id} request={req} />
                     )}
