@@ -130,7 +130,8 @@
     flex-direction: row;
     width: calc(50% - 1.63vw);
     padding: 0.71vw 1.77vw 0.71vw 1.42vw;
-    border: 2px solid var(--shadow-secondary-color)
+    border: 2px solid var(--shadow-secondary-color);
+    align-items: center
   }
 
   .input{

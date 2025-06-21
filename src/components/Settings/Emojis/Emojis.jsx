@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styles from '../CountOfXp/CountOfXPPage.module.css';
+import styles from '../Events/EventsPage.module.css';
 import { SettingsNavigation } from '../SettingsNavigation/SettingsNavigation';
 import Shadow from '../../Shadow/Shadow';
 import s from '../PeriodsSettings/PeriodsSettings.module.css';

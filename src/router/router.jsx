@@ -10,10 +10,10 @@ import { Status } from 'pages/Status';
 import { Economic } from 'pages/Economic';
 import { Stage } from 'pages/Stage';
 import { Settings } from 'pages/Settings';
-import { LimitsPage } from 'components/Settings/Limit/LimitsModal';
+import { BasicXPPage } from 'components/Settings/BasicXP/BasicXPPage';
 import { BadWordPage } from 'components/Settings/BadWord/BadWordModal';
 import { SpamPage } from 'components/Settings/Spam/Spam';
-import { CountOfXPPage } from 'components/Settings/CountOfXp/CountOfXpPage';
+import { EventsPage} from 'components/Settings/Events/EventsPage';
 import LinksPage from 'components/LinksPage/LinksPage';
 import { CommandsPage } from 'components/Settings/Commands/CommandsPage';
 import { Emojis } from 'components/Settings/Emojis/Emojis';
@@ -65,16 +65,16 @@ export const router = createBrowserRouter([
         element: <PrivateRoute component={BadWordPage} redirectTo="/login" />,
       },
       {
-        path: 'settings/limits',
-        element: <PrivateRoute component={LimitsPage} redirectTo="/login" />,
+        path: 'settings/basic-xp',
+        element: <PrivateRoute component={BasicXPPage} redirectTo="/login" />,
       },
       {
         path: 'settings/spam',
         element: <PrivateRoute component={SpamPage} redirectTo="/login" />,
       },
       {
-        path: 'settings/number-of-xp',
-        element: <PrivateRoute component={CountOfXPPage} redirectTo="/login" />,
+        path: 'settings/events',
+        element: <PrivateRoute component={EventsPage} redirectTo="/login" />,
       },
       {
         path: 'settings/links',

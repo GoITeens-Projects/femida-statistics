@@ -126,9 +126,17 @@ export const Settings = () => {
 
           />
           <AutoModerationFilter
-            moderationTitle="Ліміти"
-            moderationList="Редагувати ліміти"
-            endpoint="limits"
+            moderationTitle="Емоції"
+            moderationList="Надмірне використання смайлів"
+            endpoint="emojis"
+            nameForUpdate="emojisSpam"
+            activeSlider={true}
+
+          />
+          <AutoModerationFilter
+            moderationTitle="Базове ХР"
+            moderationList="Редагувати бали за замовчуванням"
+            endpoint="basic-xp"
             activeSlider={false}
 
           />
@@ -148,9 +156,9 @@ export const Settings = () => {
           />
 
           <AutoModerationFilter
-            moderationTitle="Кількість ХР"
-            moderationList="Редагувати видачу досвіду учасникам"
-            endpoint="number-of-xp"
+            moderationTitle="Події"
+            moderationList="Керування тимчасовими подіями"
+            endpoint="events"
             activeSlider={false}
 
           />
