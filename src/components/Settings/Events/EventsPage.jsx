@@ -5,7 +5,7 @@ import {
   fetchRoles,
   PatchSettings,
 } from '../../../redux/settings/operation';
-import styles from './CountOfXPPage.module.css';
+import styles from './EventsPage.module.css';
 import { SettingsNavigation } from '../SettingsNavigation/SettingsNavigation';
 import Shadow from '../../Shadow/Shadow';
 import { useState, useEffect } from 'react';
@@ -19,7 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import { UnsavedChangesModal } from '../BadWord/UnsavedChangesModal';
 import { RiKeyLine } from 'react-icons/ri';
 
-export const CountOfXPPage = () => {
+export const EventsPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
   // useEffect(() => {
@@ -71,6 +71,7 @@ export const CountOfXPPage = () => {
     startDate,
     endDate,
     countOfXP,
+    limit,
     id,
     targetChannels,
     targetRoles,
@@ -94,6 +95,7 @@ export const CountOfXPPage = () => {
           startDate,
           endDate,
           k: countOfXP,
+          kLimit: limit,
           _id: id,
           targetChannels: targetChannels.map(ch => ch.id),
           targetRoles: targetRoles.map(role => role.id),
@@ -152,14 +154,7 @@ export const CountOfXPPage = () => {
     dispatch(fetchSettings());
   };
 
-  const basicSubmit = (message, voice, stage, boost, voiceWithAdmin, invite) => {
-      dispatch(PatchSettings({settings: {
-        xps: {
-          message, voice, stage, boost, voiceWithAdmin, invite
-        }
-      }}))
-      dispatch(fetchSettings());
-  }
+ 
   return (
     <>
       <div className={styles['navigation-container']}>
@@ -203,7 +198,6 @@ export const CountOfXPPage = () => {
                 />
               )}
      
-      {selectedActivity !== 'За замовчуванням' ? (
         <>
           <button
             type="button"
@@ -222,6 +216,7 @@ export const CountOfXPPage = () => {
                 // thisStartDateStr={el.startDateStr}
                 // thisEndDateStr={el.endDateStr}
                 thisCountOfXP={el.k}
+                thisLimit={el.kLimit}
                 thisThisDisabled={false}
                 thisTargetChannels={el.targetChannels}
                 thisTargetRoles={el.targetRoles}
@@ -236,18 +231,7 @@ export const CountOfXPPage = () => {
             );
           })}
         </>
-      ) : (
-        <BasicXPSettings 
-        thisMessage={settings.settings.xps.message}
-  thisVoice={settings.settings.xps.voice}
-  thisStage={settings.settings.xps.stage}
-  thisBoost={settings.settings.xps.boost}
-  thisVoiceWithAdmin={settings.settings.xps.voiceWithAdmin}
-  // thisStudentsK
-  thisInvite={settings.settings.xps.invite}
-  onSubmit={basicSubmit}
-  />
-      )}
+      
     </>
   );
 };

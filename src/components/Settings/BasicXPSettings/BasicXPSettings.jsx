@@ -68,7 +68,7 @@ export const BasicXPSettings = (
       <ul className={s['list']}>
         <li>
           <p className={s['subtitle']}>За повідомлення</p>
-          <label className={s['label']}>
+          <div className={s['label']}>
             <Shadow
               leftFirst={-7}
               widthFirst={5}
@@ -86,11 +86,11 @@ export const BasicXPSettings = (
               onChange={e => setMessage(Number(e.currentTarget.value))}
               className={s['input']}
             />
-          </label>
+          </div>
         </li>
         <li>
           <p className={s['subtitle']}>За войси</p>
-          <label className={s['label']}>
+          <div className={s['label']}>
             <Shadow
               leftFirst={-7}
               widthFirst={5}
@@ -108,11 +108,11 @@ export const BasicXPSettings = (
               onChange={e => setVoice(Number(e.currentTarget.value))}
               className={s['input']}
             />
-          </label>
+          </div>
         </li>
         <li>
           <p className={s['subtitle']}>За трибуну</p>
-          <label className={s['label']}>
+          <div className={s['label']}>
             <Shadow
               leftFirst={-7}
               widthFirst={5}
@@ -130,11 +130,11 @@ export const BasicXPSettings = (
               onChange={e => setStage(Number(e.currentTarget.value))}
               className={s['input']}
             />
-          </label>
+          </div>
         </li>
         <li>
           <p className={s['subtitle']}>За буст</p>
-          <label className={s['label']}>
+          <div className={s['label']}>
             <Shadow
               leftFirst={-7}
               widthFirst={5}
@@ -152,11 +152,11 @@ export const BasicXPSettings = (
               onChange={e => setBoost(Number(e.currentTarget.value))}
               className={s['input']}
             />
-          </label>
+          </div>
         </li>
         <li>
           <p className={s['subtitle']}>За войс з адміном</p>
-          <label className={s['label']}>
+          <div className={s['label']}>
             <Shadow
               leftFirst={-7}
               widthFirst={5}
@@ -174,11 +174,11 @@ export const BasicXPSettings = (
               onChange={e => setVoiceWithAdmin(Number(e.currentTarget.value))}
               className={s['input']}
             />
-          </label>
+          </div>
         </li>
         <li>
           <p className={s['subtitle']}>За запрошення</p>
-          <label className={s['label']}>
+          <div className={s['label']}>
             <Shadow
               leftFirst={-7}
               widthFirst={5}
@@ -196,11 +196,11 @@ export const BasicXPSettings = (
               onChange={e => setInvite(Number(e.currentTarget.value))}
               className={s['input']}
             />
-          </label>
+          </div>
         </li>
         <li>
           <p className={s['subtitle']}>Коефіцієнт набавки студентам</p>
-          <label className={s['label']}>
+          <div className={s['label']}>
             <Shadow
               leftFirst={-7}
               widthFirst={5}
@@ -218,7 +218,7 @@ export const BasicXPSettings = (
               onChange={e => setStudentsK(Number(e.currentTarget.value))}
               className={s['input']}
             />
-          </label>
+          </div>
         </li>
       </ul>
 

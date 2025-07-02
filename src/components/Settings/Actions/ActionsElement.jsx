@@ -88,7 +88,7 @@ export const ActionsElement = () => {
           />
           <p className={styles['inputText']}>Якщо в учасника </p>
           <input type="number" placeholder="N" className={styles['input']}></input>
-          <p className={styles['inputText']}>попередження </p>
+          <p className={styles['inputText']}>попередженнь </p>
         
         </div>
         </div>

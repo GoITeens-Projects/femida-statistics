@@ -10,6 +10,7 @@ import { ClimbingBoxLoader } from 'react-spinners';
 import { motion, AnimatePresence } from 'framer-motion';
 import { fetchStatistics } from '../redux/statistics/operation';
 import s from './Main.module.css';
+import {fetchSettings} from '../redux/settings/operation'
 
 
 const PrivateRoute =  ({ component: Component, redirectTo }) => {
@@ -19,6 +20,7 @@ const PrivateRoute =  ({ component: Component, redirectTo }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(()=> {
+    dispatch(fetchSettings())
     const awaitUpdateToken = async () => {
       try {
         const token = await updateTokens(); // Припускаємо, що updateTokens() повертає токен

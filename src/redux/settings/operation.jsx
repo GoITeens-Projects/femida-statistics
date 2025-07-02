@@ -11,7 +11,7 @@ export const fetchSettings = createAsyncThunk('settings/fetchSettings', async (_
                     Authorization: `Bearer ${accessToken}`,
                 },
             },);
-        console.log('фетч сетінг');
+        console.log('фетч сетінг', response.data);
 
         return response.data; // Передача отриманих даних
     } catch (error) {

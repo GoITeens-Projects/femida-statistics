@@ -26,6 +26,8 @@ const updateTokens = async () => {
       localStorage.setItem("token", data.accessToken);
       localStorage.setItem("expires", expires);
 
+      
+
       // ? open main page
       return true;
     }

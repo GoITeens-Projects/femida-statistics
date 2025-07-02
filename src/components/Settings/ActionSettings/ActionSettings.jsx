@@ -80,13 +80,17 @@ export const ActionSettings = ({
 
   // 🎤 Функція для вибору каналів
   const onChennelChoose = channel => {
+    
     let newArray = selectedChannels.some(el => el.id === channel.id)
       ? selectedChannels.filter(el => el.id !== channel.id) // Видаляємо канал
       : [...selectedChannels, channel]; // Додаємо канал
-
+   
     setSelectedChannels(newArray);
     onSetTargetChannels(newArray.map(el => el.id)); // Оновлюємо в батьківському компоненті
   };
+
+  
+  console.log('voiceChannels', voiceChannels);
 
 
 

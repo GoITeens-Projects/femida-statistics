@@ -15,10 +15,12 @@ export const PeriodsSettings = ({
   thisStartDate,
   thisEndDate,
   thisCountOfXP,
+  thisLimit,
+  thisThisDisabled,
+  thisTargetChannels,
+  thisTargetRoles,
   onSubmitChanges,
   onDelete,
-  thisTargetRoles,
-  thisTargetChannels,
   thisMessages,
   thisVoice,
   thisStage,
@@ -40,6 +42,7 @@ export const PeriodsSettings = ({
   // const [ta, setStartDateStr] = useState(thisTargetRoles);
   // const [endDateStr, setEndDateStr] = useState(thisTargetChannels);
   const [countOfXP, setCountOfXP] = useState(thisCountOfXP);
+  const [limit, setLimit] = useState(thisLimit);
   // const [disabled, setDisabled] = useState(thisDisabled);
   const [isIgnoreAdmins, setIsIgnoreAdmins] = useState(false);
   const [isOpenRoles, setIsOpenRoles] = useState(false);
@@ -135,6 +138,7 @@ export const PeriodsSettings = ({
       requireStartDate,
       requireEndDate,
       countOfXP,
+      limit,
       id,
       selectedChannels,
       selectedRoles,
@@ -225,7 +229,7 @@ export const PeriodsSettings = ({
           </div> */}
           </div>
 
-          <p className={s['subtitle']}>Кількість ХР</p>
+          <p className={s['subtitle']}>Коефіцієнт ХР</p>
           <label className={s['count-label']}>
             <Shadow
               leftFirst={-7}
@@ -245,7 +249,35 @@ export const PeriodsSettings = ({
               id="number"
               placeholder="00 000"
               value={`${countOfXP}`}
-              onChange={e => setCountOfXP(Number(e.currentTarget.value))}
+              onChange={e => {
+                e.preventDefault()
+                setCountOfXP(Number(e.currentTarget.value))}}
+            />
+          </label>
+
+          <p className={s['subtitle']}>Коефіцієнт ліміту</p>
+          <label className={s['count-label']}>
+            <Shadow
+              leftFirst={-7}
+              widthFirst={5}
+              heightSecond={5}
+              rightSecond={3}
+              bottomSecond={-7}
+              backgroundBoth={'var(--shadow-secondary-border)'}
+              borderColorBoth={'var(--shadow-settings-border)'}
+            />
+            <input
+              className={s['count-input']}
+              type="number"
+              min={0}
+              autocomplete="off"
+              name="number"
+              id="number"
+              placeholder="00 000"
+              value={`${limit}`}
+              onChange={e => {
+                e.preventDefault()
+                setLimit(Number(e.currentTarget.value))}}
             />
           </label>
           {thisType === 'xp' && <div>
