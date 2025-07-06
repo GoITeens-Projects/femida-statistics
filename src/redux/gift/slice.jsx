@@ -1,14 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchGifts, fetchUserName, fetchGift } from './operation';
+import {
+  fetchGifts,
+  fetchUserName,
+  fetchGift,
+  fetchGiftManage   
+} from './operation';
 
 const giftsSlice = createSlice({
   name: 'gifts',
   initialState: {
     giftRequests: [],
-    selectedGifts: [], // масив окремо завантажених подарунків
+    selectedGifts: [],
+    giftsManage: [],      
     loading: false,
     error: null,
-    usernames: {}, // мапа користувачів
+    usernames: {},
   },
   reducers: {
     clearSelectedGifts(state) {
@@ -17,67 +23,42 @@ const giftsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // fetchGifts
-      .addCase(fetchGifts.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchGifts.fulfilled, (state, action) => {
-        state.loading = false;
-        state.giftRequests = action.payload.giftRequests;
-      })
-      .addCase(fetchGifts.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      })
+      /* ----- fetchGifts ----- */
+      .addCase(fetchGifts.pending,   (state)        => { state.loading = true;  state.error = null; })
+      .addCase(fetchGifts.fulfilled, (state, action)=> { state.loading = false; state.giftRequests = action.payload.giftRequests; })
+      .addCase(fetchGifts.rejected,  (state, action)=> { state.loading = false; state.error = action.payload; })
 
-      // fetchUserName
-      .addCase(fetchUserName.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchUserName.fulfilled, (state, action) => {
+      /* ----- fetchUserName ----- */
+      .addCase(fetchUserName.pending,   (state)        => { state.loading = true;  state.error = null; })
+      .addCase(fetchUserName.fulfilled, (state, action)=> {
         state.loading = false;
-        const usernamesMap = {};
-        action.payload.users.forEach(user => {
-          usernamesMap[user.id] = {
-            username: user.username,
-            globalName: user.globalName,
-            avatar: user.avatar,
-          };
+        const map = {};
+        action.payload.users.forEach(u => {
+          map[u.id] = { username: u.username, globalName: u.globalName, avatar: u.avatar };
         });
-        state.usernames = {
-          ...state.usernames,
-          ...usernamesMap,
-        };
+        state.usernames = { ...state.usernames, ...map };
       })
-      .addCase(fetchUserName.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      })
+      .addCase(fetchUserName.rejected,  (state, action)=> { state.loading = false; state.error = action.payload; })
 
-      // fetchGift
-      .addCase(fetchGift.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchGift.fulfilled, (state, action) => {
+      /* ----- fetchGift ----- */
+      .addCase(fetchGift.pending,   (state)        => { state.loading = true;  state.error = null; })
+      .addCase(fetchGift.fulfilled, (state, action)=> {
         state.loading = false;
-        const gift = action.payload;
+        const idx = state.selectedGifts.findIndex(g => g._id === action.payload._id);
+        idx !== -1 ? state.selectedGifts[idx] = action.payload
+                    : state.selectedGifts.push(action.payload);
+      })
+      .addCase(fetchGift.rejected,  (state, action)=> { state.loading = false; state.error = action.payload; })
 
-        // Замінити існуючий gift, якщо він уже є
-        const existingIndex = state.selectedGifts.findIndex(g => g._id === gift._id);
-        if (existingIndex !== -1) {
-          state.selectedGifts[existingIndex] = gift;
-        } else {
-          state.selectedGifts.push(gift);
-        }
-      })
-      .addCase(fetchGift.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      });
+      /* ----- fetchGiftManage  (NEW) ----- */
+      .addCase(fetchGiftManage.pending,   (state)        => { state.loading = true;  state.error = null; })
+     .addCase(fetchGiftManage.fulfilled, (state, action) => {
+  state.loading = false;
+  state.giftsManage = action.payload;  
+})
+      .addCase(fetchGiftManage.rejected,  (state, action)=> { state.loading = false; state.error = action.payload; });
   },
 });
 
+export const { clearSelectedGifts } = giftsSlice.actions; 
 export const giftsReducer = giftsSlice.reducer;

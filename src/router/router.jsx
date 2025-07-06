@@ -19,6 +19,7 @@ import { CommandsPage } from 'components/Settings/Commands/CommandsPage';
 import { Emojis } from 'components/Settings/Emojis/Emojis';
 import { GiftPage } from 'components/Settings/Gift&TicketSettings/Gift/GiftPage';
 import { TicketToolPage } from 'components/Settings/Gift&TicketSettings/TicketTool/TicketToolPage';
+import { GiftManage } from 'components/Settings/Gift&TicketSettings/Gift/FilterGift/GiftManage/GiftManage';
 
 export const router = createBrowserRouter([
   {
@@ -91,12 +92,16 @@ export const router = createBrowserRouter([
         element: <PrivateRoute component={Emojis} redirectTo="/login" />,
       },
         {
-        path: 'settings/gift',
+        path: 'settings/gift-requests',
         element: <PrivateRoute component={GiftPage} redirectTo="/login" />,
       },
        {
         path: 'settings/ticket-tool',
         element: <PrivateRoute component={TicketToolPage} redirectTo="/login" />,
+      },
+      {
+        path: 'settings/gift',
+        element: <PrivateRoute component={GiftManage} redirectTo="/login" />,
       },
     ],
   },

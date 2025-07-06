@@ -92,3 +92,24 @@ export const PatchGift = createAsyncThunk(
     }
   }
 );
+
+
+
+export const fetchGiftManage = createAsyncThunk('settings/fetchGiftManage', async (_, thunkApi) => {
+    try {
+        const accessToken = localStorage.getItem('token');
+        const response = await axios.get('https://femida-api.onrender.com/gifts',
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            },);
+
+
+        return response.data.gifts // Передача отриманих даних
+    } catch (error) {
+        return thunkApi.rejectWithValue(
+            error.response?.data?.message || 'Помилка завантаження налаштувань'
+        );
+    }
+})

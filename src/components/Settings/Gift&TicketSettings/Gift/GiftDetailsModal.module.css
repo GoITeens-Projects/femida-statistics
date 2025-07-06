@@ -43,8 +43,8 @@
 
 .GiftInfoTable td:first-child {
   font-weight: bold;
-  width: 150px;
-  color: var(--text-color-secondary, #444);
+  width: 100px;
+  color: var(--text-accent-color)
 }
 
 
@@ -96,4 +96,13 @@
 
 .statusCancelled {
   color: var(--gift-status-cancelled);
+}
+
+.GiftInfoText{
+  font-family: IBM Plex Sans;
+font-weight: 400;
+font-size: 16px;
+line-height: 100%;
+letter-spacing: 0%;
+color: var(--text-color)
 }

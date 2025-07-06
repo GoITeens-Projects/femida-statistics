@@ -140,6 +140,7 @@ html[data-theme='light'] {
     --gift-status-pending:#D1A324;
     --gift-status-sent:#B0E060;
     --gift-status-cancelled: #EB7F71;
+    --gift-coment-color: #d6d1d1;
 }
 
 :root,
@@ -185,4 +186,5 @@ html[data-theme='dark'] {
     --gift-status-pending:#B28800;
     --gift-status-sent:#577A1F;
     --gift-status-cancelled: #8A2F22;
+    --gift-coment-color: #595959;
 }

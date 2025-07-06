@@ -1,0 +1,157 @@
+.Container {
+    margin-top: 20px;
+}
+
+.Title {
+    font-family: IBM Plex Mono;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 20.8px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: var(--text-color);
+    justify-content: center;
+}
+.FromContainer {
+    position: relative;
+    width: 1200px;
+    height: auto;
+    border: 1px solid var(--chart-color);
+    margin-top: 20px;
+    display: block;
+    /* Відновлюємо стандартне блокове відображення */
+    padding: 20px;
+    box-sizing: border-box;
+    /* Ураховуємо padding у ширині */
+}
+.Image {
+  width: 60px;          /* або 80-100px, якщо треба більший превʼю */
+  height: 60px;
+  border-radius: 8px;   /* красиві скруглені кути, необовʼязково */
+  object-fit: cover;    /* обрізає зайве, не спотворює пропорції */
+}
+
+.Table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.Th,
+.Td {
+  border: none;
+  padding: 8px 10px;
+}
+
+/* ================= Заголовки ======================================== */
+.Th {
+  padding-right: 50px;
+  text-align: center;
+  font-family: IBM Plex Mono;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: var(--text-accent-color);
+}
+
+/* Ширини/вирівнювання окремих колонок (опційно) */
+.ColTitle  { text-align: left;  }
+.ColType   { width: 110px;      }
+.ColImage  { width: 120px;      }
+.ColAvail  { width: 190px;      }
+.ColPrice  { width: 100px;      }
+.ColAction { width: 120px;      }
+
+/* ================= Тіло таблиці ===================================== */
+.Td {
+  padding-right: 50px;
+  text-align: center;
+  font-family: IBM Plex Mono;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: var(--text-color);
+  height: 85px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ================= Рядок (з підсвіткою наводження) ================== */
+.Row {
+  cursor: default;             /* лишаємо немодальний вигляд */
+  transition: background-color 0.2s ease;
+}
+
+.Row:hover {
+  background-color: var(--gift-background);
+}
+
+/* ================= Зображення подарунка ============================ */
+.Image {
+  width: 75px;                  /* або своя розмірна сітка */
+  height: 75px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+
+
+
+
+.Row {
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.Row:hover {
+  background: rgba(110, 171, 212, 0.08);
+}
+
+.activeRow {
+  background: rgba(110, 171, 212, 0.16);
+}
+
+/* щоб зона з іконкою “Дії” не ловила події при кліку на текст */
+.ColAction {
+  text-align: center;
+  width: 48px;
+}
+
+
+.Image {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  cursor: zoom-in;
+  border-radius: 4px;
+}
+
+/* ===================== overlay (лайтбокс) ===================== */
+.ImageOverlay {
+  position: fixed;
+  inset: 0;                     /* top:0 right:0 bottom:0 left:0 */
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+  z-index: 10000;
+  animation: fade 0.25s ease;
+}
+
+.ImageFull {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 0 16px rgba(0,0,0,.4);
+}
+
+/* простенька анімація появи */
+@keyframes fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
