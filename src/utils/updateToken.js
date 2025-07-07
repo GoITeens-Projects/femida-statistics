@@ -16,7 +16,7 @@ const updateTokens = async () => {
         credentials: "include",
         withCredentials: true
       });
-      const expires = new Date(new Date().getTime() + 1000 * 60 * 15);
+      const expires = new Date(new Date().getTime() + 1000 * 60 * 14);
 
       console.log("date true:", {
         token: data.accessToken,
