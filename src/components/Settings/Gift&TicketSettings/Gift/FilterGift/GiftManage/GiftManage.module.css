@@ -155,3 +155,25 @@
   from { opacity: 0; }
   to   { opacity: 1; }
 }
+
+
+.AddGiftButton{
+  width: 155px;
+  height: 30px;
+border: 1px solid var(--text-color);
+  border-radius: 20px;
+  color: var(--text-accent-color);
+  font-family: IBM Plex Mono;
+font-weight: 500;
+font-size: 12px;
+line-height: 100%;
+letter-spacing: 0%;
+text-align: center;
+margin-top: 10px;
+
+}
+.AddGiftButtonText{
+  color: black;
+  font-size: 16px;
+ 
+}

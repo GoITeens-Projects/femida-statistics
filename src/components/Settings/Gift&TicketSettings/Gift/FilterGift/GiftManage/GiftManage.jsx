@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchGiftManage } from '../../../../../../redux/gift/operation';
+import { fetchGiftsManage } from '../../../../../../redux/gift/operation';
 import { SettingsNavigation } from 'components/Settings/SettingsNavigation/SettingsNavigation';
 import Shadow from 'components/Shadow/Shadow';
 import { GiftManageModal } from './GiftManageModal';
@@ -12,39 +12,44 @@ export const GiftManage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  /* -------- Redux state -------- */
   const { giftsManage, loading, error } = useSelector(state => state.gifts);
 
-  /* -------- локальний state -------- */
-  const [expandedId, setExpandedId] = useState(null);   // модалка “керування подарунком”
-  const [previewSrc, setPreviewSrc] = useState(null);   // лайтбокс-фото
+  const [expandedId, setExpandedId] = useState(null);   // id активного подарунка
+  const [previewSrc, setPreviewSrc] = useState(null);   // повноекранне зображення
+  const [creatingNew, setCreatingNew] = useState(false); // режим створення нового подарунка
 
-  /* -------- fetch on mount -------- */
   useEffect(() => {
-    dispatch(fetchGiftManage());
+    dispatch(fetchGiftsManage());
   }, [dispatch]);
 
-  /* -------- helpers -------- */
   const handleBackClick = () => navigate('/settings');
 
   const toggleRow = (e, id) => {
-    // якщо клацають саме на іконку дій - не розгортати рядок
     if (e.target.closest(`.${styles.ColAction}`)) return;
     setExpandedId(prev => (prev === id ? null : id));
   };
 
   const openImage = (e, src) => {
-    e.stopPropagation();     // не запускаємо toggleRow
+    e.stopPropagation();
     setPreviewSrc(src);
   };
 
-  /* -------- UI -------- */
   return (
     <section>
-      <SettingsNavigation onHandleBackClick={handleBackClick} onHandleSave={() => {}} />
+      <SettingsNavigation
+        onHandleBackClick={handleBackClick}
+        onHandleSave={() => {}}
+      />
 
       <div className={styles.Container}>
         <h1 className={styles.Title}>Управління подарунками</h1>
+
+        <button
+          className={styles.AddGiftButton}
+          onClick={() => setCreatingNew(true)}
+        >
+         <span className={styles.AddGiftButtonText}>+</span> Додати подарунок
+        </button>
 
         <div className={styles.FromContainer}>
           <Shadow
@@ -71,10 +76,8 @@ export const GiftManage = () => {
                     <td className={`${styles.Th} ${styles.ColImage}`}>Зображення</td>
                     <td className={`${styles.Th} ${styles.ColAvail}`}>Доступність</td>
                     <td className={`${styles.Th} ${styles.ColPrice}`}>Ціна XP</td>
-                    <td className={`${styles.Th} ${styles.ColAction}`}>Дії</td>
                   </tr>
                 </thead>
-
                 <tbody>
                   {giftsManage.map(gift => (
                     <React.Fragment key={gift.giftId}>
@@ -103,14 +106,11 @@ export const GiftManage = () => {
                             : ` ${gift.status.reason || 'Недоступний'}`}
                         </td>
                         <td className={styles.Td}>{gift.toReceive.presentXpPrice}</td>
-                        <td className={`${styles.Td} ${styles.ColAction}`}>
-                          <img src={setingsIcon} alt="action icon" />
-                        </td>
                       </tr>
 
                       {expandedId === gift.giftId && (
                         <GiftManageModal
-                          gift={gift}
+                          giftId={gift.giftId}
                           onClose={() => setExpandedId(null)}
                         />
                       )}
@@ -119,7 +119,6 @@ export const GiftManage = () => {
                 </tbody>
               </table>
 
-              {/* -------- повноекранний перегляд зображення -------- */}
               {previewSrc && (
                 <div
                   className={styles.ImageOverlay}
@@ -132,6 +131,11 @@ export const GiftManage = () => {
           )}
         </div>
       </div>
+
+      {/* Модалка для створення нового подарунка */}
+      {creatingNew && (
+        <GiftManageModal giftId={null} onClose={() => setCreatingNew(false)} />
+      )}
     </section>
   );
 };

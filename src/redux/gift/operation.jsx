@@ -95,7 +95,7 @@ export const PatchGift = createAsyncThunk(
 
 
 
-export const fetchGiftManage = createAsyncThunk('settings/fetchGiftManage', async (_, thunkApi) => {
+export const fetchGiftsManage = createAsyncThunk('settings/fetchGiftsManage', async (_, thunkApi) => {
     try {
         const accessToken = localStorage.getItem('token');
         const response = await axios.get('https://femida-api.onrender.com/gifts',
@@ -113,3 +113,69 @@ export const fetchGiftManage = createAsyncThunk('settings/fetchGiftManage', asyn
         );
     }
 })
+
+
+export const fetchGiftManage = createAsyncThunk('settings/fetchGiftManage', async (id, thunkApi) => {
+    try {
+        const accessToken = localStorage.getItem('token');
+        const response = await axios.get(`https://femida-api.onrender.com/gifts/${id}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            },);
+
+
+        return  response.data.gift
+    } catch (error) {
+        return thunkApi.rejectWithValue(
+            error.response?.data?.message || 'Помилка завантаження налаштувань'
+        );
+    }
+})
+
+export const patchGift = createAsyncThunk(
+  'settings/patchGiftManage',
+  async ({ id, formData }, thunkAPI) => {
+    try {
+      const accessToken = localStorage.getItem('token');
+      const response = await axios.patch(
+        `https://femida-api.onrender.com/gifts/${id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+           
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || 'Error updating gift'
+      );
+    }
+  }
+);
+export const createGift = createAsyncThunk(
+  'gifts/createGift',
+  async (formData, thunkAPI) => {
+    try {
+      const accessToken = localStorage.getItem('token');
+      const response = await axios.post(
+        'https://femida-api.onrender.com/gifts',
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data?.message || 'Помилка при створенні подарунку');
+    }
+  }
+);
