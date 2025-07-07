@@ -99,9 +99,9 @@ export const GiftManageModal = ({ giftId, onClose }) => {
     if (selectedFile) {
       formData.append('image', selectedFile);
     }
-
+const id = currentGift.id
     const action = giftId
-      ? patchGift({ id: giftId, formData })
+      ? patchGift({ id: id, formData })
       : createGift(formData);
 
     dispatch(action)
