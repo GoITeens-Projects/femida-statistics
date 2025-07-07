@@ -171,10 +171,16 @@ export const Settings = () => {
           />
         </div>
 <div className={styles.GiftAndTicketContainer}>
-  <div>
+  <div className={styles.GiftContainer}>
     <h1 className={styles.TitleModeration}>Подарунки</h1>
     <GiftAndTicketCard
-      moderationTitle="Керування подарунками, перегляд запитів та відправлень"
+      moderationTitle="Перегляд запитів та відправлень"
+      moderationList=""
+      endpoint="gift-requests"
+      activeSlider={false}
+    />
+      <GiftAndTicketCard
+      moderationTitle="Керування подарунками"
       moderationList=""
       endpoint="gift"
       activeSlider={false}

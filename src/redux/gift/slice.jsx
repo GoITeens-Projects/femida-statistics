@@ -1,83 +1,93 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchGifts, fetchUserName, fetchGift } from './operation';
+import {
+  fetchGifts,        // список запитів користувачів
+  fetchUserName,     // мапа userId → username
+  fetchGift,         // okremyi gift із заявки
+  fetchGiftsManage,  // список усіх подарунків (для таблиці)
+  fetchGiftManage,   // 🔸 один подарунок за ID (для модалки)
+} from './operation';
 
 const giftsSlice = createSlice({
   name: 'gifts',
   initialState: {
+    /* ---- списки ---- */
     giftRequests: [],
-    selectedGifts: [], // масив окремо завантажених подарунків
-    loading: false,
+    selectedGifts: [],
+    giftsManage: [],
+
+    /* ---- поточний подарунок (giftId) ---- */
+    currentGift: null,
+    loadingCurrent: false,
+    errorCurrent: null,
+
+    /* ---- загальні флаги/помилки ---- */
+    loading: false,      // використовується для “глобальних” запитів
     error: null,
-    usernames: {}, // мапа користувачів
+
+    /* ---- мапа юзерів ---- */
+    usernames: {},
   },
   reducers: {
     clearSelectedGifts(state) {
       state.selectedGifts = [];
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
+    /* ===== 1. СПИСОК ЗАПИТІВ ===== */
     builder
-      // fetchGifts
-      .addCase(fetchGifts.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      .addCase(fetchGifts.pending,   state => { state.loading = true;  state.error = null; })
       .addCase(fetchGifts.fulfilled, (state, action) => {
         state.loading = false;
         state.giftRequests = action.payload.giftRequests;
       })
-      .addCase(fetchGifts.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      })
+      .addCase(fetchGifts.rejected,  (state, action) => { state.loading = false; state.error = action.payload; });
 
-      // fetchUserName
-      .addCase(fetchUserName.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+    /* ===== 2. ІНФО ПРО КОРИСТУВАЧІВ ===== */
+    builder
+      .addCase(fetchUserName.pending,   state => { state.loading = true;  state.error = null; })
       .addCase(fetchUserName.fulfilled, (state, action) => {
         state.loading = false;
-        const usernamesMap = {};
-        action.payload.users.forEach(user => {
-          usernamesMap[user.id] = {
-            username: user.username,
-            globalName: user.globalName,
-            avatar: user.avatar,
-          };
+        const map = {};
+        action.payload.users.forEach(u => {
+          map[u.id] = { username: u.username, globalName: u.globalName, avatar: u.avatar };
         });
-        state.usernames = {
-          ...state.usernames,
-          ...usernamesMap,
-        };
+        state.usernames = { ...state.usernames, ...map };
       })
-      .addCase(fetchUserName.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      })
+      .addCase(fetchUserName.rejected,  (state, action) => { state.loading = false; state.error = action.payload; });
 
-      // fetchGift
-      .addCase(fetchGift.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+    /* ===== 3. ОКРЕМИЙ GIFТ ІЗ ЗАПИТУ ===== */
+    builder
+      .addCase(fetchGift.pending,   state => { state.loading = true;  state.error = null; })
       .addCase(fetchGift.fulfilled, (state, action) => {
         state.loading = false;
-        const gift = action.payload;
-
-        // Замінити існуючий gift, якщо він уже є
-        const existingIndex = state.selectedGifts.findIndex(g => g._id === gift._id);
-        if (existingIndex !== -1) {
-          state.selectedGifts[existingIndex] = gift;
-        } else {
-          state.selectedGifts.push(gift);
-        }
+        const idx = state.selectedGifts.findIndex(g => g._id === action.payload._id);
+        idx !== -1 ? (state.selectedGifts[idx] = action.payload)
+                    : state.selectedGifts.push(action.payload);
       })
-      .addCase(fetchGift.rejected, (state, action) => {
+      .addCase(fetchGift.rejected,  (state, action) => { state.loading = false; state.error = action.payload; });
+
+    /* ===== 4. СПИСОК ПОДАРУНКІВ (Manage‑таблиця) ===== */
+    builder
+      .addCase(fetchGiftsManage.pending,   state => { state.loading = true;  state.error = null; })
+      .addCase(fetchGiftsManage.fulfilled, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.giftsManage = action.payload;
+      })
+      .addCase(fetchGiftsManage.rejected,  (state, action) => { state.loading = false; state.error = action.payload; });
+
+    /* ===== 5. ОДИН ПОДАРУНОК ЗА ID (для модалки) ===== */
+    builder
+      .addCase(fetchGiftManage.pending,   state => { state.loadingCurrent = true;  state.errorCurrent = null; })
+      .addCase(fetchGiftManage.fulfilled, (state, action) => {
+        state.loadingCurrent = false;
+        state.currentGift = action.payload;  // { ...gift }
+      })
+      .addCase(fetchGiftManage.rejected,  (state, action) => {
+        state.loadingCurrent = false;
+        state.errorCurrent = action.payload;
       });
   },
 });
 
+export const { clearSelectedGifts } = giftsSlice.actions;
 export const giftsReducer = giftsSlice.reducer;
