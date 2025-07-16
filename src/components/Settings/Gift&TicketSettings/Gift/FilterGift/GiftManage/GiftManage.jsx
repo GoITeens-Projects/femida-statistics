@@ -35,7 +35,7 @@ export const GiftManage = () => {
   };
 
   return (
-    <section>
+    <section className={styles.Container}>
       <SettingsNavigation
         onHandleBackClick={handleBackClick}
         onHandleSave={() => {}}

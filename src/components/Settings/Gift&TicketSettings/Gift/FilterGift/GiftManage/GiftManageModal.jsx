@@ -114,11 +114,7 @@ const id = currentGift.id
     <>
       <div className={styles.overlay} onClick={onClose}>
         <div className={styles.modal} onClick={e => e.stopPropagation()}>
-          <Shadow
-            leftFirst={-7} widthFirst={5} heightSecond={5}
-            rightSecond={3} bottomSecond={-7}
-            backgroundBoth="#6EABD4" borderColorBoth="#558DB2"
-          />
+       
 
           <h5 className={styles.Title}>
             {isCreating ? 'Створення нового подарунку' : 'Редагування подарунку'}
