@@ -4,16 +4,20 @@ import styles from './GiftManageModal.module.css';
 import Shadow from 'components/Shadow/Shadow';
 import importIcon from './Group 498.svg';
 import { fetchGiftManage, patchGift, createGift } from '../../../../../../redux/gift/operation';
+import { PacmanLoader } from 'react-spinners';
 
 export const GiftManageModal = ({ giftId, onClose }) => {
   const dispatch = useDispatch();
   const isCreating = giftId == null;
 
-  const {
-    currentGift,
-    loadingCurrent: loading,
-    errorCurrent: error,
-  } = useSelector(state => state.gifts);
+const {
+  currentGift,
+  loadingCurrent: loading,
+  errorCurrent: error,
+  creating,
+  patching
+} = useSelector(state => state.gifts);
+const saving = creating || patching;
 
   // локальні стани форми
   const [imageSrc, setImageSrc] = useState(importIcon);
@@ -26,6 +30,10 @@ export const GiftManageModal = ({ giftId, onClose }) => {
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [onlyForStudents, setOnlyForStudents] = useState(false);
+
+  const [titleError, setTitleError] = useState(false);
+  const [priceError, setPriceError] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const fileInputRef = useRef(null);
   const textareaRef = useRef(null);
@@ -70,14 +78,15 @@ export const GiftManageModal = ({ giftId, onClose }) => {
   // обробники
   const openFileDialog = () => fileInputRef.current?.click();
 
-  const onFileChange = e => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setSelectedFile(file);
-    const reader = new FileReader();
-    reader.onload = () => setImageSrc(reader.result);
-    reader.readAsDataURL(file);
-  };
+const onFileChange = e => {
+  const file = e.target.files?.[0];
+  if (!file) return;
+  setSelectedFile(file);
+  setImageError(false); // ⬅️ знімає червону обводку
+  const reader = new FileReader();
+  reader.onload = () => setImageSrc(reader.result);
+  reader.readAsDataURL(file);
+};
 
   const handleStatusChange = (newStatus) => {
     setLocalStatus(newStatus);
@@ -87,28 +96,57 @@ export const GiftManageModal = ({ giftId, onClose }) => {
     setLocalType(newType);
   };
 
-  const handleSave = () => {
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('description', description);
-    formData.append('presentXpPrice', price);
-    formData.append('onlyForStudents', onlyForStudents);
-    formData.append('isVirtual', localType);
-    formData.append('status', localStatus);
+const handleSave = () => {
+ let hasError = false;
 
-    if (selectedFile) {
-      formData.append('image', selectedFile);
-    }
-const id = currentGift.id
-    const action = giftId
-      ? patchGift({ id: id, formData })
-      : createGift(formData);
+  // Перевірка поля "Назва подарунку"
+  if (!title.trim()) {
+    setTitleError(true);
+    hasError = true;
+  } else {
+    setTitleError(false);
+  }
 
-    dispatch(action)
-      .unwrap()
-      .then(() => onClose())
-      .catch(err => console.error(err));
-  };
+  // Перевірка поля "XP"
+  if (!price.toString().trim()) {
+    setPriceError(true);
+    hasError = true;
+  } else {
+    setPriceError(false);
+  }
+  if (imageSrc === importIcon) {
+  setImageError(true);
+  hasError = true;
+} else {
+  setImageError(false);
+}
+
+  if (hasError) return; // Якщо є помилки — не надсилаємо запит
+
+  const formData = new FormData();
+  formData.append('title', title);
+  formData.append('description', description);
+  formData.append('presentXpPrice', price);
+  formData.append('onlyForStudents', onlyForStudents);
+  formData.append('isVirtual', localType);
+  formData.append('status', localStatus);
+
+  if (selectedFile) {
+    formData.append('image', selectedFile);
+  }
+
+  const action = giftId && currentGift
+    ? patchGift({ id: currentGift.id, formData })
+    : createGift(formData);
+
+  dispatch(action)
+    .unwrap()
+     .then(() => {
+    onClose();
+    window.location.reload();
+  })
+    .catch(err => console.error(err));
+};
 
   return (
     <>
@@ -116,11 +154,24 @@ const id = currentGift.id
         <div className={styles.modal} onClick={e => e.stopPropagation()}>
        
 
-          <h5 className={styles.Title}>
+         
+<div className={styles.body}>
+  {saving ? (
+    <div  className={styles.loaderWrapper}>
+      <PacmanLoader color="#6EABD4" size={50} speedMultiplier={1.5} />
+    </div>
+  ) : loading && !isCreating ? (
+    <div  className={styles.loaderWrapper}>
+      <PacmanLoader color="#6EABD4" size={50} speedMultiplier={1.5} />
+    </div>
+  ) : error ? (
+    <p className={styles.Error}>{error}</p>
+  ) : (
+    <>
+     <h5 className={styles.Title}>
             {isCreating ? 'Створення нового подарунку' : 'Редагування подарунку'}
           </h5>
-
-          <div className={styles.body}>
+     <div className={styles.body}>
             {loading && !isCreating && <p>Завантаження...</p>}
             {error && <p className={styles.Error}>{error}</p>}
 
@@ -130,12 +181,16 @@ const id = currentGift.id
                   <div className={styles.Container}>
                     <label className={styles.TitleInput}>
                       Назва подарунку
-                      <input
-                        className={styles.Input}
-                        type="text"
-                        value={title}
-                        onChange={e => setTitle(e.target.value)}
-                      />
+                     <input
+  className={`${styles.Input} ${titleError ? styles.InputError : ''}`}
+  type="text"
+  value={title}
+  onChange={e => {
+    setTitle(e.target.value);
+    if (titleError && e.target.value.trim()) setTitleError(false);
+  }}
+/>
+{titleError && <p className={styles.ErrorMsg}>Обов’язкове поле</p>}
                     </label>
                   </div>
 
@@ -155,52 +210,60 @@ const id = currentGift.id
                   <div className={styles.Container}>
                     <label className={styles.TitleInput}>
                       Вартість в ХР
-                      <input
-                        className={styles.Input}
-                        type="number"
-                        value={price}
-                        onChange={e => setPrice(e.target.value)}
-                      />
-                      XP
+                     <input
+  className={`${styles.Input} ${priceError ? styles.InputError : ''}`}
+  type="number"
+  value={price}
+  onChange={e => {
+    setPrice(e.target.value);
+    if (priceError && e.target.value > 0) setPriceError(false);
+  }}
+/>
+{priceError && <p className={styles.ErrorMsg}>Обов’язкове поле</p>}
+                  
                     </label>
                   </div>
 
-                  <div className={styles.ContainerImport}>
-                    <p className={styles.TitleInput}>Зображення</p>
-                    <div className={styles.ImageBox}>
-                      {imageSrc === importIcon ? (
-                        <img
-                          src={importIcon}
-                          alt="Завантажити з пристрою"
-                          className={styles.ImportPictures}
-                          onClick={openFileDialog}
-                        />
-                      ) : (
-                        <>
-                          <img
-                            src={imageSrc}
-                            alt="Gift"
-                            className={styles.ImportPictures}
-                            onClick={() => setPreviewOpen(true)}
-                          />
-                          <button
-                            type="button"
-                            className={styles.ReplaceBtn}
-                            onClick={openFileDialog}
-                          >
-                            Замінити&nbsp;фото?
-                          </button>
-                        </>
-                      )}
-                    </div>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      ref={fileInputRef}
-                      style={{ display: 'none' }}
-                      onChange={onFileChange}
-                    />
-                  </div>
+               <div className={styles.ContainerImport}>
+  <p className={styles.TitleInput}>Зображення</p>
+  <div className={styles.ImageBox}>
+    {imageSrc === importIcon ? (
+      <img
+        src={importIcon}
+        alt="Завантажити з пристрою"
+        className={`${styles.ImportPictures} ${imageError ? styles.ErrorBorder : ''}`}
+        onClick={openFileDialog}
+      />
+    ) : (
+      <>
+        <img
+          src={imageSrc}
+          alt="Gift"
+          className={`${styles.ImportPictures} ${imageError ? styles.ErrorBorder : ''}`}
+          onClick={() => setPreviewOpen(true)}
+        />
+        <button
+          type="button"
+          className={styles.ReplaceBtn}
+          onClick={openFileDialog}
+        >
+          Замінити&nbsp;фото?
+        </button>
+      </>
+    )}
+  </div>
+
+  {/* Це текст під картинкою */}
+  {imageError && <p className={styles.Error}>Обов’язкове поле</p>}
+
+  <input
+    type="file"
+    accept="image/*"
+    ref={fileInputRef}
+    style={{ display: 'none' }}
+    onChange={onFileChange}
+  />
+</div>
                 </div>
 
                 <div className={styles.RightColumn}>
@@ -254,6 +317,11 @@ const id = currentGift.id
               </div>
             )}
           </div>
+    </>
+  
+  )}
+</div>
+        
         </div>
       </div>
 

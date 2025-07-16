@@ -142,6 +142,7 @@ html[data-theme='light'] {
     --gift-status-cancelled: #EB7F71;
     --gift-coment-color: #d6d1d1;
     --gift-input: #E7F0F1;
+    --gift-input-error:#fff2f2;
 }
 
 :root,
@@ -189,4 +190,5 @@ html[data-theme='dark'] {
     --gift-status-cancelled: #8A2F22;
     --gift-coment-color: #595959;
     --gift-input: #363636;
+     --gift-input-error: #4b1e1e;
 }

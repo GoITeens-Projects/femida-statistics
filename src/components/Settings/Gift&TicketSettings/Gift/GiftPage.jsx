@@ -152,7 +152,7 @@ export const GiftPage = () => {
   const visibleRequests = filteredRequests.slice(0, visibleCount);
 
   return (
-    <section>
+    <section className={styles.Container}>
       <SettingsNavigation onHandleBackClick={handleBackClick} onHandleSave={() => {}} />
       <div className={styles.Container}>
         <h1 className={styles.TitleBadWords}>Подарунки</h1>

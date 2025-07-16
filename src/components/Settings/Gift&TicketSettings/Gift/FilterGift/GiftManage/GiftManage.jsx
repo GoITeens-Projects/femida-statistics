@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchGiftsManage } from '../../../../../../redux/gift/operation';
+import { fetchGiftsManage, deleteGift } from '../../../../../../redux/gift/operation';
 import { SettingsNavigation } from 'components/Settings/SettingsNavigation/SettingsNavigation';
 import Shadow from 'components/Shadow/Shadow';
 import { GiftManageModal } from './GiftManageModal';
 import styles from './GiftManage.module.css';
 import setingsIcon from './Group.svg';
-
+import deleteIcon from './Vector (2).svg'
+import { ConfirmModal } from './ConfirmModal';
+import { PacmanLoader } from 'react-spinners';
 export const GiftManage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,6 +19,7 @@ export const GiftManage = () => {
   const [expandedId, setExpandedId] = useState(null);   // id активного подарунка
   const [previewSrc, setPreviewSrc] = useState(null);   // повноекранне зображення
   const [creatingNew, setCreatingNew] = useState(false); // режим створення нового подарунка
+  const [deleteTargetId, setDeleteTargetId] = useState(null);
 
   useEffect(() => {
     dispatch(fetchGiftsManage());
@@ -34,6 +37,20 @@ export const GiftManage = () => {
     setPreviewSrc(src);
   };
 
+const handleDeleteGift = (e, id) => {
+  e.stopPropagation();
+  setDeleteTargetId(id); // відкриваємо модалку
+};
+
+const handleConfirmDelete = async () => {
+  try {
+    await dispatch(deleteGift(deleteTargetId));
+     dispatch(fetchGiftsManage());
+  } catch (error) {
+    console.error('Помилка при видаленні:', error);
+  }
+  setDeleteTargetId(null); // закриваємо модалку
+};
   return (
     <section className={styles.Container}>
       <SettingsNavigation
@@ -62,7 +79,9 @@ export const GiftManage = () => {
             borderColorBoth="#558DB2"
           />
 
-          {loading && <p>Завантаження...</p>}
+          {loading &&  <div style={{ display: 'flex', justifyContent: 'center', padding: '4rem' }}>
+                        <PacmanLoader color="#6EABD4" size={25} speedMultiplier={1.5} />
+                      </div>}
           {error && <p className={styles.Error}>{error}</p>}
 
           {!loading && !error && (
@@ -70,12 +89,13 @@ export const GiftManage = () => {
               <table className={styles.Table}>
                 <thead>
                   <tr>
-                    <td className={`${styles.Th} ${styles.ColTitle}`}>ID Подарунку</td>
+                  
                     <td className={`${styles.Th} ${styles.ColTitle}`}>Назва подарунку</td>
                     <td className={`${styles.Th} ${styles.ColType}`}>Тип</td>
                     <td className={`${styles.Th} ${styles.ColImage}`}>Зображення</td>
                     <td className={`${styles.Th} ${styles.ColAvail}`}>Доступність</td>
                     <td className={`${styles.Th} ${styles.ColPrice}`}>Ціна XP</td>
+                    <td className={`${styles.Th} ${styles.ColPrice}`}>Дії</td>
                   </tr>
                 </thead>
                 <tbody>
@@ -87,7 +107,7 @@ export const GiftManage = () => {
                         }`}
                         onClick={e => toggleRow(e, gift.giftId)}
                       >
-                        <td className={styles.Td}>{gift.giftId}</td>
+                      
                         <td className={styles.Td}>{gift.title}</td>
                         <td className={styles.Td}>
                           {gift.isVirtual ? 'Віртуальний' : 'Фізичний'}
@@ -106,6 +126,8 @@ export const GiftManage = () => {
                             : ` ${gift.status.reason || 'Недоступний'}`}
                         </td>
                         <td className={styles.Td}>{gift.toReceive.presentXpPrice}</td>
+                         <td className={styles.Td}>  <img src={deleteIcon} alt="delete icon"className={styles.DeleteIcon} onClick={e => handleDeleteGift(e, gift.id)}
+  /></td>
                       </tr>
 
                       {expandedId === gift.giftId && (
@@ -114,6 +136,13 @@ export const GiftManage = () => {
                           onClose={() => setExpandedId(null)}
                         />
                       )}
+
+                      {deleteTargetId && (
+  <ConfirmModal
+    onConfirm={handleConfirmDelete}
+    onCancel={() => setDeleteTargetId(null)}
+  />
+)}
                     </React.Fragment>
                   ))}
                 </tbody>
