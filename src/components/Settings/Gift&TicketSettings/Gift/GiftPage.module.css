@@ -117,11 +117,19 @@ width: 70px;
   font-size: clamp(12px, 0.95vw, 20px);
   white-space: nowrap;
 }
-.Comment{
-  width: 188px;
-  height: 34px;
-   background-color: var(--gift-coment-color);
-   
+.Comment {
+  width: clamp(120px, 12vw, 240px);
+  height: clamp(28px, 3vw, 48px);
+  background-color: var(--gift-coment-color);
+  font-family: IBM Plex Mono;
+  font-weight: 400;
+  font-size: clamp(12px, 1vw, 20px);
+  color: var(--text-color);
+  padding: 0 0.6em;
+  border: 1px solid var(--chart-color);
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
 }
 
 .RadioGroup {
