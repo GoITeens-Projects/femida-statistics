@@ -9,148 +9,132 @@
 }
 
 .modal {
-  width: 607px;
-  height: 501px;
+  width: min(90vw, 700px);
+  max-height: 95vh;
   background: var(--bg-primary-color);
-
-  padding: 24px 28px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  padding: 2vw;
+  overflow-y: auto;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
   position: relative;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  box-sizing: border-box;
+  border-radius: 1vw;
 }
+
+/* Дуже великі екрани */
+@media (min-width: 1600px) {
+  .modal {
+    width: min(80vw, 1200px);
+    height: min(80vh, 900px);
+    padding: 2.5vw;
+  }
+}
+
+/* Планшети */
+@media (max-width: 1024px) {
+  .modal {
+    width: 90vw;
+    height: auto;
+    max-height: 85vh;
+    padding: 5vw;
+  }
+
+  .Columns {
+    flex-direction: column;
+    gap: 4vw;
+  }
+}
+
+/* Телефони */
+@media (max-width: 480px) {
+  .modal {
+    width: 95vw;
+    height: auto;
+    max-height: 90vh;
+    padding: 4vw;
+  }
+}
+
 .Columns {
   display: flex;
-  gap: 82px; /* або скільки хочеш відступ між колонками */
+  gap: 4vw;
 }
 
-.LeftColumn {
-  flex: 1 1 50%;
-  display: flex;
-  flex-direction: column;
- 
-}
-
+.LeftColumn,
 .RightColumn {
   flex: 1 1 50%;
   display: flex;
   flex-direction: column;
- 
-}
-.close {
-  position: absolute;
-  top: 10px;
-  right: 14px;
-  background: none;
-  border: none;
-  font-size: 28px;
-  cursor: pointer;
-  line-height: 1;
 }
 
-.heading {
-  font-size: 22px;
-  margin-bottom: 14px;
-  text-align: center;
+.Title {
+  font-family: IBM Plex Mono;
+  font-weight: 500;
+  font-size: clamp(16px, 1.5vw, 24px);
+  color: var(--text-accent-color);
+  margin-bottom: 1vw;
 }
 
-.preview {
+.TitleInput {
+  font-family: IBM Plex Mono;
+  font-weight: 500;
+  font-size: clamp(13px, 1.1vw, 18px);
+  color: var(--text-accent-color);
+}
+
+.Input,
+.TextareaDescription {
   width: 100%;
-  height: 160px;
-  object-fit: contain;
-  margin-bottom: 16px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-}
-
-.list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  gap: 6px;
-  display: flex;
-  flex-direction: column;
-  font-size: 16px;
-}
-
-.Title{
-    font-family: IBM Plex Mono;
-font-weight: 500;
-font-size: 16px;
-line-height: 100%;
-letter-spacing: 0%;
-color: var( --text-accent-color);
-}
-
-.TitleInput{
-    font-family: IBM Plex Mono;
-font-weight: 500;
-font-size: 13px;
-line-height: 100%;
-letter-spacing: 0%;
-color: var(--text-accent-color);
-
-}
-.Input {
-  width: 259px;
-  height: 20px;
   background-color: var(--gift-input);
-
-  
-  display: block;      
-  margin-top: 10px;    
-}
-.Container{
-   margin-top: 12px;
-}
-.InputDescription{
-      width: 259px;
-  height: 34px;
- background-color: var(--gift-input);
-
-  
-  display: block;      
-  margin-top: 10px; 
+  display: block;
+  margin-top: 0.8vw;
+  font-family: inherit;
+  font-size: clamp(12px, 1.1vw, 20px);
+  line-height: 1.2;
+  padding: 0.5vw 0.8vw;
+  border: none;
+  border-radius: 0.5vw;
+  box-sizing: border-box;
+  color: var(--text-color);
 }
 
-.ContainerImport{
-       margin-top: 12px;
-     gap: 4px
+.TextareaDescription {
+  min-height: 34px;
+  resize: none;
+  overflow: hidden;
 }
 
-/* розміри та курсор */
+.Container {
+  margin-top: 1.5vw;
+}
+
+.ContainerImport {
+  margin-top: 1.5vw;
+  gap: 0.5vw;
+}
+
 .ImportPictures {
-
-  height: 150px;
-
+  height: auto;
+  max-height: min(18vw, 150px);
+  max-width: 100%;
   cursor: zoom-in;
-  border-radius: 4px;
-  margin-top: 10px;
+  border-radius: 0.5vw;
+  margin-top: 1vw;
+  object-fit: contain;
 }
 
-/* контейнер для фото + кнопки */
-
-/* «Замінити фото» виглядає як лінк */
 .ReplaceBtn {
   background: none;
   border: none;
-  color: var(--text-accent-color);     /* або будь‑який твій акцент */
+  color: var(--text-accent-color);
   text-decoration: underline;
   cursor: pointer;
   padding: 0;
   font: inherit;
-  font-family: IBM Plex Mono;
-font-weight: 500;
-font-style: Medium;
-font-size: 10px;
-leading-trim: NONE;
-line-height: 100%;
-letter-spacing: 0%;
-
+  font-size: clamp(10px, 1vw, 14px);
 }
 
-/* оверлей лайтбокса */
 .ImageOverlay {
   position: fixed;
   inset: 0;
@@ -160,7 +144,6 @@ letter-spacing: 0%;
   z-index: 9999;
 }
 
-/* велике фото */
 .ImageFull {
   max-width: 90vw;
   max-height: 90vh;
@@ -168,127 +151,125 @@ letter-spacing: 0%;
   cursor: zoom-out;
 }
 
-
-.TextareaDescription {
-  width: 259px;
-  min-height: 34px; /* як у тебе був інпут за висотою */
- background-color: var(--gift-input);
-  resize: none; /* заборонити ручне ресайз */
-  overflow: hidden; /* ховати скрол */
-  display: block;
-  margin-top: 10px;
-  font-family: inherit;
-  font-size: inherit;
-  line-height: 1.2;
-  padding: 4px 6px; /* щоб текст не прилягав до країв */
-  border: none; /* або за бажанням */
-  border-radius: 4px;
-  box-sizing: border-box;
-  color: var(--text-color);
+.customRadio {
+  appearance: none;
+  margin: 0;
+  width: 1.1vw;
+  height: 1.1vw;
+  min-width: 10px;
+  min-height: 10px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background: var(--input-badword);
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  transition: border-color 0.15s;
 }
 
-
-
-
-
-
-
-
-
-
-
-.customRadio{
-  /* прибираємо стандартний вигляд */
-  appearance:none; -webkit-appearance:none; /* WebKit fallback */
-  margin:0;
-  width:10px; height:10px;
-  border:2px solid currentColor; /* рамка того ж кольору, що й текст статусу */
-  border-radius:50%;
-  background:var(--input-badword);    /* ← темний фон для НЕактивної кнопки */
-  display:grid; place-content:center;
-  cursor:pointer;
-  transition:border-color .15s;
+.customRadio::before {
+  content: '';
+  width: 0.6vw;
+  height: 0.6vw;
+  min-width: 6px;
+  min-height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  transform: scale(0);
+  transition: transform 0.15s ease-in-out;
 }
 
-/* Всередині поставимо “кульку”, яка з’являється коли чекнуто */
-.customRadio::before{
-  content:'';
-  width:6px; height:6px;
-  border-radius:50%;
-  background:currentColor; /* кулька успадковує колір статусу */
-  transform:scale(0);
-  transition:transform .15s ease-in-out;
+.customRadio:checked::before {
+  transform: scale(1);
 }
 
-.customRadio:checked::before{ transform:scale(1); }
-
-/* За бажанням додаємо фокус-стили, щоб не губити доступність */
-.customRadio:focus-visible{
-  outline:2px solid var(--focus-color);
-  outline-offset:2px;
+.customRadio:focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px;
 }
 
 .RadioGroup {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  padding: 4px 0;
+  gap: 0.5vw;
+  padding: 0.5vw 0;
   align-items: flex-start;
-  font-size: 13px;
-  line-height: 1.2;
+  font-size: clamp(12px, 1vw, 16px);
   justify-content: center;
-
 }
+
 .RadioGroup label {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 14px;
+  gap: 0.5vw;
   cursor: pointer;
-  width: 15px;
   color: var(--text-color);
 }
 
-.RadioGroup input[type='radio'] {
- color: var(--shadow-secondary-border);
+.RadioLabel {
+  font-size: inherit;
 }
 
-.SaveButton{
-  width: 65px;
-  height: 30px;
+.SaveButton,
+.CloseButton {
+  width: clamp(65px, 7vw, 100px);
+  height: clamp(30px, 3.5vw, 45px);
+  font-family: IBM Plex Mono;
+  font-weight: 500;
+  font-size: clamp(10px, 1vw, 14px);
+  text-align: center;
+  cursor: pointer;
+}
+
+.SaveButton {
   background-color: var(--btn-accent-color);
-  font-family: IBM Plex Mono;
-font-weight: 500;
-font-style: Medium;
-font-size: 10px;
-leading-trim: NONE;
-line-height: 100%;
-letter-spacing: 0%;
-text-align: center;
-color: var(--bg-primary-color);
+  color: var(--bg-primary-color);
+  border: none;
 }
 
-.CloseButton{
-  width: 65px;
-  height: 30px;
+.CloseButton {
   border: 1px solid var(--btn-accent-color);
-  font-family: IBM Plex Mono;
-font-weight: 500;
-font-style: Medium;
-font-size: 10px;
-leading-trim: NONE;
-line-height: 100%;
-letter-spacing: 0%;
-text-align: center;
-color: var(--btn-accent-color);
+  color: var(--btn-accent-color);
+  background-color: transparent;
 }
 
 .ButtonsRow {
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 1vw;
   margin-top: auto;
-  padding-top: 16px;
+  padding-top: 2vw;
+}
 
+
+.loaderWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999; /* поверх всього */
+  background-color: rgba(255, 255, 255, 0.8); /* трохи прозорий фон */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.InputError {
+  border: 2px solid red !important;
+  background-color: var(--gift-input-error);
+}
+
+.ErrorMsg {
+  color: red;
+  font-size: clamp(10px, 0.9vw, 14px);
+  margin-top: 0.3vw;
+}
+
+
+.Error {
+  color: red;
+  font-size: clamp(10px, 0.9vw, 14px);
+  margin-top: 0.3vw;
 }
 

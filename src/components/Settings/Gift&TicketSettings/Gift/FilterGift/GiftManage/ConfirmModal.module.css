@@ -1,0 +1,52 @@
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.Modal {
+  background: var(--input-badword);
+  padding: 20px 25px;
+  border-radius: 12px;
+  max-width: 320px;
+  width: 90%;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.Text {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: var(--text-color);
+}
+
+.Buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.CancelBtn, .DeleteBtn {
+  flex: 1;
+  padding: 8px 12px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.CancelBtn {
+  background: #ccc;
+}
+
+.DeleteBtn {
+  background: #e74c3c;
+  color: white;
+}
