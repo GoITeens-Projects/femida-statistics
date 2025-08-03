@@ -8,9 +8,11 @@ import {
   RiVolumeUpLine,
   RiUserLocationLine,
   RiLineChartLine,
+  RiUserVoiceLine,
 } from 'react-icons/ri';
 import { motion } from 'framer-motion';
 import { IoMdSkipBackward } from 'react-icons/io';
+import { IoSettingsOutline } from 'react-icons/io5';
 import { MdSkipNext, MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md';
 
 import Shadow from 'components/Shadow/Shadow';
@@ -97,7 +99,7 @@ export const Navigation = ({ isMenuOpen, setIsMenuOpen }) => {
         </li>
         <li className={s.navigationItem}>
           <NavLink to="/stage" className={s.testLink}>
-            <RiVolumeUpLine
+            <RiUserVoiceLine
               className={`sidebarIcon ${isMenuOpen ? '' : `${s.iconFocused}`}`}
             />
             <p
@@ -124,22 +126,8 @@ export const Navigation = ({ isMenuOpen, setIsMenuOpen }) => {
           </NavLink>
         </li>
         <motion.li className={s.navigationItem}>
-          <NavLink to="/economic" className={s.testLink}>
-            <RiLineChartLine
-              className={`sidebarIcon ${isMenuOpen ? '' : `${s.iconFocused}`}`}
-            />
-            <p
-              className={`${s.sidebarText} ${
-                isMenuOpen ? '' : `${s.sidebarDisabledText}`
-              }`}
-            >
-              Економіка
-            </p>
-          </NavLink>
-        </motion.li>
-        <motion.li className={s.navigationItem}>
           <NavLink to="/settings" className={s.testLink}>
-            <RiLineChartLine
+            <IoSettingsOutline
               className={`sidebarIcon ${isMenuOpen ? '' : `${s.iconFocused}`}`}
             />
             <p
