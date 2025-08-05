@@ -92,15 +92,15 @@ export const router = createBrowserRouter([
         element: <PrivateRoute component={Emojis} redirectTo="/login" />,
       },
         {
-        path: 'settings/gift-requests',
+        path: 'gift-requests',
         element: <PrivateRoute component={GiftPage} redirectTo="/login" />,
       },
        {
-        path: 'settings/ticket-tool',
+        path: 'ticket-tool',
         element: <PrivateRoute component={TicketToolPage} redirectTo="/login" />,
       },
       {
-        path: 'settings/gift',
+        path: 'gift',
         element: <PrivateRoute component={GiftManage} redirectTo="/login" />,
       },
     ],

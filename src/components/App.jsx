@@ -29,6 +29,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import BurgerMenu from './BurgerMenu/BurgerMenu';
 import LimitsScope from './LimitsScope/LimitsScope';
 import { Bounce, ToastContainer } from 'react-toastify';
+import { fetchTickets } from '../redux/ticketTool/operation';
 
 
 export const App = () => {

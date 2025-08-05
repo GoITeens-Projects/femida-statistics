@@ -1,0 +1,18 @@
+.first {
+    color: green
+}
+
+.second {
+    color: blue;
+}
+
+.avatar {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+}
+
+.deleteButton {
+    flex-grow: 0;
+    cursor: pointer;
+}

@@ -16,6 +16,7 @@ import { improvisedReducer } from "./improvised/slice";
 import authReducer from './auth/slice';
 import { filterReducer } from './filter/slice'
 import { settingsReducer } from "./settings/slice";
+import {TicketToolReducer} from './ticketTool/slice';
 
 import { giftsReducer } from './gift/slice';
 
@@ -32,7 +33,8 @@ const rootReducer = combineReducers({
   filter: filterReducer,
   settings: settingsReducer,
   improvised: improvisedReducer,
-  gifts: giftsReducer
+  gifts: giftsReducer,
+  ticketTool: TicketToolReducer,
 });
 
 
