@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './GiftManageModal.module.css';
 import Shadow from 'components/Shadow/Shadow';
 import importIcon from './Group 498.svg';
-import { fetchGiftManage, patchGift, createGift } from '../../../../../../redux/gift/operation';
+import { fetchGiftManage, patchGift, createGift } from '../../../../../redux/gift/operation';
 import { PacmanLoader } from 'react-spinners';
 
 export const GiftManageModal = ({ giftId, onClose }) => {

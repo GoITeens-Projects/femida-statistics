@@ -7,8 +7,8 @@ export const SettingsNavigation = ({ onHandleSave, onHandleBackClick }) => {
 
       <button className={styles.ExitButton} type="button" onClick={onHandleBackClick}>
         <svg
-          width="8"
-          height="10"
+          width="0.9vw"
+          height="1vw"
           viewBox="0 0 4 6"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
