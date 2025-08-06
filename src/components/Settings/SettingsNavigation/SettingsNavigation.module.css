@@ -8,22 +8,24 @@
 }
 
 .ExitButton {
-    font-family: IBM Plex Sans;
-    font-size: 12px;
+ font-family: IBM Plex Sans;
+    font-size: 1.2vw;
     font-weight: 400;
-    line-height: 7.8px;
+    line-height: normal;
     text-align: left;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
     color: var(--subtext-color);
 }
 
+
+
 .SaveButton {
-    width: 65px;
-    height: 20px;
+ width: 4.4vw;
+    height: 2vw;
     background-color: var(--btn-accent-color);
     font-family: IBM Plex Mono;
-    font-size: 8px;
+    font-size: 0.7vw;
     font-weight: 500;
     line-height: 7.8px;
     text-align: left;

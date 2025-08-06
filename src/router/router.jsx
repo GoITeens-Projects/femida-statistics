@@ -19,7 +19,7 @@ import { CommandsPage } from 'components/Settings/Commands/CommandsPage';
 import { Emojis } from 'components/Settings/Emojis/Emojis';
 import { GiftPage } from 'components/Settings/Gift&TicketSettings/Gift/GiftPage';
 import { TicketToolPage } from 'components/Settings/Gift&TicketSettings/TicketTool/TicketToolPage';
-import { GiftManage } from 'components/Settings/Gift&TicketSettings/Gift/FilterGift/GiftManage/GiftManage';
+import { GiftManage } from 'components/Settings/Gift&TicketSettings/Gift/GiftManage/GiftManage';
 
 export const router = createBrowserRouter([
   {

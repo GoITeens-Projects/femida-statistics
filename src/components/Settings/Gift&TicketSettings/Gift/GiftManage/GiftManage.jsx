@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchGiftsManage, deleteGift } from '../../../../../../redux/gift/operation';
+import { fetchGiftsManage, deleteGift } from '../../../../../redux/gift/operation';
 import { SettingsNavigation } from 'components/Settings/SettingsNavigation/SettingsNavigation';
 import Shadow from 'components/Shadow/Shadow';
 import { GiftManageModal } from './GiftManageModal';

@@ -52,23 +52,17 @@ export const AutoModerationFilter = ({
         <p className={styles.moderationList}>{moderationList}</p>
       </div>
       <div className={styles.controls}>
-        <label className={styles.switch}>
-          <input
-            type="checkbox"
-            checked={!activeSlider ? true : isEnabled} // Якщо `activeSlider === false`, завжди увімкнений
-            disabled={!activeSlider} // Якщо `activeSlider === false`, неактивний
-            onChange={activeSlider ? handleToggle : undefined} // Блокуємо зміну стану
-          />
-          <span
-            className={`${styles.slider} ${styles.round}`}
-            style={{
-              filter: !activeSlider ? 'grayscale(40%)' : 'none',
-              opacity: !activeSlider ? '0.75' : '1',
+      {activeSlider && (
+  <label className={styles.switch}>
+    <input
+      type="checkbox"
+      checked={isEnabled}
+      onChange={handleToggle}
+    />
+    <span className={`${styles.slider} ${styles.round}`}></span>
+  </label>
+)}
 
-            }}
-          ></span>
-
-        </label>
         <Link to={`/settings/${endpoint}`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
