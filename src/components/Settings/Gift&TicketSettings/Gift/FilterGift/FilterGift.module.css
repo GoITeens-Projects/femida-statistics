@@ -90,19 +90,50 @@
   }
 }
 
-.headerFilterModal {
-  /* display: flex;
+.filterLine {
+  width: 100%;
+  height: 0.1vw;
+  background-color: #d2f1f6;
+  margin-top: 0.9vw;
+  margin-bottom: 0.9vw;
+}
+
+.testDiv {
+  margin-right: auto;
+  margin-top: 20px;
+}
+
+.overlay {
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+}
+
+.filterModal {
+  position: absolute;
+  z-index: 1000;
+  background-color: var(--bg-modal-color);
+  outline: 2px solid var(--bg-accent-color);
+
+  padding: clamp(1rem, 1.2vw, 2rem);
+  width: clamp(340px, 35vw, 800px); /* Ширше */
+  min-height: auto;
+  display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center; */
+  gap: 0.8vw;
+
+  max-height: 90vh;
+}
+
+.headerFilterModal {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.3vw;
-
-  @media screen and (min-width: 850px) {
-    gap: 0.141vw;
-  }
+  gap: 0.4vw;
 }
 
 .backButton {
@@ -110,443 +141,149 @@
   align-items: center;
   justify-content: center;
   color: var(--text-accent-color);
-  font-family: 'IBM Plex Sans';
-  font-size: 1.2vw;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  background: none;
+  border: none;
+  cursor: pointer;
   padding: 0;
-  gap: 0.2vw;
-
-  @media screen and (min-width: 850px) {
-    font-size: 0.85vw;
-    gap: 0.142vw;
-  }
-}
-
-.backSvg {
-  width: 1vw;
-  height: 1vw;
-
-  @media screen and (min-width: 850px) {
-    width: 0.495vw;
-    height: 0.779vw;
-  }
+  font-size: clamp(1rem, 0.9vw + 0.2rem, 1.2rem);
 }
 
 .filterNameTitle {
   color: var(--text-color);
-  font-size: 1.3vw;
-  font-style: normal;
+  font-size: clamp(1.2rem, 1vw + 0.2rem, 1.4rem);
   font-weight: 500;
-  line-height: normal;
-  margin-top: 0.2vw;
-
-  @media screen and (min-width: 850px) {
-    font-size: 0.9916vw;
-    margin-top: 0.9916vw;
-  }
+  margin-top: 0.4vw;
 }
 
-.intervalBox {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  /* gap: 2px; */
-
-  /* @media screen and (min-width: 850px) {
-    gap: 2px;
-  } */
+.filterLine {
+  width: 100%;
+  height: 1px;
+  background-color: #d2f1f6;
+  margin: 0.5vw 0;
 }
 
 .boxForMobile {
-  @media screen and (max-width: 849px) {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-}
-
-.intervalTitle {
-  color: var(--text-color);
-  font-size: 1.3vw;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-
-  @media screen and (min-width: 850px) {
-    font-size: 0.9916vw;
-  }
-}
-
-.dispalyTimeTitle {
-  color: var(--text-accent-color);
-  font-family: 'IBM Plex Sans';
-  font-size: 1vw;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  margin-top: 0.2vw;
-
-  @media screen and (min-width: 850px) {
-    font-size: 0.779vw;
-    margin-top: 0.2vw;
-  }
-}
-
-.chooseIntervalList {
   display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  margin-top: 5px;
-
-  @media screen and (min-width: 850px) {
-    gap: 20px;
-    margin-top: 10px;
-    align-items: center;
-    flex-direction: row;
-  }
+  flex-wrap: wrap;
+  gap: 1vw;
+  justify-content: space-between;
 }
 
-.chooseIntevalBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-secondary-color);
-  text-align: center;
-  font-size: 1.2vw;
-  font-weight: 500;
-  line-height: normal;
-
-  @media screen and (min-width: 850px) {
-    font-size: 0.921vw;
-  }
-}
-
-.unitsOfTimeBox {
-  margin-top: 0;
-
-  @media screen and (min-width: 850px) {
-    margin-top: 16px;
-  }
-}
-
-.unitsOfTimeTitle {
-  color: var(--text-color);
-  font-size: 1.3vw;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-
-  @media screen and (min-width: 850px) {
-    font-size: 0.9916vw;
-  }
-}
-
-.unitsOfTimeSubtitle {
-  color: var(--text-accent-color);
-  font-family: 'IBM Plex Sans';
-  font-size: 1vw;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  margin-top: 0.2vw;
-  /* max-width: 230px; */
-  max-width: 16.291vw;
-
-  @media screen and (min-width: 850px) {
-    font-size: 0.779vw;
-    max-width: 16.291vw;
-  }
-}
-
-.unitsOfTimeList {
+.intervalBox {
+  flex: 1 1 45%;
+  min-width: 200px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 5px;
-  margin-top: 5px;
-
-  @media screen and (min-width: 850px) {
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 20px;
-    margin-top: 10px;
-  }
+  gap: 0.3vw;
 }
 
-.unitsOfTimeBtn {
+.intervalTitle,
+.periodOfTimeTitle {
+  font-size: clamp(1rem, 0.8vw + 0.3rem, 1.2rem);
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.ContainerCheckBoxAction1 {
+  margin-top: 0.4vw;
+}
+
+.CustomCheckbox {
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: var(--text-secondary-color);
-  text-align: center;
-  font-size: 1.2vw;
-  font-weight: 500;
-  line-height: normal;
+  cursor: pointer;
+  color: var(--text-color);
+  font-size: clamp(0.9rem, 0.7vw + 0.2rem, 1rem);
+  position: relative;
+  gap: 0.5vw;
+  user-select: none;
+}
 
-  @media screen and (min-width: 850px) {
-    font-size: 0.921vw;
-  }
+.CustomCheckbox input {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.CheckboxMark {
+  height: clamp(16px, 0.9vw + 8px, 20px);
+  width: clamp(16px, 0.9vw + 8px, 20px);
+  background-color: var(--bg-modal-color);
+  border: 2px solid var(--shadow-secondary-border);
+  border-radius: 3px;
+  display: inline-block;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.CustomCheckbox input:checked + .CheckboxMark {
+  background-color: var(--shadow-secondary-border);
+  border-color: var(--shadow-secondary-border);
+}
+
+.CustomCheckbox input:checked + .CheckboxMark::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  box-sizing: content-box;
 }
 
 .periodOfTimeBox {
-  margin-top: 10px;
-
-  @media screen and (min-width: 850px) {
-    margin-top: 16px;
-  }
-}
-
-.periodOfTimeTitle {
-  color: var(--text-color);
-  font-size: 1.3vw;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-
-  @media screen and (min-width: 850px) {
-    font-size: 0.9916vw;
-  }
-}
-
-.periodOfTimeSubtitle {
-  color: var(--text-accent-color);
-  font-family: 'IBM Plex Sans';
-  font-size: 1vw;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  margin-top: 0.2vw;
-
-  @media screen and (min-width: 850px) {
-    font-size: 0.778vw;
-  }
-}
-
-.periodOfTimeInput {
-  -webkit-appearance: none;
-  appearance: none;
-  background: transparent;
-  cursor: pointer;
-  margin-top: 1vw;
-  width: 100%;
-
-  @media screen and (min-width: 850px) {
-    margin-top: 1.3vw;
-  }
-}
-
-.periodOfTimeInput::-webkit-slider-runnable-track {
-  background: #acd0d6;
-  width: 100%;
-  height: 0.277vw;
-
-  @media screen and (min-width: 850px) {
-    height: 0.141vw;
-  }
-}
-
-.periodOfTimeInput::-moz-range-track {
-  background: #acd0d6;
-  width: 100%;
-  /* height: 2px; */
-  height: 0.277vw;
-
-  @media screen and (min-width: 850px) {
-    height: 0.141vw;
-  }
-}
-
-.periodOfTimeInput::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  margin-top: -1.1vw;
-  background-color: #d2f1f6;
-  border-radius: 3px;
-  width: 1.111vw;
-  height: 2.5vw;
-
-  @media screen and (min-width: 850px) {
-    width: 0.5vw;
-    height: 0.85vw;
-    margin-top: -0.425vw;
-  }
-}
-
-.periodOfTimeInput::-moz-range-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  margin-top: -1.1vw;
-  background-color: #d2f1f6;
-  border-radius: 3px;
-  width: 1.111vw;
-  height: 2.5vw;
-
-  @media screen and (min-width: 850px) {
-    width: 0.5vw;
-    height: 0.85vw;
-    margin-top: -0.425vw;
-  }
-}
-
-.chosenPeriodText {
-  color: #96b8bd;
-  font-family: 'IBM Plex Sans';
-  font-size: 1.2vw;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  margin-top: 2px;
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
+  flex-direction: column;
+  gap: 0.4vw;
+  margin-top: 0.5vw;
+}
 
-  @media screen and (min-width: 850px) {
-    font-size: 0.779vw;
-    margin-top: 3px;
-  }
+.RatingXpContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+  margin-top: 0.4vw;
+  flex-wrap: nowrap;
+}
+
+.RatingXpInput,
+.RatingXpInput2 {
+  flex: 0 0 auto;
+  width: clamp(2.5rem, 2.5vw, 3rem);
+  height: clamp(1.2rem, 1vw + 0.5rem, 2rem);
+  background-color: var(--gift-coment-color);
+  font-size: clamp(0.9rem, 0.9vw + 0.2rem, 1.1rem);
+  margin-left: 0.5vw;
+  padding: 0 0.4vw;
+  border: 1px solid var(--shadow-secondary-border);
+  border-radius: 4px;
+}
+
+.RatingXpText {
+  font-family: 'IBM Plex Sans';
+  font-weight: 400;
+  font-size: clamp(0.85rem, 0.7vw + 0.2rem, 1rem);
+  color: var(--text-color);
 }
 
 .saveFilterBtn {
   background-color: var(--btn-accent-color);
-  padding: 1vw 1.3vw;
   color: #fff;
-  font-size: 1.2vw;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  /* width: 80px;
-  height: 28px; */
-  width: 8.666vw;
-  margin-top: 1vw;
-
-  @media screen and (min-width: 850px) {
-    font-size: 0.779vw;
-    width: 5.666vw;
-    margin-top: 1.0625vw;
-    padding: 0.556vw 0.416vw;
-  }
+  font-size: clamp(1rem, 0.9vw + 0.3rem, 1.2rem);
+  padding: clamp(0.5rem, 0.6vw, 0.8rem) clamp(1rem, 1.2vw, 1.5rem);
+  border: none;
+  border-radius: 4px;
+  margin-top: 0.8vw;
+  width: fit-content;
+  align-self: flex-start;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.chooseBtnActive {
-  border-bottom: 1px solid var(--text-accent-color);
-  color: var(--text-accent-color);
-
-  @media screen and (min-width: 850px) {
-    border-bottom: 2px solid var(--text-accent-color);
-  }
-}
-
-
-
-
-
-.CustomCheckbox {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    font-size: 10px;
-    margin: 4px 0;
-    position: relative;
-    color: var(--text-color);
-}
-
-.CustomCheckbox input {
-    opacity: 0;
-    position: absolute;
-    width: 0;
-    height: 0;
-}
-
-.CheckboxMark {
-    height: 10px;
-    width: 10px;
-    background-color: var(--bg-modal-color);
-    /* Світлий фон */
-    border: 1px solid var(--shadow-secondary-border);
-    /* Колір рамки */
-    border-radius: 2px;
-    /* Скруглені кути */
-    display: inline-block;
-    position: relative;
-    margin-right: 8px;
-}
-
-.CustomCheckbox input:checked+.CheckboxMark {
-    background-color: var(--shadow-secondary-border);
-    /* Колір фону для чекнутого стану */
-    border-color: var(--shadow-secondary-border);
-    /* Синхронізуємо колір рамки з фоном */
-}
-
-.CustomCheckbox input:checked + .CheckboxMark::after {
-    content: "";
-    position: absolute;
-    left: 2px;
-    top: 0px;
-    width: 3px;
-    height: 6px;
-    border: solid #fff;
-    border-width: 0 1.5px 1.5px 0;
-    transform: rotate(45deg);
-}
-
-.ContainerCheckBox {
-    margin-top: 15px;
-}
-
-
-/* Додаємо відстань між чекбоксами */
-
-.CustomCheckbox+.CustomCheckbox {
-    margin-top: 15px;
-    /* Відстань між чекбоксами */
-}
-
-
-
-
-.RatingXpContainer {
-  display: flex;
-  align-items: center;   /* щоб інпут не розтягувався по висоті */
-  gap: 8px;
-  margin-top: 5px;              /* невеличкий відступ між елементами */
-}
-
-.RatingXpInput {
-  flex: 0 0 40px;        /* не росте, не стискається, basis = 30px */
-  min-width: 40px;       /* не стискається менше за 30px */
-  width: 43px;           /* ширина = 30px */
-  height: 18px;          /* висота = 14px */
-  box-sizing: border-box;/* padding/border враховуються в розмірах */
-  background-color: var(--gift-coment-color);
-  /* якщо хочеш вирівняти інпут по верху контейнера: */
-  /* align-self: flex-start; */
-  margin-left: 12.5px;
-}
-.RatingXpInput2 {
-  flex: 0 0 40px;        /* не росте, не стискається, basis = 30px */
-  min-width: 40px;       /* не стискається менше за 30px */
-  width: 43px;           /* ширина = 30px */
-  height:18px;          /* висота = 14px */
-  box-sizing: border-box;/* padding/border враховуються в розмірах */
-  background-color: var(--gift-coment-color);
-  /* якщо хочеш вирівняти інпут по верху контейнера: */
-  /* align-self: flex-start; */
-
-}
-
-
-.RatingXpText{
-  font-family: IBM Plex Sans;
-font-weight: 400;
-font-size: 12px;
-line-height: 100%;
-letter-spacing: 0%;
-color: var(--text-color)
+.saveFilterBtn:hover {
+  background-color: var(--btn-accent-hover-color);
 }
