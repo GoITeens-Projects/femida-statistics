@@ -14,6 +14,8 @@ import Shadow from 'components/Shadow/Shadow';
 import { Actions } from 'components/Settings/Actions/Actions';
 import { GiftAndTicketCard } from 'components/Settings/Gift&TicketSettings/GiftAndTicketCard';
 
+import {fetchTickets} from '../redux/ticketTool/operation'
+
 export const Settings = () => {
   const dispatch = useDispatch();
   const [isOpenDropDown, setIsOpenDropdown] = useState(false);
@@ -27,7 +29,7 @@ export const Settings = () => {
   };
 
   useEffect(() => {
-    // dispatch(fetchSettings());
+    dispatch(fetchTickets());
     // dispatch(fetchChannels());
     // dispatch(fetchRoles())
   }, [dispatch]);

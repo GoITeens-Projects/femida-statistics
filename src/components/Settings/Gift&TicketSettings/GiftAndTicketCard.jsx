@@ -39,7 +39,7 @@ export const GiftAndTicketCard = ({
       </div>
       <div className={styles.controls}>
       
-        <Link to={`/settings/${endpoint}`}>
+        <Link to={`/${endpoint}`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="19"

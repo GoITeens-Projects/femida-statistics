@@ -1,0 +1,60 @@
+.first {
+    color: green
+}
+
+.second {
+    color: blue;
+}
+
+.avatar {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+}
+
+.deleteButton {
+    flex-grow: 0;
+    cursor: pointer;
+}
+
+.baseContainer {
+    position: relative;
+    min-width: 90%;
+    margin: 0 auto;
+    background-color: var(--bg-modal-color);
+    padding: 1.2em 2em;
+    max-height: 100%;
+}
+
+.adminMessage {
+    color: var(--text-accent-color);
+    font-size: 1.25em;
+    background-color: var(--bg-modal-color);
+        border: #000 1px solid;
+        width:50%
+}
+
+
+.requesterMessage {
+    color: var(--text-color);
+    font-size: 1.25em;
+    background-color: var(--bg-modal-color);
+    border: #000 1px solid;
+}
+
+
+
+/* .requesterMessage::before{
+  content:"";
+  position: absolute;
+  top:20px;
+  left:-12px;
+  margin:auto;
+  height: 20px;
+  width: 20px;
+  border:1px solid #fff;
+  transform:rotate(45deg);
+  background-color: #fff;
+  border-bottom:1px solid #000;
+  border-left:1px solid #000;
+} */

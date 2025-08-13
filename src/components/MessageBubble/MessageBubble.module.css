@@ -1,0 +1,167 @@
+/* Контейнер для повідомлення */
+.messageContainer {
+  display: flex;
+  margin: 8px 0;
+  max-width: 100%;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Анімація появи */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Вхідні повідомлення (зліва) */
+/* .messageContainer.incoming {
+  justify-content: flex-start; */
+/* } */
+
+/* Вихідні повідомлення (справа) */
+/* .messageContainer.outgoing {
+  justify-content: flex-end;
+} */
+
+/* Основний бульбашка повідомлення */
+.basic .messageBubble {
+  position: relative;
+  padding:  0.625em 0.9375em 0.625em 1.25em;
+  word-wrap: break-word;
+  background-color: var(--gift-input);
+  color: var(--text-color);
+  vertical-align: middle;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.forwarded .messageBubble {
+  position: relative;
+  padding:  0.3125em 0.625em 0.3125em 0.9375em;
+  word-wrap: break-word;
+  background-color: var(--bg-primary-color);
+  color: var(--text-color);
+  border: 1px solid var(--btn-accent-color);
+  
+ 
+}
+
+.emoji {
+  width: 1.5625em
+}
+
+.text{
+  vertical-align: middle;
+   justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+/* Ховер ефект */
+/* .messageBubble:hover {
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); */
+  /* transform: translateY(-1px); */
+/* } */ 
+
+/* Стилі для вхідних повідомлень */
+/* .incoming .messageBubble {
+  background: var(--incoming-message-bubble);
+  color: var(--text-color);
+  /* border-top-left-radius: 4px; */
+/* } */ 
+
+/* .incoming .messageBubble::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 0;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-right-color: #f0f2f5;
+  border-top-color: #f0f2f5;
+  border-left: none;
+  border-bottom: none;
+} */
+
+/* Стилі для вихідних повідомлень */
+/* .outgoing .messageBubble {
+  background: linear-gradient(135deg, #0084ff 0%, #0066cc 100%);
+  color: white;
+  border-top-right-radius: 4px;
+} */
+
+ .basic .messageBubble::before {
+  content: '';
+      position: absolute;
+      /* Позиціонуємо хвостик вліво */
+      left: -0.3125em;
+      top: 0; /* Регулюйте, щоб вирівняти хвостик по вертикалі */
+      /* Створюємо трикутник */
+      width: 0;
+      height: 0;
+      /* border-top: 10px solid transparent; */
+      border-right:  0.3125em solid var(--gift-input); /* Колір хвостика (повинен відповідати фону) */
+      border-bottom:  0.3125em solid transparent;
+}
+
+ .forwarded .messageBubble::before {
+  content: '';
+      position: absolute;
+      /* Позиціонуємо хвостик вліво */
+      left: -0.3125em;
+      top: 0; /* Регулюйте, щоб вирівняти хвостик по вертикалі */
+      /* Створюємо трикутник */
+      width: 0;
+      height: 0;
+      /* border-top: 10px solid transparent; */
+      border-right:  0.3125em solid var(--btn-accent-color); /* Колір хвостика (повинен відповідати фону) */
+      border-bottom:  0.3125em solid transparent;
+}
+
+/* Текст повідомлення */
+.messageText {
+  font-size: 0.875em;
+  line-height: 1.4;
+  font: IBM Plex Mono, monospace;
+  color: var(--text-color);
+  word-break: break-word;
+}
+
+/* Адаптивність для мобільних пристроїв */
+@media (max-width: 768px) {
+  .messageBubble {
+    max-width: 85%;
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+  
+  .messageText {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .messageBubble {
+    max-width: 90%;
+    padding: 8px 12px;
+  }
+  
+  .messageText {
+    font-size: 12px;
+  }
+}
+
+.highlight{
+  background-color: var(--highlight-mention);
+  color: var(--text-color);
+  border-radius:  0.125em;
+  padding: 0.125em 0.25em;
+}
+
+/* Темна тема */

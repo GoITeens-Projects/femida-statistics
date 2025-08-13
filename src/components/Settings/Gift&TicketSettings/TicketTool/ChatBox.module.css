@@ -1,0 +1,19 @@
+.avatar {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+}
+
+.username{
+    color: var(--text-accent-color)
+}
+
+.attachment{
+    border: 1px solid var(--text-accent-color);
+    max-width: 50%;
+    max-height: 50%;
+}
+
+.forwardedFrom{
+  color: var(--text-accent-color)
+}
