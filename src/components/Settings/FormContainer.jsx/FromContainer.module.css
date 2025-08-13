@@ -1,18 +1,14 @@
-    .FromContainer {
-        position: relative;
-        width: 66vh;
-        height: auto;
-        border: 1px solid var(--chart-color);
-        margin-top: 20px;
-        display: block;
-        /* Відновлюємо стандартне блокове відображення */
-        padding: 20px;
-        box-sizing: border-box;
-        /* Ураховуємо padding у ширині */
-        @media screen and (min-width: 768px) {
-            width: 933px;
-        }
-    }
+
+.FromContainer {
+ 
+  position: relative;
+  display: block;
+  border: 1px solid var(--chart-color);
+  padding: 0 1.771vw 1.346vw 2.054vw;
+  box-sizing: border-box;
+  margin-top: 1.06vw;
+  background-color: var(--bg-primary-color);
+}
     
     .LabelFormBadWords {
         font-family: IBM Plex Mono;

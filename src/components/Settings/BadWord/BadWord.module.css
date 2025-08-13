@@ -81,38 +81,30 @@ input:checked+.slider:before {
 }
 
 .Container {
-    margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85vw;
+  margin-top: 1.06vw;
+  box-sizing: border-box;
 }
-
-.TitleBadWords {
-    font-family: IBM Plex Mono;
-    font-size: 2.2vh;
-    font-weight: 500;
-    line-height: 20.8px;
-    text-align: left;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: var(--text-color);
-    justify-content: center;
-    @media screen and (min-width: 768px) {
-        font-size: 1.7vw;
-    }
+.TitleBadWords  {
+  font-family: IBM Plex Mono;
+  font-size: clamp(18px, 2vw, 45px);
+  font-weight: 500;
+  text-align: left;
+  color: var(--text-color);
+  margin-top: 1.06vw;
 }
-
 .FromContainer {
-    position: relative;
-    width: 66vh;
-    height: auto;
-    border: 1px solid var(--chart-color);
-    margin-top: 20px;
-    display: block;
-    /* Відновлюємо стандартне блокове відображення */
-    padding: 20px;
-    box-sizing: border-box;
-    /* Ураховуємо padding у ширині */
-    @media screen and (min-width: 768px) {
-        width: 933px;
-    }
+ 
+  position: relative;
+  display: block;
+  border: 1px solid var(--chart-color);
+  padding: 0 1.771vw 1.346vw 2.054vw;
+  box-sizing: border-box;
+  margin-top: 1.06vw;
+  background-color: var(--bg-primary-color);
 }
 
 .LabelFormBadWords {

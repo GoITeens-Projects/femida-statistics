@@ -6,7 +6,7 @@ import Shadow from '../../Shadow/Shadow';
 import s from '../PeriodsSettings/PeriodsSettings.module.css';
 import { ActionSettings } from '../ActionSettings/ActionSettings';
 import TextEditor from '../TextEditor/TextEditor';
-import { PatchSettings } from '../../../redux/settings/operation';
+import { fetchSettings, PatchSettings } from '../../../redux/settings/operation';
 import { useNavigate } from 'react-router-dom';
 
 const parseMuteTime = (timeInMs) => {
@@ -42,6 +42,10 @@ export const Emojis = () => {
 
   const [thisTargetChannels, setThisTargetChannels] = useState([]);
 
+useEffect(() => {
+  dispatch(fetchSettings());
+}, [dispatch]);
+
   useEffect(() => {
     if (settings) {
       setIsEnabled(settings?.settings?.emojisSpam?.actions?.giveWarn);
@@ -70,33 +74,37 @@ export const Emojis = () => {
     }
   }, [settings]);
 
-  const save = () => {
-    dispatch(
-      PatchSettings({
-        settings: {
-          emojisSpam: {
-            maxEmojis: maxEmojis,
-            targetChannels: thisTargetChannels,
-            targetRoles: thisTargetRoles,
-            actions: {
-              deleteMsg: isDeleteMessage,
-              giveWarn: isEnabled,
-              ignoreAdmins: isCheckedAdmin,
-              mute: {
-                enabled: selectedAction === 'mute',
-                muteTimeMs: days * 86400000 + hours * 3600000 + minutes * 60000,
-              },
-              notifyUser: {
-                enabled: selectedAction === 'warning',
-                messageFn: content,
-                deleteTimeoutMs: isDeleteTimeoutSec * 1000,
-              },
+const save = () => {
+  dispatch(
+    PatchSettings({
+      settings: {
+        emojisSpam: {
+          maxEmojis: maxEmojis,
+          targetChannels: thisTargetChannels,
+          targetRoles: thisTargetRoles,
+          actions: {
+            deleteMsg: isDeleteMessage,
+            giveWarn: isEnabled,
+            ignoreAdmins: isCheckedAdmin,
+            mute: {
+              enabled: selectedAction === 'mute',
+              muteTimeMs: days * 86400000 + hours * 3600000 + minutes * 60000,
+            },
+            notifyUser: {
+              enabled: selectedAction === 'warning',
+              messageFn: content,
+              deleteTimeoutMs: isDeleteTimeoutSec * 1000,
             },
           },
         },
-      })
-    );
-  };
+      },
+    })
+  ).then(() => {
+ 
+   
+    navigate('/settings');
+  });
+};
 
   const handleToggle = () => {
     setIsEnabled(!isEnabled);
