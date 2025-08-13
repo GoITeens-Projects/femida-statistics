@@ -4,7 +4,9 @@ import {
   fetchUserName,     // мапа userId → username
   fetchGift,         // okremyi gift із заявки
   fetchGiftsManage,  // список усіх подарунків (для таблиці)
-  fetchGiftManage,   // 🔸 один подарунок за ID (для модалки)
+  fetchGiftManage,
+  patchGift,
+  createGift,   // 🔸 один подарунок за ID (для модалки)
 } from './operation';
 
 const giftsSlice = createSlice({
@@ -26,6 +28,9 @@ const giftsSlice = createSlice({
 
     /* ---- мапа юзерів ---- */
     usernames: {},
+
+  creating: false,
+  patching: false,
   },
   reducers: {
     clearSelectedGifts(state) {
@@ -86,7 +91,34 @@ const giftsSlice = createSlice({
         state.loadingCurrent = false;
         state.errorCurrent = action.payload;
       });
+        /* ===== 6. СТВОРЕННЯ ПОДАРУНКУ ===== */
+    builder
+      .addCase(createGift.pending, state => {
+        state.creating = true;
+      })
+      .addCase(createGift.fulfilled, (state, action) => {
+        state.creating = false;
+        state.giftsManage.push(action.payload?.gift); // якщо потрібно додати в список
+      })
+      .addCase(createGift.rejected, (state, action) => {
+        state.creating = false;
+      });
+
+    /* ===== 7. ОНОВЛЕННЯ ПОДАРУНКУ ===== */
+    builder
+      .addCase(patchGift.pending, state => {
+        state.patching = true;
+      })
+      .addCase(patchGift.fulfilled, (state, action) => {
+        state.patching = false;
+        // опціонально оновити giftsManage або currentGift
+      })
+      .addCase(patchGift.rejected, (state, action) => {
+        state.patching = false;
+      });
   },
+
+  
 });
 
 export const { clearSelectedGifts } = giftsSlice.actions;

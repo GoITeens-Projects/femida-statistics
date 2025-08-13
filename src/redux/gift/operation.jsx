@@ -179,3 +179,24 @@ export const createGift = createAsyncThunk(
     }
   }
 );
+export const deleteGift = createAsyncThunk(
+  'gifts/deleteGift',
+  async (id, thunkAPI) => {
+    try {
+      const accessToken = localStorage.getItem('token');
+      const response = await axios.delete(
+        `https://femida-api.onrender.com/gifts/${id}`,
+     
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+           
+          },
+        }
+      );
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data?.message || 'Помилка при створенні подарунку');
+    }
+  }
+);

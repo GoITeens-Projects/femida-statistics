@@ -1,0 +1,275 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1300;
+}
+
+.modal {
+  width: min(90vw, 700px);
+  max-height: 95vh;
+  background: var(--bg-primary-color);
+  padding: 2vw;
+  overflow-y: auto;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  border-radius: 1vw;
+}
+
+/* Дуже великі екрани */
+@media (min-width: 1600px) {
+  .modal {
+    width: min(80vw, 1200px);
+    height: min(80vh, 900px);
+    padding: 2.5vw;
+  }
+}
+
+/* Планшети */
+@media (max-width: 1024px) {
+  .modal {
+    width: 90vw;
+    height: auto;
+    max-height: 85vh;
+    padding: 5vw;
+  }
+
+  .Columns {
+    flex-direction: column;
+    gap: 4vw;
+  }
+}
+
+/* Телефони */
+@media (max-width: 480px) {
+  .modal {
+    width: 95vw;
+    height: auto;
+    max-height: 90vh;
+    padding: 4vw;
+  }
+}
+
+.Columns {
+  display: flex;
+  gap: 4vw;
+}
+
+.LeftColumn,
+.RightColumn {
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.Title {
+  font-family: IBM Plex Mono;
+  font-weight: 500;
+  font-size: clamp(16px, 1.5vw, 24px);
+  color: var(--text-accent-color);
+  margin-bottom: 1vw;
+}
+
+.TitleInput {
+  font-family: IBM Plex Mono;
+  font-weight: 500;
+  font-size: clamp(13px, 1.1vw, 18px);
+  color: var(--text-accent-color);
+}
+
+.Input,
+.TextareaDescription {
+  width: 100%;
+  background-color: var(--gift-input);
+  display: block;
+  margin-top: 0.8vw;
+  font-family: inherit;
+  font-size: clamp(12px, 1.1vw, 20px);
+  line-height: 1.2;
+  padding: 0.5vw 0.8vw;
+  border: none;
+  border-radius: 0.5vw;
+  box-sizing: border-box;
+  color: var(--text-color);
+}
+
+.TextareaDescription {
+  min-height: 34px;
+  resize: none;
+  overflow: hidden;
+}
+
+.Container {
+  margin-top: 1.5vw;
+}
+
+.ContainerImport {
+  margin-top: 1.5vw;
+  gap: 0.5vw;
+}
+
+.ImportPictures {
+  height: auto;
+  max-height: min(18vw, 150px);
+  max-width: 100%;
+  cursor: zoom-in;
+  border-radius: 0.5vw;
+  margin-top: 1vw;
+  object-fit: contain;
+}
+
+.ReplaceBtn {
+  background: none;
+  border: none;
+  color: var(--text-accent-color);
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  font-size: clamp(10px, 1vw, 14px);
+}
+
+.ImageOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+}
+
+.ImageFull {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  cursor: zoom-out;
+}
+
+.customRadio {
+  appearance: none;
+  margin: 0;
+  width: 1.1vw;
+  height: 1.1vw;
+  min-width: 10px;
+  min-height: 10px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background: var(--input-badword);
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.customRadio::before {
+  content: '';
+  width: 0.6vw;
+  height: 0.6vw;
+  min-width: 6px;
+  min-height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  transform: scale(0);
+  transition: transform 0.15s ease-in-out;
+}
+
+.customRadio:checked::before {
+  transform: scale(1);
+}
+
+.customRadio:focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px;
+}
+
+.RadioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vw;
+  padding: 0.5vw 0;
+  align-items: flex-start;
+  font-size: clamp(12px, 1vw, 16px);
+  justify-content: center;
+}
+
+.RadioGroup label {
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.RadioLabel {
+  font-size: inherit;
+}
+
+.SaveButton,
+.CloseButton {
+  width: clamp(65px, 7vw, 100px);
+  height: clamp(30px, 3.5vw, 45px);
+  font-family: IBM Plex Mono;
+  font-weight: 500;
+  font-size: clamp(10px, 1vw, 14px);
+  text-align: center;
+  cursor: pointer;
+}
+
+.SaveButton {
+  background-color: var(--btn-accent-color);
+  color: var(--bg-primary-color);
+  border: none;
+}
+
+.CloseButton {
+  border: 1px solid var(--btn-accent-color);
+  color: var(--btn-accent-color);
+  background-color: transparent;
+}
+
+.ButtonsRow {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1vw;
+  margin-top: auto;
+  padding-top: 2vw;
+}
+
+
+.loaderWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999; /* поверх всього */
+  background-color: rgba(255, 255, 255, 0.8); /* трохи прозорий фон */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.InputError {
+  border: 2px solid red !important;
+  background-color: var(--gift-input-error);
+}
+
+.ErrorMsg {
+  color: red;
+  font-size: clamp(10px, 0.9vw, 14px);
+  margin-top: 0.3vw;
+}
+
+
+.Error {
+  color: red;
+  font-size: clamp(10px, 0.9vw, 14px);
+  margin-top: 0.3vw;
+}
+
