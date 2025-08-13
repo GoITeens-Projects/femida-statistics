@@ -8,7 +8,7 @@ import { ActionSettings } from '../ActionSettings/ActionSettings';
 import TextEditor from '../TextEditor/TextEditor';
 import { fetchSettings, PatchSettings } from '../../../redux/settings/operation';
 import { useNavigate } from 'react-router-dom';
-
+import styled from './Emojis.module.css';
 const parseMuteTime = (timeInMs) => {
   const totalMinutes = Math.floor(timeInMs / 60000);
   const days = Math.floor(totalMinutes / (24 * 60));
@@ -112,7 +112,8 @@ const save = () => {
 
   return (
     <>
-      <div className={styles['navigation-container']}>
+    <section className={styles.Conatiner}>
+       <div className={styles['navigation-container']}>
         <SettingsNavigation
           onHandleSave={save}
           onHandleBackClick={() => navigate('/settings')}
@@ -155,25 +156,21 @@ const save = () => {
           />
         </label>
       </div>
-      <div className={styles['helper-container']}>
-        <div className={styles['second-helper-container']}>
-          <label className={styles.switch}>
-            <input
-              type="checkbox"
-              checked={isEnabled}
+ 
+         <div className={styled.SliderContainer}>
+                  <label className={styled.switch}>
+                    <input
+                      type="checkbox"
+                       checked={isEnabled}
               onChange={handleToggle}
-            />
-            <span
-              className={`${styles.slider} ${styles.round}`}
-              style={{
-                filter: 'none',
-                opacity: '1',
-              }}
-            ></span>
-          </label>
-          <p>Повідомляти учасника про порушення</p>
-        </div>
-      </div>
+                    />
+                    <span className={`${styled.slider} ${styled.round}`}></span>
+                  </label>
+                  <p className={styled.SliderText}>
+                    Повідомляти учасника про порушення
+                  </p>
+                </div>
+    
       <ActionSettings
         onDaysChange={setDays}
         onHoursChange={setHours}
@@ -226,6 +223,8 @@ const save = () => {
           <p className={styles.Sec}>сек.</p>
         </label>
       </div>
+    </section>
+     
     </>
   );
 };

@@ -4,7 +4,7 @@
 /* } */
 .subtitle {
   font-family: IBM Plex Mono;
-  font-size: 12px;
+    font-size: 1.09vw;
   font-weight: 400;
   line-height: normal;
   /* text-align: left; */
@@ -147,7 +147,7 @@
   color: var(--text-color);
 }
 .count-input{
-  /* width: 100%; */
+  width: 99%;
   border: none;
   padding: 0.708vw 0 0.708vw 1.417vw;
   background-color: var(--bg-primary-color);
@@ -156,23 +156,30 @@
 }
 
 .container {
-  width: calc(90% - (1.771vw + 2.054vw));
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 0.85vw;
-  background-color: var(--bg-modal-color);
+  display: block;
   border: 1px solid var(--chart-color);
   padding: 0 1.771vw 1.346vw 2.054vw;
-  font-family: IBM Plex Sans;
-  font-size: 12px;
-  font-weight: 400;
+  box-sizing: border-box;
+  margin-top: 1.06vw;
+  background-color: var(--bg-primary-color);
   line-height: normal;
   text-align: left;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
   color: var(--text-color);
 }
+.FromContainer {
+ 
+  position: relative;
+  display: block;
+  border: 1px solid var(--chart-color);
+  padding: 0 1.771vw 1.346vw 2.054vw;
+  box-sizing: border-box;
+  margin-top: 1.06vw;
+  background-color: var(--bg-primary-color);
+}
+
 .closed-container {
   width: calc(90% - (1.771vw + 2.054vw));
   position: relative;

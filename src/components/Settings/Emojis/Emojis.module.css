@@ -1,0 +1,74 @@
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 3.2vw; /* замість 46px */
+    height: 1.4vw; /* замість 20px */
+    min-width: 28px; /* щоб не був надто малий на телефонах */
+    min-height: 14px;
+        margin-top: -0.4vw;
+}
+
+/* Приховуємо дефолтний чекбокс */
+.switch input {
+    display: none;
+}
+
+/* Слайдер */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--slider-background);
+    border: 0.15vw solid var(--btn-accent-color);
+    border-radius: 50vw;
+    transition: 0.4s;
+    box-sizing: border-box;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    left: 0.15vw;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--slider-background-before);
+    border-radius: 50%;
+    transition: 0.4s;
+    width: 1vw; /* замість 15px */
+    height: 1vw;
+    min-width: 10px;
+    min-height: 10px;
+}
+
+input:checked + .slider {
+    background-color: var(--slider-background-checked);
+    border-color: var(--btn-accent-color);
+}
+
+input:checked + .slider:before {
+    transform: translate(calc(1.8vw), -50%); /* пропорційний рух */
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 0.15vw var(--btn-accent-color);
+}
+
+.SliderContainer {
+    margin-top: 2vw;
+    display: flex;
+    gap: 0.4vw;
+}
+.SliderText {
+    font-family: IBM Plex Sans;
+    margin-top: 2px;
+    font-weight: 400;
+    line-height: 10.4px;
+    font-size: 1.25vw;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: var(--text-color);
+}

@@ -128,8 +128,8 @@ export const ActionSettings = ({
 
 
   return (
-
-    <div className={s.BadWordActionContainer}>
+<section className={s.Container}>
+  <div className={s.BadWordActionContainer}>
       <Shadow
         leftFirst={-7}
         widthFirst={5}
@@ -300,6 +300,8 @@ export const ActionSettings = ({
         </ul>
       </div>
     </div>
+</section>
+  
 
 
   )

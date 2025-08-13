@@ -5,35 +5,40 @@ import PropTypes from 'prop-types';
 
 const CustomDropdown = ({ options, placeholder, onChange, value }) => {
   const [selectedOption, setSelectedOption] = useState(value || null);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    setSelectedOption(value); // Оновлюємо вибір, якщо змінюється початкове значення
-  }, [value]);
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const customStyles = {
     control: provided => ({
       ...provided,
       border: '1px solid #ccc',
-      borderRadius: '8px',
-      padding: '5px',
+      borderRadius: '0.5vw',
+      padding: '0.3vw',
       backgroundColor: 'var(--input-badword)',
-      width: '251px',
-      height: '47px',
+      width: `${Math.min(windowWidth * 0.15, 350)}px`, // максимум 350px
+      height: `${Math.min(windowWidth * 0.035, 60)}px`, // максимум 60px
     }),
     option: (provided, state) => ({
       ...provided,
       color: state.data.color,
       backgroundColor: 'var(--input-badword)',
+      fontSize: `${Math.min(windowWidth * 0.008, 16)}px`
     }),
     singleValue: (provided, state) => ({
       ...provided,
       color: state.data.color,
+      fontSize: `${Math.min(windowWidth * 0.008, 16)}px`
     }),
   };
 
   const handleChange = option => {
     setSelectedOption(option);
-    if (onChange) onChange(option); // Викликаємо зворотній виклик
+    if (onChange) onChange(option);
   };
 
   return (
@@ -48,21 +53,3 @@ const CustomDropdown = ({ options, placeholder, onChange, value }) => {
     </div>
   );
 };
-
-CustomDropdown.propTypes = {
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-      color: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  placeholder: PropTypes.string,
-  onChange: PropTypes.func,
-};
-
-CustomDropdown.defaultProps = {
-  placeholder: 'Виберіть варіант',
-  onChange: null,
-};
-export default CustomDropdown;

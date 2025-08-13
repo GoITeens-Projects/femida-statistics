@@ -1,434 +1,394 @@
 .BadWordActionContainer {
-    position: relative;
-    width: 933px;
-    height: 280px;
-    border: 1px solid var(--chart-color);
-    margin-top: 50px;
+  position: relative;
+  display: block;
+  border: 0.15vw solid var(--chart-color);
+  padding: 0 1.8vw 1.4vw 2.05vw;
+  box-sizing: border-box;
+  margin-top: 1.06vw;
+  background-color: var(--bg-primary-color);
+}
+
+.Container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85vw;
+  margin-top: 1.06vw;
+  box-sizing: border-box;
 }
 
 .TitleAction {
-    font-family: IBM Plex Mono;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 10.4px;
-    text-align: left;
-    /* Лейбл залишатиметься по лівому краю */
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: var(--text-accent-color);
-    margin-top: 15px;
-    margin-left: 25px;
+  font-family: IBM Plex Mono;
+  font-size: 1.09vw;
+  font-weight: 400;
+  line-height: 0.81vw;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: var(--text-accent-color);
+  margin-top: 1.17vw;
+  margin-left: 1.95vw;
 }
 
-
-/* випадаючий список */
-
 .ActionSelect {
-    width: 266px;
-    height: 33px;
-    padding: 8px;
-    border: 1px solid #558DB2;
-    border-radius: 4px;
-    font-size: 14px;
-    outline: none;
-    background-color: var(--input-badword);
+  width: 20.75vw;
+  height: 2.58vw;
+  padding: 0.63vw;
+  border: 0.078vw solid #558DB2;
+  border-radius: 0.31vw;
+  font-size: 1.09vw;
+  outline: none;
+  background-color: var(--input-badword);
 }
 
 .ActionSelectContainer {
-    position: relative;
-    margin-top: 12px;
-    margin-left: 29px;
-    display: flex;
+  position: relative;
+  margin-top: 0.94vw;
+  margin-left: 2.27vw;
+  display: flex;
 }
 
 .ContainerCheckBoxAction {
-    margin-left: 80px;
+  margin-left: 6.25vw;
 }
 
 .ActionOption {
-    color: var(--text-color);
+  color: var(--text-color);
 }
 
-
-/* числа */
-
 .scrollableContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px;
-    margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.78vw;
+  margin-top: 0.94vw;
 }
 
 .scrollableControls {
-    display: flex;
-    align-items: center;
-    margin-top: 5px;
+  display: flex;
+  align-items: center;
+  margin-top: 0.39vw;
 }
 
 .numbers {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: auto;
-    text-align: center;
-    overflow: hidden;
-    position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
 }
 
 .number {
-    font-size: 16px;
-    margin: 0 5px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+  font-size: 1.25vw;
+  margin: 0 0.39vw;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .number.faded {
-    color: #aaa;
+  color: #aaa;
 }
 
 .number.selected {
-    color: var(--text-color);
-    font-family: IBM Plex Sans;
-    font-weight: 400;
-    line-height: 10.4px;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
+  color: var(--text-color);
+  font-family: IBM Plex Sans;
+  font-weight: 400;
+  line-height: 0.81vw;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
 }
 
 .number.slideLeft {
-    animation: slideLeft 0.3s ease;
+  animation: slideLeft 0.3s ease;
 }
 
 .number.slideRight {
-    animation: slideRight 0.3s ease;
+  animation: slideRight 0.3s ease;
 }
 
 @keyframes slideLeft {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 @keyframes slideRight {
-    from {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 .NumbersContainer {
-    display: flex;
+  display: flex;
 }
 
-.NumbersContainer>div:not(:last-child) {
-    margin-left: 20px;
+.NumbersContainer > div:not(:last-child) {
+  margin-left: 1.56vw;
 }
 
 .NumberText {
-    font-family: IBM Plex Sans;
-    font-size: 10px;
-    font-weight: 400;
-    line-height: 7.8px;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: var(--text-accent-color);
+  font-family: IBM Plex Sans;
+  font-size: 0.78vw;
+  font-weight: 400;
+  line-height: 0.61vw;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: var(--text-accent-color);
 }
 
 .Decor {
-    margin-top: 15px;
+  margin-top: 1.9vw;
 }
 
 .TotalNumber {
-    font-family: IBM Plex Sans;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 10.4px;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    margin-top: 30px;
-    margin-left: 30px;
-    color: var(--text-color);
+  font-family: IBM Plex Sans;
+  font-size: 1.09vw;
+  font-weight: 400;
+  line-height: 0.81vw;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  margin-top: 2.34vw;
+  margin-left: 2.34vw;
+  color: var(--text-color);
 }
 
 .ContainerCheckBoxAction2 {
-    margin-left: 25px;
-    margin-top: 12px;
+  margin-left: 1.95vw;
+  margin-top: 0.94vw;
 }
 
-
-/* чекбокси, */
-
 .CustomCheckbox {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 8px 0;
-    position: relative;
-    color: var(--text-color);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.25vw;
+  margin: 0.63vw 0;
+  position: relative;
+  color: var(--text-color);
 }
 
 .CustomCheckbox input {
-    opacity: 0;
-    position: absolute;
-    width: 0;
-    height: 0;
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
 }
 
 .CheckboxMark {
-    height: 20px;
-    width: 20px;
-    background-color: var(--bg-modal-color);
-    /* Світлий фон */
-    border: 1px solid var(--shadow-secondary-border);
-    /* Колір рамки */
-    border-radius: 2px;
-    /* Скруглені кути */
-    display: inline-block;
-    position: relative;
-    margin-right: 8px;
+  height: 1.56vw;
+  width: 1.56vw;
+  background-color: var(--bg-modal-color);
+  border: 0.078vw solid var(--shadow-secondary-border);
+  border-radius: 0.16vw;
+  display: inline-block;
+  position: relative;
+  margin-right: 0.63vw;
 }
 
-.CustomCheckbox input:checked+.CheckboxMark {
-    background-color: var(--shadow-secondary-border);
-    /* Колір фону для чекнутого стану */
-    border-color: var(--shadow-secondary-border);
-    /* Синхронізуємо колір рамки з фоном */
+.CustomCheckbox input:checked + .CheckboxMark {
+  background-color: var(--shadow-secondary-border);
+  border-color: var(--shadow-secondary-border);
 }
 
-.CustomCheckbox input:checked+.CheckboxMark::after {
-    content: "";
-    position: absolute;
-    left: 6px;
-    top: 2px;
-    width: 5px;
-    height: 10px;
-    border: solid #fff;
-    /* Білий колір галочки */
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
+.CustomCheckbox input:checked + .CheckboxMark::after {
+  content: "";
+  position: absolute;
+  left: 0.47vw;
+  top: 0.16vw;
+  width: 0.39vw;
+  height: 0.78vw;
+  border: solid #fff;
+  border-width: 0 0.16vw 0.16vw 0;
+  transform: rotate(45deg);
 }
 
 .ContainerCheckBox {
-    margin-top: 25px;
+  margin-top: 1.95vw;
 }
 
-
-/* Додаємо відстань між чекбоксами */
-
-.CustomCheckbox+.CustomCheckbox {
-    margin-top: 15px;
-    /* Відстань між чекбоксами */
+.CustomCheckbox + .CustomCheckbox {
+  margin-top: 1.17vw;
 }
 
 .limitsScopeList {
-    margin-top: 15px;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px 19px;
+  margin-top: 1.17vw;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.17vw 1.48vw;
 }
 
 .limitsScopeItem {
-    position: relative;
-    width: 400px;
-    /* height: 36px; */
-    display: flex;
-    align-items: center;
-    border: 2px solid var(--btn-accent-color);
-    background-color: #fff;
-    padding: 10px 20px;
+  position: relative;
+  width: 31.25vw;
+  display: flex;
+  align-items: center;
+  border: 0.16vw solid var(--btn-accent-color);
+  background-color: #fff;
+  padding: 0.78vw 1.56vw;
 }
 
 .limitsScopeSelect {
-    width: 300px;
-    height: 37px;
+  width: 23.44vw;
+  height: 2.89vw;
 }
 
-
-/*! випадаючий список */
-
-
-/* Dropdown.css */
-
 .dropdown-container {
-    position: relative;
-    /* width: 300px; */
+  position: relative;
 }
 
 .dropdown-button {
-    /* width: 100%; */
-    /* background: white; */
-    /* border: 2px solid #b0c4c7; */
-    /* border-radius: 8px; */
-    /* padding: 10px; */
-    /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
-    text-align: left;
-    cursor: pointer;
-    font-size: 16px;
-    position: relative;
-    width: 400px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1.25vw;
+  position: relative;
+  width: 31.25vw;
 }
 
 .dropdown-arrow {
-    position: absolute;
-    right: 0px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--shadow-secondary-border);
-    /* background: #96B8BD; */
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--shadow-secondary-border);
 }
 
 .dropdown-list {
-    position: absolute;
-    max-height: 150px;
-    /* Обмеження висоти для скролу */
-    overflow-y: auto;
-    width: 100%;
-    background: white;
-    border: 1px solid #b0c4c7;
-    border-radius: 8px;
-    margin-top: 5px;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    z-index: 10;
+  position: absolute;
+  max-height: 11.72vw;
+  overflow-y: auto;
+  width: 100%;
+  background: white;
+  border: 0.078vw solid #b0c4c7;
+  border-radius: 0.63vw;
+  margin-top: 0.39vw;
+  box-shadow: 0.16vw 0.16vw 0.31vw rgba(0, 0, 0, 0.2);
+  z-index: 10;
 }
 
 .dropdown-item {
-    padding: 10px;
-    cursor: pointer;
-    transition: background 0.2s;
-    display: flex;
-    align-items: center;
-    /* justify-content:center; */
-    font-family: IBM Plex Mono;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: normal;
-    color: var(--text-color)
+  padding: 0.78vw;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  font-family: IBM Plex Mono;
+  font-size: 0.94vw;
+  font-weight: 400;
+  line-height: normal;
+  color: var(--text-color);
 }
 
 .dropdown-item:hover {
-    background: #f0f4f5;
+  background: #f0f4f5;
 }
 
 .delete-button {
-    position: absolute;
-    right: 1.98vw;
-    bottom: 2.125vw;
+  position: absolute;
+  right: 1.98vw;
+  bottom: 2.13vw;
 }
 
 .second-delete-button {
-    position: absolute;
-    right: 4.34vw;
-    top: 0.99vw;
+  position: absolute;
+  right: 4.34vw;
+  top: 0.99vw;
 }
 
 .close-button {
-    position: absolute;
-    right: 2.34vw;
-    top: 1.06vw;
-    color: var(--shadow-secondary-border);
+  position: absolute;
+  right: 2.34vw;
+  top: 1.06vw;
+  color: var(--shadow-secondary-border);
 }
 
 .confirm-changes-button {
-    padding: 0.425vw 1.275vw;
-    background-color: var(--chart-accent-color);
-    color: var(--bg-primary-color);
-    margin-top: 1.06vw;
+  padding: 0.43vw 1.28vw;
+  background-color: var(--chart-accent-color);
+  color: var(--bg-primary-color);
+  margin-top: 1.06vw;
 }
 
 .limitsScopeAdminBox {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-top: 0.85vw;
-  }
+  display: flex;
+  align-items: center;
+  gap: 0.39vw;
+  margin-top: 0.85vw;
+}
 
-  .limitsScopesCheckboxLabel {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    font-size: 16px;
-    /* margin: 8px 0; */
-    position: relative;
-    color: var(--text-color);
-  }
-  
-  .limitsScopesCheckboxLabel input {
-    opacity: 0;
-    position: absolute;
-    width: 0;
-    height: 0;
-  }
-  
-  .limitsScopesCheckboxSpan {
-    height: 20px;
-    width: 20px;
-    background-color: var(--bg-modal-color);
-    /* Світлий фон */
-    border: 1px solid var(--shadow-secondary-border);
-    /* Колір рамки */
-    border-radius: 2px;
-    /* Скруглені кути */
-    display: inline-block;
-    position: relative;
-    margin-right: 8px;
-  }
-  
-  .limitsScopesCheckboxLabel input:checked + .limitsScopesCheckboxSpan {
-    background-color: var(--shadow-secondary-border);
-    /* Колір фону для чекнутого стану */
-    border-color: var(--shadow-secondary-border);
-    /* Синхронізуємо колір рамки з фоном */
-  }
-  
-  .limitsScopesCheckboxLabel input:checked + .limitsScopesCheckboxSpan::after {
-    content: '';
-    position: absolute;
-    left: 6px;
-    top: 2px;
-    width: 5px;
-    height: 10px;
-    border: solid #fff;
-    /* Білий колір галочки */
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-  }
+.limitsScopesCheckboxLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.25vw;
+  position: relative;
+  color: var(--text-color);
+}
 
-  .limitsScopeSubtitle {
-    color: #000;
-    font-family: 'IBM Plex Sans';
-    font-size: 12px;
-    font-weight: 400;
-    line-height: normal;
-  }
+.limitsScopesCheckboxLabel input {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
 
-  .limitsScopeBox {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    /* margin-top: 0.85vw; */
-  }
-  .subcountainer{
-   /* width: 100%; 
-   display: flex;
-   flex-direction: row;
-   justify-content: center;
-   align-items: center; */
-   margin-left: 0.708vw;
-  }
-  
-  
+.limitsScopesCheckboxSpan {
+  height: 1.56vw;
+  width: 1.56vw;
+  background-color: var(--bg-modal-color);
+  border: 0.078vw solid var(--shadow-secondary-border);
+  border-radius: 0.16vw;
+  display: inline-block;
+  position: relative;
+  margin-right: 0.63vw;
+}
+
+.limitsScopesCheckboxLabel input:checked + .limitsScopesCheckboxSpan {
+  background-color: var(--shadow-secondary-border);
+  border-color: var(--shadow-secondary-border);
+}
+
+.limitsScopesCheckboxLabel input:checked + .limitsScopesCheckboxSpan::after {
+  content: "";
+  position: absolute;
+  left: 0.47vw;
+  top: 0.16vw;
+  width: 0.39vw;
+  height: 0.78vw;
+  border: solid #fff;
+  border-width: 0 0.16vw 0.16vw 0;
+  transform: rotate(45deg);
+}
+
+.limitsScopeSubtitle {
+  color: #000;
+  font-family: "IBM Plex Sans";
+  font-size: 0.94vw;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.limitsScopeBox {
+  display: flex;
+  align-items: center;
+  gap: 0.39vw;
+}
+
+.subcountainer {
+  margin-left: 0.71vw;
+}
