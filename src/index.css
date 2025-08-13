@@ -100,6 +100,7 @@ input::placeholder {
 :root,
 html[data-theme='light'] {
     --text-color: #000;
+    --incoming-message-bubble: #ACD0D6;
     --input-badword: #f9f9f9;
     --text-secondary-color: #999;
     --text-accent-color: #678f95;
@@ -142,11 +143,13 @@ html[data-theme='light'] {
     --gift-status-cancelled: #EB7F71;
     --gift-coment-color: #d6d1d1;
     --gift-input: #E7F0F1;
+    --highlight-mention:#acd0d6;
 }
 
 :root,
 html[data-theme='dark'] {
     --text-color: #fff;
+    --incoming-message-bubble: #363636;
     --input-badword: #2c2c2c;
     --text-secondary-color: #999;
     --text-accent-color: #678f95;
@@ -189,4 +192,5 @@ html[data-theme='dark'] {
     --gift-status-cancelled: #8A2F22;
     --gift-coment-color: #595959;
     --gift-input: #363636;
+    --highlight-mention:#27565d;
 }

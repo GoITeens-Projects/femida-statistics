@@ -5,7 +5,7 @@ import axios from '../axiosConfig';
 export const fetchTickets = createAsyncThunk('settings/fetchTickets', async (currPage, thunkApi) => {
     try {
          const accessToken = localStorage.getItem('token');
-        const response = await axios.get('/tickets?page=1&perPage=5&to=now',
+        const response = await axios.get(`/tickets?page=1&perPage=5&to=now`,
             {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -27,9 +27,10 @@ export const fetchTickets = createAsyncThunk('settings/fetchTickets', async (cur
     }
         })
 
-        export const getTicketId = createAsyncThunk('settings/fetchTickets', async (ticketId, thunkApi) => {
+        export const getTicketById = createAsyncThunk('settings/getTicketById', async (ticketId, thunkApi) => {
     try {
          const accessToken = localStorage.getItem('token');
+         console.log('ticketId', ticketId);
         const response = await axios.get(`/tickets/${ticketId}`,  
             {
                 headers: {
@@ -37,6 +38,7 @@ export const fetchTickets = createAsyncThunk('settings/fetchTickets', async (cur
                 },
             } );
             console.log("response", response);
+            return {id: ticketId, ticketChat: response.data.ticket};
     } catch (error) {
         console.log(error);
     }

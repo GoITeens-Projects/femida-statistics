@@ -1,5 +1,5 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import { fetchTickets, getTicketId } from './operation';
+import { fetchTickets, getTicketById } from './operation';
 
 const ticketToolSlice = createSlice({
     name: 'ticketTool   ',
@@ -8,6 +8,8 @@ const ticketToolSlice = createSlice({
   tickets: {
     1:[]
   },
+  ticketsChats:{
+  }
   },
       extraReducers: builder => {
         builder
@@ -15,6 +17,10 @@ const ticketToolSlice = createSlice({
            state.currentPage = action.payload.page
            state.tickets[action.payload.page] = action.payload.tickets
           })
+          .addCase(getTicketById.fulfilled, (state, action) => {
+           state.ticketsChats[action.payload.id] = action.payload.ticketChat
+          })
+        
         
       },
 });

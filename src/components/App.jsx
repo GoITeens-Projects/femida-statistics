@@ -30,6 +30,7 @@ import BurgerMenu from './BurgerMenu/BurgerMenu';
 import LimitsScope from './LimitsScope/LimitsScope';
 import { Bounce, ToastContainer } from 'react-toastify';
 import { fetchTickets } from '../redux/ticketTool/operation';
+import { getTicketById } from '../redux/ticketTool/operation';
 
 
 export const App = () => {
@@ -47,6 +48,7 @@ export const App = () => {
     dispatch(fetchSettings());
     dispatch(fetchChannels());
     dispatch(fetchRoles())
+    //  dispatch(getTicketById(`6873ab8c58d6bd51c7431b91`))
     // dispatch(updateToken)
   }, []);
   const [isOpenBurger, setIsOpenBurger] = useState(false);

@@ -2,12 +2,16 @@
 // import 'rsuite/Table/styles/index.css';
 import s from './TicketTool.module.css';
 import DataTable from 'react-data-table-component';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTickets } from '../../../../redux/ticketTool/operation';
 import { selectTickets, selectCurrentPage } from '../../../../redux/ticketTool/selectors';
 import { Button } from 'rsuite';
 import deleteIcon from '../../../../img/svgs/delete.svg'
+import Shadow from '../../../Shadow/Shadow';
+import MessageBubbleExample from '../../../MessageBubble/MessageBubbleExample';
+import {ChatBox} from './ChatBox';
+import {getTicketById} from '../../../../redux/ticketTool/operation';
 //  import {
 //   Table,
 //   TableBody,
@@ -24,6 +28,7 @@ export const TicketToolPage = () => {
   const dispatch = useDispatch();
   const tickets = useSelector(selectTickets);
   const currentPage = useSelector(selectCurrentPage);
+  const [selectedTicked, setSelectedTicket] = useState(null);
 
   useEffect(() => {
     console.log('TicketToolPage render');
@@ -127,13 +132,16 @@ const customStyles = {
     style:{
       fontSize: '1.25em',
       color: `var(--text-accent-color)`,
-      
+       backgroundColor: 'var(--bg-modal-color)',
     }
   },
 rows:{
   style:{
     fontSize: '1.25em',
     color: `var(--text-color)`,
+    backgroundColor: 'var(--bg-modal-color)',
+    onRowHover: (row) => ({backgroundColor: 'var(--gift-background)'}),
+    
     // backgroundColor:`${(row) => {
     //   console.log('row',row);
     //   return 'green'
@@ -142,87 +150,39 @@ rows:{
 }}
     return<>
         <h1>Ticket-Tool</h1>
+        <div className={s.baseContainer}>
+   <Shadow
+                leftFirst={-7}
+                widthFirst={5}
+                heightSecond={5}
+                rightSecond={3}
+                bottomSecond={-7}
+                backgroundBoth={'var(--shadow-secondary-border)'}
+                borderColorBoth={'#558DB2'}
+              />
+<DataTable columns={columns} data={ticketsData} customStyles={customStyles} highlightOnHover={true}  onRowClicked ={(row, e) => {
+      setSelectedTicket(row.id)
+  dispatch(
+getTicketById(row.id)
+       )
+       console.log('getTicketById', row.id);
+    }}/>
+</div>
 
-<DataTable columns={columns} data={ticketsData} customStyles={customStyles}/>
+<div className={s.baseContainer}>
+   <Shadow
+                leftFirst={-7}
+                widthFirst={5}
+                heightSecond={5}
+                rightSecond={3}
+                bottomSecond={-7}
+                backgroundBoth={'var(--shadow-secondary-border)'}
+                borderColorBoth={'#558DB2'}
+              />
+              {selectedTicked && <ChatBox ticketId={selectedTicked} />}
 
+</div>
 
-    {/* <Table>
-      <TableCaption>A list of your recent invoices.</TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="w-[100px]">Invoice</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Method</TableHead>
-          <TableHead className="text-right">Amount</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {invoices.map((invoice) => (
-          <TableRow key={invoice.invoice}>
-            <TableCell className="font-medium">{invoice.invoice}</TableCell>
-            <TableCell>{invoice.paymentStatus}</TableCell>
-            <TableCell>{invoice.paymentMethod}</TableCell>
-            <TableCell className="text-right">{invoice.totalAmount}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">$2,500.00</TableCell>
-        </TableRow>
-      </TableFooter>
-    </Table> */}
-
-
-          {/* <Table
-      height={400}
-      width='73%'
-      data={data}
-      onRowClick={rowData => {
-        console.log(rowData);
-      }}
-      rowClassName={(_, rowIndex) => {
-        return rowIndex % 2 === 0 ? s.first : s.second;
-      }}
-    ><Column width='0.625em' align="center" fixed>
- <HeaderCell> </HeaderCell>
-        <Cell dataKey="number">  {(rowData, rowIndex) => rowIndex + 1 }</Cell>
-      </Column>
-
-      <Column width='6.75em' align="center" fixed>
-        <HeaderCell>Назва конфігурації</HeaderCell>
-        <Cell dataKey="name" />
-      </Column>
-
-      <Column width='5.25em'>
-        <HeaderCell>Дата створення</HeaderCell>
-        <Cell dataKey="date" />
-      </Column>
-
-      <Column width='5.25em'>
-        <HeaderCell>Статус</HeaderCell>
-        <Cell dataKey="status" />
-      </Column>
-
-      <Column width='8.1875em'>
-        <HeaderCell>Створено</HeaderCell>
-        <Cell dataKey="createAt" />
-      </Column>
-
-      <Column width='1.25em' fixed="right">
-        <HeaderCell>Дії</HeaderCell>
-
-        <Cell style={{ padding: '6px' }}>
-          {rowData => (
-            <Button appearance="link" onClick={() => alert(`id:${rowData.id}`)}>
-              Edit
-            </Button>
-          )}
-        </Cell>
-      </Column>
-    </Table> */}
-  
-        </>
+   </>
     
 }
