@@ -6,9 +6,9 @@ import Shadow from '../../Shadow/Shadow';
 import s from '../PeriodsSettings/PeriodsSettings.module.css';
 import { ActionSettings } from '../ActionSettings/ActionSettings';
 import TextEditor from '../TextEditor/TextEditor';
-import { PatchSettings } from '../../../redux/settings/operation';
+import { fetchSettings, PatchSettings } from '../../../redux/settings/operation';
 import { useNavigate } from 'react-router-dom';
-
+import styled from './Emojis.module.css';
 const parseMuteTime = (timeInMs) => {
   const totalMinutes = Math.floor(timeInMs / 60000);
   const days = Math.floor(totalMinutes / (24 * 60));
@@ -42,6 +42,10 @@ export const Emojis = () => {
 
   const [thisTargetChannels, setThisTargetChannels] = useState([]);
 
+useEffect(() => {
+  dispatch(fetchSettings());
+}, [dispatch]);
+
   useEffect(() => {
     if (settings) {
       setIsEnabled(settings?.settings?.emojisSpam?.actions?.giveWarn);
@@ -70,33 +74,37 @@ export const Emojis = () => {
     }
   }, [settings]);
 
-  const save = () => {
-    dispatch(
-      PatchSettings({
-        settings: {
-          emojisSpam: {
-            maxEmojis: maxEmojis,
-            targetChannels: thisTargetChannels,
-            targetRoles: thisTargetRoles,
-            actions: {
-              deleteMsg: isDeleteMessage,
-              giveWarn: isEnabled,
-              ignoreAdmins: isCheckedAdmin,
-              mute: {
-                enabled: selectedAction === 'mute',
-                muteTimeMs: days * 86400000 + hours * 3600000 + minutes * 60000,
-              },
-              notifyUser: {
-                enabled: selectedAction === 'warning',
-                messageFn: content,
-                deleteTimeoutMs: isDeleteTimeoutSec * 1000,
-              },
+const save = () => {
+  dispatch(
+    PatchSettings({
+      settings: {
+        emojisSpam: {
+          maxEmojis: maxEmojis,
+          targetChannels: thisTargetChannels,
+          targetRoles: thisTargetRoles,
+          actions: {
+            deleteMsg: isDeleteMessage,
+            giveWarn: isEnabled,
+            ignoreAdmins: isCheckedAdmin,
+            mute: {
+              enabled: selectedAction === 'mute',
+              muteTimeMs: days * 86400000 + hours * 3600000 + minutes * 60000,
+            },
+            notifyUser: {
+              enabled: selectedAction === 'warning',
+              messageFn: content,
+              deleteTimeoutMs: isDeleteTimeoutSec * 1000,
             },
           },
         },
-      })
-    );
-  };
+      },
+    })
+  ).then(() => {
+ 
+   
+    navigate('/settings');
+  });
+};
 
   const handleToggle = () => {
     setIsEnabled(!isEnabled);
@@ -104,7 +112,8 @@ export const Emojis = () => {
 
   return (
     <>
-      <div className={styles['navigation-container']}>
+    <section className={styles.Conatiner}>
+       <div className={styles['navigation-container']}>
         <SettingsNavigation
           onHandleSave={save}
           onHandleBackClick={() => navigate('/settings')}
@@ -147,25 +156,21 @@ export const Emojis = () => {
           />
         </label>
       </div>
-      <div className={styles['helper-container']}>
-        <div className={styles['second-helper-container']}>
-          <label className={styles.switch}>
-            <input
-              type="checkbox"
-              checked={isEnabled}
+ 
+         <div className={styled.SliderContainer}>
+                  <label className={styled.switch}>
+                    <input
+                      type="checkbox"
+                       checked={isEnabled}
               onChange={handleToggle}
-            />
-            <span
-              className={`${styles.slider} ${styles.round}`}
-              style={{
-                filter: 'none',
-                opacity: '1',
-              }}
-            ></span>
-          </label>
-          <p>Повідомляти учасника про порушення</p>
-        </div>
-      </div>
+                    />
+                    <span className={`${styled.slider} ${styled.round}`}></span>
+                  </label>
+                  <p className={styled.SliderText}>
+                    Повідомляти учасника про порушення
+                  </p>
+                </div>
+    
       <ActionSettings
         onDaysChange={setDays}
         onHoursChange={setHours}
@@ -218,6 +223,8 @@ export const Emojis = () => {
           <p className={styles.Sec}>сек.</p>
         </label>
       </div>
+    </section>
+     
     </>
   );
 };

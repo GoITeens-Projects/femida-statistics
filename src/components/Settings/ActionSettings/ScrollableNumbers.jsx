@@ -40,8 +40,8 @@ export const ScrollableNumbers = ({ maxNumber, label, value = 0, onChange }) => 
             <p className={styles.NumberText}>{label}</p>
             <div className={styles.scrollableControls}>
                 <svg
-                    width="15"
-                    height="15"
+                    width="1vw"
+                    height="1vw"
                     viewBox="0 0 4 5"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -57,8 +57,8 @@ export const ScrollableNumbers = ({ maxNumber, label, value = 0, onChange }) => 
                 </div>
 
                 <svg
-                    width="15"
-                    height="15"
+                    width="1vw"
+                    height="1vw"
                     viewBox="0 0 4 5"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"

@@ -1,533 +1,95 @@
-    .FromContainer {
-        position: relative;
-        width: 66vh;
-        height: auto;
-        border: 1px solid var(--chart-color);
-        margin-top: 20px;
-        display: block;
-        /* Відновлюємо стандартне блокове відображення */
-        padding: 20px;
-        box-sizing: border-box;
-        /* Ураховуємо padding у ширині */
-        @media screen and (min-width: 768px) {
-            width: 933px;
-        }
-    }
-    
-    .LabelFormBadWords {
-        font-family: IBM Plex Mono;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 10.4px;
-        text-align: left;
-        /* Лейбл залишатиметься по лівому краю */
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        color: var(--text-accent-color);
-        margin-bottom: 100px;
-        margin-left: -3px;
-    }
-    
-    .InputBadWord {
-        width: 879px;
-        /* Ширина інпуту */
-        height: 43px;
-        border: 3px solid var(--chart-color);
-        /* Закруглені кути */
-        box-sizing: border-box;
-        padding-left: 10px;
-        /* Відступ всередині інпуту */
-        margin-left: auto;
-        /* Автоматичний відступ зліва */
-        margin-right: auto;
-        /* Автоматичний відступ справа */
-        margin-top: 12px;
-    }
-    /* чекбокси, */
-    
-    .CustomCheckbox {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        font-size: 16px;
-        margin: 8px 0;
-        position: relative;
-        color: var(--text-color);
-    }
-    
-    .CustomCheckbox input {
-        opacity: 0;
-        position: absolute;
-        width: 0;
-        height: 0;
-    }
-    
-    .CheckboxMark {
-        height: 20px;
-        width: 20px;
-        background-color: var(--bg-modal-color);
-        /* Світлий фон */
-        border: 1px solid var(--shadow-secondary-border);
-        /* Колір рамки */
-        border-radius: 2px;
-        /* Скруглені кути */
-        display: inline-block;
-        position: relative;
-        margin-right: 8px;
-    }
-    
-    .CustomCheckbox input:checked+.CheckboxMark {
-        background-color: var(--shadow-secondary-border);
-        /* Колір фону для чекнутого стану */
-        border-color: var(--shadow-secondary-border);
-        /* Синхронізуємо колір рамки з фоном */
-    }
-    
-    .CustomCheckbox input:checked+.CheckboxMark::after {
-        content: "";
-        position: absolute;
-        left: 6px;
-        top: 2px;
-        width: 5px;
-        height: 10px;
-        border: solid #fff;
-        /* Білий колір галочки */
-        border-width: 0 2px 2px 0;
-        transform: rotate(45deg);
-    }
-    
-    .ContainerCheckBox {
-        margin-top: 25px;
-    }
-    /* Додаємо відстань між чекбоксами */
-    
-    .CustomCheckbox+.CustomCheckbox {
-        margin-top: 15px;
-        /* Відстань між чекбоксами */
-    }
-    /* свічер */
-    /* свічер */
-    
-    .switch {
-        position: relative;
-        display: inline-block;
-        width: 46px;
-        height: 20px;
-    }
-    /* Hide default HTML checkbox */
-    
-    .switch input {
-        display: none;
-    }
-    /* The slider */
-    
-    .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: white;
-        border: 2px solid var(--btn-accent-color);
-        border-radius: 34px;
-        /* Забезпечує округлення */
-        -webkit-transition: 0.4s;
-        transition: 0.4s;
-        box-sizing: border-box;
-        /* Гарантує, що padding і border враховані */
-    }
-    
-    .slider:before {
-        position: absolute;
-        content: "";
-        left: 1px;
-        /* Центруємо по горизонталі */
-        top: 51%;
-        /* Вирівнюємо по вертикалі */
-        transform: translateY(-50%);
-        /* Центруємо точно по центру */
-        background-color: var(--shadow-secondary-border);
-        /* Кольор кругляшка */
-        border-radius: 50%;
-        /* Зробити кругляшок круглим */
-        -webkit-transition: 0.4s;
-        transition: 0.4s;
-    }
-    /* Styles when checked */
-    
-    input:checked+.slider {
-        background-color: var(--btn-accent-color);
-        /* Той самий фон */
-        border-color: var(--btn-accent-color);
-        /* Той самий колір обводки */
-    }
-    
-    input:checked+.slider:before {
-        transform: translate(25px, -50%);
-        /* Переміщаємо кругляшок в праву частину */
-        background-color: var(--shadow-secondary-border);
-        /* Кольор кругляшка лишається незмінним */
-    }
-    /* Focus state */
-    
-    input:focus+.slider {
-        box-shadow: 0 0 2px var(--btn-accent-color);
-        /* Підсвічування при фокусі */
-    }
-    
-    .SliderContainer {
-        margin-top: 30px;
-        display: flex;
-        gap: 5px;
-    }
-    
-    .SliderText {
-        font-family: IBM Plex Sans;
-        margin-top: 2px;
-        font-weight: 400;
-        line-height: 10.4px;
-        text-align: left;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        color: var(--text-color);
-    }
-    
-    .SaveButton {
-        width: 65px;
-        height: 20px;
-        background-color: var(--btn-accent-color);
-        font-family: IBM Plex Mono;
-        font-size: 8px;
-        font-weight: 500;
-        line-height: 7.8px;
-        text-align: left;
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        color: var(--text-color);
-        text-align: center;
-    }
-    
-    .ConatinerNavigation {
-        display: flex;
-        justify-content: space-between;
-        /* Елементи по краях */
-        align-items: center;
-        padding: 20px;
-        /* Відступи всередині контейнера */
-    }
-    /* модалка */
-    
-    .ModalOverlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-        transition: opacity 300ms ease-in-out;
-    }
-    /* Стан відкриття */
-    
-    .ModalOpen {
-        opacity: 1;
-        pointer-events: all;
-    }
-    /* Стан закриття */
-    
-    .ModalClose {
-        opacity: 0;
-        pointer-events: none;
-    }
-    /* Загальний стиль для контенту модалки */
-    
-    .ModalContent {
-        background: var(--input-badword);
-        padding: 20px;
-        border-radius: 8px;
-        width: 80%;
-        max-width: 800px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-        position: relative;
-        transform: scale(1);
-        transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
-    }
-    /* Анімація відкриття контенту */
-    
-    .ModalContentOpen {
-        transform: scale(1);
-        opacity: 1;
-    }
-    /* Анімація закриття контенту */
-    
-    .ModalContentClose {
-        transform: scale(0.9);
-        opacity: 0;
-    }
-    
-    .CloseButton {
-        margin-top: 10px;
-        padding: 8px 12px;
-        color: white;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
-    }
-    
-    .ModalClosing {
-        opacity: 0;
-        transform: scale(0.9);
-        transition: opacity 0.3s, transform 0.3s;
-    }
-    
-    .ModalOverlay.ModalOpen {
-        opacity: 1;
-        transition: opacity 0.3s;
-    }
-    
-    .ModalButtonContainer {
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-        margin-top: 20px;
-    }
-    
-    .InputContainer {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        padding: 10px;
-        border-radius: 8px;
-        gap: 5px;
-        background-color: var(--input-badword);
-        border: 2px solid var(--btn-accent-color);
-        margin-top: 10px;
-    }
-    
-    .WordCards {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        flex-grow: 1;
-    }
-    
-    .WordCard {
-        background-color: var(--bg-accent-color);
-        padding: 5px 10px;
-        border-radius: 4px;
-        font-size: 14px;
-        color: var(--text-color);
-        border: 1px solid var(--btn-accent-color);
-        max-height: 30px;
-        display: flex;
-        align-items: center;
-    }
-    
-    .InputInsideContainer {
-        flex-grow: 1;
-        border: none;
-        outline: none;
-        padding: 5px;
-        font-size: 14px;
-        min-width: 120px;
-        background-color: var(--input-badword);
-    }
-    
-    .DeleteIcon {
-        width: 20px;
-        /* Адаптуйте розмір за потреби */
-        height: 20px;
-        cursor: pointer;
-        display: inline-block;
-        transition: transform 0.2s ease;
-        /* Для додавання анімації */
-    }
-    
-    .DeleteIcon:hover {
-        transform: scale(1.1);
-        /* Легка анімація при наведенні */
-    }
-    
-    .BadWordListContainer {
-        display: flex;
-        gap: 5px;
-        margin-top: 1.94pvh;
-    }
-    
-    .IconBoxList {
-        margin-top: 2px;
-    }
-    
-    .BadWordListText {
-        font-family: IBM Plex Mono;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 10.4px;
-        text-align: left;
-        /* Лейбл залишатиметься по лівому краю */
-        text-underline-position: from-font;
-        text-decoration-skip-ink: none;
-        color: var(--text-accent-color);
-        margin-top: 10px;
-        justify-content: center;
-    }
-    /* ?tags */
-    
-    .tags-container {
-        position: relative;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 5px;
-        align-items: center;
-        padding-right: 40px;
-        /* Додаємо відступ, щоб плюсік не налазив на інпут */
-    }
-    
-    .add-button {
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        border: none;
-        background: transparent;
-        cursor: pointer;
-        padding: 5px;
-        display: flex;
-        align-items: center;
-    }
-    
-    .add-button svg {
-        color: #5f7991;
-        width: 20px;
-        height: 20px;
-    }
-    
-    .add-button:hover svg {
-        color: #2d4a5d;
-    }
-    
-    .tag-input {
-        position: relative;
-        width: 100%;
-        border: 2px solid #acd0d6;
-        background: #fff;
-        padding: 5px;
-        display: flex;
-        align-items: center;
-        margin-top: 15px;
-    }
-    
-    .tag {
-        background-color: var(--bg-accent-color);
-        padding: 5px 10px;
-        border-radius: 20px;
-        font-size: 14px;
-        color: var(--text-color);
-        border: 1px solid var(--btn-accent-color);
-        max-height: 30px;
-        display: flex;
-        align-items: center;
-    }
-    
-    .tagText {
-        color: var(--text-color);
-        font-family: 'IBM Plex Sans';
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-    }
-    
-    .remove-icon {
-        margin-left: 5px;
-        cursor: pointer;
-        color: #678f95;
-        width: 15px;
-        height: 15px;
-    }
-    
-    .remove-icon:hover {
-        color: #2d4a5d;
-    }
-    
-    .Input {
-        border: none;
-        outline: none;
-        padding: 5px;
-        flex-grow: 1;
-        background: transparent;
-        font-size: 14px;
-        color: var(--text-color);
-        width: 50px;
-    }
-    /* ? */
-    /* *modal */
-    
-    .modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.3);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 8000;
-    }
-    
-    .modal {
-        background: white;
-        padding: 20px;
-        border-radius: 5px;
-        width: 50%;
-        min-width: 400px;
-        z-index: 9000;
-    }
-    
-    .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .close-icon {
-        cursor: pointer;
-    }
-    
-    .text-editor {
-        max-height: 300px;
-        overflow-y: auto;
-        margin-top: 10px;
-        border: 1px solid #a5c0d1;
-        padding: 10px;
-        border-radius: 4px;
-    }
-    
-    .tag-row {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 5px;
-    }
-    
-    .tag-number {
-        font-weight: bold;
-        color: #2d4a5d;
-    }
-    
-    .tag-row input {
-        flex-grow: 1;
-        padding: 5px;
-        border: 1px solid #a5c0d1;
-        border-radius: 4px;
-    }
-    /*  */
-    
-    .TextButton {
-        color: var(--text-color);
-    }
+.FromContainer {
+  position: relative;
+  display: block;
+  border: 0.15vw solid var(--chart-color);
+  padding: 0 1.8vw 1.4vw 2.05vw;
+  box-sizing: border-box;
+  margin-top: 1.06vw;
+  background-color: var(--bg-primary-color);
+}
+
+.tags-container {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4vw;
+  align-items: center;
+  justify-content: center; /* центр по горизонталі */
+  padding-right: 4vw;
+  min-height: 2.5vw;
+  margin-top: 1.3vw;
+}
+.tag {
+  background-color: var(--bg-accent-color);
+  padding: 0.4vw 0.8vw;
+  border-radius: 2vw;
+  font-size: 0.9vw;
+  color: var(--text-color);
+  border: 0.12vw solid var(--btn-accent-color);
+  max-height: 2vw;
+  display: flex;
+  align-items: center;
+}
+
+.tagText {
+  color: var(--text-color);
+  font-family: 'IBM Plex Sans';
+  font-size: 0.85vw;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.remove-icon {
+  margin-left: 0.4vw;
+  cursor: pointer;
+  color: #678f95;
+  width: 1.2vw;
+  height: 1.2vw;
+}
+
+.remove-icon:hover {
+  color: #2d4a5d;
+}
+
+.Input {
+  border: none;
+  outline: none;
+  padding: 0.4vw;
+  flex-grow: 1;
+  background: transparent;
+  font-size: 0.9vw;
+  color: var(--text-color);
+  width: 5vw;
+}
+
+.add-button {
+  position: absolute;
+  right: 0.8vw;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0.4vw;
+  display: flex;
+  align-items: center;
+}
+
+.add-button svg {
+  color: #5f7991;
+  width: 1.5vw;
+  height: 1.5vw;
+}
+
+.add-button:hover svg {
+  color: #2d4a5d;
+}
+
+.TextButton {
+  color: var(--text-color);
+  font-size: 0.9vw;
+  padding: 0.3vw 0.6vw;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}

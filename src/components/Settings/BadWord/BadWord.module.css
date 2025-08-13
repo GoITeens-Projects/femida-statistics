@@ -81,38 +81,30 @@ input:checked+.slider:before {
 }
 
 .Container {
-    margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85vw;
+  margin-top: 1.06vw;
+  box-sizing: border-box;
 }
-
-.TitleBadWords {
-    font-family: IBM Plex Mono;
-    font-size: 2.2vh;
-    font-weight: 500;
-    line-height: 20.8px;
-    text-align: left;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: var(--text-color);
-    justify-content: center;
-    @media screen and (min-width: 768px) {
-        font-size: 1.7vw;
-    }
+.TitleBadWords  {
+  font-family: IBM Plex Mono;
+  font-size: clamp(18px, 2vw, 45px);
+  font-weight: 500;
+  text-align: left;
+  color: var(--text-color);
+  margin-top: 1.06vw;
 }
-
 .FromContainer {
-    position: relative;
-    width: 66vh;
-    height: auto;
-    border: 1px solid var(--chart-color);
-    margin-top: 20px;
-    display: block;
-    /* Відновлюємо стандартне блокове відображення */
-    padding: 20px;
-    box-sizing: border-box;
-    /* Ураховуємо padding у ширині */
-    @media screen and (min-width: 768px) {
-        width: 933px;
-    }
+ 
+  position: relative;
+  display: block;
+  border: 1px solid var(--chart-color);
+  padding: 0 1.771vw 1.346vw 2.054vw;
+  box-sizing: border-box;
+  margin-top: 1.06vw;
+  background-color: var(--bg-primary-color);
 }
 
 .LabelFormBadWords {
@@ -220,20 +212,19 @@ input:checked+.slider:before {
 .switch {
     position: relative;
     display: inline-block;
-    width: 46px;
-    height: 20px;
+    width: 3.2vw; /* замість 46px */
+    height: 1.4vw; /* замість 20px */
+    min-width: 28px; /* щоб не був надто малий на телефонах */
+    min-height: 14px;
+        margin-top: -0.4vw;
 }
 
-
-/* Hide default HTML checkbox */
-
+/* Приховуємо дефолтний чекбокс */
 .switch input {
     display: none;
 }
 
-
-/* The slider */
-
+/* Слайдер */
 .slider {
     position: absolute;
     cursor: pointer;
@@ -242,8 +233,8 @@ input:checked+.slider:before {
     right: 0;
     bottom: 0;
     background-color: var(--slider-background);
-    border: 2px solid var(--btn-accent-color);
-    border-radius: 34px;
+    border: 0.15vw solid var(--btn-accent-color);
+    border-radius: 50vw;
     transition: 0.4s;
     box-sizing: border-box;
 }
@@ -251,44 +242,42 @@ input:checked+.slider:before {
 .slider:before {
     position: absolute;
     content: "";
-    left: 1px;
-    top: 51%;
+    left: 0.15vw;
+    top: 50%;
     transform: translateY(-50%);
     background-color: var(--slider-background-before);
     border-radius: 50%;
     transition: 0.4s;
-    width: 15px;
-    height: 15px;
+    width: 1vw; /* замість 15px */
+    height: 1vw;
+    min-width: 10px;
+    min-height: 10px;
 }
 
-input:checked+.slider {
+input:checked + .slider {
     background-color: var(--slider-background-checked);
     border-color: var(--btn-accent-color);
 }
 
-input:checked+.slider:before {
-    transform: translate(25px, -50%);
+input:checked + .slider:before {
+    transform: translate(calc(1.8vw), -50%); /* пропорційний рух */
 }
 
-
-/* Focus state */
-
-input:focus+.slider {
-    box-shadow: 0 0 2px var(--btn-accent-color);
-    /* Підсвічування при фокусі */
+input:focus + .slider {
+    box-shadow: 0 0 0.15vw var(--btn-accent-color);
 }
 
 .SliderContainer {
-    margin-top: 30px;
+    margin-top: 2vw;
     display: flex;
-    gap: 5px;
+    gap: 0.4vw;
 }
-
 .SliderText {
     font-family: IBM Plex Sans;
     margin-top: 2px;
     font-weight: 400;
     line-height: 10.4px;
+    font-size: 1.25vw;
     text-align: left;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;

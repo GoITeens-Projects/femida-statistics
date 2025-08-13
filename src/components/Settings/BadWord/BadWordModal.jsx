@@ -68,7 +68,9 @@ export const BadWordPage = () => {
 
     return { days, hours, minutes };
   };
-
+useEffect(() => {
+  dispatch(fetchSettings());
+}, [dispatch]);
   // Завантаження налаштувань при рендері компонента
 
   // Оновлення доданих слів при змінах налаштувань
@@ -242,7 +244,7 @@ export const BadWordPage = () => {
   // if (loading) return <p>Завантаження...</p>;
   // if (error) return <p>Помилка: {error}</p>;
   return (
-    <section>
+    <section  className={styles.Container}>
       <SettingsNavigation
         onHandleBackClick={handleBackClick}
         onHandleSave={handleSave}
