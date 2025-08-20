@@ -88,11 +88,27 @@ const TextEditor = ({ onChange, initialContent = "" }) => {
   return (
     <div className={styles.Container}>
       <h1 className={styles.Title}>Поле для повідомлення участнику</h1>
+     <style>{`
+  .ql-toolbar.ql-snow button {
+    width: clamp(30px, 2.8vw, 58px) !important;
+    height: clamp(30px, 2.8vw, 58px) !important;
+    padding: clamp(5px, 1vw, 14px) !important;
+  }
+  .ql-toolbar.ql-snow button svg {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .ql-snow .ql-editor {
+    font-size: clamp(14px,1.02vw,24px) !important;
+  }
+`}</style>
+
       <ReactQuill
         value={content}
         onChange={handleChange}
         modules={modules}
         className={styles.editor}
+        
       />
     </div>
   );

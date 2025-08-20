@@ -19,6 +19,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { SettingsNavigation } from '../SettingsNavigation/SettingsNavigation';
 import { ActionSettings } from '../ActionSettings/ActionSettings';
 import { FormContainer } from '../FormContainer.jsx/FormContainer';
+import TextEditor from '../TextEditor/TextEditor';
 
 export const BadWordPage = () => {
   const [thisTargetRoles, setThisTargetRoles] = useState([]);
@@ -31,7 +32,7 @@ export const BadWordPage = () => {
   const [selectedAction, setSelectedAction] = useState('null'); // Стан для вибору дії
   const [isCheckedAdmin, setIsChecked] = useState(false); // Стан для перевірки адмінських прав
   const [isDeleteMessage, setIsDeleteMessage] = useState(false); // Стан для видалення повідомлень
-
+const [content, setContent] = useState(""); // Стейт для збереження вмісту редактора
   // форм стейти
   const [addedWords, setAddedWords] = useState([]); // Список доданих слів
   const [inputValue, setInputValue] = useState(''); // Стан для введення тексту
@@ -149,9 +150,7 @@ useEffect(() => {
               ignoreAdmins: isCheckedAdmin,
               notifyUser: {
                 enabled: isCheckedNotifyUser,
-                messageFn: JSON.stringify(
-                  username => `${username}! якийсь текст`
-                ),
+                messageFn: content,
               },
             },
             targetRoles: thisTargetRoles,
@@ -275,7 +274,7 @@ useEffect(() => {
           </p>
         </div>
 
-        <ActionSettings
+        {/* <ActionSettings
           onDaysChange={setDays}
           onHoursChange={setHours}
           onMinutesChange={setMinutes}
@@ -296,7 +295,8 @@ useEffect(() => {
 
 
 
-        />
+        /> */}
+          <TextEditor onChange={setContent} initialContent={settings?.settings?.badwords?.actions?.notifyUser?.messageFn || ""} />
 
         {/* <CodeEditor
                     value={settings?.badwords?.words?.join("\n") || ""}
