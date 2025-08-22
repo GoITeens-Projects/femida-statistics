@@ -1,127 +1,114 @@
-.editor {
-    width: 933px;
-    height: 130px;
-    margin-top: 20px;
-}
-
-.editorList {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.708vw;
-}
-
-.editorItem {
-    margin-right: 0.708vw;
-    & svg {
-        transition-duration: 250ms;
-        transition-delay: 40ms;
-        transition-timing-function: ease-in-out;
-        color: var(--text-color);
-    }
-    &:hover svg {
-        color: var(--chart-accent-color);
-        cursor: pointer;
-    }
-    &:nth-child(5),
-    &:nth-child(7) {
-        margin-right: 1.416vw;
-        position: relative;
-        &::after {
-            content: '';
-            display: block;
-            width: 0.07vw;
-            height: 100%;
-            background-color: var(--chart-color);
-            position: absolute;
-            top: -3px;
-            right: -0.708vw;
-        }
-    }
-    &:last-child {
-        margin-right: 0;
-    }
-}
-
-.editorInput {
-    background-color: var(--input-badword);
-    color: var(--text-color);
-    width: 100%;
-    height: 9.208vw;
-    outline: none;
-    border: none;
-    padding: 0.354vw 1.0625vw;
-}
-
-.editorText {
-    text-decoration: underline;
-}
-
-.editorContainer {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    background: #fff;
-    max-width: 600px;
-}
-
-.toolbar {
-    display: flex;
-    gap: 10px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-}
-
-.toolbar button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.2s;
-}
-
-.toolbar button:hover {
-    background: #f0f0f0;
-    border-radius: 5px;
-}
-
-.tiptap {
-    min-height: 150px;
-    padding: 10px;
-    border: none;
-    outline: none;
-}
-
-.tiptap:focus {
-    outline: none !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-.tiptap {
-    border: 1px solid transparent !important;
-}
-
 .Container {
-    margin-top: 50px;
+  width: 100%;
 }
 
 .Title {
-    font-family: IBM Plex Mono;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 20.8px;
-    letter-spacing: 0%;
-    color: var(--text-color);
+  font-family: 'IBM Plex Mono';
+  font-size: clamp(18px, 1.5vw, 35px);
+  font-weight: 500;
+  text-align: left;
+  color: var(--text-color);
+  margin-top: 1.06vw;
 }
 
+.editor {
+  position: relative;
+  display: block;
+  height: clamp(130px, 6vw, 250px);
+  margin-top: 1.06vw;
+  margin-bottom:  1.06vw;
+}
+
+.editorList {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.708vw;
+}
+
+.editorItem {
+  margin-right: 0.708vw;
+}
+
+.editorInput {
+  background-color: var(--input-badword);
+  color: var(--text-color);
+  width: 100%;
+  height: 9.208vw;
+  outline: none;
+  border: none;
+  padding: 0.354vw 1.0625vw;
+}
+
+.editorText {
+  text-decoration: underline;
+}
+
+/* ------- СТИЛІ РЕДАКТОРА QUILL ------- */
+
+.ql-toolbar {
+  display: flex !important;
+  gap: clamp(6px, 0.7vw, 14px);
+  padding: clamp(6px, 0.7vw, 14px) !important;
+}
+
+.ql-toolbar button {
+  width: clamp(18px, 1.2vw, 30px) !important;
+  height: clamp(18px, 1.2vw, 30px) !important;
+  padding: clamp(2px, 0.4vw, 8px) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.ql-toolbar svg {
+  width: 100% !important;
+  height: 100% !important;
+  transition: 0.25s;
+}
+
+.ql-toolbar button:hover svg {
+  stroke: var(--chart-accent-color);
+}
+
+.ql-container {
+  min-height: clamp(100px, 5vw, 250px);
+  border-radius: 5px;
+}
+
+.ql-snow .ql-editor {
+  font-size: clamp(12px, 1vw, 20px);
+}
+
+/* якщо хочеш змінити колір іконок тулбара */
 .ql-snow .ql-stroke {
-    fill: none;
-    stroke: red;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 2;
+  stroke: var(--text-color);
+}
+
+div.ql-toolbar.ql-snow button svg {
+  width: clamp(20px, 1.4vw, 40px) !important;
+  height: clamp(20px, 1.4vw, 40px) !important;
+}
+
+/* 🔥 Розмір самих кнопок */
+div.ql-toolbar.ql-snow button {
+  width: clamp(26px, 2vw, 44px) !important;
+  height: clamp(26px, 2vw, 44px) !important;
+  padding: clamp(4px, 0.6vw, 10px) !important;
+}
+
+div.ql-toolbar.ql-snow > span > button,
+div.ql-toolbar.ql-snow > button {
+  width: clamp(26px, 2vw, 46px) !important;
+  height: clamp(26px, 2vw, 46px) !important;
+  padding: clamp(4px, 0.6vw, 12px) !important;
+}
+
+div.ql-toolbar.ql-snow > span > button svg,
+div.ql-toolbar.ql-snow > button svg {
+  width: 100% !important;
+  height: 100% !important;
 }
