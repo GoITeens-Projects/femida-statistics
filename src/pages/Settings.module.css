@@ -1,248 +1,243 @@
 /* !dropdown styles */
 
 .dropdown {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 }
 
 .dropdown-button {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 15px;
-    border: 2px solid #acd0d6;
-    /* border-radius: 4px; */
-    /* background: #edf6fa; Фон, схожий на зображення */
-    color: #2d4a5d;
-    font-size: 16px;
-    cursor: pointer;
-    text-align: left;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border: 2px solid #acd0d6;
+  /* border-radius: 4px; */
+  /* background: #edf6fa; Фон, схожий на зображення */
+  color: #2d4a5d;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: left;
 }
-
 
 /* .dropdown-button:hover {
   background: #dbeff6;
 } */
 
 .icon {
-    transition: transform 0.2s ease-in-out;
-    color: #5f7991;
+  transition: transform 0.2s ease-in-out;
+  color: #5f7991;
 }
 
 .icon.rotate {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: white;
-    border: 1px solid #a5c0d1;
-    border-top: none;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 0 0 4px 4px;
-    z-index: 10;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #a5c0d1;
+  border-top: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 4px 4px;
+  z-index: 10;
 }
 
 .dropdown-menu li {
-    padding: 8px 15px;
-    cursor: pointer;
-    transition: background 0.2s;
-    color: #2d4a5d;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+  color: #2d4a5d;
 }
 
 .dropdown-menu li:hover {
-    background: #edf6fa;
+  background: #edf6fa;
 }
-
 
 /* ! */
 
 .generalSettingsTitle {
-    color: #000;
-    font-family: 'IBM Plex Mono';
-    font-size: 20px;
-    font-weight: 500;
-    line-height: normal;
+  color: var(--text-color);
+  font-family: 'IBM Plex Mono';
+  font-size: 20px;
+  font-weight: 500;
+  line-height: normal;
 }
 
 .generalSettingsBox {
-    border: 1px solid #91ccf4;
-    background: #fafafa;
-    padding: 15px 25px;
-    width: 1000px;
-    margin-top: 20px;
+  border: 1px solid #91ccf4;
+  background-color: var(--bg-modal-color);
+  padding: 15px 25px;
+  width: 1000px;
+  margin-top: 20px;
 }
 
 .generalBox {
-    margin-top: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .generalSettingsFlexbox {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
-
 
 /* ?checkbox */
 
 .generalSettingsCheckboxLabel {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    font-size: 16px;
-    /* margin: 8px 0; */
-    position: relative;
-    color: var(--text-color);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  /* margin: 8px 0; */
+  position: relative;
+  color: var(--text-color);
 }
 
 .generalSettingsCheckboxLabel input {
-    opacity: 0;
-    position: absolute;
-    width: 0;
-    height: 0;
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
 }
 
 .generalSettingsCheckboxSpan {
-    height: 15px;
-    width: 15px;
-    background-color: var(--bg-modal-color);
-    /* Світлий фон */
-    border: 1px solid var(--shadow-secondary-border);
-    /* Колір рамки */
-    border-radius: 2px;
-    /* Скруглені кути */
-    display: inline-block;
-    position: relative;
-    margin-right: 8px;
+  height: 15px;
+  width: 15px;
+  background-color: var(--bg-modal-color);
+  /* Світлий фон */
+  border: 1px solid var(--shadow-secondary-border);
+  /* Колір рамки */
+  border-radius: 2px;
+  /* Скруглені кути */
+  display: inline-block;
+  position: relative;
+  margin-right: 8px;
 }
 
-.generalSettingsCheckboxLabel input:checked+.generalSettingsCheckboxSpan {
-    background-color: var(--shadow-secondary-border);
-    /* Колір фону для чекнутого стану */
-    border-color: var(--shadow-secondary-border);
-    /* Синхронізуємо колір рамки з фоном */
+.generalSettingsCheckboxLabel input:checked + .generalSettingsCheckboxSpan {
+  background-color: var(--shadow-secondary-border);
+  /* Колір фону для чекнутого стану */
+  border-color: var(--shadow-secondary-border);
+  /* Синхронізуємо колір рамки з фоном */
 }
 
-.generalSettingsCheckboxLabel input:checked+.generalSettingsCheckboxSpan::after {
-    content: '';
-    position: absolute;
-    left: 4px;
-    top: 0px;
-    width: 5px;
-    height: 10px;
-    border: solid #fff;
-    /* Білий колір галочки */
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
+.generalSettingsCheckboxLabel
+  input:checked
+  + .generalSettingsCheckboxSpan::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 0px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  /* Білий колір галочки */
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
-
 
 /* ? */
 
 .generalSettingsSubtitle {
-    color: #000;
-    font-family: 'IBM Plex Sans';
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+  color: var(--text-color);
+  font-family: 'IBM Plex Sans';
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
-
 
 /* *switch */
 
 .switch {
-    position: relative;
-    display: inline-block;
-    width: 40px;
-    height: 20px;
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
 }
 
 .switch input {
-    display: none;
+  display: none;
 }
 
 .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: white;
-    border: 2px solid #acd0d6;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  border: 2px solid #acd0d6;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
-    position: absolute;
-    content: '';
-    height: 15px;
-    width: 15px;
-    left: 0px;
-    bottom: 0.5px;
-    background: #96b8bd;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
+  position: absolute;
+  content: '';
+  height: 15px;
+  width: 15px;
+  left: 0px;
+  bottom: 0.5px;
+  background: #96b8bd;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
-input:checked+.slider {
-    background-color: var(--btn-accent-color);
+input:checked + .slider {
+  background-color: var(--btn-accent-color);
 }
 
-input:focus+.slider {
-    box-shadow: 0 0 1px #ccc;
+input:focus + .slider {
+  box-shadow: 0 0 1px #ccc;
 }
 
-input:checked+.slider:before {
-    -webkit-transform: translateX(22px);
-    -ms-transform: translateX(22px);
-    transform: translateX(22px);
+input:checked + .slider:before {
+  -webkit-transform: translateX(22px);
+  -ms-transform: translateX(22px);
+  transform: translateX(22px);
 }
 
 .slider.round {
-    border-radius: 34px;
+  border-radius: 34px;
 }
 
 .slider.round:before {
-    border-radius: 50%;
+  border-radius: 50%;
 }
-
 
 /*  */
 
 .settingsContainer {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    /* 2 колонки */
-    gap: 20px;
-    /* Відстань між картками */
-    padding: 20px;
-    justify-items: center;
-    /* Центруємо картки в колонках */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* 2 колонки */
+  gap: 20px;
+  /* Відстань між картками */
+  padding: 20px;
+  justify-items: center;
+  /* Центруємо картки в колонках */
 }
 
 .TitleModeration {
-    font-family: IBM Plex Mono;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 20.8px;
-    letter-spacing: 0%;
-    color: var(--text-color);
-    margin-left: 20px;
+  font-family: IBM Plex Mono;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 20.8px;
+  letter-spacing: 0%;
+  color: var(--text-color);
+  margin-left: 20px;
 }
-.GiftAndTicketContainer{
-    display: grid;
+.GiftAndTicketContainer {
+  display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px; /* або скільки потрібно відступу між колонками */
-
 }
